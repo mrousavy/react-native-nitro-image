@@ -1,4 +1,4 @@
-package com.margelo.nitro.nitroimage;
+package com.margelo.nitro.image;
 
 import android.util.Log;
 
