@@ -20,19 +20,19 @@
 
 + (void) load {
   using namespace margelo::nitro;
-  using namespace margelo::nitro::nitroimage;
+  using namespace margelo::nitro::image;
 
   HybridObjectRegistry::registerHybridObjectConstructor(
     "ImageFactory",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec> hybridObject = NitroImage::NitroImageAutolinking::createImageFactory();
+      std::shared_ptr<margelo::nitro::image::HybridImageFactorySpec> hybridObject = NitroImage::NitroImageAutolinking::createImageFactory();
       return hybridObject;
     }
   );
   HybridObjectRegistry::registerHybridObjectConstructor(
     "NitroImageView",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec> hybridObject = NitroImage::NitroImageAutolinking::createNitroImageView();
+      std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec> hybridObject = NitroImage::NitroImageAutolinking::createNitroImageView();
       return hybridObject;
     }
   );

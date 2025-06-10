@@ -10,7 +10,7 @@
 #include <NitroModules/NitroDefines.hpp>
 #include <NitroModules/JNISharedPtr.hpp>
 
-namespace margelo::nitro::nitroimage::views {
+namespace margelo::nitro::image::views {
 
 using namespace facebook;
 using ConcreteStateData = react::ConcreteState<HybridNitroImageViewState>;
@@ -54,4 +54,4 @@ void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCla
   }
 }
 
-} // namespace margelo::nitro::nitroimage::views
+} // namespace margelo::nitro::image::views

@@ -18,7 +18,7 @@ namespace NitroImage { class HybridImageSpec_cxx; }
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
   /**
    * The C++ part of HybridImageSpec_cxx.swift.
@@ -66,4 +66,4 @@ namespace margelo::nitro::nitroimage {
     NitroImage::HybridImageSpec_cxx _swiftPart;
   };
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image

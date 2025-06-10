@@ -17,7 +17,7 @@
 #include <react/renderer/core/ComponentDescriptor.h>
 #include <react/renderer/components/view/ViewProps.h>
 
-namespace margelo::nitro::nitroimage::views {
+namespace margelo::nitro::image::views {
 
   extern const char HybridNitroImageViewComponentName[] = "NitroImageView";
 
@@ -25,22 +25,22 @@ namespace margelo::nitro::nitroimage::views {
                                                        const HybridNitroImageViewProps& sourceProps,
                                                        const react::RawProps& rawProps):
     react::ViewProps(context, sourceProps, rawProps, filterObjectKeys),
-    image([&]() -> CachedProp<std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>> {
+    image([&]() -> CachedProp<std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("image", nullptr, nullptr);
         if (rawValue == nullptr) return sourceProps.image;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>::fromRawValue(*runtime, value, sourceProps.image);
+        return CachedProp<std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>::fromRawValue(*runtime, value, sourceProps.image);
       } catch (const std::exception& exc) {
         throw std::runtime_error(std::string("NitroImageView.image: ") + exc.what());
       }
     }()),
-    hybridRef([&]() -> CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>& /* ref */)>>> {
+    hybridRef([&]() -> CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("hybridRef", nullptr, nullptr);
         if (rawValue == nullptr) return sourceProps.hybridRef;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue(*runtime, value.asObject(*runtime).getProperty(*runtime, "f"), sourceProps.hybridRef);
+        return CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue(*runtime, value.asObject(*runtime).getProperty(*runtime, "f"), sourceProps.hybridRef);
       } catch (const std::exception& exc) {
         throw std::runtime_error(std::string("NitroImageView.hybridRef: ") + exc.what());
       }
@@ -84,4 +84,4 @@ namespace margelo::nitro::nitroimage::views {
   }
 #endif
 
-} // namespace margelo::nitro::nitroimage::views
+} // namespace margelo::nitro::image::views

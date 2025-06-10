@@ -5,10 +5,10 @@
 /// Copyright © 2025 Marc Rousavy @ Margelo
 ///
 
-package com.margelo.nitro.nitroimage.views
+package com.margelo.nitro.image.views
 
 import com.facebook.react.uimanager.StateWrapper
-import com.margelo.nitro.nitroimage.*
+import com.margelo.nitro.image.*
 
 internal class HybridNitroImageViewStateUpdater {
   companion object {

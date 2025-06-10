@@ -5,7 +5,7 @@
 /// Copyright © 2025 Marc Rousavy @ Margelo
 ///
 
-package com.margelo.nitro.nitroimage.views
+package com.margelo.nitro.image.views
 
 import android.view.View
 import com.facebook.react.fabric.StateWrapperImpl
@@ -13,7 +13,7 @@ import com.facebook.react.uimanager.ReactStylesDiffMap
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
-import com.margelo.nitro.nitroimage.*
+import com.margelo.nitro.image.*
 
 /**
  * Represents the React Native `ViewManager` for the "NitroImageView" Nitro HybridView.

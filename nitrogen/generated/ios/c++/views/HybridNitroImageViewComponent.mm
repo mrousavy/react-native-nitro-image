@@ -18,8 +18,8 @@
 #import "NitroImage-Swift-Cxx-Umbrella.hpp"
 
 using namespace facebook;
-using namespace margelo::nitro::nitroimage;
-using namespace margelo::nitro::nitroimage::views;
+using namespace margelo::nitro::image;
+using namespace margelo::nitro::image::views;
 
 /**
  * Represents the React Native View holder for the Nitro "NitroImageView" HybridView.

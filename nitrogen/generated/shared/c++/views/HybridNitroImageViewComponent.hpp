@@ -24,7 +24,7 @@
 #include <memory>
 #include "HybridNitroImageViewSpec.hpp"
 
-namespace margelo::nitro::nitroimage::views {
+namespace margelo::nitro::image::views {
 
   using namespace facebook;
 
@@ -45,8 +45,8 @@ namespace margelo::nitro::nitroimage::views {
                               const react::RawProps& rawProps);
 
   public:
-    CachedProp<std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>> image;
-    CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
+    CachedProp<std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> image;
+    CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
 
   private:
     static bool filterObjectKeys(const std::string& propName);
@@ -107,4 +107,4 @@ namespace margelo::nitro::nitroimage::views {
 
   /* The actual view for "NitroImageView" needs to be implemented in platform-specific code. */
 
-} // namespace margelo::nitro::nitroimage::views
+} // namespace margelo::nitro::image::views

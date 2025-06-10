@@ -19,11 +19,11 @@ import NitroModules
  */
 public class HybridImageSpec_cxx {
   /**
-   * The Swift <> C++ bridge's namespace (`margelo::nitro::nitroimage::bridge::swift`)
+   * The Swift <> C++ bridge's namespace (`margelo::nitro::image::bridge::swift`)
    * from `NitroImage-Swift-Cxx-Bridge.hpp`.
    * This contains specialized C++ templates, and C++ helper functions that can be accessed from Swift.
    */
-  public typealias bridge = margelo.nitro.nitroimage.bridge.swift
+  public typealias bridge = margelo.nitro.image.bridge.swift
 
   /**
    * Holds an instance of the `HybridImageSpec` Swift protocol.
@@ -33,7 +33,7 @@ public class HybridImageSpec_cxx {
   /**
    * Holds a weak pointer to the C++ class that wraps the Swift class.
    */
-  private var __cxxPart: bridge.std__weak_ptr_margelo__nitro__nitroimage__HybridImageSpec_
+  private var __cxxPart: bridge.std__weak_ptr_margelo__nitro__image__HybridImageSpec_
 
   /**
    * Create a new `HybridImageSpec_cxx` that wraps the given `HybridImageSpec`.
@@ -72,15 +72,15 @@ public class HybridImageSpec_cxx {
 
   /**
    * Gets (or creates) the C++ part of this Hybrid Object.
-   * The C++ part is a `std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>`.
+   * The C++ part is a `std::shared_ptr<margelo::nitro::image::HybridImageSpec>`.
    */
-  public func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_ {
+  public func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ {
     let cachedCxxPart = self.__cxxPart.lock()
     if cachedCxxPart.__convertToBool() {
       return cachedCxxPart
     } else {
-      let newCxxPart = bridge.create_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_(self.toUnsafe())
-      __cxxPart = bridge.weakify_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_(newCxxPart)
+      let newCxxPart = bridge.create_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(self.toUnsafe())
+      __cxxPart = bridge.weakify_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(newCxxPart)
       return newCxxPart
     }
   }

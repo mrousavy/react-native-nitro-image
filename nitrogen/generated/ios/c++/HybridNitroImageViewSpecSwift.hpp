@@ -13,7 +13,7 @@
 namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <optional>
 #include <memory>
@@ -21,7 +21,7 @@ namespace margelo::nitro::nitroimage { class HybridImageSpec; }
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
   /**
    * The C++ part of HybridNitroImageViewSpec_cxx.swift.
@@ -54,11 +54,11 @@ namespace margelo::nitro::nitroimage {
 
   public:
     // Properties
-    inline std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>> getImage() noexcept override {
+    inline std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> getImage() noexcept override {
       auto __result = _swiftPart.getImage();
       return __result;
     }
-    inline void setImage(const std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>& image) noexcept override {
+    inline void setImage(const std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>& image) noexcept override {
       _swiftPart.setImage(image);
     }
 
@@ -70,4 +70,4 @@ namespace margelo::nitro::nitroimage {
     NitroImage::HybridNitroImageViewSpec_cxx _swiftPart;
   };
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image

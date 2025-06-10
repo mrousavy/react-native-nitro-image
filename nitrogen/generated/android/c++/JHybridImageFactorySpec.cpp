@@ -8,7 +8,7 @@
 #include "JHybridImageFactorySpec.hpp"
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <NitroModules/Promise.hpp>
 #include <memory>
@@ -18,7 +18,7 @@ namespace margelo::nitro::nitroimage { class HybridImageSpec; }
 #include <NitroModules/JNISharedPtr.hpp>
 #include <string>
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
   jni::local_ref<JHybridImageFactorySpec::jhybriddata> JHybridImageFactorySpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
@@ -39,11 +39,11 @@ namespace margelo::nitro::nitroimage {
   
 
   // Methods
-  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>> JHybridImageFactorySpec::loadFromURL(const std::string& url) {
+  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageFactorySpec::loadFromURL(const std::string& url) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */)>("loadFromURL");
     auto __result = method(_javaPart, jni::make_jstring(url));
     return [&]() {
-      auto __promise = Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>::create();
+      auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
         auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
         __promise->resolve(JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result)));
@@ -56,4 +56,4 @@ namespace margelo::nitro::nitroimage {
     }();
   }
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image

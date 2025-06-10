@@ -14,14 +14,14 @@
 
 
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
   using namespace facebook;
 
   class JHybridNitroImageViewSpec: public jni::HybridClass<JHybridNitroImageViewSpec, JHybridObject>,
                                    public virtual HybridNitroImageViewSpec {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitroimage/HybridNitroImageViewSpec;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec;";
     static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
     static void registerNatives();
 
@@ -47,8 +47,8 @@ namespace margelo::nitro::nitroimage {
 
   public:
     // Properties
-    std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>> getImage() override;
-    void setImage(const std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>& image) override;
+    std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> getImage() override;
+    void setImage(const std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>& image) override;
 
   public:
     // Methods
@@ -60,4 +60,4 @@ namespace margelo::nitro::nitroimage {
     jni::global_ref<JHybridNitroImageViewSpec::javaobject> _javaPart;
   };
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image

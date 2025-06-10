@@ -19,11 +19,11 @@ import NitroModules
  */
 public class HybridNitroImageViewSpec_cxx {
   /**
-   * The Swift <> C++ bridge's namespace (`margelo::nitro::nitroimage::bridge::swift`)
+   * The Swift <> C++ bridge's namespace (`margelo::nitro::image::bridge::swift`)
    * from `NitroImage-Swift-Cxx-Bridge.hpp`.
    * This contains specialized C++ templates, and C++ helper functions that can be accessed from Swift.
    */
-  public typealias bridge = margelo.nitro.nitroimage.bridge.swift
+  public typealias bridge = margelo.nitro.image.bridge.swift
 
   /**
    * Holds an instance of the `HybridNitroImageViewSpec` Swift protocol.
@@ -33,7 +33,7 @@ public class HybridNitroImageViewSpec_cxx {
   /**
    * Holds a weak pointer to the C++ class that wraps the Swift class.
    */
-  private var __cxxPart: bridge.std__weak_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_
+  private var __cxxPart: bridge.std__weak_ptr_margelo__nitro__image__HybridNitroImageViewSpec_
 
   /**
    * Create a new `HybridNitroImageViewSpec_cxx` that wraps the given `HybridNitroImageViewSpec`.
@@ -72,15 +72,15 @@ public class HybridNitroImageViewSpec_cxx {
 
   /**
    * Gets (or creates) the C++ part of this Hybrid Object.
-   * The C++ part is a `std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>`.
+   * The C++ part is a `std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>`.
    */
-  public func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ {
+  public func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ {
     let cachedCxxPart = self.__cxxPart.lock()
     if cachedCxxPart.__convertToBool() {
       return cachedCxxPart
     } else {
-      let newCxxPart = bridge.create_std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_(self.toUnsafe())
-      __cxxPart = bridge.weakify_std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_(newCxxPart)
+      let newCxxPart = bridge.create_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(self.toUnsafe())
+      __cxxPart = bridge.weakify_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(newCxxPart)
       return newCxxPart
     }
   }
@@ -97,12 +97,12 @@ public class HybridNitroImageViewSpec_cxx {
   }
 
   // Properties
-  public final var image: bridge.std__optional_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__ {
+  public final var image: bridge.std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
     @inline(__always)
     get {
-      return { () -> bridge.std__optional_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__ in
+      return { () -> bridge.std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ in
         if let __unwrappedValue = self.__implementation.image {
-          return bridge.create_std__optional_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__({ () -> bridge.std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_ in
+          return bridge.create_std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__({ () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
             let __cxxWrapped = __unwrappedValue.getCxxWrapper()
             return __cxxWrapped.getCxxPart()
           }())
@@ -116,7 +116,7 @@ public class HybridNitroImageViewSpec_cxx {
       self.__implementation.image = { () -> (any HybridImageSpec)? in
         if let __unwrapped = newValue.value {
           return { () -> HybridImageSpec in
-            let __unsafePointer = bridge.get_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_(__unwrapped)
+            let __unsafePointer = bridge.get_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(__unwrapped)
             let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
             return __instance.getHybridImageSpec()
           }()

@@ -22,25 +22,25 @@
 #include <NitroModules/JNISharedPtr.hpp>
 #include <NitroModules/DefaultConstructableObject.hpp>
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
 int initialize(JavaVM* vm) {
   using namespace margelo::nitro;
-  using namespace margelo::nitro::nitroimage;
+  using namespace margelo::nitro::image;
   using namespace facebook;
 
   return facebook::jni::initialize(vm, [] {
     // Register native JNI methods
-    margelo::nitro::nitroimage::JHybridImageSpec::registerNatives();
-    margelo::nitro::nitroimage::JHybridImageFactorySpec::registerNatives();
-    margelo::nitro::nitroimage::JHybridNitroImageViewSpec::registerNatives();
-    margelo::nitro::nitroimage::views::JHybridNitroImageViewStateUpdater::registerNatives();
+    margelo::nitro::image::JHybridImageSpec::registerNatives();
+    margelo::nitro::image::JHybridImageFactorySpec::registerNatives();
+    margelo::nitro::image::JHybridNitroImageViewSpec::registerNatives();
+    margelo::nitro::image::views::JHybridNitroImageViewStateUpdater::registerNatives();
 
     // Register Nitro Hybrid Objects
     HybridObjectRegistry::registerHybridObjectConstructor(
       "NitroImageView",
       []() -> std::shared_ptr<HybridObject> {
-        static DefaultConstructableObject<JHybridNitroImageViewSpec::javaobject> object("com/margelo/nitro/nitroimage/HybridImageView");
+        static DefaultConstructableObject<JHybridNitroImageViewSpec::javaobject> object("com/margelo/nitro/image/HybridImageView");
         auto instance = object.create();
         auto globalRef = jni::make_global(instance);
         return JNISharedPtr::make_shared_from_jni<JHybridNitroImageViewSpec>(globalRef);
@@ -49,4 +49,4 @@ int initialize(JavaVM* vm) {
   });
 }
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image

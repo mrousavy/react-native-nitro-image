@@ -14,14 +14,14 @@
 #endif
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <NitroModules/Promise.hpp>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
   using namespace margelo::nitro;
 
@@ -52,7 +52,7 @@ namespace margelo::nitro::nitroimage {
 
     public:
       // Methods
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>> loadFromURL(const std::string& url) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURL(const std::string& url) = 0;
 
     protected:
       // Hybrid Setup
@@ -63,4 +63,4 @@ namespace margelo::nitro::nitroimage {
       static constexpr auto TAG = "ImageFactory";
   };
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image

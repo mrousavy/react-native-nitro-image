@@ -9,11 +9,11 @@
 
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageFactorySpec; }
+namespace margelo::nitro::image { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridNitroImageViewSpec; }
+namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridImageFactorySpec_cxx` to properly resolve imports.
@@ -39,52 +39,52 @@ namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
  * as well as helper functions to interact with those C++ types from Swift.
  */
-namespace margelo::nitro::nitroimage::bridge::swift {
+namespace margelo::nitro::image::bridge::swift {
 
-  // pragma MARK: std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>
+  // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridImageSpec>
   /**
-   * Specialized version of `std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>`.
+   * Specialized version of `std::shared_ptr<margelo::nitro::image::HybridImageSpec>`.
    */
-  using std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_ = std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>;
-  std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec> create_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_(void* _Nonnull swiftUnsafePointer);
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_(std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_ cppType);
+  using std__shared_ptr_margelo__nitro__image__HybridImageSpec_ = std::shared_ptr<margelo::nitro::image::HybridImageSpec>;
+  std::shared_ptr<margelo::nitro::image::HybridImageSpec> create_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(void* _Nonnull swiftUnsafePointer);
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(std__shared_ptr_margelo__nitro__image__HybridImageSpec_ cppType);
   
-  // pragma MARK: std::weak_ptr<margelo::nitro::nitroimage::HybridImageSpec>
-  using std__weak_ptr_margelo__nitro__nitroimage__HybridImageSpec_ = std::weak_ptr<margelo::nitro::nitroimage::HybridImageSpec>;
-  inline std__weak_ptr_margelo__nitro__nitroimage__HybridImageSpec_ weakify_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& strong) { return strong; }
+  // pragma MARK: std::weak_ptr<margelo::nitro::image::HybridImageSpec>
+  using std__weak_ptr_margelo__nitro__image__HybridImageSpec_ = std::weak_ptr<margelo::nitro::image::HybridImageSpec>;
+  inline std__weak_ptr_margelo__nitro__image__HybridImageSpec_ weakify_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& strong) { return strong; }
   
-  // pragma MARK: std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>
+  // pragma MARK: std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>
   /**
-   * Specialized version of `std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>`.
+   * Specialized version of `std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>`.
    */
-  using std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec___ = std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>;
-  inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>> create_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec___() {
-    return Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>::create();
+  using std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ = std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>;
+  inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> create_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___() {
+    return Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
   }
-  inline PromiseHolder<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>> wrap_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec___(std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>> promise) {
-    return PromiseHolder<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>(std::move(promise));
+  inline PromiseHolder<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> wrap_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___(std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> promise) {
+    return PromiseHolder<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>(std::move(promise));
   }
   
-  // pragma MARK: std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& /* result */)>
+  // pragma MARK: std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& /* result */)>
   /**
-   * Specialized version of `std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>&)>`.
+   * Specialized version of `std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>&)>`.
    */
-  using Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_ = std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& /* result */)>;
+  using Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_ = std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& /* result */)>;
   /**
-   * Wrapper class for a `std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& / * result * /)>`, this can be used from Swift.
+   * Wrapper class for a `std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& / * result * /)>`, this can be used from Swift.
    */
-  class Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__Wrapper final {
+  class Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec__Wrapper final {
   public:
-    explicit Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__Wrapper(std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& /* result */)>&& func): _function(std::make_shared<std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& /* result */)>>(std::move(func))) {}
-    inline void call(std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec> result) const {
+    explicit Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec__Wrapper(std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& /* result */)>&& func): _function(std::make_shared<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& /* result */)>>(std::move(func))) {}
+    inline void call(std::shared_ptr<margelo::nitro::image::HybridImageSpec> result) const {
       _function->operator()(result);
     }
   private:
-    std::shared_ptr<std::function<void(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& /* result */)>> _function;
+    std::shared_ptr<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& /* result */)>> _function;
   };
-  Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_ create_Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_(void* _Nonnull swiftClosureWrapper);
-  inline Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__Wrapper wrap_Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_(Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec_ value) {
-    return Func_void_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__Wrapper(std::move(value));
+  Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_ create_Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(void* _Nonnull swiftClosureWrapper);
+  inline Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec__Wrapper wrap_Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_ value) {
+    return Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec__Wrapper(std::move(value));
   }
   
   // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
@@ -109,46 +109,46 @@ namespace margelo::nitro::nitroimage::bridge::swift {
     return Func_void_std__exception_ptr_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::shared_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec>
+  // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridImageFactorySpec>
   /**
-   * Specialized version of `std::shared_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec>`.
+   * Specialized version of `std::shared_ptr<margelo::nitro::image::HybridImageFactorySpec>`.
    */
-  using std__shared_ptr_margelo__nitro__nitroimage__HybridImageFactorySpec_ = std::shared_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec>;
-  std::shared_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec> create_std__shared_ptr_margelo__nitro__nitroimage__HybridImageFactorySpec_(void* _Nonnull swiftUnsafePointer);
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__nitroimage__HybridImageFactorySpec_(std__shared_ptr_margelo__nitro__nitroimage__HybridImageFactorySpec_ cppType);
+  using std__shared_ptr_margelo__nitro__image__HybridImageFactorySpec_ = std::shared_ptr<margelo::nitro::image::HybridImageFactorySpec>;
+  std::shared_ptr<margelo::nitro::image::HybridImageFactorySpec> create_std__shared_ptr_margelo__nitro__image__HybridImageFactorySpec_(void* _Nonnull swiftUnsafePointer);
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridImageFactorySpec_(std__shared_ptr_margelo__nitro__image__HybridImageFactorySpec_ cppType);
   
-  // pragma MARK: std::weak_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec>
-  using std__weak_ptr_margelo__nitro__nitroimage__HybridImageFactorySpec_ = std::weak_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec>;
-  inline std__weak_ptr_margelo__nitro__nitroimage__HybridImageFactorySpec_ weakify_std__shared_ptr_margelo__nitro__nitroimage__HybridImageFactorySpec_(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec>& strong) { return strong; }
+  // pragma MARK: std::weak_ptr<margelo::nitro::image::HybridImageFactorySpec>
+  using std__weak_ptr_margelo__nitro__image__HybridImageFactorySpec_ = std::weak_ptr<margelo::nitro::image::HybridImageFactorySpec>;
+  inline std__weak_ptr_margelo__nitro__image__HybridImageFactorySpec_ weakify_std__shared_ptr_margelo__nitro__image__HybridImageFactorySpec_(const std::shared_ptr<margelo::nitro::image::HybridImageFactorySpec>& strong) { return strong; }
   
-  // pragma MARK: Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>>
-  using Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec____ = Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>>;
-  inline Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec____ create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec____(const std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>& value) {
-    return Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>>::withValue(value);
+  // pragma MARK: Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>>
+  using Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ = Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>>;
+  inline Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(const std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>& value) {
+    return Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>>::withValue(value);
   }
-  inline Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec____ create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec____(const std::exception_ptr& error) {
-    return Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>>::withError(error);
-  }
-  
-  // pragma MARK: std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>
-  /**
-   * Specialized version of `std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>`.
-   */
-  using std__optional_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__ = std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>;
-  inline std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>> create_std__optional_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& value) {
-    return std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>(value);
+  inline Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(const std::exception_ptr& error) {
+    return Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>>::withError(error);
   }
   
-  // pragma MARK: std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>
+  // pragma MARK: std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>
   /**
-   * Specialized version of `std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>`.
+   * Specialized version of `std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>`.
    */
-  using std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ = std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>;
-  std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec> create_std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_(void* _Nonnull swiftUnsafePointer);
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_(std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ cppType);
+  using std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ = std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>;
+  inline std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> create_std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& value) {
+    return std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>(value);
+  }
   
-  // pragma MARK: std::weak_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>
-  using std__weak_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ = std::weak_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>;
-  inline std__weak_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ weakify_std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_(const std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>& strong) { return strong; }
+  // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>
+  /**
+   * Specialized version of `std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>`.
+   */
+  using std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ = std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>;
+  std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec> create_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(void* _Nonnull swiftUnsafePointer);
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ cppType);
+  
+  // pragma MARK: std::weak_ptr<margelo::nitro::image::HybridNitroImageViewSpec>
+  using std__weak_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ = std::weak_ptr<margelo::nitro::image::HybridNitroImageViewSpec>;
+  inline std__weak_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ weakify_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& strong) { return strong; }
 
-} // namespace margelo::nitro::nitroimage::bridge::swift
+} // namespace margelo::nitro::image::bridge::swift

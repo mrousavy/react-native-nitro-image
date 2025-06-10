@@ -8,7 +8,7 @@
 #include "JHybridNitroImageViewSpec.hpp"
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <optional>
 #include <memory>
@@ -16,7 +16,7 @@ namespace margelo::nitro::nitroimage { class HybridImageSpec; }
 #include "JHybridImageSpec.hpp"
 #include <NitroModules/JNISharedPtr.hpp>
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
   jni::local_ref<JHybridNitroImageViewSpec::jhybriddata> JHybridNitroImageViewSpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
@@ -34,12 +34,12 @@ namespace margelo::nitro::nitroimage {
   }
 
   // Properties
-  std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>> JHybridNitroImageViewSpec::getImage() {
+  std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> JHybridNitroImageViewSpec::getImage() {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>()>("getImage");
     auto __result = method(_javaPart);
     return __result != nullptr ? std::make_optional(JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result))) : std::nullopt;
   }
-  void JHybridNitroImageViewSpec::setImage(const std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>& image) {
+  void JHybridNitroImageViewSpec::setImage(const std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>& image) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JHybridImageSpec::javaobject> /* image */)>("setImage");
     method(_javaPart, image.has_value() ? std::dynamic_pointer_cast<JHybridImageSpec>(image.value())->getJavaPart() : nullptr);
   }
@@ -47,4 +47,4 @@ namespace margelo::nitro::nitroimage {
   // Methods
   
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image

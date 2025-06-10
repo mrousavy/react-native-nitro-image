@@ -7,7 +7,7 @@
 
 #include "HybridImageSpec.hpp"
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
   void HybridImageSpec::loadHybridMethods() {
     // load base methods/properties
@@ -19,4 +19,4 @@ namespace margelo::nitro::nitroimage {
     });
   }
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image

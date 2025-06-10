@@ -9,11 +9,11 @@
 
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageFactorySpec; }
+namespace margelo::nitro::image { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridNitroImageViewSpec; }
+namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 
 // Include C++ defined types
 #include "HybridImageFactorySpec.hpp"

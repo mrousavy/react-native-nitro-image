@@ -13,7 +13,7 @@
 namespace NitroImage { class HybridImageFactorySpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <NitroModules/Promise.hpp>
 #include <memory>
@@ -22,7 +22,7 @@ namespace margelo::nitro::nitroimage { class HybridImageSpec; }
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
-namespace margelo::nitro::nitroimage {
+namespace margelo::nitro::image {
 
   /**
    * The C++ part of HybridImageFactorySpec_cxx.swift.
@@ -59,7 +59,7 @@ namespace margelo::nitro::nitroimage {
 
   public:
     // Methods
-    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>> loadFromURL(const std::string& url) override {
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURL(const std::string& url) override {
       auto __result = _swiftPart.loadFromURL(url);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
@@ -72,4 +72,4 @@ namespace margelo::nitro::nitroimage {
     NitroImage::HybridImageFactorySpec_cxx _swiftPart;
   };
 
-} // namespace margelo::nitro::nitroimage
+} // namespace margelo::nitro::image
