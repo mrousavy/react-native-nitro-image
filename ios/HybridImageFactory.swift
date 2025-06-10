@@ -10,6 +10,10 @@ import NitroModules
 import Nuke
 
 class HybridImageFactory: HybridImageFactorySpec {
+  private let queue = DispatchQueue(label: "image-loader",
+                                    qos: .default,
+                                    attributes: .concurrent)
+  
   /**
    * Load Image from URL
    */
@@ -20,7 +24,8 @@ class HybridImageFactory: HybridImageFactorySpec {
 
     return Promise.async {
       let request = ImageRequest(url: url)
-      let task = try await ImagePipeline.shared.imageTask(with: request)
+      let task = try await ImagePipeline.shared.imageTask(with: request,
+                                                          queue: self.queue)
       let uiImage = task.image
       return HybridImage(uiImage: uiImage)
     }
