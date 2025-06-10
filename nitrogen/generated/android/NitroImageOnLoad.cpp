@@ -17,6 +17,10 @@
 
 #include "JHybridImageSpec.hpp"
 #include "JHybridImageFactorySpec.hpp"
+#include "JHybridNitroImageViewSpec.hpp"
+#include "views/JHybridNitroImageViewStateUpdater.hpp"
+#include <NitroModules/JNISharedPtr.hpp>
+#include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::nitroimage {
 
@@ -29,9 +33,19 @@ int initialize(JavaVM* vm) {
     // Register native JNI methods
     margelo::nitro::nitroimage::JHybridImageSpec::registerNatives();
     margelo::nitro::nitroimage::JHybridImageFactorySpec::registerNatives();
+    margelo::nitro::nitroimage::JHybridNitroImageViewSpec::registerNatives();
+    margelo::nitro::nitroimage::views::JHybridNitroImageViewStateUpdater::registerNatives();
 
     // Register Nitro Hybrid Objects
-    
+    HybridObjectRegistry::registerHybridObjectConstructor(
+      "NitroImageView",
+      []() -> std::shared_ptr<HybridObject> {
+        static DefaultConstructableObject<JHybridNitroImageViewSpec::javaobject> object("com/margelo/nitro/nitroimage/HybridImageView");
+        auto instance = object.create();
+        auto globalRef = jni::make_global(instance);
+        return JNISharedPtr::make_shared_from_jni<JHybridNitroImageViewSpec>(globalRef);
+      }
+    );
   });
 }
 

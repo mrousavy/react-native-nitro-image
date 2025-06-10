@@ -12,22 +12,28 @@
 namespace margelo::nitro::nitroimage { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+// Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
+namespace margelo::nitro::nitroimage { class HybridNitroImageViewSpec; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridImageFactorySpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageFactorySpec_cxx; }
 // Forward declaration of `HybridImageSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageSpec_cxx; }
+// Forward declaration of `HybridNitroImageViewSpec_cxx` to properly resolve imports.
+namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 
 // Include C++ defined types
 #include "HybridImageFactorySpec.hpp"
 #include "HybridImageSpec.hpp"
+#include "HybridNitroImageViewSpec.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/PromiseHolder.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <functional>
 #include <memory>
+#include <optional>
 
 /**
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
@@ -123,5 +129,26 @@ namespace margelo::nitro::nitroimage::bridge::swift {
   inline Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec____ create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec____(const std::exception_ptr& error) {
     return Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>>>::withError(error);
   }
+  
+  // pragma MARK: std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>
+  /**
+   * Specialized version of `std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>`.
+   */
+  using std__optional_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__ = std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>;
+  inline std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>> create_std__optional_std__shared_ptr_margelo__nitro__nitroimage__HybridImageSpec__(const std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>& value) {
+    return std::optional<std::shared_ptr<margelo::nitro::nitroimage::HybridImageSpec>>(value);
+  }
+  
+  // pragma MARK: std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>
+  /**
+   * Specialized version of `std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>`.
+   */
+  using std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ = std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>;
+  std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec> create_std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_(void* _Nonnull swiftUnsafePointer);
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_(std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ cppType);
+  
+  // pragma MARK: std::weak_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>
+  using std__weak_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ = std::weak_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>;
+  inline std__weak_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_ weakify_std__shared_ptr_margelo__nitro__nitroimage__HybridNitroImageViewSpec_(const std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec>& strong) { return strong; }
 
 } // namespace margelo::nitro::nitroimage::bridge::swift

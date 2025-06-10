@@ -12,14 +12,18 @@
 namespace margelo::nitro::nitroimage { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::nitroimage { class HybridImageSpec; }
+// Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
+namespace margelo::nitro::nitroimage { class HybridNitroImageViewSpec; }
 
 // Include C++ defined types
 #include "HybridImageFactorySpec.hpp"
 #include "HybridImageSpec.hpp"
+#include "HybridNitroImageViewSpec.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <memory>
+#include <optional>
 #include <string>
 
 // C++ helpers for Swift
@@ -36,6 +40,8 @@ namespace margelo::nitro::nitroimage { class HybridImageSpec; }
 namespace NitroImage { class HybridImageFactorySpec_cxx; }
 // Forward declaration of `HybridImageSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageSpec_cxx; }
+// Forward declaration of `HybridNitroImageViewSpec_cxx` to properly resolve imports.
+namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 
 // Include Swift defined types
 #if __has_include("NitroImage-Swift.h")

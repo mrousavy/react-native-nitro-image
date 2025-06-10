@@ -29,9 +29,13 @@ target_sources(
   # Shared Nitrogen C++ sources
   ../nitrogen/generated/shared/c++/HybridImageSpec.cpp
   ../nitrogen/generated/shared/c++/HybridImageFactorySpec.cpp
+  ../nitrogen/generated/shared/c++/HybridNitroImageViewSpec.cpp
+  ../nitrogen/generated/shared/c++/views/HybridNitroImageViewComponent.cpp
   # Android-specific Nitrogen C++ sources
   ../nitrogen/generated/android/c++/JHybridImageSpec.cpp
   ../nitrogen/generated/android/c++/JHybridImageFactorySpec.cpp
+  ../nitrogen/generated/android/c++/JHybridNitroImageViewSpec.cpp
+  ../nitrogen/generated/android/c++/views/JHybridNitroImageViewStateUpdater.cpp
 )
 
 # Define a flag to check if we are building properly

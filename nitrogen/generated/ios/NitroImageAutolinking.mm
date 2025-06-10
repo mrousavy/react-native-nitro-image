@@ -11,6 +11,7 @@
 #import <type_traits>
 
 #include "HybridImageFactorySpecSwift.hpp"
+#include "HybridNitroImageViewSpecSwift.hpp"
 
 @interface NitroImageAutolinking : NSObject
 @end
@@ -25,6 +26,13 @@
     "ImageFactory",
     []() -> std::shared_ptr<HybridObject> {
       std::shared_ptr<margelo::nitro::nitroimage::HybridImageFactorySpec> hybridObject = NitroImage::NitroImageAutolinking::createImageFactory();
+      return hybridObject;
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "NitroImageView",
+    []() -> std::shared_ptr<HybridObject> {
+      std::shared_ptr<margelo::nitro::nitroimage::HybridNitroImageViewSpec> hybridObject = NitroImage::NitroImageAutolinking::createNitroImageView();
       return hybridObject;
     }
   );
