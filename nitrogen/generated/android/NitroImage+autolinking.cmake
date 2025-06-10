@@ -27,11 +27,11 @@ target_sources(
   # Autolinking Setup
   ../nitrogen/generated/android/NitroImageOnLoad.cpp
   # Shared Nitrogen C++ sources
-  ../nitrogen/generated/shared/c++/HybridImageTypeSpec.cpp
-  ../nitrogen/generated/shared/c++/HybridImageTypeFactorySpec.cpp
+  ../nitrogen/generated/shared/c++/HybridImageSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridImageFactorySpec.cpp
   # Android-specific Nitrogen C++ sources
-  ../nitrogen/generated/android/c++/JHybridImageTypeSpec.cpp
-  ../nitrogen/generated/android/c++/JHybridImageTypeFactorySpec.cpp
+  ../nitrogen/generated/android/c++/JHybridImageSpec.cpp
+  ../nitrogen/generated/android/c++/JHybridImageFactorySpec.cpp
 )
 
 # Define a flag to check if we are building properly

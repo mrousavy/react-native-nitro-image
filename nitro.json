@@ -12,7 +12,11 @@
     ],
     "androidCxxLibName": "NitroImage"
   },
-  "autolinking": {},
+  "autolinking": {
+    "ImageFactory": {
+      "swift": "HybridImageFactory"
+    }
+  },
   "ignorePaths": [
     "**/node_modules"
   ]

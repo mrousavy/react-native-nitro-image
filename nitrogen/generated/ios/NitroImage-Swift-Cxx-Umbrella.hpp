@@ -8,14 +8,14 @@
 #pragma once
 
 // Forward declarations of C++ defined types
-// Forward declaration of `HybridImageTypeFactorySpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageTypeFactorySpec; }
-// Forward declaration of `HybridImageTypeSpec` to properly resolve imports.
-namespace margelo::nitro::nitroimage { class HybridImageTypeSpec; }
+// Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
+namespace margelo::nitro::nitroimage { class HybridImageFactorySpec; }
+// Forward declaration of `HybridImageSpec` to properly resolve imports.
+namespace margelo::nitro::nitroimage { class HybridImageSpec; }
 
 // Include C++ defined types
-#include "HybridImageTypeFactorySpec.hpp"
-#include "HybridImageTypeSpec.hpp"
+#include "HybridImageFactorySpec.hpp"
+#include "HybridImageSpec.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
@@ -32,10 +32,10 @@ namespace margelo::nitro::nitroimage { class HybridImageTypeSpec; }
 #include <NitroModules/DateToChronoDate.hpp>
 
 // Forward declarations of Swift defined types
-// Forward declaration of `HybridImageTypeFactorySpec_cxx` to properly resolve imports.
-namespace NitroImage { class HybridImageTypeFactorySpec_cxx; }
-// Forward declaration of `HybridImageTypeSpec_cxx` to properly resolve imports.
-namespace NitroImage { class HybridImageTypeSpec_cxx; }
+// Forward declaration of `HybridImageFactorySpec_cxx` to properly resolve imports.
+namespace NitroImage { class HybridImageFactorySpec_cxx; }
+// Forward declaration of `HybridImageSpec_cxx` to properly resolve imports.
+namespace NitroImage { class HybridImageSpec_cxx; }
 
 // Include Swift defined types
 #if __has_include("NitroImage-Swift.h")

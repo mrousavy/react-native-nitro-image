@@ -15,8 +15,8 @@
 #include <fbjni/fbjni.h>
 #include <NitroModules/HybridObjectRegistry.hpp>
 
-#include "JHybridImageTypeSpec.hpp"
-#include "JHybridImageTypeFactorySpec.hpp"
+#include "JHybridImageSpec.hpp"
+#include "JHybridImageFactorySpec.hpp"
 
 namespace margelo::nitro::nitroimage {
 
@@ -27,8 +27,8 @@ int initialize(JavaVM* vm) {
 
   return facebook::jni::initialize(vm, [] {
     // Register native JNI methods
-    margelo::nitro::nitroimage::JHybridImageTypeSpec::registerNatives();
-    margelo::nitro::nitroimage::JHybridImageTypeFactorySpec::registerNatives();
+    margelo::nitro::nitroimage::JHybridImageSpec::registerNatives();
+    margelo::nitro::nitroimage::JHybridImageFactorySpec::registerNatives();
 
     // Register Nitro Hybrid Objects
     

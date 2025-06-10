@@ -1,5 +1,5 @@
 import { NitroModules } from 'react-native-nitro-modules'
-import type { ImageTypeFactory } from './specs/ImageType.nitro'
+import type { ImageFactory } from './specs/ImageFactory.nitro'
 
-export const HybridImageTypeFactory =
-  NitroModules.createHybridObject<ImageTypeFactory>('ImageTypeFactory')
+export const HybridImageFactory =
+  NitroModules.createHybridObject<ImageFactory>('ImageFactory')
