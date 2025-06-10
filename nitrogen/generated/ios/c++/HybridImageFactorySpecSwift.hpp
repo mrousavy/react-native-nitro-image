@@ -67,6 +67,22 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) override {
+      auto __result = _swiftPart.loadFromResources(name);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromSymbol(const std::string& symbolName) override {
+      auto __result = _swiftPart.loadFromSymbol(symbolName);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
 
   private:
     NitroImage::HybridImageFactorySpec_cxx _swiftPart;

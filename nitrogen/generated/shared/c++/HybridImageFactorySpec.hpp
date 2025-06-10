@@ -53,6 +53,8 @@ namespace margelo::nitro::image {
     public:
       // Methods
       virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURL(const std::string& url) = 0;
+      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) = 0;
+      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromSymbol(const std::string& symbolName) = 0;
 
     protected:
       // Hybrid Setup

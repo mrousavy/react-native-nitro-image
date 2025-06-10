@@ -30,4 +30,24 @@ class HybridImageFactory: HybridImageFactorySpec {
       return HybridImage(uiImage: uiImage)
     }
   }
+  
+  /**
+   * Load Image from resources
+   */
+  func loadFromResources(name: String) throws -> any HybridImageSpec {
+    guard let uiImage = UIImage(named: name) else {
+      throw RuntimeError.error(withMessage: "Image \"\(name)\" cannot be found in main resource bundle!")
+    }
+    return HybridImage(uiImage: uiImage)
+  }
+  
+  /**
+   * Load Image from SF Symbol Name
+   */
+  func loadFromSymbol(symbolName: String) throws -> any HybridImageSpec {
+    guard let uiImage = UIImage(systemName: symbolName) else {
+      throw RuntimeError.error(withMessage: "No Image with the symbol name \"\(symbolName)\" found!")
+    }
+    return HybridImage(uiImage: uiImage)
+  }
 }

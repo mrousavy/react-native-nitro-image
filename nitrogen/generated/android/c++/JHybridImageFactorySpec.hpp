@@ -52,6 +52,8 @@ namespace margelo::nitro::image {
   public:
     // Methods
     std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURL(const std::string& url) override;
+    std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) override;
+    std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromSymbol(const std::string& symbolName) override;
 
   private:
     friend HybridBase;

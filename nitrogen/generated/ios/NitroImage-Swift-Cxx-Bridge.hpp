@@ -130,6 +130,15 @@ namespace margelo::nitro::image::bridge::swift {
     return Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>>::withError(error);
   }
   
+  // pragma MARK: Result<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>
+  using Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ = Result<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>;
+  inline Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ create_Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& value) {
+    return Result<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::withValue(value);
+  }
+  inline Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ create_Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__(const std::exception_ptr& error) {
+    return Result<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::withError(error);
+  }
+  
   // pragma MARK: std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>
   /**
    * Specialized version of `std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>`.

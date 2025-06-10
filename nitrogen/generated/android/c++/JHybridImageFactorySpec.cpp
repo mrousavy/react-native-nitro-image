@@ -55,5 +55,15 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
+  std::shared_ptr<margelo::nitro::image::HybridImageSpec> JHybridImageFactorySpec::loadFromResources(const std::string& name) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<jni::JString> /* name */)>("loadFromResources");
+    auto __result = method(_javaPart, jni::make_jstring(name));
+    return JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result));
+  }
+  std::shared_ptr<margelo::nitro::image::HybridImageSpec> JHybridImageFactorySpec::loadFromSymbol(const std::string& symbolName) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<jni::JString> /* symbolName */)>("loadFromSymbol");
+    auto __result = method(_javaPart, jni::make_jstring(symbolName));
+    return JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result));
+  }
 
 } // namespace margelo::nitro::image

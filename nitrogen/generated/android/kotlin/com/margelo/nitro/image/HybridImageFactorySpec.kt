@@ -43,6 +43,14 @@ abstract class HybridImageFactorySpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun loadFromURL(url: String): Promise<HybridImageSpec>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromResources(name: String): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromSymbol(symbolName: String): HybridImageSpec
 
   private external fun initHybrid(): HybridData
 
