@@ -24,9 +24,9 @@ class HybridImageFactory: HybridImageFactorySpec {
 
     return Promise.async {
       let request = ImageRequest(url: url)
-      let task = try await ImagePipeline.shared.imageTask(with: request,
-                                                          queue: self.queue)
-      let uiImage = task.image
+      let response = try await ImagePipeline.shared.imageTask(with: request,
+                                                              queue: self.queue)
+      let uiImage = response.image
       return HybridImage(uiImage: uiImage)
     }
   }
