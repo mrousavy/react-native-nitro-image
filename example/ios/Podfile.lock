@@ -33,6 +33,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
+    - SDWebImage
     - Yoga
   - NitroModules (0.26.2):
     - DoubleConversion
@@ -1831,6 +1832,9 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - SDWebImage (5.21.0):
+    - SDWebImage/Core (= 5.21.0)
+  - SDWebImage/Core (5.21.0)
   - SocketRocket (0.7.1)
   - Yoga (0.0.0)
 
@@ -1910,10 +1914,12 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../../node_modules/react-native/ReactCommon`)
   - RNScreens (from `../../node_modules/react-native-screens`)
+  - SDWebImage
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - SDWebImage
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -2075,7 +2081,7 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 94ed01537bdeccaab1adbf94b040d115d6fa1a7f
-  NitroImage: b78a420d69f237c3a1df03d22702ae028a4328a2
+  NitroImage: 2a6ae8f15ef45853b5133361d577839482df1925
   NitroModules: ccf2db518daf271800221ef472938a324672ff71
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
   RCTDeprecation: c3e3f5b4ea83e7ff3bc86ce09e2a54b7affd687d
@@ -2141,9 +2147,10 @@ SPEC CHECKSUMS:
   ReactCodegen: 16c2bfcebf870208d7e29ff0c065f4c0fa03034d
   ReactCommon: e243aa261effc83c10208f0794bade55ca9ae5b6
   RNScreens: 482e9707f9826230810c92e765751af53826d509
+  SDWebImage: f84b0feeb08d2d11e6a9b843cb06d75ebf5b8868
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 645152fcc8359c80cdeb9be7a9e0d2e6c01304a4
 
-PODFILE CHECKSUM: 161c92a744a43c1c42e62cdd1079f98f006c8cb2
+PODFILE CHECKSUM: 3e028fd0116bf506f60fe2747b1277dfe9f20dd8
 
 COCOAPODS: 1.15.2

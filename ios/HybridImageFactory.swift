@@ -7,8 +7,11 @@
 
 import Foundation
 import NitroModules
+import SDWebImage
 
 class HybridImageFactory: HybridImageFactorySpec {
+  private let downloader = SDWebImageDownloader.shared
+  
   /**
    * Load Image from URL
    */
@@ -18,12 +21,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
 
     return Promise.async {
-      let data = try Data(contentsOf: url, options: .mappedIfSafe)
-      guard let uiImage = UIImage(data: data) else {
-        throw RuntimeError.error(withMessage: "Failed to load image from URL \"\(url)\"!")
-      }
-
-      return HybridImage(uiImage: uiImage)
+      throw RuntimeError.error(withMessage: "Not implemented")
     }
   }
 }
