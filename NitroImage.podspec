@@ -27,6 +27,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'React-jsi'
   s.dependency 'React-callinvoker'
-  s.dependency 'SDWebImage'
+  # TODO: Migrate to Swift Package Manager because CocoaPods is deprecated/old
+  s.dependency 'Nuke'
   install_modules_dependencies(s)
 end

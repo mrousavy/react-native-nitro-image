@@ -7,11 +7,9 @@
 
 import Foundation
 import NitroModules
-import SDWebImage
+import Nuke
 
 class HybridImageFactory: HybridImageFactorySpec {
-  private let downloader = SDWebImageDownloader.shared
-  
   /**
    * Load Image from URL
    */
@@ -21,7 +19,10 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
 
     return Promise.async {
-      throw RuntimeError.error(withMessage: "Not implemented")
+      let request = ImageRequest(url: url)
+      let task = try await ImagePipeline.shared.imageTask(with: request)
+      let uiImage = task.image
+      return HybridImage(uiImage: uiImage)
     }
   }
 }
