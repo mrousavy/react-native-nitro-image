@@ -32,7 +32,8 @@ export function NitroImageTab() {
 
 const styles = StyleSheet.create({
   image: {
-    width: 100,
+    width: '100%',
+    aspectRatio: 1,
     borderWidth: 1,
     borderColor: 'red',
   },

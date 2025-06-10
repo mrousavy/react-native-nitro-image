@@ -14,7 +14,8 @@
   },
   "autolinking": {
     "ImageFactory": {
-      "swift": "HybridImageFactory"
+      "swift": "HybridImageFactory",
+      "kotlin": "HybridImageFactory"
     },
     "NitroImageView": {
       "swift": "HybridImageView",

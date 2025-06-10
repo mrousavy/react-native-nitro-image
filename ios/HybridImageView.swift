@@ -21,6 +21,9 @@ class HybridImageView: HybridNitroImageViewSpec {
   func updateImage() {
     guard let hybridImage = image as? HybridImage else { return }
     print("Updating ImageView's image...")
+    
+    print("Frame: \(imageView.frame)")
+    imageView.contentMode = .scaleAspectFit
     imageView.image = hybridImage.uiImage
   }
 }

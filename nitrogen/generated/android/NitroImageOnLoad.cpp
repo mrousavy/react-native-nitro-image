@@ -38,6 +38,15 @@ int initialize(JavaVM* vm) {
 
     // Register Nitro Hybrid Objects
     HybridObjectRegistry::registerHybridObjectConstructor(
+      "ImageFactory",
+      []() -> std::shared_ptr<HybridObject> {
+        static DefaultConstructableObject<JHybridImageFactorySpec::javaobject> object("com/margelo/nitro/image/HybridImageFactory");
+        auto instance = object.create();
+        auto globalRef = jni::make_global(instance);
+        return JNISharedPtr::make_shared_from_jni<JHybridImageFactorySpec>(globalRef);
+      }
+    );
+    HybridObjectRegistry::registerHybridObjectConstructor(
       "NitroImageView",
       []() -> std::shared_ptr<HybridObject> {
         static DefaultConstructableObject<JHybridNitroImageViewSpec::javaobject> object("com/margelo/nitro/image/HybridImageView");
