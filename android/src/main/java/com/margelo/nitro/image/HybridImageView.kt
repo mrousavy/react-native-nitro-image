@@ -1,10 +1,12 @@
-//
-//  HybridImageView.kt
-//  react-native-nitro-image
-//
-//  Created by Marc Rousavy on 10.06.25.
-//
+package com.margelo.nitro.image
 
-class HybridImageView: HybridNitroImageViewSpec() {
+import android.content.Context
+import android.view.View
+import android.widget.ImageView
 
+class HybridImageView(context: Context): HybridNitroImageViewSpec() {
+    override var image: HybridImageSpec? = null
+
+    val imageView = ImageView(context)
+    override val view: View = imageView
 }

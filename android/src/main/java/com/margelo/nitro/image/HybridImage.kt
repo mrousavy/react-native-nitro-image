@@ -1,10 +1,21 @@
-//
-//  HybridImage.kt
-//  react-native-nitro-image
-//
-//  Created by Marc Rousavy on 10.06.25.
-//
+package com.margelo.nitro.image
 
-class HybridImage: HybridImageSpec() {
+import android.media.Image
+import androidx.annotation.Keep
+import com.facebook.proguard.annotations.DoNotStrip
 
+@Suppress("ConvertSecondaryConstructorToPrimary")
+@Keep
+@DoNotStrip
+class HybridImage: HybridImageSpec {
+    val image: Image
+
+    override val width: Double
+        get() = image.width.toDouble()
+    override val height: Double
+        get() = image.height.toDouble()
+
+    constructor(image: Image) {
+        this.image = image
+    }
 }
