@@ -81,10 +81,28 @@ namespace margelo::nitro::image::views {
   /**
    * The Shadow Node for the "NitroImageView" View.
    */
-  using HybridNitroImageViewShadowNode = react::ConcreteViewShadowNode<HybridNitroImageViewComponentName /* "HybridNitroImageView" */,
-                                                                       HybridNitroImageViewProps /* custom props */,
-                                                                       react::ViewEventEmitter /* default */,
-                                                                       HybridNitroImageViewState /* custom state */>;
+  class HybridNitroImageViewShadowNode: public react::ConcreteViewShadowNode<HybridNitroImageViewComponentName /* "HybridNitroImageView" */,
+                                                                             HybridNitroImageViewProps /* custom props */,
+                                                                             react::ViewEventEmitter /* default */,
+                                                                             HybridNitroImageViewState /* custom state */> {
+    public:
+      using ConcreteViewShadowNode::ConcreteViewShadowNode;
+                                                                               
+                                                                             public:
+                                                                               
+                                                                               static react::ShadowNodeTraits BaseTraits() {
+                                                                                 auto traits = ConcreteViewShadowNode::BaseTraits();
+                                                                                 traits.set(react::ShadowNodeTraits::Trait::LeafYogaNode);
+                                                                                 traits.set(react::ShadowNodeTraits::Trait::MeasurableYogaNode);
+
+                                                                                 return traits;
+                                                                               }
+                                                                               
+    public:
+      react::Size measureContent(
+           const react::LayoutContext& layoutContext,
+           const react::LayoutConstraints& layoutConstraints) const override;
+  };
 
   /**
    * The Component Descriptor for the "NitroImageView" View.

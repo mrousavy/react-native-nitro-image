@@ -59,6 +59,14 @@ namespace margelo::nitro::image::views {
     }
   }
 
+
+  react::Size HybridNitroImageViewShadowNode::measureContent(
+       const react::LayoutContext& layoutContext,
+       const react::LayoutConstraints& layoutConstraints) const {
+         return { .width = 300, .height = 500 };
+  }
+
+
   HybridNitroImageViewComponentDescriptor::HybridNitroImageViewComponentDescriptor(const react::ComponentDescriptorParameters& parameters)
     : ConcreteComponentDescriptor(parameters,
                                   react::RawPropsParser(/* enableJsiParser */ true)) {}
