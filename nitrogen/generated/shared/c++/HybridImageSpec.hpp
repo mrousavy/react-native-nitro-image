@@ -17,11 +17,15 @@
 namespace NitroModules { class ArrayBuffer; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `ImageFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class ImageFormat; }
 
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/Promise.hpp>
 #include <memory>
 #include "HybridImageSpec.hpp"
+#include <string>
+#include "ImageFormat.hpp"
 
 namespace margelo::nitro::image {
 
@@ -59,6 +63,8 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() = 0;
       virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> resize(double width, double height) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> resizeAsync(double width, double height) = 0;
+      virtual std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, double quality) = 0;
+      virtual std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, double quality) = 0;
 
     protected:
       // Hybrid Setup

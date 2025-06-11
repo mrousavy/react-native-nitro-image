@@ -19,6 +19,8 @@ public protocol HybridImageSpec_protocol: HybridObject {
   func toArrayBufferAsync() throws -> Promise<ArrayBufferHolder>
   func resize(width: Double, height: Double) throws -> (any HybridImageSpec)
   func resizeAsync(width: Double, height: Double) throws -> Promise<(any HybridImageSpec)>
+  func saveToFileAsync(path: String, format: ImageFormat, quality: Double) throws -> Promise<Void>
+  func saveToTemporaryFileAsync(format: ImageFormat, quality: Double) throws -> Promise<String>
 }
 
 /// See ``HybridImageSpec``

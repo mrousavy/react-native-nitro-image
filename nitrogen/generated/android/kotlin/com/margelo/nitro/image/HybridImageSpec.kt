@@ -61,6 +61,14 @@ abstract class HybridImageSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun resizeAsync(width: Double, height: Double): Promise<HybridImageSpec>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun saveToFileAsync(path: String, format: ImageFormat, quality: Double): Promise<Unit>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double): Promise<String>
 
   private external fun initHybrid(): HybridData
 

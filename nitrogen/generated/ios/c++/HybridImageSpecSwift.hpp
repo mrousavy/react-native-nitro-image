@@ -18,12 +18,16 @@ namespace NitroModules { class ArrayBuffer; }
 namespace NitroModules { class ArrayBufferHolder; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `ImageFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class ImageFormat; }
 
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
 #include <NitroModules/Promise.hpp>
 #include <memory>
 #include "HybridImageSpec.hpp"
+#include <string>
+#include "ImageFormat.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -95,6 +99,22 @@ namespace margelo::nitro::image {
     }
     inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> resizeAsync(double width, double height) override {
       auto __result = _swiftPart.resizeAsync(std::forward<decltype(width)>(width), std::forward<decltype(height)>(height));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, double quality) override {
+      auto __result = _swiftPart.saveToFileAsync(path, static_cast<int>(format), std::forward<decltype(quality)>(quality));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, double quality) override {
+      auto __result = _swiftPart.saveToTemporaryFileAsync(static_cast<int>(format), std::forward<decltype(quality)>(quality));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
