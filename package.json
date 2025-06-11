@@ -1,6 +1,6 @@
 {
   "name": "react-native-nitro-image",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "react-native-nitro-image",
   "main": "lib/index",
   "module": "lib/index",
