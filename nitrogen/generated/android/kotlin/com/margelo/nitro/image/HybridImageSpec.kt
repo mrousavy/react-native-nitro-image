@@ -46,7 +46,9 @@ abstract class HybridImageSpec: HybridObject() {
   abstract val height: Double
 
   // Methods
-  
+  @DoNotStrip
+  @Keep
+  abstract fun toArrayBuffer(): ArrayBuffer
 
   private external fun initHybrid(): HybridData
 

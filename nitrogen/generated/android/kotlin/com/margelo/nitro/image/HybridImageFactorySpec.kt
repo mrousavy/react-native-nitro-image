@@ -51,6 +51,10 @@ abstract class HybridImageFactorySpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun loadFromSymbol(symbolName: String): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromArrayBuffer(buffer: ArrayBuffer): HybridImageSpec
 
   private external fun initHybrid(): HybridData
 

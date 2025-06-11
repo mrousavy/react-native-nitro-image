@@ -9,6 +9,8 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `ArrayBuffer` to properly resolve imports.
+namespace NitroModules { class ArrayBuffer; }
 
 #include <NitroModules/Promise.hpp>
 #include <memory>
@@ -17,6 +19,9 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 #include "JHybridImageSpec.hpp"
 #include <NitroModules/JNISharedPtr.hpp>
 #include <string>
+#include <NitroModules/ArrayBuffer.hpp>
+#include <NitroModules/JArrayBuffer.hpp>
+#include <NitroModules/JUnit.hpp>
 
 namespace margelo::nitro::image {
 
@@ -63,6 +68,11 @@ namespace margelo::nitro::image {
   std::shared_ptr<margelo::nitro::image::HybridImageSpec> JHybridImageFactorySpec::loadFromSymbol(const std::string& symbolName) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<jni::JString> /* symbolName */)>("loadFromSymbol");
     auto __result = method(_javaPart, jni::make_jstring(symbolName));
+    return JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result));
+  }
+  std::shared_ptr<margelo::nitro::image::HybridImageSpec> JHybridImageFactorySpec::loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("loadFromArrayBuffer");
+    auto __result = method(_javaPart, JArrayBuffer::wrap(buffer));
     return JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result));
   }
 

@@ -7,9 +7,12 @@
 
 #include "JHybridImageSpec.hpp"
 
+// Forward declaration of `ArrayBuffer` to properly resolve imports.
+namespace NitroModules { class ArrayBuffer; }
 
-
-
+#include <NitroModules/ArrayBuffer.hpp>
+#include <NitroModules/JArrayBuffer.hpp>
+#include <NitroModules/JUnit.hpp>
 
 namespace margelo::nitro::image {
 
@@ -41,6 +44,10 @@ namespace margelo::nitro::image {
   }
 
   // Methods
-  
+  std::shared_ptr<ArrayBuffer> JHybridImageSpec::toArrayBuffer() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JArrayBuffer::javaobject>()>("toArrayBuffer");
+    auto __result = method(_javaPart);
+    return __result->cthis()->getArrayBuffer();
+  }
 
 } // namespace margelo::nitro::image

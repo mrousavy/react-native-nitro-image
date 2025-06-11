@@ -28,4 +28,11 @@ export interface ImageFactory
    * @platform iOS 13
    */
   loadFromSymbol(symbolName: string): Image
+
+  /**
+   * Synchronously convert the given given {@linkcode ArrayBuffer} to an {@linkcode Image}.
+   * @param buffer
+   * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
+   */
+  loadFromArrayBuffer(buffer: ArrayBuffer): Image
 }

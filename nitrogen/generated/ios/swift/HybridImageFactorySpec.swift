@@ -17,6 +17,7 @@ public protocol HybridImageFactorySpec_protocol: HybridObject {
   func loadFromURL(url: String) throws -> Promise<(any HybridImageSpec)>
   func loadFromResources(name: String) throws -> (any HybridImageSpec)
   func loadFromSymbol(symbolName: String) throws -> (any HybridImageSpec)
+  func loadFromArrayBuffer(buffer: ArrayBufferHolder) throws -> (any HybridImageSpec)
 }
 
 /// See ``HybridImageFactorySpec``

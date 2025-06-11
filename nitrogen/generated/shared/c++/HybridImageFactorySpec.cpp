@@ -17,6 +17,7 @@ namespace margelo::nitro::image {
       prototype.registerHybridMethod("loadFromURL", &HybridImageFactorySpec::loadFromURL);
       prototype.registerHybridMethod("loadFromResources", &HybridImageFactorySpec::loadFromResources);
       prototype.registerHybridMethod("loadFromSymbol", &HybridImageFactorySpec::loadFromSymbol);
+      prototype.registerHybridMethod("loadFromArrayBuffer", &HybridImageFactorySpec::loadFromArrayBuffer);
     });
   }
 

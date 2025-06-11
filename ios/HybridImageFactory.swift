@@ -50,4 +50,15 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
     return HybridImage(uiImage: uiImage)
   }
+  
+  /**
+   * Load Image from the given ArrayBuffer
+   */
+  func loadFromArrayBuffer(buffer: ArrayBufferHolder) throws -> (any HybridImageSpec) {
+    let data = buffer.toData(copyIfNeeded: false)
+    guard let uiImage = UIImage(data: data) else {
+      throw RuntimeError.error(withMessage: "The given ArrayBuffer could not be converted to a UIImage!")
+    }
+    return HybridImage(uiImage: uiImage)
+  }
 }

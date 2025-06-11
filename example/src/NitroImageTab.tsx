@@ -19,6 +19,14 @@ function AsyncImage({ url }: { url: string }): React.ReactNode {
     })();
   }, [url]);
 
+  // useEffect(() => {
+  //   if (image == null) {return;}
+  //   console.log('Copying image...');
+  //   const buff = image.toArrayBuffer();
+  //   const newImage = HybridImageFactory.loadFromArrayBuffer(buff);
+  //   console.log(`Copied image: ${newImage.width}x${newImage.height}`);
+  // }, [image]);
+
   return <NitroImage style={styles.image} image={image} />;
 }
 

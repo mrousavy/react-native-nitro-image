@@ -13,9 +13,10 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
+// Forward declaration of `ArrayBuffer` to properly resolve imports.
+namespace NitroModules { class ArrayBuffer; }
 
-
-
+#include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::image {
 
@@ -49,7 +50,7 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      
+      virtual std::shared_ptr<ArrayBuffer> toArrayBuffer() = 0;
 
     protected:
       // Hybrid Setup

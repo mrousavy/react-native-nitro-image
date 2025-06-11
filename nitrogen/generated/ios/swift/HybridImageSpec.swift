@@ -15,7 +15,7 @@ public protocol HybridImageSpec_protocol: HybridObject {
   var height: Double { get }
 
   // Methods
-  
+  func toArrayBuffer() throws -> ArrayBufferHolder
 }
 
 /// See ``HybridImageSpec``

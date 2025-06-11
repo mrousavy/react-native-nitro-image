@@ -52,7 +52,7 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    
+    std::shared_ptr<ArrayBuffer> toArrayBuffer() override;
 
   private:
     friend HybridBase;
