@@ -8,7 +8,7 @@ export function FastImageTab() {
   const imageURLs = useMemo(() => createImageURLs(100), []);
 
   return (<View>
-    <Text>NitroImage Tab</Text>
+    <Text>FastImage Tab</Text>
     <FlatList
       data={imageURLs}
       renderItem={({ item: url }) => (
