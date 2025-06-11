@@ -10,7 +10,21 @@ export interface ImageFactory
    * @throws If the network request cannot be made.
    * @throws If the data at the given {@linkcode url} cannot be parsed as an {@linkcode Image}.
    */
-  loadFromURL(url: string): Promise<Image>
+  loadFromURLAsync(url: string): Promise<Image>
+  /**
+   * Synchronously loads an {@linkcode Image} from the given {@linkcode filePath}.
+   * @param filePath The file path of the {@linkcode Image}. Must contain a file extension.
+   * @throws If the {@linkcode filePath} is invalid.
+   * @throws If the data at the given {@linkcode filePath} cannot be parsed as an {@linkcode Image}.
+   */
+  loadFromFile(filePath: string): Image
+  /**
+   * Asynchronously loads an {@linkcode Image} from the given {@linkcode filePath}.
+   * @param filePath The file path of the {@linkcode Image}. Must contain a file extension.
+   * @throws If the {@linkcode filePath} is invalid.
+   * @throws If the data at the given {@linkcode filePath} cannot be parsed as an {@linkcode Image}.
+   */
+  loadFromFileAsync(filePath: string): Promise<Image>
 
   /**
    * Synchronously loads an {@linkcode Image} from the given resource-/system-name.
@@ -19,6 +33,13 @@ export interface ImageFactory
    * @throws If the file under the given {@linkcode name} cannot be parsed as an {@linkcode Image}.
    */
   loadFromResources(name: string): Image
+  /**
+   * Asynchronously loads an {@linkcode Image} from the given resource-/system-name.
+   * @param name The resource-/system-name of the image to load.
+   * @throws If no {@linkcode Image} exists under the given {@linkcode name}.
+   * @throws If the file under the given {@linkcode name} cannot be parsed as an {@linkcode Image}.
+   */
+  loadFromResourcesAsync(name: string): Promise<Image>
 
   /**
    * Synchronously loads an {@linkcode Image} from the given symbol name.
@@ -35,4 +56,10 @@ export interface ImageFactory
    * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
    */
   loadFromArrayBuffer(buffer: ArrayBuffer): Image
+  /**
+   * Asynchronously convert the given given {@linkcode ArrayBuffer} to an {@linkcode Image}.
+   * @param buffer
+   * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
+   */
+  loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<Image>
 }
