@@ -1,2 +1,100 @@
 # react-native-nitro-image
-🖼️ A superfast Image type and view component for React Native, built with Nitro!
+
+🖼️ A superfast Image core type and view component for React Native, built with Nitro!
+
+- Powered by [Nitro Modules](https://nitro.margelo.com) for highly efficient native bindings! 🔥
+- Instance-based `Image` type with byte-buffer pixel data access 🔗
+- Support basic in-memory image operations like resizing without saving to file 📐
+- Web Image loading using [Nuke](https://github.com/kean/Nuke) (iOS) and [Coil](https://github.com/coil-kt/coil) (Android) 🌎
+
+```tsx
+function App() {
+  const image = useImage('https://picsum.photos/seed/123/400')
+  return (
+    <NitroImage
+      image={image}
+      style={{ width: 400, height: 400 }}
+    />
+  )
+}
+```
+
+## Installation
+
+Install [react-native-nitro-image](https://www.npmjs.com/package/react-native-nitro-image) from npm:
+
+```bash
+npm i react-native-nitro-image
+npm i react-native-nitro-modules
+npx pod-install
+```
+
+## Usage
+
+### The `HybridImageFactory`
+
+The `HybridImageFactory` is responsible for loading and creating `Image` instances:
+
+```ts
+const webImage      = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const fileImage     = await HybridImageFactory.loadFromFileAsync('file://my-image.jpg')
+const resourceImage = HybridImageFactory.loadFromResources('my-resource.jpg')
+const symbolImage   = HybridImageFactory.loadFromSymbol('star')
+```
+
+#### `ArrayBuffer`
+
+The `Image` type can be converted to- and from- an `ArrayBuffer`:
+
+```ts
+const webImage        = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const arrayBuffer     = await webImage.toArrayBufferAsync()
+const sameImageCopied = await HybridImageFactory.loadFromArrayBufferAsync(arrayBuffer)
+```
+
+#### Resizing
+
+An `Image` can be resized entirely in-memory, without ever writing to- or reading from- a file:
+
+```ts
+const webImage = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const smaller  = await webImage.resizeAsync(200, 200)
+```
+
+### The `<NitroImage />` view
+
+The `<NitroImage />` view is a React Native view component for rendering an `Image` instance:
+
+```tsx
+function App() {
+  const image = useImage('https://picsum.photos/seed/123/400')
+  return (
+    <NitroImage
+      image={image}
+      style={{ width: 400, height: 400 }}
+    />
+  )
+}
+```
+
+#### Dynamic width or height
+
+To achieve a dynamic width or height calculation, you can use the `image`'s dimensions:
+
+```tsx
+function App() {
+  const image = useImage('https://picsum.photos/seed/123/400')
+  const aspect = (image?.width ?? 1) / (image?.height ?? 1)
+  return (
+    <NitroImage
+      image={image}
+      style={{ width: '100%', aspectRatio: aspect }}
+    />
+  )
+}
+```
+
+This will now resize the `height` dimension to match the same aspect ratio as the `image` - in this case it will be 1:1 since the image is 400x400.
+
+If the `image` is 400x200, the `height` of the view will be **half** of the `width` of the view, i.e. a 0.5 aspect ratio.
+
