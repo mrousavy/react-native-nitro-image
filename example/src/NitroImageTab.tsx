@@ -10,11 +10,12 @@ function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
 const AsyncImage = React.memo(AsyncImageImpl);
 
 export function NitroImageTab() {
-  const imageURLs = useMemo(() => createImageURLs(100), []);
+  const imageURLs = useMemo(() => createImageURLs(), []);
 
   return (<View>
     <Text>NitroImage Tab</Text>
     <FlatList
+      numColumns={4}
       data={imageURLs}
       renderItem={({ item: url }) => (
         <AsyncImage url={url} />
@@ -25,9 +26,7 @@ export function NitroImageTab() {
 
 const styles = StyleSheet.create({
   image: {
-    width: '30%',
+    width: '25%',
     aspectRatio: 1,
-    borderWidth: 1,
-    borderColor: 'red',
   },
 });

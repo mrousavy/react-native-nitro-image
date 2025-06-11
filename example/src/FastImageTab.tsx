@@ -5,11 +5,12 @@ import FastImage from 'react-native-fast-image';
 
 
 export function FastImageTab() {
-  const imageURLs = useMemo(() => createImageURLs(100), []);
+  const imageURLs = useMemo(() => createImageURLs(), []);
 
   return (<View>
     <Text>FastImage Tab</Text>
     <FlatList
+      numColumns={4}
       data={imageURLs}
       renderItem={({ item: url }) => (
         <FastImage source={{ uri: url }} style={styles.image} />
@@ -21,9 +22,7 @@ export function FastImageTab() {
 
 const styles = StyleSheet.create({
   image: {
-    width: '30%',
+    width: '25%',
     aspectRatio: 1,
-    borderWidth: 1,
-    borderColor: 'red',
   },
 });
