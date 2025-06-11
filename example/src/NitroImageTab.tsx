@@ -16,6 +16,7 @@ export function NitroImageTab() {
     <Text>NitroImage Tab</Text>
     <FlatList
       numColumns={4}
+      windowSize={3}
       data={imageURLs}
       renderItem={({ item: url }) => (
         <AsyncImage url={url} />

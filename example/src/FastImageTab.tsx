@@ -11,6 +11,7 @@ export function FastImageTab() {
     <Text>FastImage Tab</Text>
     <FlatList
       numColumns={4}
+      windowSize={3}
       data={imageURLs}
       renderItem={({ item: url }) => (
         <FastImage source={{ uri: url }} style={styles.image} />
