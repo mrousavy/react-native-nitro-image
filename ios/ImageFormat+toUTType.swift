@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import UniformTypeIdentifiers
 
 extension ImageFormat {
   func toUTType() -> UTType {
-    switch format {
+    switch self {
     case .jpg:
-      return .jpg
+      return .jpeg
     case .png:
       return .png
     }

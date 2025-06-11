@@ -74,7 +74,7 @@ class HybridImage: HybridImageSpec {
   func saveToTemporaryFileAsync(format: ImageFormat, quality: Double) throws -> Promise<String> {
     return Promise.async(.utility) {
       let tempDirectory = FileManager.default.temporaryDirectory
-      let fileName = "\(UUID()).\(format.stringValue)"
+      let fileName = UUID().uuidString
       let file = tempDirectory.appendingPathComponent(fileName, conformingTo: format.toUTType())
       let path = file.absoluteString
       
