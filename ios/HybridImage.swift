@@ -34,4 +34,21 @@ class HybridImage: HybridImageSpec {
       return try self.toArrayBuffer()
     }
   }
+  
+  func resize(width: Double, height: Double) throws -> any HybridImageSpec {
+    let targetSize = CGSize(width: width, height: height)
+    
+    let renderer = UIGraphicsImageRenderer(size: targetSize)
+    let resizedImage = renderer.image { context in
+      let targetRect = CGRect(origin: .zero, size: targetSize)
+      uiImage.draw(in: targetRect)
+    }
+    return HybridImage(uiImage: resizedImage)
+  }
+  
+  func resizeAsync(width: Double, height: Double) throws -> Promise<any HybridImageSpec> {
+    return Promise.async {
+      return try self.resize(width: width, height: height)
+    }
+  }
 }

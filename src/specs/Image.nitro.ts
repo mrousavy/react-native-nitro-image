@@ -7,4 +7,7 @@ export interface Image
 
   toArrayBuffer(): ArrayBuffer
   toArrayBufferAsync(): Promise<ArrayBuffer>
+
+  resize(width: number, height: number): Image
+  resizeAsync(width: number, height: number): Promise<Image>
 }

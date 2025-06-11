@@ -16,10 +16,14 @@ namespace NitroImage { class HybridImageSpec_cxx; }
 namespace NitroModules { class ArrayBuffer; }
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
 namespace NitroModules { class ArrayBufferHolder; }
+// Forward declaration of `HybridImageSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
 #include <NitroModules/Promise.hpp>
+#include <memory>
+#include "HybridImageSpec.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -75,6 +79,22 @@ namespace margelo::nitro::image {
     }
     inline std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() override {
       auto __result = _swiftPart.toArrayBufferAsync();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> resize(double width, double height) override {
+      auto __result = _swiftPart.resize(std::forward<decltype(width)>(width), std::forward<decltype(height)>(height));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> resizeAsync(double width, double height) override {
+      auto __result = _swiftPart.resizeAsync(std::forward<decltype(width)>(width), std::forward<decltype(height)>(height));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

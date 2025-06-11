@@ -18,6 +18,8 @@ namespace margelo::nitro::image {
       prototype.registerHybridGetter("height", &HybridImageSpec::getHeight);
       prototype.registerHybridMethod("toArrayBuffer", &HybridImageSpec::toArrayBuffer);
       prototype.registerHybridMethod("toArrayBufferAsync", &HybridImageSpec::toArrayBufferAsync);
+      prototype.registerHybridMethod("resize", &HybridImageSpec::resize);
+      prototype.registerHybridMethod("resizeAsync", &HybridImageSpec::resizeAsync);
     });
   }
 

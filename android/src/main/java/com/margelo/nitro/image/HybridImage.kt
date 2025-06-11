@@ -10,25 +10,34 @@ import com.margelo.nitro.core.Promise
 @Keep
 @DoNotStrip
 class HybridImage: HybridImageSpec {
-    val image: Bitmap
+    val bitmap: Bitmap
 
     override val width: Double
-        get() = image.width.toDouble()
+        get() = bitmap.width.toDouble()
     override val height: Double
-        get() = image.height.toDouble()
+        get() = bitmap.height.toDouble()
 
-    constructor(image: Bitmap) {
-        this.image = image
+    constructor(bitmap: Bitmap) {
+        this.bitmap = bitmap
     }
 
     override fun toArrayBuffer(): ArrayBuffer {
-        val arrayBuffer = ArrayBuffer.allocate(image.byteCount)
+        val arrayBuffer = ArrayBuffer.allocate(bitmap.byteCount)
         val byteBuffer = arrayBuffer.getBuffer(false)
-        image.copyPixelsToBuffer(byteBuffer)
+        bitmap.copyPixelsToBuffer(byteBuffer)
         return arrayBuffer
     }
 
     override fun toArrayBufferAsync(): Promise<ArrayBuffer> {
         return Promise.async { toArrayBuffer() }
+    }
+
+    override fun resize(width: Double, height: Double): HybridImageSpec {
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, width.toInt(), height.toInt(), false)
+        return HybridImage(resizedBitmap)
+    }
+
+    override fun resizeAsync(width: Double, height: Double): Promise<HybridImageSpec> {
+        return Promise.async { resize(width, height) }
     }
 }

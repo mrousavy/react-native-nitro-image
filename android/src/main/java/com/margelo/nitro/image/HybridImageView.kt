@@ -16,6 +16,6 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
 
     private fun updateImage() {
         val image = image as? HybridImage ?: return
-        imageView.setImageBitmap(image.image)
+        imageView.setImageBitmap(image.bitmap)
     }
 }

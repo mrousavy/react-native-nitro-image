@@ -54,6 +54,8 @@ namespace margelo::nitro::image {
     // Methods
     std::shared_ptr<ArrayBuffer> toArrayBuffer() override;
     std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() override;
+    std::shared_ptr<margelo::nitro::image::HybridImageSpec> resize(double width, double height) override;
+    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> resizeAsync(double width, double height) override;
 
   private:
     friend HybridBase;

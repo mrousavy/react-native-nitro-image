@@ -53,6 +53,14 @@ abstract class HybridImageSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun toArrayBufferAsync(): Promise<ArrayBuffer>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun resize(width: Double, height: Double): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun resizeAsync(width: Double, height: Double): Promise<HybridImageSpec>
 
   private external fun initHybrid(): HybridData
 
