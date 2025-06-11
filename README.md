@@ -1,4 +1,12 @@
-# react-native-nitro-image
+<a href="https://margelo.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./img/banner-dark.png" />
+    <source media="(prefers-color-scheme: light)" srcset="./img/banner-light.png" />
+    <img alt="react-native-nitro-image" src="./img/banner-light.png" />
+  </picture>
+</a>
+
+<br />
 
 🖼️ A superfast Image core type and view component for React Native, built with Nitro!
 
@@ -59,6 +67,16 @@ An `Image` can be resized entirely in-memory, without ever writing to- or readin
 ```ts
 const webImage = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
 const smaller  = await webImage.resizeAsync(200, 200)
+```
+
+#### Saving
+
+An in-memory `Image` object can also be written/saved to a file:
+
+```ts
+const webImage = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const smaller  = await webImage.resizeAsync(200, 200)
+const path     = await smaller.saveToTemporaryFileAsync('jpg', 90)
 ```
 
 ### The `<NitroImage />` view
