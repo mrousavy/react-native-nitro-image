@@ -14,10 +14,14 @@ public protocol HybridImageFactorySpec_protocol: HybridObject {
   
 
   // Methods
-  func loadFromURL(url: String) throws -> Promise<(any HybridImageSpec)>
+  func loadFromURLAsync(url: String) throws -> Promise<(any HybridImageSpec)>
+  func loadFromFile(filePath: String) throws -> (any HybridImageSpec)
+  func loadFromFileAsync(filePath: String) throws -> Promise<(any HybridImageSpec)>
   func loadFromResources(name: String) throws -> (any HybridImageSpec)
+  func loadFromResourcesAsync(name: String) throws -> Promise<(any HybridImageSpec)>
   func loadFromSymbol(symbolName: String) throws -> (any HybridImageSpec)
   func loadFromArrayBuffer(buffer: ArrayBufferHolder) throws -> (any HybridImageSpec)
+  func loadFromArrayBufferAsync(buffer: ArrayBufferHolder) throws -> Promise<(any HybridImageSpec)>
 }
 
 /// See ``HybridImageFactorySpec``

@@ -29,4 +29,9 @@ class HybridImage: HybridImageSpec {
     }
     return try ArrayBufferHolder.copy(data: data)
   }
+  func toArrayBufferAsync() throws -> Promise<ArrayBufferHolder> {
+    return Promise.async {
+      return try self.toArrayBuffer()
+    }
+  }
 }

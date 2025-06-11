@@ -65,8 +65,24 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURL(const std::string& url) override {
-      auto __result = _swiftPart.loadFromURL(url);
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url) override {
+      auto __result = _swiftPart.loadFromURLAsync(url);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromFile(const std::string& filePath) override {
+      auto __result = _swiftPart.loadFromFile(filePath);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) override {
+      auto __result = _swiftPart.loadFromFileAsync(filePath);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
@@ -75,6 +91,14 @@ namespace margelo::nitro::image {
     }
     inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) override {
       auto __result = _swiftPart.loadFromResources(name);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromResourcesAsync(const std::string& name) override {
+      auto __result = _swiftPart.loadFromResourcesAsync(name);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
@@ -91,6 +115,14 @@ namespace margelo::nitro::image {
     }
     inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) override {
       auto __result = _swiftPart.loadFromArrayBuffer(ArrayBufferHolder(buffer));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) override {
+      auto __result = _swiftPart.loadFromArrayBufferAsync(ArrayBufferHolder(buffer));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

@@ -6,4 +6,5 @@ export interface Image
   readonly height: number
 
   toArrayBuffer(): ArrayBuffer
+  toArrayBufferAsync(): Promise<ArrayBuffer>
 }

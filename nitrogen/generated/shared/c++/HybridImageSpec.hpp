@@ -17,6 +17,7 @@
 namespace NitroModules { class ArrayBuffer; }
 
 #include <NitroModules/ArrayBuffer.hpp>
+#include <NitroModules/Promise.hpp>
 
 namespace margelo::nitro::image {
 
@@ -51,6 +52,7 @@ namespace margelo::nitro::image {
     public:
       // Methods
       virtual std::shared_ptr<ArrayBuffer> toArrayBuffer() = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() = 0;
 
     protected:
       // Hybrid Setup

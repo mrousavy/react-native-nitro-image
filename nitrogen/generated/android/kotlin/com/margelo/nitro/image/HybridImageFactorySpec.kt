@@ -42,11 +42,23 @@ abstract class HybridImageFactorySpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun loadFromURL(url: String): Promise<HybridImageSpec>
+  abstract fun loadFromURLAsync(url: String): Promise<HybridImageSpec>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromFile(filePath: String): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromFileAsync(filePath: String): Promise<HybridImageSpec>
   
   @DoNotStrip
   @Keep
   abstract fun loadFromResources(name: String): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromResourcesAsync(name: String): Promise<HybridImageSpec>
   
   @DoNotStrip
   @Keep
@@ -55,6 +67,10 @@ abstract class HybridImageFactorySpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun loadFromArrayBuffer(buffer: ArrayBuffer): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<HybridImageSpec>
 
   private external fun initHybrid(): HybridData
 

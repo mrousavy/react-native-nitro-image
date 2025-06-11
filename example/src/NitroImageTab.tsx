@@ -10,7 +10,7 @@ function AsyncImage({ url }: { url: string }): React.ReactNode {
     (async () => {
       try {
         console.log(`${url}: Loading...`);
-        const i = await HybridImageFactory.loadFromURL(url);
+        const i = await HybridImageFactory.loadFromURLAsync(url);
         console.log(`${url}: Loaded ${i.width}x${i.height} image!`);
         setImage(i);
       } catch (error) {

@@ -19,6 +19,7 @@ namespace NitroModules { class ArrayBufferHolder; }
 
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
+#include <NitroModules/Promise.hpp>
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -66,6 +67,14 @@ namespace margelo::nitro::image {
     // Methods
     inline std::shared_ptr<ArrayBuffer> toArrayBuffer() override {
       auto __result = _swiftPart.toArrayBuffer();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() override {
+      auto __result = _swiftPart.toArrayBufferAsync();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

@@ -16,6 +16,7 @@ public protocol HybridImageSpec_protocol: HybridObject {
 
   // Methods
   func toArrayBuffer() throws -> ArrayBufferHolder
+  func toArrayBufferAsync() throws -> Promise<ArrayBufferHolder>
 }
 
 /// See ``HybridImageSpec``

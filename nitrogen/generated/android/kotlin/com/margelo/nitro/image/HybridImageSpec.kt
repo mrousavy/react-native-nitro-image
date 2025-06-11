@@ -49,6 +49,10 @@ abstract class HybridImageSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun toArrayBuffer(): ArrayBuffer
+  
+  @DoNotStrip
+  @Keep
+  abstract fun toArrayBufferAsync(): Promise<ArrayBuffer>
 
   private external fun initHybrid(): HybridData
 
