@@ -1,8 +1,11 @@
 package com.margelo.nitro.image
 
 import android.graphics.Bitmap
+import android.hardware.HardwareBuffer
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
+import com.margelo.nitro.core.ArrayBuffer
+import com.margelo.nitro.core.Promise
 
 @Suppress("ConvertSecondaryConstructorToPrimary")
 @Keep
@@ -17,5 +20,16 @@ class HybridImage: HybridImageSpec {
 
     constructor(image: Bitmap) {
         this.image = image
+    }
+
+    override fun toArrayBuffer(): ArrayBuffer {
+        val arrayBuffer = ArrayBuffer.allocate(image.byteCount)
+        val byteBuffer = arrayBuffer.getBuffer(false)
+        image.copyPixelsToBuffer(byteBuffer)
+        return arrayBuffer
+    }
+
+    override fun toArrayBufferAsync(): Promise<ArrayBuffer> {
+        return Promise.async { toArrayBuffer() }
     }
 }
