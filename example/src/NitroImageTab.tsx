@@ -1,34 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { HybridImageFactory, NitroImage, Image } from 'react-native-nitro-image';
+import { NitroImage, useWebImage } from 'react-native-nitro-image';
 import { createImageURLs } from './Images';
 
-function AsyncImage({ url }: { url: string }): React.ReactNode {
-  const [image, setImage] = useState<Image>();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        console.log(`${url}: Loading...`);
-        const i = await HybridImageFactory.loadFromURLAsync(url);
-        console.log(`${url}: Loaded ${i.width}x${i.height} image!`);
-        setImage(i);
-      } catch (error) {
-        console.error(`${url}: Failed to load image!`, error);
-      }
-    })();
-  }, [url]);
-
-  // useEffect(() => {
-  //   if (image == null) {return;}
-  //   console.log('Copying image...');
-  //   const buff = image.toArrayBuffer();
-  //   const newImage = HybridImageFactory.loadFromArrayBuffer(buff);
-  //   console.log(`Copied image: ${newImage.width}x${newImage.height}`);
-  // }, [image]);
-
+function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
+  const image = useWebImage(url);
   return <NitroImage style={styles.image} image={image} />;
 }
+const AsyncImage = React.memo(AsyncImageImpl);
 
 export function NitroImageTab() {
   const imageURLs = useMemo(() => createImageURLs(100), []);

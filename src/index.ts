@@ -25,3 +25,8 @@ export const NitroImage = getHostComponent<
  * The core `Image` type from Nitro Image.
  */
 export type { Image } from './specs/Image.nitro'
+
+/**
+ * The `useImage` hook
+ */
+export * from './useImage'
