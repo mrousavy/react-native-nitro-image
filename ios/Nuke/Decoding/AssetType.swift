@@ -5,42 +5,42 @@
 import Foundation
 
 /// A uniform type identifier (UTI).
-public struct AssetType: ExpressibleByStringLiteral, Hashable, Sendable {
-    public let rawValue: String
+internal struct AssetType: ExpressibleByStringLiteral, Hashable, Sendable {
+    internal let rawValue: String
 
-    public init(rawValue: String) {
+    internal init(rawValue: String) {
         self.rawValue = rawValue
     }
 
-    public init(stringLiteral value: String) {
+    internal init(stringLiteral value: String) {
         self.rawValue = value
     }
 
-    public static let png: AssetType = "public.png"
-    public static let jpeg: AssetType = "public.jpeg"
-    public static let gif: AssetType = "com.compuserve.gif"
+    internal static let png: AssetType = "public.png"
+    internal static let jpeg: AssetType = "public.jpeg"
+    internal static let gif: AssetType = "com.compuserve.gif"
     /// HEIF (High Efficiency Image Format) by Apple.
-    public static let heic: AssetType = "public.heic"
+    internal static let heic: AssetType = "public.heic"
 
     /// WebP
     ///
     /// Native decoding support only available on the following platforms: macOS 11,
     /// iOS 14, watchOS 7, tvOS 14.
-    public static let webp: AssetType = "public.webp"
+    internal static let webp: AssetType = "public.webp"
 
-    public static let mp4: AssetType = "public.mpeg4"
+    internal static let mp4: AssetType = "public.mpeg4"
 
     /// The M4V file format is a video container format developed by Apple and
     /// is very similar to the MP4 format. The primary difference is that M4V
     /// files may optionally be protected by DRM copy protection.
-    public static let m4v: AssetType = "public.m4v"
+    internal static let m4v: AssetType = "public.m4v"
 
-    public static let mov: AssetType = "public.mov"
+    internal static let mov: AssetType = "public.mov"
 }
 
 extension AssetType {
     /// Determines a type of the image based on the given data.
-    public init?(_ data: Data) {
+    internal init?(_ data: Data) {
         guard let type = AssetType.make(data) else {
             return nil
         }

@@ -8,7 +8,7 @@ import Foundation
 ///
 /// - important: The delegate methods are performed on the pipeline queue in the
 /// background.
-public protocol ImagePipelineDelegate: AnyObject, Sendable {
+internal protocol ImagePipelineDelegate: AnyObject, Sendable {
     // MARK: Configuration
 
     /// Returns data loader for the given request.
@@ -86,57 +86,57 @@ public protocol ImagePipelineDelegate: AnyObject, Sendable {
 }
 
 extension ImagePipelineDelegate {
-    public func imageCache(for request: ImageRequest, pipeline: ImagePipeline) -> (any ImageCaching)? {
+    internal func imageCache(for request: ImageRequest, pipeline: ImagePipeline) -> (any ImageCaching)? {
         pipeline.configuration.imageCache
     }
 
-    public func dataLoader(for request: ImageRequest, pipeline: ImagePipeline) -> any DataLoading {
+    internal func dataLoader(for request: ImageRequest, pipeline: ImagePipeline) -> any DataLoading {
         pipeline.configuration.dataLoader
     }
 
-    public func dataCache(for request: ImageRequest, pipeline: ImagePipeline) -> (any DataCaching)? {
+    internal func dataCache(for request: ImageRequest, pipeline: ImagePipeline) -> (any DataCaching)? {
         pipeline.configuration.dataCache
     }
 
-    public func imageDecoder(for context: ImageDecodingContext, pipeline: ImagePipeline) -> (any ImageDecoding)? {
+    internal func imageDecoder(for context: ImageDecodingContext, pipeline: ImagePipeline) -> (any ImageDecoding)? {
         pipeline.configuration.makeImageDecoder(context)
     }
 
-    public func imageEncoder(for context: ImageEncodingContext, pipeline: ImagePipeline) -> any ImageEncoding {
+    internal func imageEncoder(for context: ImageEncodingContext, pipeline: ImagePipeline) -> any ImageEncoding {
         pipeline.configuration.makeImageEncoder(context)
     }
 
-    public func cacheKey(for request: ImageRequest, pipeline: ImagePipeline) -> String? {
+    internal func cacheKey(for request: ImageRequest, pipeline: ImagePipeline) -> String? {
         nil
     }
 
-    public func willCache(data: Data, image: ImageContainer?, for request: ImageRequest, pipeline: ImagePipeline, completion: @escaping (Data?) -> Void) {
+    internal func willCache(data: Data, image: ImageContainer?, for request: ImageRequest, pipeline: ImagePipeline, completion: @escaping (Data?) -> Void) {
         completion(data)
     }
 
-    public func shouldDecompress(response: ImageResponse, for request: ImageRequest, pipeline: ImagePipeline) -> Bool {
+    internal func shouldDecompress(response: ImageResponse, for request: ImageRequest, pipeline: ImagePipeline) -> Bool {
         pipeline.configuration.isDecompressionEnabled
     }
 
-    public func decompress(response: ImageResponse, request: ImageRequest, pipeline: ImagePipeline) -> ImageResponse {
+    internal func decompress(response: ImageResponse, request: ImageRequest, pipeline: ImagePipeline) -> ImageResponse {
         var response = response
         response.container.image = ImageDecompression.decompress(image: response.image, isUsingPrepareForDisplay: pipeline.configuration.isUsingPrepareForDisplay)
         return response
     }
 
-    public func imageTaskCreated(_ task: ImageTask, pipeline: ImagePipeline) {}
+    internal func imageTaskCreated(_ task: ImageTask, pipeline: ImagePipeline) {}
 
-    public func imageTask(_ task: ImageTask, didReceiveEvent event: ImageTask.Event, pipeline: ImagePipeline) {}
+    internal func imageTask(_ task: ImageTask, didReceiveEvent event: ImageTask.Event, pipeline: ImagePipeline) {}
 
-    public func imageTaskDidStart(_ task: ImageTask, pipeline: ImagePipeline) {}
+    internal func imageTaskDidStart(_ task: ImageTask, pipeline: ImagePipeline) {}
 
-    public func imageTask(_ task: ImageTask, didUpdateProgress progress: ImageTask.Progress, pipeline: ImagePipeline) {}
+    internal func imageTask(_ task: ImageTask, didUpdateProgress progress: ImageTask.Progress, pipeline: ImagePipeline) {}
 
-    public func imageTask(_ task: ImageTask, didReceivePreview response: ImageResponse, pipeline: ImagePipeline) {}
+    internal func imageTask(_ task: ImageTask, didReceivePreview response: ImageResponse, pipeline: ImagePipeline) {}
 
-    public func imageTaskDidCancel(_ task: ImageTask, pipeline: ImagePipeline) {}
+    internal func imageTaskDidCancel(_ task: ImageTask, pipeline: ImagePipeline) {}
 
-    public func imageTask(_ task: ImageTask, didCompleteWithResult result: Result<ImageResponse, ImagePipeline.Error>, pipeline: ImagePipeline) {}
+    internal func imageTask(_ task: ImageTask, didCompleteWithResult result: Result<ImageResponse, ImagePipeline.Error>, pipeline: ImagePipeline) {}
 }
 
 final class ImagePipelineDefaultDelegate: ImagePipelineDelegate {}

@@ -13,10 +13,10 @@ import UIKit
 import AppKit
 #endif
 
-/// The pipeline downloads and caches images, and prepares them for display. 
-public final class ImagePipeline: @unchecked Sendable {
+/// The pipeline downloads and caches images, and prepares them for display.
+internal final class ImagePipeline: @unchecked Sendable {
     /// Returns the shared image pipeline.
-    public static var shared: ImagePipeline {
+    internal static var shared: ImagePipeline {
         get { _shared.value }
         set { _shared.value = newValue }
     }
@@ -24,10 +24,10 @@ public final class ImagePipeline: @unchecked Sendable {
     private static let _shared = Atomic(value: ImagePipeline(configuration: .withURLCache))
 
     /// The pipeline configuration.
-    public let configuration: Configuration
+    internal let configuration: Configuration
 
     /// Provides access to the underlying caching subsystems.
-    public var cache: ImagePipeline.Cache { .init(pipeline: self) }
+    internal var cache: ImagePipeline.Cache { .init(pipeline: self) }
 
     let delegate: any ImagePipelineDelegate
 
@@ -67,7 +67,7 @@ public final class ImagePipeline: @unchecked Sendable {
     /// - parameters:
     ///   - configuration: The pipeline configuration.
     ///   - delegate: Provides more ways to customize the pipeline behavior on per-request basis.
-    public init(configuration: Configuration = Configuration(), delegate: (any ImagePipelineDelegate)? = nil) {
+    internal init(configuration: Configuration = Configuration(), delegate: (any ImagePipelineDelegate)? = nil) {
         self.configuration = configuration
         self.rateLimiter = configuration.isRateLimiterEnabled ? RateLimiter(queue: queue) : nil
         self.delegate = delegate ?? ImagePipelineDefaultDelegate()
@@ -99,7 +99,7 @@ public final class ImagePipeline: @unchecked Sendable {
     /// - parameters:
     ///   - configuration: The pipeline configuration.
     ///   - delegate: Provides more ways to customize the pipeline behavior on per-request basis.
-    public convenience init(delegate: (any ImagePipelineDelegate)? = nil, _ configure: (inout ImagePipeline.Configuration) -> Void) {
+    internal convenience init(delegate: (any ImagePipelineDelegate)? = nil, _ configure: (inout ImagePipeline.Configuration) -> Void) {
         var configuration = ImagePipeline.Configuration()
         configure(&configuration)
         self.init(configuration: configuration, delegate: delegate)
@@ -107,7 +107,7 @@ public final class ImagePipeline: @unchecked Sendable {
 
     /// Invalidates the pipeline and cancels all outstanding tasks. Any new
     /// requests will immediately fail with ``ImagePipeline/Error/pipelineInvalidated`` error.
-    public func invalidate() {
+    internal func invalidate() {
         queue.async {
             guard !self.isInvalidated else { return }
             self.isInvalidated = true
@@ -120,24 +120,24 @@ public final class ImagePipeline: @unchecked Sendable {
     /// Creates a task with the given URL.
     ///
     /// The task starts executing the moment it is created.
-    public func imageTask(with url: URL) -> ImageTask {
+    internal func imageTask(with url: URL) -> ImageTask {
         imageTask(with: ImageRequest(url: url))
     }
 
     /// Creates a task with the given request.
     ///
     /// The task starts executing the moment it is created.
-    public func imageTask(with request: ImageRequest) -> ImageTask {
+    internal func imageTask(with request: ImageRequest) -> ImageTask {
         makeStartedImageTask(with: request)
     }
 
     /// Returns an image for the given URL.
-    public func image(for url: URL) async throws -> PlatformImage {
+    internal func image(for url: URL) async throws -> PlatformImage {
         try await image(for: ImageRequest(url: url))
     }
 
     /// Returns an image for the given request.
-    public func image(for request: ImageRequest) async throws -> PlatformImage {
+    internal func image(for request: ImageRequest) async throws -> PlatformImage {
         try await imageTask(with: request).image
     }
 
@@ -146,7 +146,7 @@ public final class ImagePipeline: @unchecked Sendable {
     /// Returns image data for the given request.
     ///
     /// - parameter request: An image request.
-    public func data(for request: ImageRequest) async throws -> (Data, URLResponse?) {
+    internal func data(for request: ImageRequest) async throws -> (Data, URLResponse?) {
         let task = makeStartedImageTask(with: request, isDataTask: true)
         let response = try await task.response
         return (response.container.data ?? Data(), response.urlResponse)
@@ -160,7 +160,7 @@ public final class ImagePipeline: @unchecked Sendable {
     ///   - request: An image request.
     ///   - completion: A closure to be called on the main thread when the request
     ///   is finished.
-    @discardableResult public func loadImage(
+    @discardableResult internal func loadImage(
         with url: URL,
         completion: @escaping (_ result: Result<ImageResponse, Error>) -> Void
     ) -> ImageTask {
@@ -173,7 +173,7 @@ public final class ImagePipeline: @unchecked Sendable {
     ///   - request: An image request.
     ///   - completion: A closure to be called on the main thread when the request
     ///   is finished.
-    @discardableResult public func loadImage(
+    @discardableResult internal func loadImage(
         with request: ImageRequest,
         completion: @escaping (_ result: Result<ImageResponse, Error>) -> Void
     ) -> ImageTask {
@@ -188,7 +188,7 @@ public final class ImagePipeline: @unchecked Sendable {
     ///   the progress is updated.
     ///   - completion: A closure to be called on the main thread when the request
     ///   is finished.
-    @discardableResult public func loadImage(
+    @discardableResult internal func loadImage(
         with request: ImageRequest,
         queue: DispatchQueue? = nil,
         progress: ((_ response: ImageResponse?, _ completed: Int64, _ total: Int64) -> Void)?,
@@ -239,7 +239,7 @@ public final class ImagePipeline: @unchecked Sendable {
 
     /// Loads image data for the given request. The data doesn't get decoded
     /// or processed in any other way.
-    @discardableResult public func loadData(with request: ImageRequest, completion: @escaping (Result<(data: Data, response: URLResponse?), Error>) -> Void) -> ImageTask {
+    @discardableResult internal func loadData(with request: ImageRequest, completion: @escaping (Result<(data: Data, response: URLResponse?), Error>) -> Void) -> ImageTask {
         _loadData(with: request, queue: nil, progress: nil, completion: completion)
     }
 
@@ -273,7 +273,7 @@ public final class ImagePipeline: @unchecked Sendable {
     ///   callbacks. By default, the pipeline uses `.main` queue.
     ///   - progress: A closure to be called periodically on the main thread when the progress is updated.
     ///   - completion: A closure to be called on the main thread when the request is finished.
-    @discardableResult public func loadData(
+    @discardableResult internal func loadData(
         with request: ImageRequest,
         queue: DispatchQueue? = nil,
         progress progressHandler: ((_ completed: Int64, _ total: Int64) -> Void)?,
@@ -293,12 +293,12 @@ public final class ImagePipeline: @unchecked Sendable {
     // MARK: - Loading Images (Combine)
 
     /// Returns a publisher which starts a new ``ImageTask`` when a subscriber is added.
-    public func imagePublisher(with url: URL) -> AnyPublisher<ImageResponse, Error> {
+    internal func imagePublisher(with url: URL) -> AnyPublisher<ImageResponse, Error> {
         imagePublisher(with: ImageRequest(url: url))
     }
 
     /// Returns a publisher which starts a new ``ImageTask`` when a subscriber is added.
-    public func imagePublisher(with request: ImageRequest) -> AnyPublisher<ImageResponse, Error> {
+    internal func imagePublisher(with request: ImageRequest) -> AnyPublisher<ImageResponse, Error> {
         ImagePublisher(request: request, pipeline: self).eraseToAnyPublisher()
     }
 
@@ -427,13 +427,13 @@ public final class ImagePipeline: @unchecked Sendable {
 
     // Deprecated in Nuke 12.7
     @available(*, deprecated, message: "Please the variant variant that accepts `ImageRequest` as a parameter")
-    @discardableResult public func loadData(with url: URL, completion: @escaping (Result<(data: Data, response: URLResponse?), Error>) -> Void) -> ImageTask {
+    @discardableResult internal func loadData(with url: URL, completion: @escaping (Result<(data: Data, response: URLResponse?), Error>) -> Void) -> ImageTask {
         loadData(with: ImageRequest(url: url), queue: nil, progress: nil, completion: completion)
     }
 
     // Deprecated in Nuke 12.7
     @available(*, deprecated, message: "Please the variant that accepts `ImageRequest` as a parameter")
-    @discardableResult public func data(for url: URL) async throws -> (Data, URLResponse?) {
+    @discardableResult internal func data(for url: URL) async throws -> (Data, URLResponse?) {
         try await data(for: ImageRequest(url: url))
     }
 }

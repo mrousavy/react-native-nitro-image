@@ -10,7 +10,7 @@ extension ImagePipeline {
     ///
     /// - important: This class doesn't work with a `URLCache`. For more info,
     /// see <doc:caching>.
-    public struct Cache: Sendable {
+    internal struct Cache: Sendable {
         let pipeline: ImagePipeline
         private var configuration: ImagePipeline.Configuration { pipeline.configuration }
     }
@@ -20,13 +20,13 @@ extension ImagePipeline.Cache {
     // MARK: Subscript (Memory Cache)
 
     /// Returns an image from the memory cache for the given URL.
-    public subscript(url: URL) -> ImageContainer? {
+    internal subscript(url: URL) -> ImageContainer? {
         get { self[ImageRequest(url: url)] }
         nonmutating set { self[ImageRequest(url: url)] = newValue }
     }
 
     /// Returns an image from the memory cache for the given request.
-    public subscript(request: ImageRequest) -> ImageContainer? {
+    internal subscript(request: ImageRequest) -> ImageContainer? {
         get {
             cachedImageFromMemoryCache(for: request)
         }
@@ -49,7 +49,7 @@ extension ImagePipeline.Cache {
     ///   - request: The request. Make sure to remove the processors if you want
     ///   to retrieve an original image (if it's stored).
     ///   - caches: `[.all]`, by default.
-    public func cachedImage(for request: ImageRequest, caches: Caches = [.all]) -> ImageContainer? {
+    internal func cachedImage(for request: ImageRequest, caches: Caches = [.all]) -> ImageContainer? {
         if caches.contains(.memory) {
             if let image = cachedImageFromMemoryCache(for: request) {
                 return image
@@ -78,7 +78,7 @@ extension ImagePipeline.Cache {
     ///   - request: The request. Make sure to remove the processors if you want
     ///   to retrieve an original image (if it's stored).
     ///   - caches: `[.all]`, by default.
-    public func storeCachedImage(_ image: ImageContainer, for request: ImageRequest, caches: Caches = [.all]) {
+    internal func storeCachedImage(_ image: ImageContainer, for request: ImageRequest, caches: Caches = [.all]) {
         if caches.contains(.memory) {
             storeCachedImageInMemoryCache(image, for: request)
         }
@@ -90,7 +90,7 @@ extension ImagePipeline.Cache {
     }
 
     /// Removes the image from all caches.
-    public func removeCachedImage(for request: ImageRequest, caches: Caches = [.all]) {
+    internal func removeCachedImage(for request: ImageRequest, caches: Caches = [.all]) {
         if caches.contains(.memory) {
             removeCachedImageFromMemoryCache(for: request)
         }
@@ -100,7 +100,7 @@ extension ImagePipeline.Cache {
     }
 
     /// Returns `true` if any of the caches contain the image.
-    public func containsCachedImage(for request: ImageRequest, caches: Caches = [.all]) -> Bool {
+    internal func containsCachedImage(for request: ImageRequest, caches: Caches = [.all]) -> Bool {
         if caches.contains(.memory) && cachedImageFromMemoryCache(for: request) != nil {
             return true
         }
@@ -144,7 +144,7 @@ extension ImagePipeline.Cache {
     // MARK: Cached Data
 
     /// Returns cached data for the given request.
-    public func cachedData(for request: ImageRequest) -> Data? {
+    internal func cachedData(for request: ImageRequest) -> Data? {
         guard !request.options.contains(.disableDiskCacheReads) else {
             return nil
         }
@@ -159,7 +159,7 @@ extension ImagePipeline.Cache {
     ///
     /// - note: Default ``DataCache`` stores data asynchronously, so it's safe
     /// to call this method even from the main thread.
-    public func storeCachedData(_ data: Data, for request: ImageRequest) {
+    internal func storeCachedData(_ data: Data, for request: ImageRequest) {
         guard let dataCache = dataCache(for: request),
               !request.options.contains(.disableDiskCacheWrites) else {
             return
@@ -169,7 +169,7 @@ extension ImagePipeline.Cache {
     }
 
     /// Returns true if the data cache contains data for the given image
-    public func containsData(for request: ImageRequest) -> Bool {
+    internal func containsData(for request: ImageRequest) -> Bool {
         guard let dataCache = dataCache(for: request) else {
             return false
         }
@@ -177,7 +177,7 @@ extension ImagePipeline.Cache {
     }
 
     /// Removes cached data for the given request.
-    public func removeCachedData(for request: ImageRequest) {
+    internal func removeCachedData(for request: ImageRequest) {
         guard let dataCache = dataCache(for: request) else {
             return
         }
@@ -188,7 +188,7 @@ extension ImagePipeline.Cache {
     // MARK: Keys
 
     /// Returns image cache (memory cache) key for the given request.
-    public func makeImageCacheKey(for request: ImageRequest) -> ImageCacheKey {
+    internal func makeImageCacheKey(for request: ImageRequest) -> ImageCacheKey {
         if let customKey = pipeline.delegate.cacheKey(for: request, pipeline: pipeline) {
             return ImageCacheKey(key: customKey)
         }
@@ -196,7 +196,7 @@ extension ImagePipeline.Cache {
     }
 
     /// Returns data cache (disk cache) key for the given request.
-    public func makeDataCacheKey(for request: ImageRequest) -> String {
+    internal func makeDataCacheKey(for request: ImageRequest) -> String {
         if let customKey = pipeline.delegate.cacheKey(for: request, pipeline: pipeline) {
             return customKey
         }
@@ -210,7 +210,7 @@ extension ImagePipeline.Cache {
     /// - important: It clears only caches set in the pipeline configuration. If
     /// you implement ``ImagePipelineDelegate`` that uses different caches for
     /// different requests, this won't remove images from them.
-    public func removeAll(caches: Caches = [.all]) {
+    internal func removeAll(caches: Caches = [.all]) {
         if caches.contains(.memory) {
             configuration.imageCache?.removeAll()
         }
@@ -246,15 +246,15 @@ extension ImagePipeline.Cache {
     // MARK: Options
 
     /// Describes a set of cache layers to use.
-    public struct Caches: OptionSet {
-        public let rawValue: Int
-        public init(rawValue: Int) {
+    internal struct Caches: OptionSet {
+        internal let rawValue: Int
+        internal init(rawValue: Int) {
             self.rawValue = rawValue
         }
 
-        public static let memory = Caches(rawValue: 1 << 0)
-        public static let disk = Caches(rawValue: 1 << 1)
-        public static let all: Caches = [.memory, .disk]
+        internal static let memory = Caches(rawValue: 1 << 0)
+        internal static let disk = Caches(rawValue: 1 << 1)
+        internal static let all: Caches = [.memory, .disk]
     }
 }
 

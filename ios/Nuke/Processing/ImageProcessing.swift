@@ -27,7 +27,7 @@ import AppKit
 /// ```
 ///
 /// You must implement either one of those methods.
-public protocol ImageProcessing: Sendable {
+internal protocol ImageProcessing: Sendable {
     /// Returns a processed image. By default, returns `nil`.
     ///
     /// - note: Gets called a background queue managed by the pipeline.
@@ -59,7 +59,7 @@ public protocol ImageProcessing: Sendable {
 extension ImageProcessing {
     /// The default implementation simply calls the basic
     /// `process(_ image: PlatformImage) -> PlatformImage?` method.
-    public func process(_ container: ImageContainer, context: ImageProcessingContext) throws -> ImageContainer {
+    internal func process(_ container: ImageContainer, context: ImageProcessingContext) throws -> ImageContainer {
         guard let output = process(container.image) else {
             throw ImageProcessingError.unknown
         }
@@ -69,30 +69,30 @@ extension ImageProcessing {
     }
 
     /// The default impleemntation simply returns `var identifier: String`.
-    public var hashableIdentifier: AnyHashable { identifier }
+    internal var hashableIdentifier: AnyHashable { identifier }
 }
 
 extension ImageProcessing where Self: Hashable {
-    public var hashableIdentifier: AnyHashable { self }
+    internal var hashableIdentifier: AnyHashable { self }
 }
 
 /// Image processing context used when selecting which processor to use.
-public struct ImageProcessingContext: Sendable {
-    public var request: ImageRequest
-    public var response: ImageResponse
-    public var isCompleted: Bool
+internal struct ImageProcessingContext: Sendable {
+    internal var request: ImageRequest
+    internal var response: ImageResponse
+    internal var isCompleted: Bool
 
-    public init(request: ImageRequest, response: ImageResponse, isCompleted: Bool) {
+    internal init(request: ImageRequest, response: ImageResponse, isCompleted: Bool) {
         self.request = request
         self.response = response
         self.isCompleted = isCompleted
     }
 }
 
-public enum ImageProcessingError: Error, CustomStringConvertible, Sendable {
+internal enum ImageProcessingError: Error, CustomStringConvertible, Sendable {
     case unknown
 
-    public var description: String { "Unknown" }
+    internal var description: String { "Unknown" }
 }
 
 func == (lhs: [any ImageProcessing], rhs: [any ImageProcessing]) -> Bool {

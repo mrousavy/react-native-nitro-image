@@ -30,11 +30,11 @@ import Foundation
 ///
 /// - important: It's possible to have more than one instance of ``DataCache`` with
 /// the same path but it is not recommended.
-public final class DataCache: DataCaching, @unchecked Sendable {
+internal final class DataCache: DataCaching, @unchecked Sendable {
     /// Size limit in bytes. `150 Mb` by default.
     ///
     /// Changes to the size limit will take effect when the next LRU sweep is run.
-    public var sizeLimit: Int = 1024 * 1024 * 150
+    internal var sizeLimit: Int = 1024 * 1024 * 150
 
     /// When performing a sweep, the cache will remote entries until the size of
     /// the remaining items is lower than or equal to `sizeLimit * trimRatio` and
@@ -43,14 +43,14 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     var trimRatio = 0.7
 
     /// The path for the directory managed by the cache.
-    public let path: URL
+    internal let path: URL
 
     /// The time interval between cache sweeps. The default value is 1 hour.
-    public var sweepInterval: TimeInterval = 3600
+    internal var sweepInterval: TimeInterval = 3600
 
     // Deprecated in Nuke 12.2
     @available(*, deprecated, message: "It's not recommended to use compression with the popular image formats that already compress the data")
-    public var isCompressionEnabled: Bool {
+    internal var isCompressionEnabled: Bool {
         get { _isCompressionEnabled }
         set { _isCompressionEnabled = newValue }
     }
@@ -70,7 +70,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     }
 
     /// A queue which is used for disk I/O.
-    public let queue = DispatchQueue(label: "com.github.kean.Nuke.DataCache.WriteQueue", qos: .utility)
+    internal let queue = DispatchQueue(label: "com.github.kean.Nuke.DataCache.WriteQueue", qos: .utility)
 
     /// A function which generates a filename for the given key. A good candidate
     /// for a filename generator is a _cryptographic_ hash function like SHA1.
@@ -78,7 +78,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     /// The reason why filename needs to be generated in the first place is
     /// that filesystems have a size limit for filenames (e.g. 255 UTF-8 characters
     /// in AFPS) and do not allow certain characters to be used in filenames.
-    public typealias FilenameGenerator = (_ key: String) -> String?
+    internal typealias FilenameGenerator = (_ key: String) -> String?
 
     private let filenameGenerator: FilenameGenerator
 
@@ -86,7 +86,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     /// with the given `name` in a `.cachesDirectory` in `.userDomainMask`.
     /// - parameter filenameGenerator: Generates a filename for the given URL.
     /// The default implementation generates a filename using SHA1 hash function.
-    public convenience init(name: String, filenameGenerator: @escaping (String) -> String? = DataCache.filename(for:)) throws {
+    internal convenience init(name: String, filenameGenerator: @escaping (String) -> String? = DataCache.filename(for:)) throws {
         // This should be replaced with URL.cachesDirectory on iOS 16, which never fails
         guard let root = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             throw NSError(domain: NSCocoaErrorDomain, code: NSFileNoSuchFileError, userInfo: nil)
@@ -97,7 +97,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     /// Creates a cache instance with a given path.
     /// - parameter filenameGenerator: Generates a filename for the given URL.
     /// The default implementation generates a filename using SHA1 hash function.
-    public init(path: URL, filenameGenerator: @escaping (String) -> String? = DataCache.filename(for:)) throws {
+    internal init(path: URL, filenameGenerator: @escaping (String) -> String? = DataCache.filename(for:)) throws {
         self.path = path
         self.filenameGenerator = filenameGenerator
         try self.didInit()
@@ -105,7 +105,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
 
     /// A `FilenameGenerator` implementation which uses SHA1 hash function to
     /// generate a filename from the given key.
-    public static func filename(for key: String) -> String? {
+    internal static func filename(for key: String) -> String? {
         key.isEmpty ? nil : key.sha1
     }
 
@@ -131,7 +131,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     // MARK: DataCaching
 
     /// Retrieves data for the given key.
-    public func cachedData(for key: String) -> Data? {
+    internal func cachedData(for key: String) -> Data? {
         if let change = change(for: key) {
             switch change { // Change wasn't flushed to disk yet
             case let .add(data):
@@ -147,7 +147,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     }
 
     /// Returns `true` if the cache contains the data for the given key.
-    public func containsData(for key: String) -> Bool {
+    internal func containsData(for key: String) -> Bool {
         if let change = change(for: key) {
             switch change { // Change wasn't flushed to disk yet
             case .add:
@@ -170,19 +170,19 @@ public final class DataCache: DataCaching, @unchecked Sendable {
 
     /// Stores data for the given key. The method returns instantly and the data
     /// is written asynchronously.
-    public func storeData(_ data: Data, for key: String) {
+    internal func storeData(_ data: Data, for key: String) {
         stage { staging.add(data: data, for: key) }
     }
 
     /// Removes data for the given key. The method returns instantly, the data
     /// is removed asynchronously.
-    public func removeData(for key: String) {
+    internal func removeData(for key: String) {
         stage { staging.removeData(for: key) }
     }
 
     /// Removes all items. The method returns instantly, the data is removed
     /// asynchronously.
-    public func removeAll() {
+    internal func removeAll() {
         stage { staging.removeAllStagedChanges() }
     }
 
@@ -215,7 +215,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     /// // Data is nil
     /// let data = cache[key]
     /// ```
-    public subscript(key: String) -> Data? {
+    internal subscript(key: String) -> Data? {
         get {
             cachedData(for: key)
         }
@@ -232,12 +232,12 @@ public final class DataCache: DataCaching, @unchecked Sendable {
 
     /// Uses the the filename generator that the cache was initialized with to
     /// generate and return a filename for the given key.
-    public func filename(for key: String) -> String? {
+    internal func filename(for key: String) -> String? {
         filenameGenerator(key)
     }
 
     /// Returns `url` for the given cache key.
-    public func url(for key: String) -> URL? {
+    internal func url(for key: String) -> URL? {
         guard let filename = self.filename(for: key) else { return nil }
         return self.path.appendingPathComponent(filename, isDirectory: false)
     }
@@ -246,13 +246,13 @@ public final class DataCache: DataCaching, @unchecked Sendable {
 
     /// Synchronously waits on the caller's thread until all outstanding disk I/O
     /// operations are finished.
-    public func flush() {
+    internal func flush() {
         queue.sync { self.flushChangesIfNeeded() }
     }
 
     /// Synchronously waits on the caller's thread until all outstanding disk I/O
     /// operations for the given key are finished.
-    public func flush(for key: String) {
+    internal func flush(for key: String) {
         queue.sync {
             guard let change = lock.withLock({ staging.changes[key] }) else { return }
             perform(change)
@@ -353,7 +353,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
 
     /// Synchronously performs a cache sweep and removes the least recently items
     /// which no longer fit in cache.
-    public func sweep() {
+    internal func sweep() {
         queue.sync { self.performSweep() }
     }
 
@@ -429,7 +429,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     /// The total number of items in the cache.
     ///
     /// - important: Requires disk IO, avoid using from the main thread.
-    public var totalCount: Int {
+    internal var totalCount: Int {
         contents().count
     }
 
@@ -440,7 +440,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     /// actually be bigger.
     ///
     /// - important: Requires disk IO, avoid using from the main thread.
-    public var totalSize: Int {
+    internal var totalSize: Int {
         contents(keys: [.fileSizeKey]).reduce(0) {
             $0 + ($1.meta.fileSize ?? 0)
         }
@@ -451,7 +451,7 @@ public final class DataCache: DataCaching, @unchecked Sendable {
     /// Uses `URLResourceKey.totalFileAllocatedSizeKey`.
     ///
     /// - important: Requires disk IO, avoid using from the main thread.
-    public var totalAllocatedSize: Int {
+    internal var totalAllocatedSize: Int {
         contents(keys: [.totalFileAllocatedSizeKey]).reduce(0) {
             $0 + ($1.meta.totalFileAllocatedSize ?? 0)
         }

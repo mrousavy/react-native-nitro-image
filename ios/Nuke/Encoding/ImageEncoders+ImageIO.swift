@@ -18,14 +18,14 @@ extension ImageEncoders {
     /// Image I/O is a system framework that allows applications to read and
     /// write most image file formats. This framework offers high efficiency,
     /// color management, and access to image metadata.
-    public struct ImageIO: ImageEncoding {
-        public let type: AssetType
-        public let compressionRatio: Float
+    internal struct ImageIO: ImageEncoding {
+        internal let type: AssetType
+        internal let compressionRatio: Float
 
         /// - parameter format: The output format. Make sure that the format is
         /// supported on the current hardware.s
         /// - parameter compressionRatio: 0.8 by default.
-        public init(type: AssetType, compressionRatio: Float = 0.8) {
+        internal init(type: AssetType, compressionRatio: Float = 0.8) {
             self.type = type
             self.compressionRatio = compressionRatio
         }
@@ -35,7 +35,7 @@ extension ImageEncoders {
         /// Returns `true` if the encoding is available for the given format on
         /// the current hardware. Some of the most recent formats might not be
         /// available so its best to check before using them.
-        public static func isSupported(type: AssetType) -> Bool {
+        internal static func isSupported(type: AssetType) -> Bool {
             if let isAvailable = availability.value[type] {
                 return isAvailable
             }
@@ -46,7 +46,7 @@ extension ImageEncoders {
             return isAvailable
         }
 
-        public func encode(_ image: PlatformImage) -> Data? {
+        internal func encode(_ image: PlatformImage) -> Data? {
             guard let source = image.cgImage,
                 let data = CFDataCreateMutable(nil, 0),
                   let destination = CGImageDestinationCreateWithData(data, type.rawValue as CFString, 1, nil) else {

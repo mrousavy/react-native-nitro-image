@@ -5,13 +5,13 @@
 import Foundation
 
 /// Provides basic networking using `URLSession`.
-public final class DataLoader: DataLoading, @unchecked Sendable {
-    public let session: URLSession
+final class DataLoader: DataLoading, @unchecked Sendable {
+    internal let session: URLSession
     private let impl: _DataLoader
 
     /// Determines whether to deliver a partial response body in increments. By
     /// default, `false`.
-    public var prefersIncrementalDelivery = false
+    internal var prefersIncrementalDelivery = false
 
     /// The delegate that gets called for the callbacks handled by the data loader.
     /// You can use it for observing the session events and modifying some of the
@@ -25,7 +25,7 @@ public final class DataLoader: DataLoading, @unchecked Sendable {
     /// ```
     ///
     /// - note: The delegate is retained.
-    public var delegate: URLSessionDelegate? {
+    internal var delegate: URLSessionDelegate? {
         didSet { impl.delegate = delegate }
     }
 
@@ -40,7 +40,7 @@ public final class DataLoader: DataLoading, @unchecked Sendable {
     ///   0 MB memory capacity and 150 MB disk capacity by default.
     ///   - validate: Validates the response. By default, check if the status
     ///   code is in the acceptable range (`200..<300`).
-    public init(configuration: URLSessionConfiguration = DataLoader.defaultConfiguration,
+    internal init(configuration: URLSessionConfiguration = DataLoader.defaultConfiguration,
                 validate: @Sendable @escaping (URLResponse) -> Swift.Error? = DataLoader.validate) {
         self.impl = _DataLoader(validate: validate)
         let queue = OperationQueue()
@@ -51,7 +51,7 @@ public final class DataLoader: DataLoading, @unchecked Sendable {
 
     /// Returns a default configuration which has a `sharedUrlCache` set
     /// as a `urlCache`.
-    public static var defaultConfiguration: URLSessionConfiguration {
+    internal static var defaultConfiguration: URLSessionConfiguration {
         let conf = URLSessionConfiguration.default
         conf.urlCache = DataLoader.sharedUrlCache
         return conf
@@ -59,7 +59,7 @@ public final class DataLoader: DataLoading, @unchecked Sendable {
 
     /// Validates `HTTP` responses by checking that the status code is 2xx. If
     /// it's not returns ``DataLoader/Error/statusCodeUnacceptable(_:)``.
-    @Sendable public static func validate(response: URLResponse) -> Swift.Error? {
+    @Sendable internal static func validate(response: URLResponse) -> Swift.Error? {
         guard let response = response as? HTTPURLResponse else {
             return nil
         }
@@ -81,7 +81,7 @@ public final class DataLoader: DataLoading, @unchecked Sendable {
 
     /// Shared url cached used by a default ``DataLoader``. The cache is
     /// initialized with 0 MB memory capacity and 150 MB disk capacity.
-    public static let sharedUrlCache: URLCache = {
+    internal static let sharedUrlCache: URLCache = {
         let diskCapacity = 150 * 1048576 // 150 MB
 #if targetEnvironment(macCatalyst)
         return URLCache(memoryCapacity: 0, diskCapacity: diskCapacity, directory: URL(fileURLWithPath: cachePath))
@@ -90,7 +90,7 @@ public final class DataLoader: DataLoading, @unchecked Sendable {
 #endif
     }()
 
-    public func loadData(with request: URLRequest,
+    internal func loadData(with request: URLRequest,
                          didReceiveData: @escaping (Data, URLResponse) -> Void,
                          completion: @escaping (Swift.Error?) -> Void) -> any Cancellable {
         let task = session.dataTask(with: request)
@@ -101,11 +101,11 @@ public final class DataLoader: DataLoading, @unchecked Sendable {
     }
 
     /// Errors produced by ``DataLoader``.
-    public enum Error: Swift.Error, CustomStringConvertible {
+    internal enum Error: Swift.Error, CustomStringConvertible {
         /// Validation failed.
         case statusCodeUnacceptable(Int)
 
-        public var description: String {
+        internal var description: String {
             switch self {
             case let .statusCodeUnacceptable(code):
                 return "Response status code was unacceptable: \(code.description)"

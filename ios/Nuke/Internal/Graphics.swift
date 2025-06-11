@@ -367,7 +367,7 @@ extension Color {
 /// - parameter data: Data object from which to read the image.
 /// - parameter options: Image loading options.
 /// - parameter scale: The scale factor to assume when interpreting the image data, defaults to 1.
-func makeThumbnail(data: Data, options: ImageRequest.ThumbnailOptions, scale: CGFloat = 1.0) -> PlatformImage? {
+internal func makeThumbnail(data: Data, options: ImageRequest.ThumbnailOptions, scale: CGFloat = 1.0) -> PlatformImage? {
     guard let source = CGImageSourceCreateWithData(data as CFData, [kCGImageSourceShouldCache: false] as CFDictionary) else {
         return nil
     }

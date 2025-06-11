@@ -10,7 +10,7 @@ import Foundation
 ///
 /// - note: If you need additional information in the decoder, you can pass
 /// anything that you might need from the ``ImageDecodingContext``.
-public protocol ImageDecoding: Sendable {
+internal protocol ImageDecoding: Sendable {
     /// Return `true` if you want the decoding to be performed on the decoding
     /// queue (see ``ImagePipeline/Configuration-swift.struct/imageDecodingQueue``). If `false`, the decoding will be
     /// performed synchronously on the pipeline operation queue. By default, `true`.
@@ -29,17 +29,17 @@ public protocol ImageDecoding: Sendable {
 
 extension ImageDecoding {
     /// Returns `true` by default.
-    public var isAsynchronous: Bool { true }
+    internal var isAsynchronous: Bool { true }
 
     /// The default implementation which simply returns `nil` (no progressive
     /// decoding available).
-    public func decodePartiallyDownloadedData(_ data: Data) -> ImageContainer? { nil }
+    internal func decodePartiallyDownloadedData(_ data: Data) -> ImageContainer? { nil }
 }
 
-public enum ImageDecodingError: Error, CustomStringConvertible, Sendable {
+internal enum ImageDecodingError: Error, CustomStringConvertible, Sendable {
     case unknown
 
-    public var description: String { "Unknown" }
+    internal var description: String { "Unknown" }
 }
 
 extension ImageDecoding {

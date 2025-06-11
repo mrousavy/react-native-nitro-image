@@ -13,7 +13,7 @@ import AppKit
 
 extension ImageProcessors {
     /// Scales an image to a specified size.
-    public struct Resize: ImageProcessing, Hashable, CustomStringConvertible {
+    internal struct Resize: ImageProcessing, Hashable, CustomStringConvertible {
         private let size: ImageTargetSize
         private let contentMode: ImageProcessingOptions.ContentMode
         private let crop: Bool
@@ -21,7 +21,7 @@ extension ImageProcessors {
 
         // Deprecated in Nuke 12.0
         @available(*, deprecated, message: "Renamed to `ImageProcessingOptions.ContentMode")
-        public typealias ContentMode = ImageProcessingOptions.ContentMode
+        internal typealias ContentMode = ImageProcessingOptions.ContentMode
 
         /// Initializes the processor with the given size.
         ///
@@ -32,7 +32,7 @@ extension ImageProcessors {
         ///   - crop: If `true` will crop the image to match the target size.
         ///   Does nothing with content mode .aspectFill.
         ///  - upscale: By default, upscaling is not allowed.
-        public init(size: CGSize, unit: ImageProcessingOptions.Unit = .points, contentMode: ImageProcessingOptions.ContentMode = .aspectFill, crop: Bool = false, upscale: Bool = false) {
+        internal init(size: CGSize, unit: ImageProcessingOptions.Unit = .points, contentMode: ImageProcessingOptions.ContentMode = .aspectFill, crop: Bool = false, upscale: Bool = false) {
             self.size = ImageTargetSize(size: size, unit: unit)
             self.contentMode = contentMode
             self.crop = crop
@@ -45,7 +45,7 @@ extension ImageProcessors {
         ///   - width: The target width.
         ///   - unit: Unit of the target size.
         ///   - upscale: `false` by default.
-        public init(width: CGFloat, unit: ImageProcessingOptions.Unit = .points, upscale: Bool = false) {
+        internal init(width: CGFloat, unit: ImageProcessingOptions.Unit = .points, upscale: Bool = false) {
             self.init(size: CGSize(width: width, height: 9999), unit: unit, contentMode: .aspectFit, crop: false, upscale: upscale)
         }
 
@@ -55,28 +55,28 @@ extension ImageProcessors {
         ///   - height: The target height.
         ///   - unit: Unit of the target size.
         ///   - upscale: By default, upscaling is not allowed.
-        public init(height: CGFloat, unit: ImageProcessingOptions.Unit = .points, upscale: Bool = false) {
+        internal init(height: CGFloat, unit: ImageProcessingOptions.Unit = .points, upscale: Bool = false) {
             self.init(size: CGSize(width: 9999, height: height), unit: unit, contentMode: .aspectFit, crop: false, upscale: upscale)
         }
 
-        public func process(_ image: PlatformImage) -> PlatformImage? {
+        internal func process(_ image: PlatformImage) -> PlatformImage? {
             if crop && contentMode == .aspectFill {
                 return image.processed.byResizingAndCropping(to: size.cgSize)
             }
             return image.processed.byResizing(to: size.cgSize, contentMode: contentMode, upscale: upscale)
         }
 
-        public var identifier: String {
+        internal var identifier: String {
             "com.github.kean/nuke/resize?s=\(size.cgSize),cm=\(contentMode),crop=\(crop),upscale=\(upscale)"
         }
 
-        public var description: String {
+        internal var description: String {
             "Resize(size: \(size.cgSize) pixels, contentMode: \(contentMode), crop: \(crop), upscale: \(upscale))"
         }
     }
 }
 
-// Adds Hashable without making changes to public CGSize API
+// Adds Hashable without making changes to internal CGSize API
 struct ImageTargetSize: Hashable {
     let cgSize: CGSize
 

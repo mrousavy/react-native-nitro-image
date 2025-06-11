@@ -13,18 +13,18 @@ import AppKit
 extension ImageEncoders {
     /// A default adaptive encoder which uses best encoder available depending
     /// on the input image and its configuration.
-    public struct Default: ImageEncoding {
-        public var compressionQuality: Float
+    internal struct Default: ImageEncoding {
+        internal var compressionQuality: Float
 
         /// Set to `true` to switch to HEIF when it is available on the current hardware.
         /// `false` by default.
-        public var isHEIFPreferred = false
+        internal var isHEIFPreferred = false
 
-        public init(compressionQuality: Float = 0.8) {
+        internal init(compressionQuality: Float = 0.8) {
             self.compressionQuality = compressionQuality
         }
 
-        public func encode(_ image: PlatformImage) -> Data? {
+        internal func encode(_ image: PlatformImage) -> Data? {
             guard let cgImage = image.cgImage else {
                 return nil
             }

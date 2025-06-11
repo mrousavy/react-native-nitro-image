@@ -12,20 +12,20 @@ import AppKit
 
 extension ImageProcessors {
     /// Processed an image using a specified closure.
-    public struct Anonymous: ImageProcessing, CustomStringConvertible {
-        public let identifier: String
+    internal struct Anonymous: ImageProcessing, CustomStringConvertible {
+        internal let identifier: String
         private let closure: @Sendable (PlatformImage) -> PlatformImage?
 
-        public init(id: String, _ closure: @Sendable @escaping (PlatformImage) -> PlatformImage?) {
+        internal init(id: String, _ closure: @Sendable @escaping (PlatformImage) -> PlatformImage?) {
             self.identifier = id
             self.closure = closure
         }
 
-        public func process(_ image: PlatformImage) -> PlatformImage? {
+        internal func process(_ image: PlatformImage) -> PlatformImage? {
             closure(image)
         }
 
-        public var description: String {
+        internal var description: String {
             "AnonymousProcessor(identifier: \(identifier)"
         }
     }

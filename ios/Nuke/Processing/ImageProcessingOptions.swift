@@ -13,13 +13,13 @@ import AppKit
 #endif
 
 /// A namespace with shared image processing options.
-public enum ImageProcessingOptions: Sendable {
+internal enum ImageProcessingOptions: Sendable {
 
-    public enum Unit: CustomStringConvertible, Sendable {
+    internal enum Unit: CustomStringConvertible, Sendable {
         case points
         case pixels
 
-        public var description: String {
+        internal var description: String {
             switch self {
             case .points: return "points"
             case .pixels: return "pixels"
@@ -34,40 +34,40 @@ public enum ImageProcessingOptions: Sendable {
     /// views in which they get displayed. If you can't guarantee that, pleasee
     /// consider adding border to a view layer. This should be your primary
     /// option regardless.
-    public struct Border: Hashable, CustomStringConvertible, @unchecked Sendable {
-        public let width: CGFloat
+    internal struct Border: Hashable, CustomStringConvertible, @unchecked Sendable {
+        internal let width: CGFloat
 
 #if canImport(UIKit)
-        public let color: UIColor
+        internal let color: UIColor
 
         /// - parameters:
         ///   - color: Border color.
         ///   - width: Border width.
         ///   - unit: Unit of the width.
-        public init(color: UIColor, width: CGFloat = 1, unit: Unit = .points) {
+        internal init(color: UIColor, width: CGFloat = 1, unit: Unit = .points) {
             self.color = color
             self.width = width.converted(to: unit)
         }
 #else
-        public let color: NSColor
+        internal let color: NSColor
 
         /// - parameters:
         ///   - color: Border color.
         ///   - width: Border width.
         ///   - unit: Unit of the width.
-        public init(color: NSColor, width: CGFloat = 1, unit: Unit = .points) {
+        internal init(color: NSColor, width: CGFloat = 1, unit: Unit = .points) {
             self.color = color
             self.width = width.converted(to: unit)
         }
 #endif
 
-        public var description: String {
+        internal var description: String {
             "Border(color: \(color.hex), width: \(width) pixels)"
         }
     }
 
     /// An option for how to resize the image.
-    public enum ContentMode: CustomStringConvertible, Sendable {
+    internal enum ContentMode: CustomStringConvertible, Sendable {
         /// Scales the image so that it completely fills the target area.
         /// Maintains the aspect ratio of the original image.
         case aspectFill
@@ -76,7 +76,7 @@ public enum ImageProcessingOptions: Sendable {
         /// aspect ratio of the original image.
         case aspectFit
 
-        public var description: String {
+        internal var description: String {
             switch self {
             case .aspectFill: return ".aspectFill"
             case .aspectFit: return ".aspectFit"

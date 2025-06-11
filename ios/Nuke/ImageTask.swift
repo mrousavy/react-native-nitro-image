@@ -18,53 +18,53 @@ import AppKit
 /// The pipeline maintains a strong reference to the task until the request
 /// finishes or fails; you do not need to maintain a reference to the task unless
 /// it is useful for your app.
-public final class ImageTask: Hashable, CustomStringConvertible, @unchecked Sendable {
+internal final class ImageTask: Hashable, CustomStringConvertible, @unchecked Sendable {
     /// An identifier that uniquely identifies the task within a given pipeline.
     /// Unique only within that pipeline.
-    public let taskId: Int64
+    internal let taskId: Int64
 
     /// The original request that the task was created with.
-    public let request: ImageRequest
+    internal let request: ImageRequest
 
     /// The priority of the task. The priority can be updated dynamically even
     /// for a task that is already running.
-    public var priority: ImageRequest.Priority {
+    internal var priority: ImageRequest.Priority {
         get { withLock { $0.priority } }
         set { setPriority(newValue) }
     }
 
     /// Returns the current download progress. Returns zeros before the download
     /// is started and the expected size of the resource is known.
-    public var currentProgress: Progress {
+    internal var currentProgress: Progress {
         withLock { $0.progress }
     }
 
     /// The download progress.
-    public struct Progress: Hashable, Sendable {
+    internal struct Progress: Hashable, Sendable {
         /// The number of bytes that the task has received.
-        public let completed: Int64
+        internal let completed: Int64
         /// A best-guess upper bound on the number of bytes of the resource.
-        public let total: Int64
+        internal let total: Int64
 
         /// Returns the fraction of the completion.
-        public var fraction: Float {
+        internal var fraction: Float {
             guard total > 0 else { return 0 }
             return min(1, Float(completed) / Float(total))
         }
 
         /// Initializes progress with the given status.
-        public init(completed: Int64, total: Int64) {
+        internal init(completed: Int64, total: Int64) {
             (self.completed, self.total) = (completed, total)
         }
     }
 
     /// The current state of the task.
-    public var state: State {
+    internal var state: State {
         withLock { $0.state }
     }
 
     /// The state of the image task.
-    public enum State {
+    internal enum State {
         /// The task is currently running.
         case running
         /// The task has received a cancel message.
@@ -76,14 +76,14 @@ public final class ImageTask: Hashable, CustomStringConvertible, @unchecked Send
     // MARK: - Async/Await
 
     /// Returns the response image.
-    public var image: PlatformImage {
+    internal var image: PlatformImage {
         get async throws {
             try await response.image
         }
     }
 
     /// Returns the image response.
-    public var response: ImageResponse {
+    internal var response: ImageResponse {
         get async throws {
             try await withTaskCancellationHandler {
                 try await _task.value
@@ -94,7 +94,7 @@ public final class ImageTask: Hashable, CustomStringConvertible, @unchecked Send
     }
 
     /// The stream of progress updates.
-    public var progress: AsyncStream<Progress> {
+    internal var progress: AsyncStream<Progress> {
         makeStream {
             if case .progress(let value) = $0 { return value }
             return nil
@@ -105,7 +105,7 @@ public final class ImageTask: Hashable, CustomStringConvertible, @unchecked Send
     /// progressive decoding.
     ///
     /// - seealso: ``ImagePipeline/Configuration-swift.struct/isProgressiveDecodingEnabled``
-    public var previews: AsyncStream<ImageResponse> {
+    internal var previews: AsyncStream<ImageResponse> {
         makeStream {
             if case .preview(let value) = $0 { return value }
             return nil
@@ -115,10 +115,10 @@ public final class ImageTask: Hashable, CustomStringConvertible, @unchecked Send
     // MARK: - Events
 
     /// The events sent by the pipeline during the task execution.
-    public var events: AsyncStream<Event> { makeStream { $0 } }
+    internal var events: AsyncStream<Event> { makeStream { $0 } }
 
     /// An event produced during the runetime of the task.
-    public enum Event: Sendable {
+    internal enum Event: Sendable {
         /// The download progress was updated.
         case progress(Progress)
         /// The pipeline generated a progressive scan of the image.
@@ -167,7 +167,7 @@ public final class ImageTask: Hashable, CustomStringConvertible, @unchecked Send
     ///
     /// The pipeline will immediately cancel any work associated with a task
     /// unless there is an equivalent outstanding task running.
-    public func cancel() {
+    internal func cancel() {
         let didChange: Bool = withLock {
             guard $0.state == .running else { return false }
             $0.state = .cancelled
@@ -262,23 +262,23 @@ public final class ImageTask: Hashable, CustomStringConvertible, @unchecked Send
 
     // MARK: Hashable
 
-    public func hash(into hasher: inout Hasher) {
+    internal func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(self).hashValue)
     }
 
-    public static func == (lhs: ImageTask, rhs: ImageTask) -> Bool {
+    internal static func == (lhs: ImageTask, rhs: ImageTask) -> Bool {
         ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 
     // MARK: CustomStringConvertible
 
-    public var description: String {
+    internal var description: String {
         "ImageTask(id: \(taskId), priority: \(priority), progress: \(currentProgress.completed) / \(currentProgress.total), state: \(state))"
     }
 }
 
 @available(*, deprecated, renamed: "ImageTask", message: "Async/Await support was added directly to the existing `ImageTask` type")
-public typealias AsyncImageTask = ImageTask
+internal typealias AsyncImageTask = ImageTask
 
 // MARK: - ImageTask (Private)
 

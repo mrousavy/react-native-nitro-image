@@ -14,24 +14,24 @@ extension ImageProcessors {
 
     /// Rounds the corners of an image into a circle. If the image is not a square,
     /// crops it to a square first.
-    public struct Circle: ImageProcessing, Hashable, CustomStringConvertible {
+    internal struct Circle: ImageProcessing, Hashable, CustomStringConvertible {
         private let border: ImageProcessingOptions.Border?
 
         /// - parameter border: `nil` by default.
-        public init(border: ImageProcessingOptions.Border? = nil) {
+        internal init(border: ImageProcessingOptions.Border? = nil) {
             self.border = border
         }
 
-        public func process(_ image: PlatformImage) -> PlatformImage? {
+        internal func process(_ image: PlatformImage) -> PlatformImage? {
             image.processed.byDrawingInCircle(border: border)
         }
 
-        public var identifier: String {
+        internal var identifier: String {
             let suffix = border.map { "?border=\($0)" }
             return "com.github.kean/nuke/circle" + (suffix ?? "")
         }
 
-        public var description: String {
+        internal var description: String {
             "Circle(border: \(border?.description ?? "nil"))"
         }
     }

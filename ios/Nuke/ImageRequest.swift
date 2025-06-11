@@ -28,14 +28,14 @@ import AppKit
 /// )
 /// let image = try await pipeline.image(for: request)
 /// ```
-public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStringLiteral {
+internal struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStringLiteral {
     // MARK: Options
 
     /// The relative priority of the request. The priority affects the order in
     /// which the requests are performed. ``Priority-swift.enum/normal`` by default.
     ///
     /// - note: You can change the priority of a running task using ``ImageTask/priority``.
-    public var priority: Priority {
+    internal var priority: Priority {
         get { ref.priority }
         set { mutate { $0.priority = newValue } }
     }
@@ -43,19 +43,19 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     /// Processor to be applied to the image. Empty by default.
     ///
     /// See <doc:image-processing> to learn more.
-    public var processors: [any ImageProcessing] {
+    internal var processors: [any ImageProcessing] {
         get { ref.processors }
         set { mutate { $0.processors = newValue } }
     }
 
     /// The request options. For a complete list of options, see ``ImageRequest/Options-swift.struct``.
-    public var options: Options {
+    internal var options: Options {
         get { ref.options }
         set { mutate { $0.options = newValue } }
     }
 
     /// Custom info passed alongside the request.
-    public var userInfo: [UserInfoKey: Any] {
+    internal var userInfo: [UserInfoKey: Any] {
         get { ref.userInfo ?? [:] }
         set { mutate { $0.userInfo = newValue } }
     }
@@ -65,7 +65,7 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     /// Returns the request `URLRequest`.
     ///
     /// Returns `nil` for publisher-based requests.
-    public var urlRequest: URLRequest? {
+    internal var urlRequest: URLRequest? {
         switch ref.resource {
         case .url(let url): return url.map { URLRequest(url: $0) } // create lazily
         case .urlRequest(let urlRequest): return urlRequest
@@ -76,7 +76,7 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     /// Returns the request `URL`.
     ///
     /// Returns `nil` for publisher-based requests.
-    public var url: URL? {
+    internal var url: URL? {
         switch ref.resource {
         case .url(let url): return url
         case .urlRequest(let request): return request.url
@@ -86,17 +86,17 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
 
     /// Returns the ID of the underlying image. For URL-based requests, it's an
     /// image URL. For an async function – a custom ID provided in initializer.
-    public var imageId: String? { ref.originalImageId }
+    internal var imageId: String? { ref.originalImageId }
 
     /// Returns a debug request description.
-    public var description: String {
+    internal var description: String {
         "ImageRequest(resource: \(ref.resource), priority: \(priority), processors: \(processors), options: \(options), userInfo: \(userInfo))"
     }
 
     // MARK: Initializers
 
     /// Initializes the request with the given string.
-    public init(stringLiteral value: String) {
+    internal init(stringLiteral value: String) {
         self.init(url: URL(string: value))
     }
 
@@ -116,7 +116,7 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     ///     priority: .high
     /// )
     /// ```
-    public init(
+    internal init(
         url: URL?,
         processors: [any ImageProcessing] = [],
         priority: Priority = .normal,
@@ -148,7 +148,7 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     ///     priority: .high
     /// )
     /// ```
-    public init(
+    internal init(
         urlRequest: URLRequest,
         processors: [any ImageProcessing] = [],
         priority: Priority = .normal,
@@ -190,7 +190,7 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     ///   - priority: The priority of the request.
     ///   - options: Image loading options.
     ///   - userInfo: Custom info passed alongside the request.
-    public init(
+    internal init(
         id: String,
         data: @Sendable @escaping () async throws -> Data,
         processors: [any ImageProcessing] = [],
@@ -234,7 +234,7 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     ///   - priority: The priority of the request, ``Priority-swift.enum/normal`` by default.
     ///   - options: Image loading options.
     ///   - userInfo: Custom info passed alongside the request.
-    public init<P>(
+    internal init<P>(
         id: String,
         dataPublisher: P,
         processors: [any ImageProcessing] = [],
@@ -257,10 +257,10 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     // MARK: Nested Types
 
     /// The priority affecting the order in which the requests are performed.
-    public enum Priority: Int, Comparable, Sendable {
+    internal enum Priority: Int, Comparable, Sendable {
         case veryLow = 0, low, normal, high, veryHigh
 
-        public static func < (lhs: Priority, rhs: Priority) -> Bool {
+        internal static func < (lhs: Priority, rhs: Priority) -> Bool {
             lhs.rawValue < rhs.rawValue
         }
     }
@@ -275,70 +275,70 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
     ///
     /// Another useful cache policy is ``ImageRequest/Options-swift.struct/returnCacheDataDontLoad``
     /// that terminates the request if no cached data is available.
-    public struct Options: OptionSet, Hashable, Sendable {
+    internal struct Options: OptionSet, Hashable, Sendable {
         /// Returns a raw value.
-        public let rawValue: UInt16
+        internal let rawValue: UInt16
 
         /// Initializes options with a given raw values.
-        public init(rawValue: UInt16) {
+        internal init(rawValue: UInt16) {
             self.rawValue = rawValue
         }
 
         /// Disables memory cache reads (see ``ImageCaching``).
-        public static let disableMemoryCacheReads = Options(rawValue: 1 << 0)
+        internal static let disableMemoryCacheReads = Options(rawValue: 1 << 0)
 
         /// Disables memory cache writes (see ``ImageCaching``).
-        public static let disableMemoryCacheWrites = Options(rawValue: 1 << 1)
+        internal static let disableMemoryCacheWrites = Options(rawValue: 1 << 1)
 
         /// Disables both memory cache reads and writes (see ``ImageCaching``).
-        public static let disableMemoryCache: Options = [.disableMemoryCacheReads, .disableMemoryCacheWrites]
+        internal static let disableMemoryCache: Options = [.disableMemoryCacheReads, .disableMemoryCacheWrites]
 
         /// Disables disk cache reads (see ``DataCaching``).
-        public static let disableDiskCacheReads = Options(rawValue: 1 << 2)
+        internal static let disableDiskCacheReads = Options(rawValue: 1 << 2)
 
         /// Disables disk cache writes (see ``DataCaching``).
-        public static let disableDiskCacheWrites = Options(rawValue: 1 << 3)
+        internal static let disableDiskCacheWrites = Options(rawValue: 1 << 3)
 
         /// Disables both disk cache reads and writes (see ``DataCaching``).
-        public static let disableDiskCache: Options = [.disableDiskCacheReads, .disableDiskCacheWrites]
+        internal static let disableDiskCache: Options = [.disableDiskCacheReads, .disableDiskCacheWrites]
 
         /// The image should be loaded only from the originating source.
         ///
         /// This option only works ``ImageCaching`` and ``DataCaching``, but not
         /// `URLCache`. If you want to ignore `URLCache`, initialize the request
         /// with `URLRequest` with the respective policy
-        public static let reloadIgnoringCachedData: Options = [.disableMemoryCacheReads, .disableDiskCacheReads]
+        internal static let reloadIgnoringCachedData: Options = [.disableMemoryCacheReads, .disableDiskCacheReads]
 
         /// Use existing cache data and fail if no cached data is available.
-        public static let returnCacheDataDontLoad = Options(rawValue: 1 << 4)
+        internal static let returnCacheDataDontLoad = Options(rawValue: 1 << 4)
 
         /// Skip decompression ("bitmapping") for the given image. Decompression
         /// will happen lazily when you display the image.
-        public static let skipDecompression = Options(rawValue: 1 << 5)
+        internal static let skipDecompression = Options(rawValue: 1 << 5)
 
         /// Perform data loading immediately, ignoring ``ImagePipeline/Configuration-swift.struct/dataLoadingQueue``. It
         /// can be used to elevate priority of certain tasks.
         ///
         /// - important: If there is an outstanding task for loading the same
         /// resource but without this option, a new task will be created.
-        public static let skipDataLoadingQueue = Options(rawValue: 1 << 6)
+        internal static let skipDataLoadingQueue = Options(rawValue: 1 << 6)
     }
 
     /// A key used in `userInfo` for providing custom request options.
     ///
     /// There are a couple of built-in options that are passed using user info
     /// as well, including ``imageIdKey``, ``scaleKey``, and ``thumbnailKey``.
-    public struct UserInfoKey: Hashable, ExpressibleByStringLiteral, Sendable {
+    internal struct UserInfoKey: Hashable, ExpressibleByStringLiteral, Sendable {
         /// Returns a key raw value.
-        public let rawValue: String
+        internal let rawValue: String
 
         /// Initializes the key with a raw value.
-        public init(_ rawValue: String) {
+        internal init(_ rawValue: String) {
             self.rawValue = rawValue
         }
 
         /// Initializes the key with a raw value.
-        public init(stringLiteral value: String) {
+        internal init(stringLiteral value: String) {
             self.rawValue = value
         }
 
@@ -355,10 +355,10 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
         ///     userInfo: [.imageIdKey: "http://example.com/image.jpeg"]
         /// )
         /// ```
-        public static let imageIdKey: ImageRequest.UserInfoKey = "github.com/kean/nuke/imageId"
+        internal static let imageIdKey: ImageRequest.UserInfoKey = "github.com/kean/nuke/imageId"
 
         /// The image scale to be used. By default, the scale is `1`.
-        public static let scaleKey: ImageRequest.UserInfoKey = "github.com/kean/nuke/scale"
+        internal static let scaleKey: ImageRequest.UserInfoKey = "github.com/kean/nuke/scale"
 
         /// Specifies whether the pipeline should retrieve or generate a thumbnail
         /// instead of a full image. The thumbnail creation is generally significantly
@@ -366,13 +366,13 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
         /// (``ImageProcessors/Resize``).
         ///
         /// - note: You must be using the default image decoder to make it work.
-        public static let thumbnailKey: ImageRequest.UserInfoKey = "github.com/kean/nuke/thumbnail"
+        internal static let thumbnailKey: ImageRequest.UserInfoKey = "github.com/kean/nuke/thumbnail"
     }
 
     /// Thumbnail options.
     ///
     /// For more info, see https://developer.apple.com/documentation/imageio/cgimagesource/image_source_option_dictionary_keys
-    public struct ThumbnailOptions: Hashable, Sendable {
+    internal struct ThumbnailOptions: Hashable, Sendable {
         enum TargetSize: Hashable {
             case fixed(Float)
             case flexible(size: ImageTargetSize, contentMode: ImageProcessingOptions.ContentMode)
@@ -392,27 +392,27 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
         /// Whether a thumbnail should be automatically created for an image if
         /// a thumbnail isn't present in the image source file. The thumbnail is
         /// created from the full image, subject to the limit specified by size.
-        public var createThumbnailFromImageIfAbsent = true
+        internal var createThumbnailFromImageIfAbsent = true
 
         /// Whether a thumbnail should be created from the full image even if a
         /// thumbnail is present in the image source file. The thumbnail is created
         /// from the full image, subject to the limit specified by size.
-        public var createThumbnailFromImageAlways = true
+        internal var createThumbnailFromImageAlways = true
 
         /// Whether the thumbnail should be rotated and scaled according to the
         /// orientation and pixel aspect ratio of the full image.
-        public var createThumbnailWithTransform = true
+        internal var createThumbnailWithTransform = true
 
         /// Specifies whether image decoding and caching should happen at image
         /// creation time.
-        public var shouldCacheImmediately = true
+        internal var shouldCacheImmediately = true
 
         /// Initializes the options with the given pixel size. The thumbnail is
         /// resized to fit the target size.
         ///
         /// This option performs slightly faster than ``ImageRequest/ThumbnailOptions/init(size:unit:contentMode:)``
         /// because it doesn't need to read the image size.
-        public init(maxPixelSize: Float) {
+        internal init(maxPixelSize: Float) {
             self.targetSize = .fixed(maxPixelSize)
         }
 
@@ -422,13 +422,13 @@ public struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleByStri
         ///   - size: The target size.
         ///   - unit: Unit of the target size.
         ///   - contentMode: A target content mode.
-        public init(size: CGSize, unit: ImageProcessingOptions.Unit = .points, contentMode: ImageProcessingOptions.ContentMode = .aspectFill) {
+        internal init(size: CGSize, unit: ImageProcessingOptions.Unit = .points, contentMode: ImageProcessingOptions.ContentMode = .aspectFill) {
             self.targetSize = .flexible(size: ImageTargetSize(size: size, unit: unit), contentMode: contentMode)
         }
 
         /// Generates a thumbnail from the given image data.
-        public func makeThumbnail(with data: Data) -> PlatformImage? {
-            Nuke.makeThumbnail(data: data, options: self)
+        internal func makeThumbnail(with data: Data) -> PlatformImage? {
+          fatalError("Cannot make thumbnail!")
         }
 
         var identifier: String {

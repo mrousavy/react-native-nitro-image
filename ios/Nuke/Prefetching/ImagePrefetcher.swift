@@ -11,12 +11,12 @@ import Foundation
 ///
 /// All ``ImagePrefetcher`` methods are thread-safe and are optimized to be used
 /// even from the main thread during scrolling.
-public final class ImagePrefetcher: @unchecked Sendable {
+internal final class ImagePrefetcher: @unchecked Sendable {
     /// Pauses the prefetching.
     ///
     /// - note: When you pause, the prefetcher will finish outstanding tasks
     /// (by default, there are only 2 at a time), and pause the rest.
-    public var isPaused: Bool = false {
+    internal var isPaused: Bool = false {
         didSet { queue.isSuspended = isPaused }
     }
 
@@ -24,7 +24,7 @@ public final class ImagePrefetcher: @unchecked Sendable {
     ///
     /// Changing the priority also changes the priority of all of the outstanding
     /// tasks managed by the prefetcher.
-    public var priority: ImageRequest.Priority = .low {
+    internal var priority: ImageRequest.Priority = .low {
         didSet {
             let newValue = priority
             pipeline.queue.async { self.didUpdatePriority(to: newValue) }
@@ -32,7 +32,7 @@ public final class ImagePrefetcher: @unchecked Sendable {
     }
 
     /// Prefetching destination.
-    public enum Destination: Sendable {
+    internal enum Destination: Sendable {
         /// Prefetches the image and stores it in both the memory and the disk
         /// cache (make sure to enable it).
         case memoryCache
@@ -50,7 +50,7 @@ public final class ImagePrefetcher: @unchecked Sendable {
     /// regardless of whether the requests succeed or some fail.
     ///
     /// - note: The closure is called on the main queue.
-    public var didComplete: (@MainActor @Sendable () -> Void)?
+    internal var didComplete: (@MainActor @Sendable () -> Void)?
 
     private let pipeline: ImagePipeline
     private var tasks = [TaskLoadImageKey: Task]()
@@ -64,7 +64,7 @@ public final class ImagePrefetcher: @unchecked Sendable {
     ///   - pipeline: The pipeline used for loading images.
     ///   - destination: By default load images in all cache layers.
     ///   - maxConcurrentRequestCount: 2 by default.
-    public init(pipeline: ImagePipeline = ImagePipeline.shared,
+    internal init(pipeline: ImagePipeline = ImagePipeline.shared,
                 destination: Destination = .memoryCache,
                 maxConcurrentRequestCount: Int = 2) {
         self.pipeline = pipeline
@@ -87,7 +87,7 @@ public final class ImagePrefetcher: @unchecked Sendable {
     /// Starts prefetching images for the given URL.
     ///
     /// See also ``startPrefetching(with:)-718dg`` that works with ``ImageRequest``.
-    public func startPrefetching(with urls: [URL]) {
+    internal func startPrefetching(with urls: [URL]) {
         startPrefetching(with: urls.map { ImageRequest(url: $0) })
     }
 
@@ -101,13 +101,13 @@ public final class ImagePrefetcher: @unchecked Sendable {
     /// (`.low` by default).
     ///
     /// See also ``startPrefetching(with:)-1jef2`` that works with `URL`.
-    public func startPrefetching(with requests: [ImageRequest]) {
+    internal func startPrefetching(with requests: [ImageRequest]) {
         pipeline.queue.async {
             self._startPrefetching(with: requests)
         }
     }
 
-    public func _startPrefetching(with requests: [ImageRequest]) {
+    internal func _startPrefetching(with requests: [ImageRequest]) {
         for request in requests {
             var request = request
             if _priority != request.priority {
@@ -160,7 +160,7 @@ public final class ImagePrefetcher: @unchecked Sendable {
     /// requests.
     ///
     /// See also ``stopPrefetching(with:)-8cdam`` that works with ``ImageRequest``.
-    public func stopPrefetching(with urls: [URL]) {
+    internal func stopPrefetching(with urls: [URL]) {
         stopPrefetching(with: urls.map { ImageRequest(url: $0) })
     }
 
@@ -172,7 +172,7 @@ public final class ImagePrefetcher: @unchecked Sendable {
     /// of ``ImagePrefetcher``.
     ///
     /// See also ``stopPrefetching(with:)-2tcyq`` that works with `URL`.
-    public func stopPrefetching(with requests: [ImageRequest]) {
+    internal func stopPrefetching(with requests: [ImageRequest]) {
         pipeline.queue.async {
             for request in requests {
                 self._stopPrefetching(with: request)
@@ -187,7 +187,7 @@ public final class ImagePrefetcher: @unchecked Sendable {
     }
 
     /// Stops all prefetching tasks.
-    public func stopPrefetching() {
+    internal func stopPrefetching() {
         pipeline.queue.async {
             self.tasks.values.forEach { $0.cancel() }
             self.tasks.removeAll()

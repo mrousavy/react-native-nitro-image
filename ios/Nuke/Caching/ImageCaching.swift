@@ -7,7 +7,7 @@ import Foundation
 /// In-memory image cache.
 ///
 /// The implementation must be thread safe.
-public protocol ImageCaching: AnyObject, Sendable {
+internal protocol ImageCaching: AnyObject, Sendable {
     /// Access the image cached for the given request.
     subscript(key: ImageCacheKey) -> ImageContainer? { get set }
 
@@ -18,7 +18,7 @@ public protocol ImageCaching: AnyObject, Sendable {
 /// An opaque container that acts as a cache key.
 ///
 /// In general, you don't construct it directly, and use ``ImagePipeline`` or ``ImagePipeline/Cache-swift.struct`` APIs.
-public struct ImageCacheKey: Hashable, Sendable {
+internal struct ImageCacheKey: Hashable, Sendable {
     let key: Inner
 
     // This is faster than using AnyHashable (and it shows in performance tests).
@@ -27,11 +27,11 @@ public struct ImageCacheKey: Hashable, Sendable {
         case `default`(MemoryCacheKey)
     }
 
-    public init(key: String) {
+    internal init(key: String) {
         self.key = .custom(key)
     }
 
-    public init(request: ImageRequest) {
+    internal init(request: ImageRequest) {
         self.key = .default(MemoryCacheKey(request))
     }
 }

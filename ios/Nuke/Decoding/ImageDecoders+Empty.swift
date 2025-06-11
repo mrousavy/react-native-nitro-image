@@ -7,11 +7,11 @@ import Foundation
 extension ImageDecoders {
     /// A decoder that returns an empty placeholder image and attaches image
     /// data to the image container.
-    public struct Empty: ImageDecoding, Sendable {
-        public let isProgressive: Bool
+    internal struct Empty: ImageDecoding, Sendable {
+        internal let isProgressive: Bool
         private let assetType: AssetType?
 
-        public var isAsynchronous: Bool { false }
+        internal var isAsynchronous: Bool { false }
 
         /// Initializes the decoder.
         ///
@@ -20,16 +20,16 @@ extension ImageDecoders {
         ///   `nil` by default.
         ///   - isProgressive: If `false`, returns nil for every progressive
         ///   scan. `false` by default.
-        public init(assetType: AssetType? = nil, isProgressive: Bool = false) {
+        internal init(assetType: AssetType? = nil, isProgressive: Bool = false) {
             self.assetType = assetType
             self.isProgressive = isProgressive
         }
 
-        public func decode(_ data: Data) throws -> ImageContainer {
+        internal func decode(_ data: Data) throws -> ImageContainer {
             ImageContainer(image: PlatformImage(), type: assetType, data: data, userInfo: [:])
         }
 
-        public func decodePartiallyDownloadedData(_ data: Data) -> ImageContainer? {
+        internal func decodePartiallyDownloadedData(_ data: Data) -> ImageContainer? {
             isProgressive ? ImageContainer(image: PlatformImage(), type: assetType, data: data, userInfo: [:]) : nil
         }
     }

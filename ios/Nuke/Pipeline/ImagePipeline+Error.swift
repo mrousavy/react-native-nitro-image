@@ -6,7 +6,7 @@ import Foundation
 
 extension ImagePipeline {
     /// Represents all possible image pipeline errors.
-    public enum Error: Swift.Error, CustomStringConvertible, @unchecked Sendable {
+    internal enum Error: Swift.Error, CustomStringConvertible, @unchecked Sendable {
         /// Returned if data not cached and ``ImageRequest/Options-swift.struct/returnCacheDataDontLoad`` option is specified.
         case dataMissingInCache
         /// Data loader failed to load image data with a wrapped error.
@@ -31,7 +31,7 @@ extension ImagePipeline {
 
 extension ImagePipeline.Error {
     /// Returns underlying data loading error.
-    public var dataLoadingError: Swift.Error? {
+    internal var dataLoadingError: Swift.Error? {
         switch self {
         case .dataLoadingFailed(let error):
             return error
@@ -40,7 +40,7 @@ extension ImagePipeline.Error {
         }
     }
 
-    public var description: String {
+    internal var description: String {
         switch self {
         case .dataMissingInCache:
             return "Failed to load data from cache and download is disabled."

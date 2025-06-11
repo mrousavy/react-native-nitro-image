@@ -9,7 +9,7 @@ import Cocoa
 #endif
 
 /// A namespace with all available decoders.
-public enum ImageDecoders {}
+internal enum ImageDecoders {}
 
 extension ImageDecoders {
 
@@ -20,7 +20,7 @@ extension ImageDecoders {
     ///
     /// - note: The default decoder supports progressive JPEG. It produces a new
     /// preview every time it encounters a new full frame.
-    public final class Default: ImageDecoding, @unchecked Sendable {
+    internal final class Default: ImageDecoding, @unchecked Sendable {
         // Number of scans that the decoder has found so far. The last scan might be
         // incomplete at this point.
         var numberOfScans: Int { scanner.numberOfScans }
@@ -31,13 +31,13 @@ extension ImageDecoders {
         private var thumbnail: ImageRequest.ThumbnailOptions?
         private let lock = NSLock()
 
-        public var isAsynchronous: Bool { thumbnail != nil }
+        internal var isAsynchronous: Bool { thumbnail != nil }
 
-        public init() { }
+        internal init() { }
 
         /// Returns `nil` if progressive decoding is not allowed for the given
         /// content.
-        public init?(context: ImageDecodingContext) {
+        internal init?(context: ImageDecodingContext) {
             self.scale = context.request.scale.map { CGFloat($0) } ?? self.scale
             self.thumbnail = context.request.thumbnail
 
@@ -46,7 +46,7 @@ extension ImageDecoders {
             }
         }
 
-        public func decode(_ data: Data) throws -> ImageContainer {
+        internal func decode(_ data: Data) throws -> ImageContainer {
             lock.lock()
             defer { lock.unlock() }
 
@@ -76,7 +76,7 @@ extension ImageDecoders {
             return container
         }
 
-        public func decodePartiallyDownloadedData(_ data: Data) -> ImageContainer? {
+        internal func decodePartiallyDownloadedData(_ data: Data) -> ImageContainer? {
             lock.lock()
             defer { lock.unlock() }
 

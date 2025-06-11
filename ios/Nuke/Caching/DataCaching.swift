@@ -7,7 +7,7 @@ import Foundation
 /// Data cache.
 ///
 /// - important: The implementation must be thread safe.
-public protocol DataCaching: Sendable {
+internal protocol DataCaching: Sendable {
     /// Retrieves data from cache for the given key.
     func cachedData(for key: String) -> Data?
 

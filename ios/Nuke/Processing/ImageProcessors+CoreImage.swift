@@ -26,9 +26,9 @@ extension ImageProcessors {
     ///
     /// - [Core Image Programming Guide](https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html)
     /// - [Core Image Filter Reference](https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html)
-    public struct CoreImageFilter: ImageProcessing, CustomStringConvertible, @unchecked Sendable {
+    internal struct CoreImageFilter: ImageProcessing, CustomStringConvertible, @unchecked Sendable {
         let filter: Filter
-        public let identifier: String
+        internal let identifier: String
 
         enum Filter {
             case named(String, parameters: [String: Any])
@@ -38,13 +38,13 @@ extension ImageProcessors {
         /// Initializes the processor with a name of the `CIFilter` and its parameters.
         ///
         /// - parameter identifier: Uniquely identifies the processor.
-        public init(name: String, parameters: [String: Any], identifier: String) {
+        internal init(name: String, parameters: [String: Any], identifier: String) {
             self.filter = .named(name, parameters: parameters)
             self.identifier = identifier
         }
 
         /// Initializes the processor with a name of the `CIFilter`.
-        public init(name: String) {
+        internal init(name: String) {
             self.filter = .named(name, parameters: [:])
             self.identifier = "com.github.kean/nuke/core_image?name=\(name))"
         }
@@ -52,16 +52,16 @@ extension ImageProcessors {
         /// Initialize the processor with the given `CIFilter`.
         ///
         /// - parameter identifier: Uniquely identifies the processor.
-        public init(_ filter: CIFilter, identifier: String) {
+        internal init(_ filter: CIFilter, identifier: String) {
             self.filter = .custom(filter)
             self.identifier = identifier
         }
 
-        public func process(_ image: PlatformImage) -> PlatformImage? {
+        internal func process(_ image: PlatformImage) -> PlatformImage? {
             try? _process(image)
         }
 
-        public func process(_ container: ImageContainer, context: ImageProcessingContext) throws -> ImageContainer {
+        internal func process(_ container: ImageContainer, context: ImageProcessingContext) throws -> ImageContainer {
             try container.map(_process)
         }
 
@@ -78,7 +78,7 @@ extension ImageProcessors {
 
         /// A default context shared between all Core Image filters. The context
         /// has `.priorityRequestLow` option set to `true`.
-        public static var context: CIContext {
+        internal static var context: CIContext {
             get { _context.value }
             set { _context.value = newValue }
         }
@@ -93,7 +93,7 @@ extension ImageProcessors {
         }
 
         /// Applies filter to the given image.
-        public static func apply(filter: CIFilter, to image: PlatformImage) throws -> PlatformImage {
+        internal static func apply(filter: CIFilter, to image: PlatformImage) throws -> PlatformImage {
             func getCIImage() throws -> CoreImage.CIImage {
                 if let image = image.ciImage {
                     return image
@@ -113,7 +113,7 @@ extension ImageProcessors {
             return PlatformImage.make(cgImage: imageRef, source: image)
         }
 
-        public var description: String {
+        internal var description: String {
             switch filter {
             case let .named(name, parameters):
                 return "CoreImageFilter(name: \(name), parameters: \(parameters))"
@@ -122,13 +122,13 @@ extension ImageProcessors {
             }
         }
 
-        public enum Error: Swift.Error, CustomStringConvertible, @unchecked Sendable {
+        internal enum Error: Swift.Error, CustomStringConvertible, @unchecked Sendable {
             case failedToCreateFilter(name: String, parameters: [String: Any])
             case inputImageIsEmpty(inputImage: PlatformImage)
             case failedToApplyFilter(filter: CIFilter)
             case failedToCreateOutputCGImage(image: CIImage)
 
-            public var description: String {
+            internal var description: String {
                 switch self {
                 case let .failedToCreateFilter(name, parameters):
                     return "Failed to create filter named \(name) with parameters: \(parameters)"

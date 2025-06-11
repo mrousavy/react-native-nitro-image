@@ -15,23 +15,23 @@ import AppKit
 
 extension ImageProcessors {
     /// Blurs an image using `CIGaussianBlur` filter.
-    public struct GaussianBlur: ImageProcessing, Hashable, CustomStringConvertible {
+    internal struct GaussianBlur: ImageProcessing, Hashable, CustomStringConvertible {
         private let radius: Int
 
         /// Initializes the receiver with a blur radius.
         ///
         /// - parameter radius: `8` by default.
-        public init(radius: Int = 8) {
+        internal init(radius: Int = 8) {
             self.radius = radius
         }
 
         /// Applies `CIGaussianBlur` filter to the image.
-        public func process(_ image: PlatformImage) -> PlatformImage? {
+        internal func process(_ image: PlatformImage) -> PlatformImage? {
             try? _process(image)
         }
 
         /// Applies `CIGaussianBlur` filter to the image.
-        public func process(_ container: ImageContainer, context: ImageProcessingContext) throws -> ImageContainer {
+        internal func process(_ container: ImageContainer, context: ImageProcessingContext) throws -> ImageContainer {
             try container.map(_process(_:))
         }
 
@@ -39,11 +39,11 @@ extension ImageProcessors {
             try CoreImageFilter.applyFilter(named: "CIGaussianBlur", parameters: ["inputRadius": radius], to: image)
         }
 
-        public var identifier: String {
+        internal var identifier: String {
             "com.github.kean/nuke/gaussian_blur?radius=\(radius)"
         }
 
-        public var description: String {
+        internal var description: String {
             "GaussianBlur(radius: \(radius))"
         }
     }

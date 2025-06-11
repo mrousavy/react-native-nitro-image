@@ -13,34 +13,34 @@ import AppKit
 #endif
 
 /// An image response that contains a fetched image and some metadata.
-public struct ImageResponse: @unchecked Sendable {
+internal struct ImageResponse: @unchecked Sendable {
     /// An image container with an image and associated metadata.
-    public var container: ImageContainer
+    internal var container: ImageContainer
 
 #if os(macOS)
     /// A convenience computed property that returns an image from the container.
-    public var image: NSImage { container.image }
+    internal var image: NSImage { container.image }
 #else
     /// A convenience computed property that returns an image from the container.
-    public var image: UIImage { container.image }
+    internal var image: UIImage { container.image }
 #endif
 
     /// Returns `true` if the image in the container is a preview of the image.
-    public var isPreview: Bool { container.isPreview }
+    internal var isPreview: Bool { container.isPreview }
 
     /// The request for which the response was created.
-    public var request: ImageRequest
+    internal var request: ImageRequest
 
     /// A response. `nil` unless the resource was fetched from the network or an
     /// HTTP cache.
-    public var urlResponse: URLResponse?
+    internal var urlResponse: URLResponse?
 
     /// Contains a cache type in case the image was returned from one of the
     /// pipeline caches (not including any of the HTTP caches if enabled).
-    public var cacheType: CacheType?
+    internal var cacheType: CacheType?
 
     /// Initializes the response with the given image.
-    public init(container: ImageContainer, request: ImageRequest, urlResponse: URLResponse? = nil, cacheType: CacheType? = nil) {
+    internal init(container: ImageContainer, request: ImageRequest, urlResponse: URLResponse? = nil, cacheType: CacheType? = nil) {
         self.container = container
         self.request = request
         self.urlResponse = urlResponse
@@ -48,7 +48,7 @@ public struct ImageResponse: @unchecked Sendable {
     }
 
     /// A cache type.
-    public enum CacheType: Sendable {
+    internal enum CacheType: Sendable {
         /// Memory cache (see ``ImageCaching``)
         case memory
         /// Disk cache (see ``DataCaching``)

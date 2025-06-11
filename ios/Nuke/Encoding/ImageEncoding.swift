@@ -15,7 +15,7 @@ import ImageIO
 // MARK: - ImageEncoding
 
 /// An image encoder.
-public protocol ImageEncoding: Sendable {
+internal protocol ImageEncoding: Sendable {
     /// Encodes the given image.
     func encode(_ image: PlatformImage) -> Data?
 
@@ -24,7 +24,7 @@ public protocol ImageEncoding: Sendable {
 }
 
 extension ImageEncoding {
-    public func encode(_ container: ImageContainer, context: ImageEncodingContext) -> Data? {
+    internal func encode(_ container: ImageContainer, context: ImageEncodingContext) -> Data? {
         if container.type == .gif {
             return container.data
         }
@@ -33,8 +33,8 @@ extension ImageEncoding {
 }
 
 /// Image encoding context used when selecting which encoder to use.
-public struct ImageEncodingContext: @unchecked Sendable {
-    public let request: ImageRequest
-    public let image: PlatformImage
-    public let urlResponse: URLResponse?
+internal struct ImageEncodingContext: @unchecked Sendable {
+    internal let request: ImageRequest
+    internal let image: PlatformImage
+    internal let urlResponse: URLResponse?
 }
