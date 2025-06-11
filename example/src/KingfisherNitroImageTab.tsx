@@ -3,13 +3,13 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { NitroImage, useWebImage } from 'react-native-nitro-image';
 import { createImageURLs } from './Images';
 
-function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
-  const image = useWebImage(url, false);
+function KingfisherAsyncImageImpl({ url }: { url: string }): React.ReactNode {
+  const image = useWebImage(url, true);
   return <NitroImage style={styles.image} image={image} />;
 }
-const AsyncImage = React.memo(AsyncImageImpl);
+const KingfisherAsyncImage = React.memo(KingfisherAsyncImageImpl);
 
-export function NitroImageTab() {
+export function KingfisherNitroImageTab() {
   const imageURLs = useMemo(() => createImageURLs(), []);
 
   return (<View>
@@ -19,7 +19,7 @@ export function NitroImageTab() {
       windowSize={3}
       data={imageURLs}
       renderItem={({ item: url }) => (
-        <AsyncImage url={url} />
+        <KingfisherAsyncImage url={url} />
       )}
     />
   </View>);

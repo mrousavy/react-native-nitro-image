@@ -8,6 +8,7 @@ PODS:
   - hermes-engine (0.79.3):
     - hermes-engine/Pre-built (= 0.79.3)
   - hermes-engine/Pre-built (0.79.3)
+  - Kingfisher (8.3.2)
   - libwebp (1.5.0):
     - libwebp/demux (= 1.5.0)
     - libwebp/mux (= 1.5.0)
@@ -20,10 +21,11 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - NitroImage (0.2.1):
+  - NitroImage (0.3.2):
     - DoubleConversion
     - glog
     - hermes-engine
+    - Kingfisher
     - NitroModules
     - Nuke
     - RCT-Folly (= 2024.11.18.00)
@@ -1939,6 +1941,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Kingfisher
     - libwebp
     - Nuke
     - SDWebImage
@@ -2106,8 +2109,9 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 94ed01537bdeccaab1adbf94b040d115d6fa1a7f
+  Kingfisher: 0621d0ac0c78fecb19f6dc5303bde2b52abaf2f5
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  NitroImage: cffb9039611390f22e5c091604474a6d3e9f646e
+  NitroImage: 614b594b658a8a6a351c220875bb5da4b755be8c
   NitroModules: ccf2db518daf271800221ef472938a324672ff71
   Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
