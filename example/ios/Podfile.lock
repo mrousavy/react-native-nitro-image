@@ -20,12 +20,11 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - NitroImage (0.2.1):
+  - NitroImage (0.3.2):
     - DoubleConversion
     - glog
     - hermes-engine
     - NitroModules
-    - Nuke
     - RCT-Folly (= 2024.11.18.00)
     - RCTRequired
     - RCTTypeSafety
@@ -72,7 +71,6 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - Nuke (10.7.1)
   - RCT-Folly (2024.11.18.00):
     - boost
     - DoubleConversion
@@ -1940,7 +1938,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - libwebp
-    - Nuke
     - SDWebImage
     - SDWebImageWebPCoder
     - SocketRocket
@@ -2107,9 +2104,8 @@ SPEC CHECKSUMS:
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 94ed01537bdeccaab1adbf94b040d115d6fa1a7f
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  NitroImage: cffb9039611390f22e5c091604474a6d3e9f646e
+  NitroImage: 3ac364edfbe17a2fe344dfb576e6325577f098d6
   NitroModules: ccf2db518daf271800221ef472938a324672ff71
-  Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
   RCTDeprecation: c3e3f5b4ea83e7ff3bc86ce09e2a54b7affd687d
   RCTRequired: ee438439880dffc9425930d1dd1a3c883ee6879c
