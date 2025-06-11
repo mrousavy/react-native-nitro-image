@@ -33,7 +33,7 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun resize(width: Double, height: Double): HybridImageSpec {
-        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, width.toInt(), height.toInt(), false)
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, width.toInt(), height.toInt(), true)
         return HybridImage(resizedBitmap)
     }
 
