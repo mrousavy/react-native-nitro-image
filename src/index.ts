@@ -14,6 +14,6 @@ export * from './ImageFactory'
 export { NitroImage } from './NitroImage'
 
 /**
- * The `useImage` hook
+ * The `useWebImage` hook
  */
-export { useWebImage } from './useImage'
+export { useWebImage } from './useWebImage'
