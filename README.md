@@ -17,7 +17,7 @@
 
 ```tsx
 function App() {
-  const image = useImage('https://picsum.photos/seed/123/400')
+  const image = useWebImage('https://picsum.photos/seed/123/400')
   return (
     <NitroImage
       image={image}
@@ -39,15 +39,15 @@ npx pod-install
 
 ## Usage
 
-### The `HybridImageFactory`
+### Creating `Image`s
 
-The `HybridImageFactory` is responsible for loading and creating `Image` instances:
+There are numerous ways to create an `Image` through the `ImageFactory`:
 
 ```ts
-const webImage      = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
-const fileImage     = await HybridImageFactory.loadFromFileAsync('file://my-image.jpg')
-const resourceImage = HybridImageFactory.loadFromResources('my-resource.jpg')
-const symbolImage   = HybridImageFactory.loadFromSymbol('star')
+const webImage      = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const fileImage     = await loadImageFromFileAsync('file://my-image.jpg')
+const resourceImage = loadImageFromResources('my-resource.jpg')
+const symbolImage   = loadImageFromSymbol('star')
 ```
 
 #### `ArrayBuffer`
@@ -55,9 +55,9 @@ const symbolImage   = HybridImageFactory.loadFromSymbol('star')
 The `Image` type can be converted to- and from- an `ArrayBuffer`:
 
 ```ts
-const webImage        = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage        = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
 const arrayBuffer     = await webImage.toArrayBufferAsync()
-const sameImageCopied = await HybridImageFactory.loadFromArrayBufferAsync(arrayBuffer)
+const sameImageCopied = await loadImageFromArrayBufferAsync(arrayBuffer)
 ```
 
 #### Resizing
@@ -65,7 +65,7 @@ const sameImageCopied = await HybridImageFactory.loadFromArrayBufferAsync(arrayB
 An `Image` can be resized entirely in-memory, without ever writing to- or reading from- a file:
 
 ```ts
-const webImage = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
 const smaller  = await webImage.resizeAsync(200, 200)
 ```
 
@@ -74,7 +74,7 @@ const smaller  = await webImage.resizeAsync(200, 200)
 An in-memory `Image` object can also be written/saved to a file:
 
 ```ts
-const webImage = await HybridImageFactory.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
 const smaller  = await webImage.resizeAsync(200, 200)
 const path     = await smaller.saveToTemporaryFileAsync('jpg', 90)
 ```
@@ -85,7 +85,7 @@ The `<NitroImage />` view is a React Native view component for rendering an `Ima
 
 ```tsx
 function App() {
-  const image = useImage('https://picsum.photos/seed/123/400')
+  const image = useWebImage('https://picsum.photos/seed/123/400')
   return (
     <NitroImage
       image={image}
@@ -101,7 +101,7 @@ To achieve a dynamic width or height calculation, you can use the `image`'s dime
 
 ```tsx
 function App() {
-  const image = useImage('https://picsum.photos/seed/123/400')
+  const image = useWebImage('https://picsum.photos/seed/123/400')
   const aspect = (image?.width ?? 1) / (image?.height ?? 1)
   return (
     <NitroImage
