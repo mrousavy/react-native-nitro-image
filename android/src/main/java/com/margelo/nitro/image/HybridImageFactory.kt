@@ -7,6 +7,7 @@ import coil3.ImageLoader
 import coil3.request.ImageRequest
 import com.facebook.react.bridge.ReactApplicationContext
 import com.margelo.nitro.NitroModules
+import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 
 class HybridImageFactory: HybridImageFactorySpec() {
@@ -14,7 +15,7 @@ class HybridImageFactory: HybridImageFactorySpec() {
         get() = NitroModules.applicationContext ?: throw Error("No context - NitroModules.applicationContext was null!")
     private val imageLoader = ImageLoader(context)
 
-    override fun loadFromURL(url: String): Promise<HybridImageSpec> {
+    override fun loadFromURLAsync(url: String): Promise<HybridImageSpec> {
         return Promise.async {
             // 1. Create the Coil Request
             val request = ImageRequest.Builder(context)
@@ -47,8 +48,31 @@ class HybridImageFactory: HybridImageFactorySpec() {
             return HybridImage(bitmap)
         }
     }
+    override fun loadFromResourcesAsync(name: String): Promise<HybridImageSpec> {
+        return Promise.async { loadFromResources(name) }
+    }
 
     override fun loadFromSymbol(symbolName: String): HybridImageSpec {
         throw Error("ImageFactory.loadFromSymbol(symbolName:) is not supported on Android!")
     }
+
+    override fun loadFromArrayBuffer(buffer: ArrayBuffer): HybridImageSpec {
+        val byteBuffer = buffer.getBuffer(false)
+        val bitmap = BitmapFactory.decodeByteArray(byteBuffer.array(), 0, buffer.size)
+        return HybridImage(bitmap)
+    }
+
+    override fun loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<HybridImageSpec> {
+        return Promise.async { loadFromArrayBuffer(buffer) }
+    }
+
+    override fun loadFromFile(filePath: String): HybridImageSpec {
+        val bitmap = BitmapFactory.decodeFile(filePath)
+        return HybridImage(bitmap)
+    }
+
+    override fun loadFromFileAsync(filePath: String): Promise<HybridImageSpec> {
+        return Promise.async { loadFromFile(filePath) }
+    }
+
 }

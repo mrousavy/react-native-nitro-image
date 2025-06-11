@@ -1,7 +1,6 @@
 package com.margelo.nitro.image
 
 import android.graphics.Bitmap
-import android.hardware.HardwareBuffer
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
 import com.margelo.nitro.core.ArrayBuffer
