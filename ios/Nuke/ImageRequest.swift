@@ -428,7 +428,7 @@ internal struct ImageRequest: CustomStringConvertible, Sendable, ExpressibleBySt
 
         /// Generates a thumbnail from the given image data.
         internal func makeThumbnail(with data: Data) -> PlatformImage? {
-          fatalError("Cannot make thumbnail!")
+          GraphicsHelper.makeThumbnail(data: data, options: self)
         }
 
         var identifier: String {
