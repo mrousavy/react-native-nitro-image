@@ -7,7 +7,6 @@
 
 import Foundation
 import NitroModules
-import Nuke
 
 class HybridImageFactory: HybridImageFactorySpec {
   private let queue = DispatchQueue(label: "image-loader",
@@ -23,8 +22,8 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
 
     return Promise.async {
-      let response = try await ImagePipeline.shared.imageTask(with: url)
-      let uiImage = response.image
+      let task = ImagePipeline.shared.imageTask(with: url)
+      let uiImage = try await task.image
       return HybridImage(uiImage: uiImage)
     }
   }
