@@ -13,7 +13,7 @@
 - Powered by [Nitro Modules](https://nitro.margelo.com) for highly efficient native bindings! 🔥
 - Instance-based `Image` type with byte-buffer pixel data access 🔗
 - Support basic in-memory image operations like resizing without saving to file 📐
-- Web Image loading using [Nuke](https://github.com/kean/Nuke) (iOS) and [Coil](https://github.com/coil-kt/coil) (Android) 🌎
+- Fast Web Image loading and caching using [Nuke](https://github.com/kean/Nuke) (iOS) and [Coil](https://github.com/coil-kt/coil) (Android) 🌎
 
 ```tsx
 function App() {
