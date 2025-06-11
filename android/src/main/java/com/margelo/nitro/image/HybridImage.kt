@@ -17,6 +17,9 @@ class HybridImage: HybridImageSpec {
     override val height: Double
         get() = bitmap.height.toDouble()
 
+    override val memorySize: Long
+        get() = bitmap.allocationByteCount.toLong()
+
     constructor(bitmap: Bitmap) {
         this.bitmap = bitmap
     }

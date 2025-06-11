@@ -18,6 +18,9 @@ class HybridImage: HybridImageSpec {
   var height: Double {
     return uiImage.size.height
   }
+  var memorySize: Int {
+    return uiImage.memorySize
+  }
 
   init(uiImage: UIImage) {
     self.uiImage = uiImage
