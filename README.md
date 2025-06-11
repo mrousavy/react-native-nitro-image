@@ -31,10 +31,10 @@ function App() {
 
 Install [react-native-nitro-image](https://www.npmjs.com/package/react-native-nitro-image) from npm:
 
-```bash
+```sh
 npm i react-native-nitro-image
 npm i react-native-nitro-modules
-npx pod-install
+cd ios && pod install
 ```
 
 ## Usage
