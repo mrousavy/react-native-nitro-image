@@ -74,9 +74,20 @@ const smaller  = await webImage.resizeAsync(200, 200)
 An in-memory `Image` object can also be written/saved to a file:
 
 ```ts
-const webImage = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
-const smaller  = await webImage.resizeAsync(200, 200)
+const smaller  = ...
 const path     = await smaller.saveToTemporaryFileAsync('jpg', 90)
+```
+
+### Hooks
+
+#### The `useWebImage()` hook
+
+The `useWebImage()` hook loads an `Image` from a remote URL and returns it as a React state:
+
+```tsx
+function App() {
+  const image = useWebImage('https://picsum.photos/seed/123/400')
+}
 ```
 
 ### The `<NitroImage />` view
