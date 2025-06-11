@@ -1,0 +1,40 @@
+name: Run Nitrogen
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/run-nitrogen.yml'
+      - 'src/specs/**'
+      - '**/nitro.json'
+      - '**/package.json'
+  pull_request:
+    paths:
+      - '.github/workflows/run-nitrogen.yml'
+      - 'src/specs/**'
+      - '**/nitro.json'
+      - '**/package.json'
+
+jobs:
+  lint:
+    name: Run Nitrogen
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install npm dependencies (bun)
+        run: bun install
+
+      - name: Build the typescript types
+        run: bun typescript
+
+      - name: Run nitro-codegen
+        run: bun specs
+
+      - name: Verify no files have changed after nitrogen
+        run: git diff --exit-code HEAD -- . ':(exclude)bun.lockb'

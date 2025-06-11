@@ -1,0 +1,60 @@
+name: Build Android
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/build-android.yml'
+      - 'example/android/**'
+      - '**/nitrogen/generated/shared/**'
+      - '**/nitrogen/generated/android/**'
+      - 'android/**'
+      - '**/bun.lockb'
+      - '**/react-native.config.js'
+      - '**/nitro.json'
+  pull_request:
+    paths:
+      - '.github/workflows/build-android.yml'
+      - 'example/android/**'
+      - '**/nitrogen/generated/shared/**'
+      - '**/nitrogen/generated/android/**'
+      - 'android/**'
+      - '**/bun.lockb'
+      - '**/react-native.config.js'
+      - '**/nitro.json'
+
+jobs:
+  build:
+    name: Build Android Example App
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install npm dependencies (bun)
+        run: bun install
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+          java-package: jdk
+
+      - name: Restore Gradle cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Run Gradle Build for example/android/
+        working-directory: example/android
+        run: ./gradlew assembleDebug --no-daemon --build-cache
+
+      # Gradle cache doesn't like daemons
+      - name: Stop Gradle Daemon
+        working-directory: example/android
+        run: ./gradlew --stop
