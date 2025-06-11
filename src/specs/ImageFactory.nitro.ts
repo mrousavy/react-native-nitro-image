@@ -10,7 +10,8 @@ export interface ImageFactory
    * @throws If the network request cannot be made.
    * @throws If the data at the given {@linkcode url} cannot be parsed as an {@linkcode Image}.
    */
-  loadFromURLAsync(url: string): Promise<Image>
+  loadFromURLAsync(url: string, newApi: boolean): Promise<Image>
+
   /**
    * Synchronously loads an {@linkcode Image} from the given {@linkcode filePath}.
    * @param filePath The file path of the {@linkcode Image}. Must contain a file extension.

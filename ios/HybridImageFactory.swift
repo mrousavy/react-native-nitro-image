@@ -8,6 +8,7 @@
 import Foundation
 import NitroModules
 import Nuke
+import Kingfisher
 
 class HybridImageFactory: HybridImageFactorySpec {
   private let queue = DispatchQueue(label: "image-loader",
@@ -17,17 +18,23 @@ class HybridImageFactory: HybridImageFactorySpec {
   /**
    * Load Image from URL
    */
-  func loadFromURLAsync(url urlString: String) throws -> Promise<any HybridImageSpec> {
+  func loadFromURLAsync(url urlString: String, newApi: Bool) throws -> Promise<any HybridImageSpec> {
     guard let url = URL(string: urlString) else {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
     }
 
     return Promise.async {
-      let request = ImageRequest(url: url)
-      let response = try await ImagePipeline.shared.imageTask(with: request,
-                                                              queue: self.queue)
-      let uiImage = response.image
-      return HybridImage(uiImage: uiImage)
+      if newApi {
+        let result = try await ImageDownloader.default.downloadImage(with: url)
+        let uiImage = result.image
+        return HybridImage(uiImage: uiImage)
+      } else {
+        let request = ImageRequest(url: url)
+        let response = try await ImagePipeline.shared.imageTask(with: request,
+                                                                queue: self.queue)
+        let uiImage = response.image
+        return HybridImage(uiImage: uiImage)
+      }
     }
   }
   

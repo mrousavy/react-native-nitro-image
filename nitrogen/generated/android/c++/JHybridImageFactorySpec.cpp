@@ -44,9 +44,9 @@ namespace margelo::nitro::image {
   
 
   // Methods
-  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageFactorySpec::loadFromURLAsync(const std::string& url) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */)>("loadFromURLAsync");
-    auto __result = method(_javaPart, jni::make_jstring(url));
+  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageFactorySpec::loadFromURLAsync(const std::string& url, bool newApi) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */, jboolean /* newApi */)>("loadFromURLAsync");
+    auto __result = method(_javaPart, jni::make_jstring(url), newApi);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

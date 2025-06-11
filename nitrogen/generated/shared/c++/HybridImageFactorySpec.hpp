@@ -55,7 +55,7 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url, bool newApi) = 0;
       virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromFile(const std::string& filePath) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) = 0;
       virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) = 0;

@@ -65,8 +65,8 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url) override {
-      auto __result = _swiftPart.loadFromURLAsync(url);
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url, bool newApi) override {
+      auto __result = _swiftPart.loadFromURLAsync(url, std::forward<decltype(newApi)>(newApi));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

@@ -29,5 +29,6 @@ Pod::Spec.new do |s|
   s.dependency 'React-callinvoker'
   # TODO: Migrate to Swift Package Manager because CocoaPods is deprecated/old
   s.dependency 'Nuke'
+  s.dependency 'Kingfisher'
   install_modules_dependencies(s)
 end

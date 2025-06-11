@@ -11,6 +11,7 @@ import { FastImageTab } from './FastImageTab';
 import { NitroImageTab } from './NitroImageTab';
 import { createStaticNavigation } from '@react-navigation/native';
 import { EmptyTab } from './EmptyTab';
+import { KingfisherNitroImageTab } from './KingfisherNitroImageTab';
 
 const Tabs = createBottomTabNavigator({
   detachInactiveScreens: false,
@@ -18,6 +19,7 @@ const Tabs = createBottomTabNavigator({
     Empty: EmptyTab,
     FastImage: FastImageTab,
     NitroImage: NitroImageTab,
+    KingfisherNitroImage: KingfisherNitroImageTab,
   },
 });
 const Navigation = createStaticNavigation(Tabs);
