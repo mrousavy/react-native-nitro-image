@@ -8,7 +8,7 @@
 
 <br />
 
-🖼️ A superfast Image core type and view component for React Native, built with Nitro!
+**Nitro Image** is a superfast Image core type and view component for React Native, built with Nitro!
 
 - Powered by [Nitro Modules](https://nitro.margelo.com) for highly efficient native bindings! 🔥
 - Instance-based `Image` type with byte-buffer pixel data access 🔗
