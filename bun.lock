@@ -21,7 +21,7 @@
       "peerDependencies": {
         "react": "*",
         "react-native": "*",
-        "react-native-nitro-modules": "^0.26.3",
+        "react-native-nitro-modules": "*",
       },
     },
     "example": {

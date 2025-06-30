@@ -82,6 +82,15 @@ const webImage = await loadImageFromURLAsync('https://picsum.photos/seed/123/400
 const smaller  = await webImage.resizeAsync(200, 200)
 ```
 
+#### Cropping
+
+An `Image` can be cropped entirely in-memory, without ever writing to- or reading from- a file:
+
+```ts
+const webImage = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const smaller  = await webImage.cropAsync(100, 100, 50, 50)
+```
+
 #### Saving
 
 An in-memory `Image` object can also be written/saved to a file:
