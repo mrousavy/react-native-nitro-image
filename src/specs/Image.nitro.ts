@@ -9,8 +9,14 @@ export interface Image
 
   /**
    * Returns an array buffer containing the raw pixel data of the Image.
-   * - On iOS, pixel data is RGBA.
-   * - On Android, pixel data is ARGB.
+   * Raw pixel data is always in `ARGB` format;
+   * ```
+   * [
+   *   A1, R1, G1, B1,
+   *   A2, R2, G2, B2,
+   *   ...
+   * ]
+   * ```
    */
   toArrayBuffer(): ArrayBuffer
   toArrayBufferAsync(): Promise<ArrayBuffer>

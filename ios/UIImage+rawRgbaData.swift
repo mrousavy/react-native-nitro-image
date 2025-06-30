@@ -21,9 +21,9 @@ extension UIImage {
     let totalSize = width * height * bytesPerPixel
     let arrayBuffer = ArrayBufferHolder.allocate(size: totalSize)
 
-    // Create a RGB-premultiplied-last context (i.e. RGBA)
+    // Create a RGB-premultiplied-first context (aka ARGB)
     let colorSpace = CGColorSpaceCreateDeviceRGB()
-    let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue
+    let bitmapInfo = CGImageAlphaInfo.premultipliedFirst.rawValue
 
     guard let ctx = CGContext(
       data: arrayBuffer.data,
