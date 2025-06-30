@@ -14,6 +14,7 @@
 - Instance-based `Image` type with byte-buffer pixel data access 🔗
 - Support basic in-memory image operations like resizing without saving to file 📐
 - Fast Web Image loading and caching using [SDWebImage](https://github.com/SDWebImage/SDWebImage) (iOS) and [Coil](https://github.com/coil-kt/coil) (Android) 🌎
+- [ThumbHash](https://github.com/evanw/thumbhash) support for elegant placeholders 🖼️
 
 ```tsx
 function App() {
@@ -138,4 +139,51 @@ function App() {
 This will now resize the `height` dimension to match the same aspect ratio as the `image` - in this case it will be 1:1 since the image is 400x400.
 
 If the `image` is 400x200, the `height` of the view will be **half** of the `width` of the view, i.e. a 0.5 aspect ratio.
+
+### ThumbHash
+
+A ThumbHash is a short binary (or base64 string) representation of a blurry image.
+Since it is a very small buffer (or base64 string), it can be added to a payload (like a `user` object in your database) to immediately display an image placeholder while the actual image loads.
+
+#### Usage example
+
+For example, in your `users` database you might have a `users.profile_picture_url` field which loads asynchronously, and a `users.profile_picture_thumbhash` field which contains the ThumbHash buffer (or base64 string) which you can display on-device immediately.
+
+- `users`
+  - `users.profile_picture_url`: Load asynchronously
+  - `users.profile_picture_thumbhash`: Decode & Display immediately
+
+Everytime you upload a new profile picture for the user, you should encode the image to a new ThumbHash again and update the `users.profile_picture_thumbhash` field. This should ideally happen on your backend, but can also be performed on-device if needed.
+
+#### ThumbHash (`ArrayBuffer`) <> Image
+
+NitroImage supports conversion from- and to- [ThumbHash](https://github.com/evanw/thumbhash) representations out of the box.
+
+For performance reasons, a ThumbHash is represented as an `ArrayBuffer`.
+
+```ts
+const thumbHash      = // from server
+const image          = loadImageFromThumbHash(thumbHash)
+const thumbHashAgain = image.toThumbHash()
+```
+
+##### ThumbHash (`ArrayBuffer`) <> Base64 String
+
+If your ThumbHash is a `string`, convert it to an `ArrayBuffer` first, since this is more efficient:
+
+```ts
+const thumbHashBase64      = // from server
+const thumbHashArrayBuffer = thumbHashFromBase64String(thumbHashBase64)
+const thumbHashBase64Again = thumbHashToBase64String(thumbHashArrayBuffer)
+```
+
+##### Async ThumbHash
+
+Since ThumbHash decoding or encoding can be a slow process, you should consider using the async methods instead:
+
+```ts
+const thumbHash      = // from server
+const image          = await loadImageFromThumbHashAsync(thumbHash)
+const thumbHashAgain = await image.toThumbHash()
+```
 

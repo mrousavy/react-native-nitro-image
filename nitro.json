@@ -17,6 +17,10 @@
       "swift": "HybridImageFactory",
       "kotlin": "HybridImageFactory"
     },
+    "ImageUtils": {
+      "swift": "HybridImageUtils",
+      "kotlin": "HybridImageUtils"
+    },
     "NitroImageView": {
       "swift": "HybridImageView",
       "kotlin": "HybridImageView"

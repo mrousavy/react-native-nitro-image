@@ -14,6 +14,8 @@ namespace NitroModules { class ArrayBuffer; }
 namespace margelo::nitro::image { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `HybridImageUtilsSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageUtilsSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 // Forward declaration of `ImageFormat` to properly resolve imports.
@@ -22,6 +24,7 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 // Include C++ defined types
 #include "HybridImageFactorySpec.hpp"
 #include "HybridImageSpec.hpp"
+#include "HybridImageUtilsSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
 #include "ImageFormat.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
@@ -46,6 +49,8 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 namespace NitroImage { class HybridImageFactorySpec_cxx; }
 // Forward declaration of `HybridImageSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageSpec_cxx; }
+// Forward declaration of `HybridImageUtilsSpec_cxx` to properly resolve imports.
+namespace NitroImage { class HybridImageUtilsSpec_cxx; }
 // Forward declaration of `HybridNitroImageViewSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 

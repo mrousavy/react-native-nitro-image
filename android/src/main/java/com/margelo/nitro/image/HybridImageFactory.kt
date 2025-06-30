@@ -1,14 +1,18 @@
 package com.margelo.nitro.image
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import coil3.BitmapImage
 import coil3.ImageLoader
 import coil3.request.ImageRequest
 import com.facebook.react.bridge.ReactApplicationContext
+import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 
 class HybridImageFactory: HybridImageFactorySpec() {
     private val context: ReactApplicationContext
@@ -57,8 +61,8 @@ class HybridImageFactory: HybridImageFactorySpec() {
     }
 
     override fun loadFromArrayBuffer(buffer: ArrayBuffer): HybridImageSpec {
-        val byteBuffer = buffer.getBuffer(false)
-        val bitmap = BitmapFactory.decodeByteArray(byteBuffer.array(), 0, buffer.size)
+        val array = buffer.toByteArray()
+        val bitmap = BitmapFactory.decodeByteArray(array, 0, buffer.size)
         return HybridImage(bitmap)
     }
 
@@ -75,4 +79,24 @@ class HybridImageFactory: HybridImageFactorySpec() {
         return Promise.async { loadFromFile(filePath) }
     }
 
+    private fun loadFromThumbHash(thumbHashBytes: ByteArray): HybridImage {
+        val rgba = ThumbHash.thumbHashToRGBA(thumbHashBytes)
+
+        val bitmap = Bitmap.createBitmap(rgba.width, rgba.height, Bitmap.Config.ARGB_8888)
+        val buffer = ByteBuffer.wrap(rgba.rgba)
+        bitmap.copyPixelsFromBuffer(buffer)
+        return HybridImage(bitmap)
+    }
+
+    override fun loadFromThumbHash(thumbhash: ArrayBuffer): HybridImageSpec {
+        // copyIfNeeded can be false since we are running this synchronously
+        val bytes = thumbhash.toByteArray()
+        return loadFromThumbHash(bytes)
+    }
+
+    override fun loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<HybridImageSpec> {
+        // copyIfNeeded needs to be true since we switch threads
+        val bytes = thumbhash.toByteArray()
+        return Promise.async { loadFromThumbHash(bytes) }
+    }
 }

@@ -22,4 +22,7 @@ export interface Image
     format: ImageFormat,
     quality: number
   ): Promise<string>
+
+  toThumbHash(): ArrayBuffer
+  toThumbHashAsync(): Promise<ArrayBuffer>
 }

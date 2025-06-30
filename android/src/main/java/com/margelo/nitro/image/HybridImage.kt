@@ -1,13 +1,16 @@
 package com.margelo.nitro.image
 
 import android.graphics.Bitmap
+import android.os.Build
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
+import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.nio.ByteBuffer
 
 @Suppress("ConvertSecondaryConstructorToPrimary")
 @Keep
@@ -27,11 +30,22 @@ class HybridImage: HybridImageSpec {
         this.bitmap = bitmap
     }
 
+    private fun toByteBuffer(): ByteBuffer {
+        var bitmap = bitmap
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+            bitmap.config == Bitmap.Config.HARDWARE) {
+            // It's a GPU Bitmap - we need to copy it to CPU memory first.
+            bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, false)
+        }
+
+        val buffer = ByteBuffer.allocate(bitmap.byteCount)
+        bitmap.copyPixelsToBuffer(buffer)
+        return buffer
+    }
+
     override fun toArrayBuffer(): ArrayBuffer {
-        val arrayBuffer = ArrayBuffer.allocate(bitmap.byteCount)
-        val byteBuffer = arrayBuffer.getBuffer(false)
-        bitmap.copyPixelsToBuffer(byteBuffer)
-        return arrayBuffer
+        val buffer = toByteBuffer()
+        return ArrayBuffer.wrap(buffer)
     }
 
     override fun toArrayBufferAsync(): Promise<ArrayBuffer> {
@@ -63,5 +77,22 @@ class HybridImage: HybridImageSpec {
             this.saveToFileAsync(tempFile.path, format, quality)
             return@async tempFile.path
         }
+    }
+
+    override fun toThumbHash(): ArrayBuffer {
+        if (width > 100 || height > 100) {
+            throw Error("Cannot encode an Image larger than 100x100 to a ThumbHash. " +
+                    "Resize the image to <100 pixels in width and height first, then try again!")
+        }
+
+        val bitmapBuffer = toByteBuffer()
+
+        val thumbHash = ThumbHash.rgbaToThumbHash(bitmap.width, bitmap.height, bitmapBuffer.array())
+        val buffer = ByteBuffer.wrap(thumbHash)
+        return ArrayBuffer.copy(buffer)
+    }
+
+    override fun toThumbHashAsync(): Promise<ArrayBuffer> {
+        return Promise.async { toThumbHash() }
     }
 }

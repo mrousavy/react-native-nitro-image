@@ -69,6 +69,14 @@ abstract class HybridImageSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double): Promise<String>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun toThumbHash(): ArrayBuffer
+  
+  @DoNotStrip
+  @Keep
+  abstract fun toThumbHashAsync(): Promise<ArrayBuffer>
 
   private external fun initHybrid(): HybridData
 

@@ -17,3 +17,8 @@ export { NitroImage } from './NitroImage'
  * The `useWebImage` hook
  */
 export { useWebImage } from './useWebImage'
+
+/**
+ * All the utils for Images, like ThumbHash <> String conversion
+ */
+export * from './ImageUtils'
