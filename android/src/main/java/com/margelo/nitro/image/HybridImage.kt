@@ -30,10 +30,14 @@ class HybridImage: HybridImageSpec {
         this.bitmap = bitmap
     }
 
+    private val isGPU: Boolean
+        get() {
+            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                bitmap.config == Bitmap.Config.HARDWARE
+        }
     private fun toByteBuffer(): ByteBuffer {
         var bitmap = bitmap
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-            bitmap.config == Bitmap.Config.HARDWARE) {
+        if (isGPU) {
             // It's a GPU Bitmap - we need to copy it to CPU memory first.
             bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, false)
         }
@@ -44,8 +48,12 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun toArrayBuffer(): ArrayBuffer {
-        val buffer = toByteBuffer()
-        return ArrayBuffer.wrap(buffer)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && isGPU) {
+            return ArrayBuffer.wrap(bitmap.hardwareBuffer)
+        } else {
+            val buffer = toByteBuffer()
+            return ArrayBuffer.wrap(buffer)
+        }
     }
 
     override fun toArrayBufferAsync(): Promise<ArrayBuffer> {

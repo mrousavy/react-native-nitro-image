@@ -47,7 +47,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SDWebImage
     - Yoga
-  - NitroModules (0.26.2):
+  - NitroModules (0.26.3):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2107,7 +2107,7 @@ SPEC CHECKSUMS:
   hermes-engine: 94ed01537bdeccaab1adbf94b040d115d6fa1a7f
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   NitroImage: 97d130b01c525a52743248ce649c7fe27a55f710
-  NitroModules: ccf2db518daf271800221ef472938a324672ff71
+  NitroModules: f36b94e48ff1705fc6b84bc1953f40e2da4196c2
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
   RCTDeprecation: c3e3f5b4ea83e7ff3bc86ce09e2a54b7affd687d
   RCTRequired: ee438439880dffc9425930d1dd1a3c883ee6879c
