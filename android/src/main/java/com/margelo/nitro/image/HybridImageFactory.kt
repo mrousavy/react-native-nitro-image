@@ -1,6 +1,7 @@
 package com.margelo.nitro.image
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import coil3.BitmapImage
 import coil3.ImageLoader
@@ -10,6 +11,8 @@ import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 
 class HybridImageFactory: HybridImageFactorySpec() {
     private val context: ReactApplicationContext
@@ -58,8 +61,8 @@ class HybridImageFactory: HybridImageFactorySpec() {
     }
 
     override fun loadFromArrayBuffer(buffer: ArrayBuffer): HybridImageSpec {
-        val byteBuffer = buffer.getBuffer(false)
-        val bitmap = BitmapFactory.decodeByteArray(byteBuffer.array(), 0, buffer.size)
+        val array = buffer.toByteArray()
+        val bitmap = BitmapFactory.decodeByteArray(array, 0, buffer.size)
         return HybridImage(bitmap)
     }
 
@@ -78,19 +81,28 @@ class HybridImageFactory: HybridImageFactorySpec() {
 
     private fun loadFromThumbHash(thumbHashBytes: ByteArray): HybridImage {
         val rgba = ThumbHash.thumbHashToRGBA(thumbHashBytes)
-        val image = BitmapFactory.decodeByteArray(rgba.rgba, 0, rgba.rgba.size)
-        return HybridImage(image)
+
+        val bitmap = Bitmap.createBitmap(rgba.width, rgba.height, Bitmap.Config.ARGB_8888)
+
+        // TODO: Use ByteBuffer.wrap() instead of this copy here
+        val buffer = ByteBuffer
+            .allocateDirect(rgba.rgba.size)
+            .order(ByteOrder.nativeOrder())
+            .put(rgba.rgba)
+        buffer.rewind()
+        bitmap.copyPixelsFromBuffer(buffer)
+        return HybridImage(bitmap)
     }
 
     override fun loadFromThumbHash(thumbhash: ArrayBuffer): HybridImageSpec {
         // copyIfNeeded can be false since we are running this synchronously
-        val bytes = thumbhash.getBuffer(false)
-        return loadFromThumbHash(bytes.array())
+        val bytes = thumbhash.toByteArray()
+        return loadFromThumbHash(bytes)
     }
 
     override fun loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<HybridImageSpec> {
         // copyIfNeeded needs to be true since we switch threads
-        val bytes = thumbhash.getBuffer(true)
-        return Promise.async { loadFromThumbHash(bytes.array()) }
+        val bytes = thumbhash.toByteArray()
+        return Promise.async { loadFromThumbHash(bytes) }
     }
 }
