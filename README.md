@@ -137,6 +137,23 @@ function App() {
 }
 ```
 
+### The `<NitroWebImage />` view
+
+The `<NitroWebImage />` view is a JS-based React Native view component that fetches an `Image` from a remote URL as soon as it is mounted and displays it:
+
+```tsx
+function App() {
+  return (
+    <NitroWebImage
+      url="https://picsum.photos/seed/123/400"
+      placeholder={{ thumbHash: '…' }}
+      options={{ priority: 'high' }}
+      style={{ width: 400, height: 400 }}
+    />
+  )
+}
+```
+
 #### Dynamic width or height
 
 To achieve a dynamic width or height calculation, you can use the `image`'s dimensions:

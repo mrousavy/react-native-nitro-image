@@ -8,10 +8,8 @@ export type { Image } from './specs/Image.nitro'
  */
 export * from './ImageFactory'
 
-/**
- * The renderable native `<NitroImage />` view component.
- */
 export { NitroImage } from './NitroImage'
+export { NitroWebImage } from './NitroWebImage'
 
 /**
  * The `useWebImage` hook
