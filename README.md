@@ -38,6 +38,9 @@ npm i react-native-nitro-modules
 cd ios && pod install
 ```
 
+> [!NOTE]
+> Since NitroImage is built with [Nitro Views](https://nitro.margelo.com/docs/hybrid-views), it requires the [new architecture](https://reactnative.dev/architecture/landing-page) to be enabled.
+
 Then, since [SDWebImage does not enable modular headers](https://github.com/SDWebImage/SDWebImage?tab=readme-ov-file#swift-and-static-framework) for static linkage, you need to enable those yourself **in your app's `Podfile`**:
 
 ```rb
