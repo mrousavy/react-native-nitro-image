@@ -7,7 +7,27 @@
 
 import Foundation
 import NitroModules
-import Nuke
+import SDWebImage
+
+extension SDWebImageManager {
+  func loadImage(with url: URL) async throws -> UIImage {
+    return try await withUnsafeThrowingContinuation { continuation in
+      self.loadImage(with: url) { current, total, url in
+        print("\(url): Loaded \(current)/\(total) bytes")
+      } completed: { image, data, error, cacheType, finished, url in
+        if let image {
+          continuation.resume(returning: image)
+        } else {
+          if let error {
+            continuation.resume(throwing: error)
+          } else {
+            continuation.resume(throwing: RuntimeError.error(withMessage: "No Image or error was returned!"))
+          }
+        }
+      }
+    }
+  }
+}
 
 class HybridImageFactory: HybridImageFactorySpec {
   private let queue = DispatchQueue(label: "image-loader",
@@ -23,10 +43,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
 
     return Promise.async {
-      let request = ImageRequest(url: url)
-      let response = try await ImagePipeline.shared.imageTask(with: request,
-                                                              queue: self.queue)
-      let uiImage = response.image
+      let uiImage = try await SDWebImageManager.shared.loadImage(with: url)
       return HybridImage(uiImage: uiImage)
     }
   }

@@ -20,12 +20,11 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - NitroImage (0.2.1):
+  - NitroImage (0.3.2):
     - DoubleConversion
     - glog
     - hermes-engine
     - NitroModules
-    - Nuke
     - RCT-Folly (= 2024.11.18.00)
     - RCTRequired
     - RCTTypeSafety
@@ -46,6 +45,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
+    - SDWebImage
     - Yoga
   - NitroModules (0.26.2):
     - DoubleConversion
@@ -72,7 +72,6 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - Nuke (10.7.1)
   - RCT-Folly (2024.11.18.00):
     - boost
     - DoubleConversion
@@ -1935,12 +1934,12 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../../node_modules/react-native/ReactCommon`)
   - RNFastImage (from `../../node_modules/react-native-fast-image`)
   - RNScreens (from `../../node_modules/react-native-screens`)
+  - SDWebImage
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - libwebp
-    - Nuke
     - SDWebImage
     - SDWebImageWebPCoder
     - SocketRocket
@@ -2107,9 +2106,8 @@ SPEC CHECKSUMS:
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 94ed01537bdeccaab1adbf94b040d115d6fa1a7f
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  NitroImage: cffb9039611390f22e5c091604474a6d3e9f646e
+  NitroImage: 97d130b01c525a52743248ce649c7fe27a55f710
   NitroModules: ccf2db518daf271800221ef472938a324672ff71
-  Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
   RCTDeprecation: c3e3f5b4ea83e7ff3bc86ce09e2a54b7affd687d
   RCTRequired: ee438439880dffc9425930d1dd1a3c883ee6879c
@@ -2180,6 +2178,6 @@ SPEC CHECKSUMS:
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 645152fcc8359c80cdeb9be7a9e0d2e6c01304a4
 
-PODFILE CHECKSUM: 161c92a744a43c1c42e62cdd1079f98f006c8cb2
+PODFILE CHECKSUM: 8c90c25c7a6bc16ec7b3ed7968df16467ab0fc35
 
 COCOAPODS: 1.15.2
