@@ -83,13 +83,7 @@ class HybridImageFactory: HybridImageFactorySpec() {
         val rgba = ThumbHash.thumbHashToRGBA(thumbHashBytes)
 
         val bitmap = Bitmap.createBitmap(rgba.width, rgba.height, Bitmap.Config.ARGB_8888)
-
-        // TODO: Use ByteBuffer.wrap() instead of this copy here
-        val buffer = ByteBuffer
-            .allocateDirect(rgba.rgba.size)
-            .order(ByteOrder.nativeOrder())
-            .put(rgba.rgba)
-        buffer.rewind()
+        val buffer = ByteBuffer.wrap(rgba.rgba)
         bitmap.copyPixelsFromBuffer(buffer)
         return HybridImage(bitmap)
     }
