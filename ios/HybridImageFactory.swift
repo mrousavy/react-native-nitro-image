@@ -9,26 +9,6 @@ import Foundation
 import NitroModules
 import SDWebImage
 
-extension SDWebImageManager {
-  func loadImage(with url: URL) async throws -> UIImage {
-    return try await withUnsafeThrowingContinuation { continuation in
-      self.loadImage(with: url) { current, total, url in
-        print("\(url): Loaded \(current)/\(total) bytes")
-      } completed: { image, data, error, cacheType, finished, url in
-        if let image {
-          continuation.resume(returning: image)
-        } else {
-          if let error {
-            continuation.resume(throwing: error)
-          } else {
-            continuation.resume(throwing: RuntimeError.error(withMessage: "No Image or error was returned!"))
-          }
-        }
-      }
-    }
-  }
-}
-
 class HybridImageFactory: HybridImageFactorySpec {
   private let queue = DispatchQueue(label: "image-loader",
                                     qos: .default,
@@ -37,13 +17,14 @@ class HybridImageFactory: HybridImageFactorySpec {
   /**
    * Load Image from URL
    */
-  func loadFromURLAsync(url urlString: String) throws -> Promise<any HybridImageSpec> {
+  func loadFromURLAsync(url urlString: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
     guard let url = URL(string: urlString) else {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
     }
 
     return Promise.async {
-      let uiImage = try await SDWebImageManager.shared.loadImage(with: url)
+      let webImageOptions = options?.toSDWebImageOptions() ?? []
+      let uiImage = try await SDWebImageManager.shared.loadImage(with: url, options: webImageOptions)
       return HybridImage(uiImage: uiImage)
     }
   }
