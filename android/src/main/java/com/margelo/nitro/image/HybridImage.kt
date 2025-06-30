@@ -48,7 +48,7 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun toArrayBuffer(): ArrayBuffer {
-        if (isGPU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && isGPU) {
             return ArrayBuffer.wrap(bitmap.hardwareBuffer)
         } else {
             val buffer = toByteBuffer()
