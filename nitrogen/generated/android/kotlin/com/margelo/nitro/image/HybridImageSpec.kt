@@ -64,6 +64,14 @@ abstract class HybridImageSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
+  abstract fun crop(startX: Double, startY: Double, endX: Double, endY: Double): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun cropAsync(startX: Double, startY: Double, endX: Double, endY: Double): Promise<HybridImageSpec>
+  
+  @DoNotStrip
+  @Keep
   abstract fun saveToFileAsync(path: String, format: ImageFormat, quality: Double): Promise<Unit>
   
   @DoNotStrip

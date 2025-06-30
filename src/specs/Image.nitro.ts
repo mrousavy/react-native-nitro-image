@@ -28,6 +28,18 @@ export interface Image
   resizeAsync(width: number, height: number): Promise<Image>
 
   /**
+   * Crops this Image into a new image starting from the source image's {@linkcode startX} and {@linkcode startY} coordinates,
+   * up until the source image's {@linkcode endX} and {@linkcode endY} coordinates.
+   */
+  crop(startX: number, startY: number, endX: number, endY: number): Image
+  cropAsync(
+    startX: number,
+    startY: number,
+    endX: number,
+    endY: number
+  ): Promise<Image>
+
+  /**
    * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
    */
   saveToFileAsync(
