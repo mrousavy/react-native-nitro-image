@@ -13,7 +13,7 @@
 - Powered by [Nitro Modules](https://nitro.margelo.com) for highly efficient native bindings! 🔥
 - Instance-based `Image` type with byte-buffer pixel data access 🔗
 - Support basic in-memory image operations like resizing without saving to file 📐
-- Fast Web Image loading and caching using [Nuke](https://github.com/kean/Nuke) (iOS) and [Coil](https://github.com/coil-kt/coil) (Android) 🌎
+- Fast Web Image loading and caching using [SDWebImage](https://github.com/SDWebImage/SDWebImage) (iOS) and [Coil](https://github.com/coil-kt/coil) (Android) 🌎
 
 ```tsx
 function App() {
@@ -36,6 +36,18 @@ npm i react-native-nitro-image
 npm i react-native-nitro-modules
 cd ios && pod install
 ```
+
+Then, since [SDWebImage does not enable modular headers](https://github.com/SDWebImage/SDWebImage?tab=readme-ov-file#swift-and-static-framework) for static linkage, you need to enable those yourself **in your app's `Podfile`**:
+
+```rb
+target '…' do
+  config = use_native_modules!
+
+  # Add this line:
+  pod 'SDWebImage', :modular_headers => true
+```
+
+> Note; if you are on Expo, this is already enabled for you.
 
 ## Usage
 
