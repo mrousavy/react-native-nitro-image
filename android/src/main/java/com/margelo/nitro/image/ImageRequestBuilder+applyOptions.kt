@@ -12,7 +12,7 @@ fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageReq
     var result = this
 
     if (options.priority != null) {
-        // TODO: Implement .priority
+        result = result.coroutineContext(options.priority.toCoroutineContext())
     }
 
     if (options.forceRefresh == true) {
