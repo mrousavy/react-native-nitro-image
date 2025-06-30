@@ -107,4 +107,17 @@ class HybridImageFactory: HybridImageFactorySpec {
       return HybridImage(uiImage: uiImage)
     }
   }
+  
+  func loadFromThumbHash(thumbhash: ArrayBufferHolder) throws -> any HybridImageSpec {
+    let data = thumbhash.toData(copyIfNeeded: false)
+    let uiImage = thumbHashToImage(hash: data)
+    return HybridImage(uiImage: uiImage)
+  }
+  func loadFromThumbHashAsync(thumbhash: ArrayBufferHolder) throws -> Promise<any HybridImageSpec> {
+    let data = thumbhash.toData(copyIfNeeded: true)
+    return Promise.async {
+      let uiImage = thumbHashToImage(hash: data)
+      return HybridImage(uiImage: uiImage)
+    }
+  }
 }

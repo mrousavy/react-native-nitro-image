@@ -63,6 +63,8 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromSymbol(const std::string& symbolName) = 0;
       virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
+      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
 
     protected:
       // Hybrid Setup

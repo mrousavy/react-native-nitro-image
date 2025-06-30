@@ -62,4 +62,7 @@ export interface ImageFactory
    * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
    */
   loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<Image>
+
+  loadFromThumbHash(thumbhash: ArrayBuffer): Image
+  loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<Image>
 }

@@ -21,6 +21,8 @@ public protocol HybridImageSpec_protocol: HybridObject {
   func resizeAsync(width: Double, height: Double) throws -> Promise<(any HybridImageSpec)>
   func saveToFileAsync(path: String, format: ImageFormat, quality: Double) throws -> Promise<Void>
   func saveToTemporaryFileAsync(format: ImageFormat, quality: Double) throws -> Promise<String>
+  func toThumbHash() throws -> ArrayBufferHolder
+  func toThumbHashAsync() throws -> Promise<ArrayBufferHolder>
 }
 
 /// See ``HybridImageSpec``

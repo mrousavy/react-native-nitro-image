@@ -71,6 +71,14 @@ abstract class HybridImageFactorySpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<HybridImageSpec>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromThumbHash(thumbhash: ArrayBuffer): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<HybridImageSpec>
 
   private external fun initHybrid(): HybridData
 

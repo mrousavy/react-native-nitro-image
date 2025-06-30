@@ -83,4 +83,14 @@ class HybridImage: HybridImageSpec {
     }
   }
   
+  func toThumbHash() throws -> ArrayBufferHolder {
+    let thumbHash = imageToThumbHash(image: uiImage)
+    return try ArrayBufferHolder.copy(data: thumbHash)
+  }
+  
+  func toThumbHashAsync() throws -> Promise<ArrayBufferHolder> {
+    return Promise.async {
+      return try self.toThumbHash()
+    }
+  }
 }

@@ -22,6 +22,8 @@ namespace margelo::nitro::image {
       prototype.registerHybridMethod("resizeAsync", &HybridImageSpec::resizeAsync);
       prototype.registerHybridMethod("saveToFileAsync", &HybridImageSpec::saveToFileAsync);
       prototype.registerHybridMethod("saveToTemporaryFileAsync", &HybridImageSpec::saveToTemporaryFileAsync);
+      prototype.registerHybridMethod("toThumbHash", &HybridImageSpec::toThumbHash);
+      prototype.registerHybridMethod("toThumbHashAsync", &HybridImageSpec::toThumbHashAsync);
     });
   }
 

@@ -3,11 +3,13 @@ package com.margelo.nitro.image
 import android.graphics.Bitmap
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
+import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.nio.ByteBuffer
 
 @Suppress("ConvertSecondaryConstructorToPrimary")
 @Keep
@@ -63,5 +65,18 @@ class HybridImage: HybridImageSpec {
             this.saveToFileAsync(tempFile.path, format, quality)
             return@async tempFile.path
         }
+    }
+
+    override fun toThumbHash(): ArrayBuffer {
+        val bitmapBuffer = ByteBuffer.allocate(bitmap.byteCount)
+        bitmap.copyPixelsToBuffer(bitmapBuffer)
+
+        val thumbHash = ThumbHash.rgbaToThumbHash(bitmap.width, bitmap.height, bitmapBuffer.array())
+        val buffer = ByteBuffer.wrap(thumbHash)
+        return ArrayBuffer.wrap(buffer)
+    }
+
+    override fun toThumbHashAsync(): Promise<ArrayBuffer> {
+        return Promise.async { toThumbHash() }
     }
 }
