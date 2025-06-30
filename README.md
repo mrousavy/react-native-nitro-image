@@ -51,8 +51,6 @@ target '…' do
   pod 'SDWebImage', :modular_headers => true
 ```
 
-> Note; if you are on Expo, this is already enabled for you.
-
 ## Usage
 
 ### Creating `Image`s
