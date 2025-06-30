@@ -30,7 +30,7 @@ export interface AsyncImageLoadOptions {
   allowInvalidSSLCertificates?: boolean
 
   /**
-   * Scales down larger images to respect the device's memory constraints (max. 60 MB)
+   * Scales down larger images to respect the device's memory constraints (max. 60 MB, or 4096x4096)
    * @default false
    */
   scaleDownLargeImages?: boolean

@@ -12,18 +12,18 @@ import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import java.nio.ByteBuffer
-import java.nio.ByteOrder
 
 class HybridImageFactory: HybridImageFactorySpec() {
     private val context: ReactApplicationContext
         get() = NitroModules.applicationContext ?: throw Error("No context - NitroModules.applicationContext was null!")
     private val imageLoader = ImageLoader(context)
 
-    override fun loadFromURLAsync(url: String): Promise<HybridImageSpec> {
+    override fun loadFromURLAsync(url: String, options: AsyncImageLoadOptions?): Promise<HybridImageSpec> {
         return Promise.async {
             // 1. Create the Coil Request
             val request = ImageRequest.Builder(context)
                 .data(url)
+                .applyOptions(options)
                 .build()
             // 2. Execute it (async)
             val result = imageLoader.execute(request)
