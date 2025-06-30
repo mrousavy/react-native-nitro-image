@@ -10,6 +10,10 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `ArrayBuffer` to properly resolve imports.
 namespace NitroModules { class ArrayBuffer; }
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
@@ -22,6 +26,8 @@ namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 namespace margelo::nitro::image { enum class ImageFormat; }
 
 // Include C++ defined types
+#include "AsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
 #include "HybridImageFactorySpec.hpp"
 #include "HybridImageSpec.hpp"
 #include "HybridImageUtilsSpec.hpp"

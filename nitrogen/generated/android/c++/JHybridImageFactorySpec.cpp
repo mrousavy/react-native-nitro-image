@@ -9,6 +9,10 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::image { enum class AsyncImagePriority; }
 // Forward declaration of `ArrayBuffer` to properly resolve imports.
 namespace NitroModules { class ArrayBuffer; }
 
@@ -19,6 +23,11 @@ namespace NitroModules { class ArrayBuffer; }
 #include "JHybridImageSpec.hpp"
 #include <NitroModules/JNISharedPtr.hpp>
 #include <string>
+#include <optional>
+#include "AsyncImageLoadOptions.hpp"
+#include "JAsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
+#include "JAsyncImagePriority.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/JArrayBuffer.hpp>
 #include <NitroModules/JUnit.hpp>
@@ -44,9 +53,9 @@ namespace margelo::nitro::image {
   
 
   // Methods
-  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageFactorySpec::loadFromURLAsync(const std::string& url) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */)>("loadFromURLAsync");
-    auto __result = method(_javaPart, jni::make_jstring(url));
+  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageFactorySpec::loadFromURLAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("loadFromURLAsync");
+    auto __result = method(_javaPart, jni::make_jstring(url), options.has_value() ? JAsyncImageLoadOptions::fromCpp(options.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
