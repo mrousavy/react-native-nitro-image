@@ -42,7 +42,7 @@ abstract class HybridImageUtilsSpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun thumbhashToString(thumbhash: ArrayBuffer): String
+  abstract fun thumbHashToBase64String(thumbhash: ArrayBuffer): String
   
   @DoNotStrip
   @Keep

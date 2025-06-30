@@ -14,7 +14,7 @@ public protocol HybridImageUtilsSpec_protocol: HybridObject {
   
 
   // Methods
-  func thumbhashToString(thumbhash: ArrayBufferHolder) throws -> String
+  func thumbHashToBase64String(thumbhash: ArrayBufferHolder) throws -> String
   func thumbhashFromBase64String(thumbhashBase64: String) throws -> ArrayBufferHolder
 }
 

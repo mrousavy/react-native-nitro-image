@@ -36,8 +36,8 @@ namespace margelo::nitro::image {
   
 
   // Methods
-  std::string JHybridImageUtilsSpec::thumbhashToString(const std::shared_ptr<ArrayBuffer>& thumbhash) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>(jni::alias_ref<JArrayBuffer::javaobject> /* thumbhash */)>("thumbhashToString");
+  std::string JHybridImageUtilsSpec::thumbHashToBase64String(const std::shared_ptr<ArrayBuffer>& thumbhash) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>(jni::alias_ref<JArrayBuffer::javaobject> /* thumbhash */)>("thumbHashToBase64String");
     auto __result = method(_javaPart, JArrayBuffer::wrap(thumbhash));
     return __result->toStdString();
   }

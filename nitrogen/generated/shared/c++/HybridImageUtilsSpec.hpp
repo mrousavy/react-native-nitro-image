@@ -50,7 +50,7 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual std::string thumbhashToString(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
+      virtual std::string thumbHashToBase64String(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
       virtual std::shared_ptr<ArrayBuffer> thumbhashFromBase64String(const std::string& thumbhashBase64) = 0;
 
     protected:

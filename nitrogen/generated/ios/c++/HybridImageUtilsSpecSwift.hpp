@@ -60,8 +60,8 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline std::string thumbhashToString(const std::shared_ptr<ArrayBuffer>& thumbhash) override {
-      auto __result = _swiftPart.thumbhashToString(ArrayBufferHolder(thumbhash));
+    inline std::string thumbHashToBase64String(const std::shared_ptr<ArrayBuffer>& thumbhash) override {
+      auto __result = _swiftPart.thumbHashToBase64String(ArrayBufferHolder(thumbhash));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

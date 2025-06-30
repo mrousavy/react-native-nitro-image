@@ -51,7 +51,7 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    std::string thumbhashToString(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
+    std::string thumbHashToBase64String(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
     std::shared_ptr<ArrayBuffer> thumbhashFromBase64String(const std::string& thumbhashBase64) override;
 
   private:

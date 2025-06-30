@@ -69,3 +69,20 @@ export const loadImageFromArrayBuffer =
  */
 export const loadImageFromArrayBufferAsync =
   factory.loadFromArrayBufferAsync.bind(factory)
+
+/**
+ * Synchronously decodes the given {@linkcode thumbhash} to an {@linkcode Image}.
+ * @param thumbhash The binary representation of the ThumbHash - a `ArrayBuffer`.
+ * @throws If the given {@linkcode thumbhash} is not a valid ThumbHash.
+ * @note If your thumbhash is a base64 string, use `thumbHashFromBase64String(...)`
+ */
+export const loadImageFromThumbHash = factory.loadFromThumbHash.bind(factory)
+
+/**
+ * Asynchronously decodes the given {@linkcode thumbhash} to an {@linkcode Image}.
+ * @param thumbhash The binary representation of the ThumbHash - a `ArrayBuffer`.
+ * @throws If the given {@linkcode thumbhash} is not a valid ThumbHash.
+ * @note If your thumbhash is a base64 string, use `thumbHashFromBase64String(...)`
+ */
+export const loadImageFromThumbHashAsync =
+  factory.loadFromThumbHashAsync.bind(factory)
