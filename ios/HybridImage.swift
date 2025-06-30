@@ -62,10 +62,10 @@ class HybridImage: HybridImageSpec {
     let targetWidth = endX - startX
     let targetHeight = endY - startY
     guard targetWidth > 0 else {
-      throw RuntimeError.error(withMessage: "Width cannot be less than 0! (startX: \(startX) - endX: \(endX) = \(width))")
+      throw RuntimeError.error(withMessage: "Width cannot be less than 0! (startX: \(startX) - endX: \(endX) = \(targetWidth))")
     }
     guard targetHeight > 0 else {
-      throw RuntimeError.error(withMessage: "Height cannot be less than 0! (startY: \(startY) - endY: \(endY) = \(height))")
+      throw RuntimeError.error(withMessage: "Height cannot be less than 0! (startY: \(startY) - endY: \(endY) = \(targetHeight))")
     }
     guard let cgImage = uiImage.cgImage else {
       throw RuntimeError.error(withMessage: "This image does not have an underlying .cgImage!")
