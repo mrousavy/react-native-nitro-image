@@ -183,15 +183,18 @@ If the `image` is 400x200, the `height` of the view will be **half** of the `wid
 A ThumbHash is a short binary (or base64 string) representation of a blurry image.
 Since it is a very small buffer (or base64 string), it can be added to a payload (like a `user` object in your database) to immediately display an image placeholder while the actual image loads.
 
-#### Usage example
+<details>
+  <summary>Usage Example</summary>
 
-For example, in your `users` database you might have a `users.profile_picture_url` field which loads asynchronously, and a `users.profile_picture_thumbhash` field which contains the ThumbHash buffer (or base64 string) which you can display on-device immediately.
 
-- `users`
-  - `users.profile_picture_url`: Load asynchronously
-  - `users.profile_picture_thumbhash`: Decode & Display immediately
-
-Everytime you upload a new profile picture for the user, you should encode the image to a new ThumbHash again and update the `users.profile_picture_thumbhash` field. This should ideally happen on your backend, but can also be performed on-device if needed.
+  For example, your `users` database could have a `users.profile_picture_url` field which you use to asynchronously load the web Image, and a `users.profile_picture_thumbhash` field which contains the ThumbHash buffer (or base64 string) which you can display on-device immediately.
+  
+  - `users`
+    - `users.profile_picture_url`: Load asynchronously
+    - `users.profile_picture_thumbhash`: Decode & Display immediately
+  
+  Everytime you upload a new profile picture for the user, you should encode the image to a new ThumbHash again and update the `users.profile_picture_thumbhash` field. This should ideally happen on your backend, but can also be performed on-device if needed.
+</details>
 
 #### ThumbHash (`ArrayBuffer`) <> Image
 
