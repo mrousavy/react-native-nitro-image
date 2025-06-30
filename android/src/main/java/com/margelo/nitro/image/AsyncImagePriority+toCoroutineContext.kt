@@ -2,6 +2,7 @@ package com.margelo.nitro.image
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.currentCoroutineContext
 import java.util.concurrent.PriorityBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -18,7 +19,7 @@ private object PriorityDispatchers {
         max(coreCount / 4, 2), // core pool size
         coreCount, // maximum pool size
         60L, TimeUnit.SECONDS,
-        PriorityBlockingQueue<Runnable>()
+        PriorityBlockingQueue()
     ) { runnable ->
         Thread(runnable).apply {
             name = "ImageLoader-HIGH-${threadCounter.incrementAndGet()}"
@@ -26,23 +27,17 @@ private object PriorityDispatchers {
         }
     }
 
-    private val defaultPriorityExecutor = Dispatchers.IO
-
-    // Use limited parallelism for low priority to avoid resource contention
     private val lowPriorityDispatcher = Dispatchers.IO.limitedParallelism(2)
 
-
-    // Convert executors to dispatchers
     val HIGH = highPriorityExecutor.asCoroutineDispatcher()
-    val DEFAULT = defaultPriorityExecutor
     val LOW = lowPriorityDispatcher
 }
 
 
-fun AsyncImagePriority.toCoroutineContext(): CoroutineContext {
+suspend fun AsyncImagePriority.toCoroutineContext(): CoroutineContext {
     return when (this) {
         AsyncImagePriority.LOW -> PriorityDispatchers.LOW
-        AsyncImagePriority.DEFAULT -> PriorityDispatchers.DEFAULT
+        AsyncImagePriority.DEFAULT -> currentCoroutineContext()
         AsyncImagePriority.HIGH -> PriorityDispatchers.HIGH
     }
 }

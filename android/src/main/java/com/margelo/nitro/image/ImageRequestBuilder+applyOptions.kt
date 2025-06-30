@@ -7,7 +7,7 @@ import coil3.request.ImageRequest
 import coil3.size.Precision
 
 @OptIn(ExperimentalCoilApi::class)
-fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageRequest.Builder {
+suspend fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageRequest.Builder {
     if (options == null) return this
     var result = this
 
