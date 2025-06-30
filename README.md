@@ -63,9 +63,18 @@ const resourceImage = loadImageFromResources('my-resource.jpg')
 const symbolImage   = loadImageFromSymbol('star')
 ```
 
+#### Load with Options
+
+When loading from a remote URL, you can tweak options such as `priority`:
+
+```ts
+const image1 = await loadImageFromURLAsync(URL1, { priority: 'low' })
+const image2 = await loadImageFromURLAsync(URL2, { priority: 'high' })
+```
+
 #### `ArrayBuffer`
 
-The `Image` type can be converted to- and from- an `ArrayBuffer`:
+The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in ARGB format:
 
 ```ts
 const webImage        = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
