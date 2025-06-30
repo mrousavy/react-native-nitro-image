@@ -11,10 +11,10 @@ extension UIImage {
       throw RuntimeError.error(withMessage: "Failed to get Image's underlying cgImage!")
     }
 
-    let width  = cg.width
+    let width = cg.width
     let height = cg.height
     let bytesPerPixel = 4
-    let bytesPerRow   = bytesPerPixel * width
+    let bytesPerRow = bytesPerPixel * width
     let bitsPerComponent = 8
 
     // Allocate a Data buffer of the right size
