@@ -99,6 +99,27 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
+  std::shared_ptr<margelo::nitro::image::HybridImageSpec> JHybridImageSpec::crop(double startX, double startY, double endX, double endY) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* startX */, double /* startY */, double /* endX */, double /* endY */)>("crop");
+    auto __result = method(_javaPart, startX, startY, endX, endY);
+    return JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result));
+  }
+  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageSpec::cropAsync(double startX, double startY, double endX, double endY) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* startX */, double /* startY */, double /* endX */, double /* endY */)>("cropAsync");
+    auto __result = method(_javaPart, startX, startY, endX, endY);
+    return [&]() {
+      auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result)));
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
   std::shared_ptr<Promise<void>> JHybridImageSpec::saveToFileAsync(const std::string& path, ImageFormat format, double quality) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* path */, jni::alias_ref<JImageFormat> /* format */, double /* quality */)>("saveToFileAsync");
     auto __result = method(_javaPart, jni::make_jstring(path), JImageFormat::fromCpp(format), quality);

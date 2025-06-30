@@ -61,12 +61,39 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun resize(width: Double, height: Double): HybridImageSpec {
+        if (width < 0) {
+            throw Error("Width cannot be less than 0! (width: $width)")
+        }
+        if (height < 0) {
+            throw Error("Height cannot be less than 0! (height: $height)")
+        }
         val resizedBitmap = Bitmap.createScaledBitmap(bitmap, width.toInt(), height.toInt(), true)
         return HybridImage(resizedBitmap)
     }
-
     override fun resizeAsync(width: Double, height: Double): Promise<HybridImageSpec> {
         return Promise.async { resize(width, height) }
+    }
+
+    override fun crop(startX: Double, startY: Double, endX: Double, endY: Double): HybridImageSpec {
+        val width = endX - startX
+        val height = endY - startY
+        if (width < 0) {
+            throw Error("Width cannot be less than 0! (startX: $startX - endX: $endX = $width)")
+        }
+        if (height < 0) {
+            throw Error("Height cannot be less than 0! (startY: $startY - endY: $endY = $height)")
+        }
+        val croppedBitmap = Bitmap.createBitmap(bitmap, startX.toInt(), startY.toInt(), width.toInt(), height.toInt())
+        return HybridImage(croppedBitmap)
+    }
+
+    override fun cropAsync(
+        startX: Double,
+        startY: Double,
+        endX: Double,
+        endY: Double
+    ): Promise<HybridImageSpec> {
+        return Promise.async { crop(startX, startY, endX, endY) }
     }
 
     override fun saveToFileAsync(

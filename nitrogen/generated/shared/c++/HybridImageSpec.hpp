@@ -63,6 +63,8 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() = 0;
       virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> resize(double width, double height) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> resizeAsync(double width, double height) = 0;
+      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> crop(double startX, double startY, double endX, double endY) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> cropAsync(double startX, double startY, double endX, double endY) = 0;
       virtual std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, double quality) = 0;
       virtual std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, double quality) = 0;
       virtual std::shared_ptr<ArrayBuffer> toThumbHash() = 0;

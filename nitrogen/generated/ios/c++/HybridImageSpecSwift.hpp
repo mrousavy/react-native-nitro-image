@@ -105,6 +105,22 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> crop(double startX, double startY, double endX, double endY) override {
+      auto __result = _swiftPart.crop(std::forward<decltype(startX)>(startX), std::forward<decltype(startY)>(startY), std::forward<decltype(endX)>(endX), std::forward<decltype(endY)>(endY));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> cropAsync(double startX, double startY, double endX, double endY) override {
+      auto __result = _swiftPart.cropAsync(std::forward<decltype(startX)>(startX), std::forward<decltype(startY)>(startY), std::forward<decltype(endX)>(endX), std::forward<decltype(endY)>(endY));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
     inline std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, double quality) override {
       auto __result = _swiftPart.saveToFileAsync(path, static_cast<int>(format), std::forward<decltype(quality)>(quality));
       if (__result.hasError()) [[unlikely]] {
