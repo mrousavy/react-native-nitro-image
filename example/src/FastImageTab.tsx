@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { createImageURLs } from './Images';
+import { createImageURLs } from './createImageURLs';
 import FastImage from 'react-native-fast-image';
 
 

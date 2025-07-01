@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { NitroImage, useWebImage } from 'react-native-nitro-image';
-import { createImageURLs } from './Images';
+import { createImageURLs } from './createImageURLs';
 
 function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
   const image = useWebImage(url);
