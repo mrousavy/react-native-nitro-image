@@ -129,6 +129,28 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
+  public final func loadFromAssetAsync(assetId: std.string) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
+    do {
+      let __result = try self.__implementation.loadFromAssetAsync(assetId: String(assetId))
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in
+        let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
+              let __cxxWrapped = __result.getCxxWrapper()
+              return __cxxWrapped.getCxxPart()
+            }()) })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
   public final func loadFromFile(filePath: std.string) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
     do {
       let __result = try self.__implementation.loadFromFile(filePath: String(filePath))

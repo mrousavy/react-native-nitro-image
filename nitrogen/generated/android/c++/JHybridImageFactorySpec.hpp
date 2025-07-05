@@ -52,6 +52,7 @@ namespace margelo::nitro::image {
   public:
     // Methods
     std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override;
+    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromAssetAsync(const std::string& assetId) override;
     std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromFile(const std::string& filePath) override;
     std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) override;
     std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) override;

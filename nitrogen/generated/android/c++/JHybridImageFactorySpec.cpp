@@ -69,6 +69,22 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
+  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageFactorySpec::loadFromAssetAsync(const std::string& assetId) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* assetId */)>("loadFromAssetAsync");
+    auto __result = method(_javaPart, jni::make_jstring(assetId));
+    return [&]() {
+      auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result)));
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
   std::shared_ptr<margelo::nitro::image::HybridImageSpec> JHybridImageFactorySpec::loadFromFile(const std::string& filePath) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<jni::JString> /* filePath */)>("loadFromFile");
     auto __result = method(_javaPart, jni::make_jstring(filePath));

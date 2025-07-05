@@ -67,6 +67,13 @@ export interface ImageFactory
    */
   loadFromURLAsync(url: string, options?: AsyncImageLoadOptions): Promise<Image>
   /**
+   * Asynchronously loads an {@linkcode Image} from the given asset identifier.
+   * @param name The asset identifier of the image to load.
+   * @throws If no {@linkcode Image} exists under the given {@linkcode name}.
+   * @platform iOS 8
+   */
+  loadFromAssetAsync(assetId: string): Promise<Image>
+  /**
    * Synchronously loads an {@linkcode Image} from the given {@linkcode filePath}.
    * @param filePath The file path of the {@linkcode Image}. Must contain a file extension.
    * @throws If the {@linkcode filePath} is invalid.

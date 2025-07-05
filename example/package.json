@@ -10,6 +10,7 @@
     "pods": "bundle install && cd ios && bundle exec pod install"
   },
   "dependencies": {
+    "@react-native-camera-roll/camera-roll": "^7.10.1",
     "@react-navigation/bottom-tabs": "^7.3.14",
     "@react-navigation/native": "^7.1.10",
     "react": "19.0.0",

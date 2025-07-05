@@ -15,6 +15,7 @@ public protocol HybridImageFactorySpec_protocol: HybridObject {
 
   // Methods
   func loadFromURLAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<(any HybridImageSpec)>
+  func loadFromAssetAsync(assetId: String) throws -> Promise<(any HybridImageSpec)>
   func loadFromFile(filePath: String) throws -> (any HybridImageSpec)
   func loadFromFileAsync(filePath: String) throws -> Promise<(any HybridImageSpec)>
   func loadFromResources(name: String) throws -> (any HybridImageSpec)

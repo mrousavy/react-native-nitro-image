@@ -8,6 +8,7 @@
 import Foundation
 import NitroModules
 import SDWebImage
+import Photos
 
 class HybridImageFactory: HybridImageFactorySpec {
   private let queue = DispatchQueue(label: "image-loader",
@@ -26,6 +27,60 @@ class HybridImageFactory: HybridImageFactorySpec {
       let webImageOptions = options?.toSDWebImageOptions() ?? []
       let uiImage = try await SDWebImageManager.shared.loadImage(with: url, options: webImageOptions)
       return HybridImage(uiImage: uiImage)
+    }
+  }
+  
+  /**
+   * Load Image from URL
+   */
+  func loadFromAssetAsync(assetId: String) throws -> Promise<any HybridImageSpec> {
+    let assets = PHAsset.fetchAssets(
+      withLocalIdentifiers: [assetId],
+      options: nil
+    )
+    guard let asset = assets.firstObject else {
+      throw NSError(
+        domain: "TurboImageView",
+        code: 404,
+        userInfo: [NSLocalizedDescriptionKey: "Asset not found"]
+      )
+    }
+    
+    return Promise.async {
+      return try await withCheckedThrowingContinuation { continuation in
+        let options = PHImageRequestOptions()
+        options.version = .current
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+        
+        let size = CGSize(width: 400, height: 400)
+        
+        // Request resized image
+        PHImageManager.default().requestImage(
+          for: asset,
+          targetSize: size,
+          contentMode: .aspectFit,
+          options: options
+        ) { (image, info) in
+          if let error = info?[PHImageErrorKey] as? Error {
+            continuation.resume(throwing: error)
+          } else if let image = image,
+                    let imageData = image.pngData() ?? image.jpegData(
+                      compressionQuality: 0.9
+                    ) {
+            continuation
+              .resume(returning: HybridImage(uiImage: image))
+          } else {
+            continuation.resume(
+              throwing: NSError(
+                domain: "TurboImageView",
+                code: 500,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to load or convert image"]
+              )
+            )
+          }
+        }
+      }
     }
   }
   

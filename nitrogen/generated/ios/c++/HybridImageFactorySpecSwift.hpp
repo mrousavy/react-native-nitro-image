@@ -80,6 +80,14 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromAssetAsync(const std::string& assetId) override {
+      auto __result = _swiftPart.loadFromAssetAsync(assetId);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
     inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromFile(const std::string& filePath) override {
       auto __result = _swiftPart.loadFromFile(filePath);
       if (__result.hasError()) [[unlikely]] {
