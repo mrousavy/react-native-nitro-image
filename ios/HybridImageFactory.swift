@@ -33,7 +33,7 @@ class HybridImageFactory: HybridImageFactorySpec {
   /**
    * Load Image from URL
    */
-  func loadFromAssetAsync(assetId: String) throws -> Promise<any HybridImageSpec> {
+  func loadFromAssetAsync(assetId: String, options: AssetImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
     let assets = PHAsset.fetchAssets(
       withLocalIdentifiers: [assetId],
       options: nil

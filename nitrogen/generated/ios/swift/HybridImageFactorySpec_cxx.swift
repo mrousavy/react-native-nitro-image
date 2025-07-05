@@ -129,9 +129,15 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromAssetAsync(assetId: std.string) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
+  public final func loadFromAssetAsync(assetId: std.string, options: bridge.std__optional_AssetImageLoadOptions_) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
     do {
-      let __result = try self.__implementation.loadFromAssetAsync(assetId: String(assetId))
+      let __result = try self.__implementation.loadFromAssetAsync(assetId: String(assetId), options: { () -> AssetImageLoadOptions? in
+        if let __unwrapped = options.value {
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }())
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in
         let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___(__promise)

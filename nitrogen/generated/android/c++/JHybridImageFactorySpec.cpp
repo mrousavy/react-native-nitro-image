@@ -13,6 +13,12 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 namespace margelo::nitro::image { struct AsyncImageLoadOptions; }
 // Forward declaration of `AsyncImagePriority` to properly resolve imports.
 namespace margelo::nitro::image { enum class AsyncImagePriority; }
+// Forward declaration of `AssetImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::image { struct AssetImageLoadOptions; }
+// Forward declaration of `ImageSize` to properly resolve imports.
+namespace margelo::nitro::image { struct ImageSize; }
+// Forward declaration of `AspectFit` to properly resolve imports.
+namespace margelo::nitro::image { enum class AspectFit; }
 // Forward declaration of `ArrayBuffer` to properly resolve imports.
 namespace NitroModules { class ArrayBuffer; }
 
@@ -28,6 +34,12 @@ namespace NitroModules { class ArrayBuffer; }
 #include "JAsyncImageLoadOptions.hpp"
 #include "AsyncImagePriority.hpp"
 #include "JAsyncImagePriority.hpp"
+#include "AssetImageLoadOptions.hpp"
+#include "JAssetImageLoadOptions.hpp"
+#include "ImageSize.hpp"
+#include "JImageSize.hpp"
+#include "AspectFit.hpp"
+#include "JAspectFit.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/JArrayBuffer.hpp>
 #include <NitroModules/JUnit.hpp>
@@ -69,9 +81,9 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
-  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageFactorySpec::loadFromAssetAsync(const std::string& assetId) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* assetId */)>("loadFromAssetAsync");
-    auto __result = method(_javaPart, jni::make_jstring(assetId));
+  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageFactorySpec::loadFromAssetAsync(const std::string& assetId, const std::optional<AssetImageLoadOptions>& options) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* assetId */, jni::alias_ref<JAssetImageLoadOptions> /* options */)>("loadFromAssetAsync");
+    auto __result = method(_javaPart, jni::make_jstring(assetId), options.has_value() ? JAssetImageLoadOptions::fromCpp(options.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

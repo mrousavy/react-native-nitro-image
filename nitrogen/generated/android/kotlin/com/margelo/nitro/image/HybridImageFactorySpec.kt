@@ -46,7 +46,7 @@ abstract class HybridImageFactorySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun loadFromAssetAsync(assetId: String): Promise<HybridImageSpec>
+  abstract fun loadFromAssetAsync(assetId: String, options: AssetImageLoadOptions?): Promise<HybridImageSpec>
   
   @DoNotStrip
   @Keep

@@ -18,6 +18,12 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 namespace margelo::nitro::image { struct AsyncImageLoadOptions; }
 // Forward declaration of `AsyncImagePriority` to properly resolve imports.
 namespace margelo::nitro::image { enum class AsyncImagePriority; }
+// Forward declaration of `AssetImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::image { struct AssetImageLoadOptions; }
+// Forward declaration of `ImageSize` to properly resolve imports.
+namespace margelo::nitro::image { struct ImageSize; }
+// Forward declaration of `AspectFit` to properly resolve imports.
+namespace margelo::nitro::image { enum class AspectFit; }
 // Forward declaration of `ArrayBuffer` to properly resolve imports.
 namespace NitroModules { class ArrayBuffer; }
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
@@ -30,6 +36,9 @@ namespace NitroModules { class ArrayBufferHolder; }
 #include <optional>
 #include "AsyncImageLoadOptions.hpp"
 #include "AsyncImagePriority.hpp"
+#include "AssetImageLoadOptions.hpp"
+#include "ImageSize.hpp"
+#include "AspectFit.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
 
@@ -80,8 +89,8 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromAssetAsync(const std::string& assetId) override {
-      auto __result = _swiftPart.loadFromAssetAsync(assetId);
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromAssetAsync(const std::string& assetId, const std::optional<AssetImageLoadOptions>& options) override {
+      auto __result = _swiftPart.loadFromAssetAsync(assetId, options);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
