@@ -12,7 +12,7 @@ function useAssetImage(
   useEffect(() => {
     const load = async () => {
       try {
-        const i = await loadImageFromAssetAsync(url.replace("ph://", ""))
+        const i = await loadImageFromAssetAsync(url.replace(/^ph:\/\//, ""))
         setImage(i)
       } catch (error) {
         console.error(`Failed to load image from "${url}"!`, error)
@@ -32,7 +32,7 @@ function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
 }
 const AsyncImage = React.memo(AsyncImageImpl);
 
-export function NitroMediaLibraryImageTab() {
+export function NitroAssetImageTab() {
   const [imageURLs, setImageURLs] = useState<string[]>([]);
 
 
