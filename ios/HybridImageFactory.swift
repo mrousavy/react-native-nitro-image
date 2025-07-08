@@ -80,11 +80,7 @@ class HybridImageFactory: HybridImageFactorySpec {
                 .resume(returning: HybridImage(uiImage: image))
             } else {
               continuation.resume(
-                throwing: NSError(
-                  domain: "TurboImageView",
-                  code: 500,
-                  userInfo: [NSLocalizedDescriptionKey: "Failed to load or convert image"]
-                )
+                throwing: RuntimeError.error(withMessage: "Failed to load or convert image")
               )
             }
           }
@@ -113,11 +109,7 @@ class HybridImageFactory: HybridImageFactorySpec {
               continuation.resume(returning: HybridImage(uiImage: uiImage))
             } else {
               continuation.resume(
-                throwing: NSError(
-                  domain: "TurboImageView",
-                  code: 500,
-                  userInfo: [NSLocalizedDescriptionKey: "Failed to load or convert image"]
-                )
+                throwing: RuntimeError.error(withMessage: "Failed to load or convert image")
               )
             }
           }
