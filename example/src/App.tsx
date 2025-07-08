@@ -5,13 +5,13 @@
  * @format
  */
 
-import type React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FastImageTab } from "./FastImageTab";
-import { NitroImageTab } from "./NitroImageTab";
-import { createStaticNavigation } from "@react-navigation/native";
-import { EmptyTab } from "./EmptyTab";
-import { NitroAssetImageTab } from "./NitroAssetImageTab";
+import type React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FastImageTab } from './FastImageTab';
+import { NitroImageTab } from './NitroImageTab';
+import { createStaticNavigation } from '@react-navigation/native';
+import { EmptyTab } from './EmptyTab';
+import { NitroAssetImageTab } from './NitroAssetImageTab';
 
 const Tabs = createBottomTabNavigator({
 	detachInactiveScreens: false,

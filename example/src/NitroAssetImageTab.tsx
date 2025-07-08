@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Image, loadImageFromAssetAsync, NitroImage } from 'react-native-nitro-image';
-import { CameraRoll } from "@react-native-camera-roll/camera-roll";
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 
 
 function useAssetImage(
   url: string,
 ): Image | undefined {
-  const [image, setImage] = useState<Image | undefined>(undefined)
+  const [image, setImage] = useState<Image | undefined>(undefined);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const i = await loadImageFromAssetAsync(url.replace(/^ph:\/\//, ""))
-        setImage(i)
+        const i = await loadImageFromAssetAsync(url.replace(/^ph:\/\//, ''));
+        setImage(i);
       } catch (error) {
-        console.error(`Failed to load image from "${url}"!`, error)
-        setImage(undefined)
+        console.error(`Failed to load image from "${url}"!`, error);
+        setImage(undefined);
       }
-    }
-    load()
+    };
+    load();
     // `options` is missing from dependencies since it's a reference type that will be constructed each render.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url])
 
-  return image
+  }, [url]);
+
+  return image;
 }
 function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
   const image = useAssetImage(url);
@@ -37,7 +37,7 @@ export function NitroAssetImageTab() {
 
 
   useEffect(() => {
-    CameraRoll.getPhotos({ first: 100,assetType: "Photos" }).then((res) => {
+    CameraRoll.getPhotos({ first: 100,assetType: 'Photos' }).then((res) => {
       setImageURLs(res.edges.map((edge) => edge.node.image.uri));
     });
   }, []);
