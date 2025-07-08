@@ -35,7 +35,6 @@ const AsyncImage = React.memo(AsyncImageImpl);
 export function NitroAssetImageTab() {
   const [imageURLs, setImageURLs] = useState<string[]>([]);
 
-
   useEffect(() => {
     CameraRoll.getPhotos({ first: 100,assetType: 'Photos' }).then((res) => {
       setImageURLs(res.edges.map((edge) => edge.node.image.uri));
