@@ -22,7 +22,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     guard let url = URL(string: urlString) else {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
     }
-
+    
     return Promise.async {
       let webImageOptions = options?.toSDWebImageOptions() ?? []
       let uiImage = try await SDWebImageManager.shared.loadImage(with: url, options: webImageOptions)
@@ -48,36 +48,78 @@ class HybridImageFactory: HybridImageFactorySpec {
     
     return Promise.async {
       return try await withCheckedThrowingContinuation { continuation in
-        let options = PHImageRequestOptions()
-        options.version = .current
-        options.deliveryMode = .highQualityFormat
-        options.isNetworkAccessAllowed = true
+        let requestOptions = PHImageRequestOptions()
+        requestOptions.version = .current
+        requestOptions.deliveryMode = .highQualityFormat
+        requestOptions.isNetworkAccessAllowed = true
         
-        let size = CGSize(width: 400, height: 400)
         
-        // Request resized image
-        PHImageManager.default().requestImage(
-          for: asset,
-          targetSize: size,
-          contentMode: .aspectFit,
-          options: options
-        ) { (image, info) in
-          if let error = info?[PHImageErrorKey] as? Error {
-            continuation.resume(throwing: error)
-          } else if let image = image,
-                    let imageData = image.pngData() ?? image.jpegData(
-                      compressionQuality: 0.9
-                    ) {
-            continuation
-              .resume(returning: HybridImage(uiImage: image))
+        if let size = options?.size {
+          let contentMode: PHImageContentMode
+          if let aspectFit = options?.aspectFit {
+            switch aspectFit {
+            case .fit:
+              contentMode = .aspectFit
+            case .fill:
+              contentMode = .aspectFill
+            }
           } else {
-            continuation.resume(
-              throwing: NSError(
-                domain: "TurboImageView",
-                code: 500,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to load or convert image"]
+            contentMode = .default
+          }
+          
+          PHImageManager.default().requestImage(
+            for: asset,
+            targetSize: CGSize(width: size.width, height: size.height),
+            contentMode: contentMode,
+            options: requestOptions
+          ) { (image, info) in
+            if let error = info?[PHImageErrorKey] as? Error {
+              continuation.resume(throwing: error)
+            } else if let image = image {
+              continuation
+                .resume(returning: HybridImage(uiImage: image))
+            } else {
+              continuation.resume(
+                throwing: NSError(
+                  domain: "TurboImageView",
+                  code: 500,
+                  userInfo: [NSLocalizedDescriptionKey: "Failed to load or convert image"]
+                )
               )
-            )
+            }
+          }
+        } else {
+          PHImageManager.default().requestImageDataAndOrientation(
+            for: asset,
+            options: requestOptions
+          ) { (imageData, dataUTI, orientation, info) in
+            
+            if let error = info?[PHImageErrorKey] as? Error {
+              continuation.resume(throwing: error)
+            } else if let imageData = imageData,
+                      let cgImage = UIImage(data:imageData)?.cgImage                       {
+              let uiImageOrientation: UIImage.Orientation
+              switch orientation {
+              case .up: uiImageOrientation = .up
+              case .upMirrored: uiImageOrientation = .upMirrored
+              case .down: uiImageOrientation = .down
+              case .downMirrored: uiImageOrientation = .downMirrored
+              case .left: uiImageOrientation = .left
+              case .leftMirrored: uiImageOrientation = .leftMirrored
+              case .right: uiImageOrientation = .right
+              case .rightMirrored: uiImageOrientation = .rightMirrored
+              }
+              let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation:uiImageOrientation )
+              continuation.resume(returning: HybridImage(uiImage: uiImage))
+            } else {
+              continuation.resume(
+                throwing: NSError(
+                  domain: "TurboImageView",
+                  code: 500,
+                  userInfo: [NSLocalizedDescriptionKey: "Failed to load or convert image"]
+                )
+              )
+            }
           }
         }
       }

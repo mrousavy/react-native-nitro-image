@@ -1,9 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Image, loadImageFromArrayBuffer, loadImageFromAssetAsync, NitroImage } from 'react-native-nitro-image';
-import { createImageURLs } from './createImageURLs';
+import { Image, loadImageFromAssetAsync, NitroImage } from 'react-native-nitro-image';
 import { CameraRoll } from "@react-native-camera-roll/camera-roll";
-import { AsyncImageLoadOptions } from 'react-native-nitro-image/lib/specs/ImageFactory.nitro';
 
 
 function useAssetImage(
