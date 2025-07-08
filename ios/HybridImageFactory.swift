@@ -39,11 +39,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       options: nil
     )
     guard let asset = assets.firstObject else {
-      throw NSError(
-        domain: "TurboImageView",
-        code: 404,
-        userInfo: [NSLocalizedDescriptionKey: "Asset not found"]
-      )
+      throw RuntimeError.error(withMessage: "Asset with ID \(assetId) was not found!")
     }
     
     return Promise.async {
