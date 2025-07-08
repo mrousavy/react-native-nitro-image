@@ -105,7 +105,7 @@ class HybridImageFactory: HybridImageFactorySpec {
               case .right: uiImageOrientation = .right
               case .rightMirrored: uiImageOrientation = .rightMirrored
               }
-              let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation:uiImageOrientation )
+              let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: uiImageOrientation)
               continuation.resume(returning: HybridImage(uiImage: uiImage))
             } else {
               continuation.resume(
