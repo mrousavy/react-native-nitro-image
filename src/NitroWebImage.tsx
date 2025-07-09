@@ -1,4 +1,3 @@
-import type React from "react";
 import { useMemo } from "react";
 import { loadImageFromThumbHash } from "./ImageFactory";
 import { thumbHashFromBase64String } from "./ImageUtils";

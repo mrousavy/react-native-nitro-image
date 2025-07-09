@@ -7,7 +7,6 @@
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStaticNavigation } from "@react-navigation/native";
-import type React from "react";
 import { EmptyTab } from "./EmptyTab";
 import { FastImageTab } from "./FastImageTab";
 import { NitroImageTab } from "./NitroImageTab";
