@@ -20,8 +20,6 @@ function useAssetImage(
       }
     };
     load();
-    // `options` is missing from dependencies since it's a reference type that will be constructed each render.
-
   }, [url]);
 
   return image;
