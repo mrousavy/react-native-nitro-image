@@ -166,29 +166,3 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
   }
 }
-
-extension UIImage.Orientation {
-  init(_ cgOrientation: CGImagePropertyOrientation) {
-    switch cgOrientation {
-    case .up: self = .up
-    case .upMirrored: self = .upMirrored
-    case .down: self = .down
-    case .downMirrored: self = .downMirrored
-    case .left: self = .left
-    case .leftMirrored: self = .leftMirrored
-    case .right: self = .right
-    case .rightMirrored: self = .rightMirrored
-    }
-  }
-}
-
-extension PHImageContentMode {
-  init(_ aspectFit: AspectFit?) {
-    switch aspectFit {
-    case .some(.fit), .none:
-      self = .aspectFit
-    case .some(.fill):
-      self = .aspectFill
-    }
-  }
-}
