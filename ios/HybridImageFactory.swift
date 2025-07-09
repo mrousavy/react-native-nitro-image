@@ -34,61 +34,34 @@ class HybridImageFactory: HybridImageFactorySpec {
    * Load Image from Photo Library Asset ID
    */
   func loadFromAssetAsync(assetId: String, options: AssetImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
-    let assets = PHAsset.fetchAssets(
-      withLocalIdentifiers: [assetId],
-      options: nil
-    )
-    guard let asset = assets.firstObject else {
-      throw RuntimeError.error(withMessage: "Asset with ID \(assetId) was not found!")
-    }
-    
     return Promise.async {
-      return try await withCheckedThrowingContinuation { continuation in
-        let requestOptions = PHImageRequestOptions()
-        requestOptions.version = .current
-        requestOptions.deliveryMode = .highQualityFormat
-        requestOptions.isNetworkAccessAllowed = true
-        
-        
-        if let size = options?.size {
-          let contentMode = PHImageContentMode(options?.aspectFit)
-          
-          PHImageManager.default().requestImage(
-            for: asset,
-            targetSize: CGSize(width: size.width, height: size.height),
-            contentMode: contentMode,
-            options: requestOptions
-          ) { (image, info) in
-            if let error = info?[PHImageErrorKey] as? Error {
-              continuation.resume(throwing: error)
-            } else if let image = image {
-              continuation
-                .resume(returning: HybridImage(uiImage: image))
-            } else {
-              continuation.resume(
-                throwing: RuntimeError.error(withMessage: "Failed to load or convert image")
-              )
-            }
-          }
-        } else {
-          PHImageManager.default().requestImageDataAndOrientation(
-            for: asset,
-            options: requestOptions
-          ) { (imageData, dataUTI, orientation, info) in
-            
-            if let error = info?[PHImageErrorKey] as? Error {
-              continuation.resume(throwing: error)
-            } else if let imageData = imageData,
-                      let cgImage = UIImage(data: imageData)?.cgImage {
-              let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: UIImage.Orientation(orientation))
-              continuation.resume(returning: HybridImage(uiImage: uiImage))
-            } else {
-              continuation.resume(
-                throwing: RuntimeError.error(withMessage: "Failed to load or convert image")
-              )
-            }
-          }
+      // Move PHAsset fetching inside the async block
+      let asset = try await PHAsset.fetchAsset(withLocalIdentifier: assetId)
+      
+      let requestOptions = PHImageRequestOptions()
+      requestOptions.version = .current
+      requestOptions.deliveryMode = .highQualityFormat
+      requestOptions.isNetworkAccessAllowed = true
+      
+      if let size = options?.size {
+        let contentMode = PHImageContentMode(options?.aspectFit)
+        let uiImage = try await PHImageManager.default().requestImage(
+          for: asset,
+          targetSize: CGSize(width: size.width, height: size.height),
+          contentMode: contentMode,
+          options: requestOptions
+        )
+        return HybridImage(uiImage: uiImage)
+      } else {
+        let (imageData, orientation) = try await PHImageManager.default().requestImageDataAndOrientation(
+          for: asset,
+          options: requestOptions
+        )
+        guard let cgImage = UIImage(data: imageData)?.cgImage else {
+          throw RuntimeError.error(withMessage: "Failed to create CGImage from data")
         }
+        let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: UIImage.Orientation(orientation))
+        return HybridImage(uiImage: uiImage)
       }
     }
   }
