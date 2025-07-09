@@ -89,19 +89,8 @@ class HybridImageFactory: HybridImageFactorySpec {
             if let error = info?[PHImageErrorKey] as? Error {
               continuation.resume(throwing: error)
             } else if let imageData = imageData,
-                      let cgImage = UIImage(data:imageData)?.cgImage                       {
-              let uiImageOrientation: UIImage.Orientation
-              switch orientation {
-              case .up: uiImageOrientation = .up
-              case .upMirrored: uiImageOrientation = .upMirrored
-              case .down: uiImageOrientation = .down
-              case .downMirrored: uiImageOrientation = .downMirrored
-              case .left: uiImageOrientation = .left
-              case .leftMirrored: uiImageOrientation = .leftMirrored
-              case .right: uiImageOrientation = .right
-              case .rightMirrored: uiImageOrientation = .rightMirrored
-              }
-              let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: uiImageOrientation)
+                      let cgImage = UIImage(data: imageData)?.cgImage {
+              let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: UIImage.Orientation(orientation))
               continuation.resume(returning: HybridImage(uiImage: uiImage))
             } else {
               continuation.resume(
@@ -184,6 +173,21 @@ class HybridImageFactory: HybridImageFactorySpec {
     return Promise.async {
       let uiImage = thumbHashToImage(hash: data)
       return HybridImage(uiImage: uiImage)
+    }
+  }
+}
+
+extension UIImage.Orientation {
+  init(_ cgOrientation: CGImagePropertyOrientation) {
+    switch cgOrientation {
+    case .up: self = .up
+    case .upMirrored: self = .upMirrored
+    case .down: self = .down
+    case .downMirrored: self = .downMirrored
+    case .left: self = .left
+    case .leftMirrored: self = .leftMirrored
+    case .right: self = .right
+    case .rightMirrored: self = .rightMirrored
     }
   }
 }
