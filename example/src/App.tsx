@@ -5,28 +5,25 @@
  * @format
  */
 
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FastImageTab } from './FastImageTab';
-import { NitroImageTab } from './NitroImageTab';
-import { createStaticNavigation } from '@react-navigation/native';
-import { EmptyTab } from './EmptyTab';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStaticNavigation } from "@react-navigation/native";
+import type React from "react";
+import { EmptyTab } from "./EmptyTab";
+import { FastImageTab } from "./FastImageTab";
+import { NitroImageTab } from "./NitroImageTab";
 
 const Tabs = createBottomTabNavigator({
-  detachInactiveScreens: false,
-  screens: {
-    Empty: EmptyTab,
-    FastImage: FastImageTab,
-    NitroImage: NitroImageTab,
-  },
+	detachInactiveScreens: false,
+	screens: {
+		Empty: EmptyTab,
+		FastImage: FastImageTab,
+		NitroImage: NitroImageTab,
+	},
 });
 const Navigation = createStaticNavigation(Tabs);
 
 function App(): React.JSX.Element {
-  return (
-    <Navigation />
-  );
+	return <Navigation />;
 }
-
 
 export default App;
