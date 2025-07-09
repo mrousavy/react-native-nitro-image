@@ -51,17 +51,7 @@ class HybridImageFactory: HybridImageFactorySpec {
         
         
         if let size = options?.size {
-          let contentMode: PHImageContentMode
-          if let aspectFit = options?.aspectFit {
-            switch aspectFit {
-            case .fit:
-              contentMode = .aspectFit
-            case .fill:
-              contentMode = .aspectFill
-            }
-          } else {
-            contentMode = .default
-          }
+          let contentMode = PHImageContentMode(options?.aspectFit)
           
           PHImageManager.default().requestImage(
             for: asset,
@@ -188,6 +178,17 @@ extension UIImage.Orientation {
     case .leftMirrored: self = .leftMirrored
     case .right: self = .right
     case .rightMirrored: self = .rightMirrored
+    }
+  }
+}
+
+extension PHImageContentMode {
+  init(_ aspectFit: AspectFit?) {
+    switch aspectFit {
+    case .some(.fit), .none:
+      self = .aspectFit
+    case .some(.fill):
+      self = .aspectFill
     }
   }
 }
