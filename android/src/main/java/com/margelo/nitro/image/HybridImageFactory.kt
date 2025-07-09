@@ -55,6 +55,10 @@ class HybridImageFactory: HybridImageFactorySpec() {
     override fun loadFromResourcesAsync(name: String): Promise<HybridImageSpec> {
         return Promise.async { loadFromResources(name) }
     }
+    
+    override fun loadFromAssetAsync(assetName: String, options: AssetImageLoadOptions?): Promise<HybridImageSpec> {
+        throw Error("ImageFactory.loadFromAssetAsync(assetName:options:) is not supported on Android!")
+    }
 
     override fun loadFromSymbol(symbolName: String): HybridImageSpec {
         throw Error("ImageFactory.loadFromSymbol(symbolName:) is not supported on Android!")
