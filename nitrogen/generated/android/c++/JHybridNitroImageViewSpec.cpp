@@ -9,12 +9,16 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::image { enum class ResizeMode; }
 
 #include <optional>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include "JHybridImageSpec.hpp"
 #include <NitroModules/JNISharedPtr.hpp>
+#include "ResizeMode.hpp"
+#include "JResizeMode.hpp"
 
 namespace margelo::nitro::image {
 
@@ -42,6 +46,15 @@ namespace margelo::nitro::image {
   void JHybridNitroImageViewSpec::setImage(const std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>& image) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JHybridImageSpec::javaobject> /* image */)>("setImage");
     method(_javaPart, image.has_value() ? std::dynamic_pointer_cast<JHybridImageSpec>(image.value())->getJavaPart() : nullptr);
+  }
+  std::optional<ResizeMode> JHybridNitroImageViewSpec::getResizeMode() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JResizeMode>()>("getResizeMode");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional(__result->toCpp()) : std::nullopt;
+  }
+  void JHybridNitroImageViewSpec::setResizeMode(std::optional<ResizeMode> resizeMode) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JResizeMode> /* resizeMode */)>("setResizeMode");
+    method(_javaPart, resizeMode.has_value() ? JResizeMode::fromCpp(resizeMode.value()) : nullptr);
   }
 
   // Methods

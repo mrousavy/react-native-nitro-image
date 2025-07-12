@@ -41,6 +41,10 @@ void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCla
     view->setImage(props.image.value);
     // TODO: Set isDirty = false
   }
+  if (props.resizeMode.isDirty) {
+    view->setResizeMode(props.resizeMode.value);
+    // TODO: Set isDirty = false
+  }
 
   // Update hybridRef if it changed
   if (props.hybridRef.isDirty) {

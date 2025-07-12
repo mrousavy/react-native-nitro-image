@@ -43,6 +43,12 @@ abstract class HybridNitroImageViewSpec: HybridView() {
   @set:DoNotStrip
   @set:Keep
   abstract var image: HybridImageSpec?
+  
+  @get:DoNotStrip
+  @get:Keep
+  @set:DoNotStrip
+  @set:Keep
+  abstract var resizeMode: ResizeMode?
 
   // Methods
   

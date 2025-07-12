@@ -5,7 +5,7 @@ import { createImageURLs } from './createImageURLs';
 
 function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
   const image = useWebImage(url);
-  return <NitroImage style={styles.image} image={image} />;
+  return <NitroImage style={styles.image} image={image} resizeMode="contain" />;
 }
 const AsyncImage = React.memo(AsyncImageImpl);
 
@@ -28,6 +28,6 @@ export function NitroImageTab() {
 const styles = StyleSheet.create({
   image: {
     width: '25%',
-    aspectRatio: 1,
+    aspectRatio: 0.75,
   },
 });

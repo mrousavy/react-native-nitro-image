@@ -76,6 +76,11 @@ using namespace margelo::nitro::image::views;
     swiftPart.setImage(newViewProps.image.value);
     newViewProps.image.isDirty = false;
   }
+  // resizeMode: optional
+  if (newViewProps.resizeMode.isDirty) {
+    swiftPart.setResizeMode(newViewProps.resizeMode.value);
+    newViewProps.resizeMode.isDirty = false;
+  }
 
   swiftPart.afterUpdate();
 

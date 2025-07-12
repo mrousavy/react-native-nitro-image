@@ -1891,7 +1891,7 @@
 
     "NitroImageExample/prettier": ["prettier@2.8.8", "", { "bin": { "prettier": "bin-prettier.js" } }, "sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q=="],
 
-    "NitroImageExample/react-native-nitro-image": ["react-native-nitro-image@file:", { "devDependencies": { "@react-native/eslint-config": "0.79.3", "@release-it/conventional-changelog": "^8.0.2", "@types/react": "^19.0.6", "eslint": "^8.57.0", "eslint-config-prettier": "^9.1.0", "eslint-plugin-prettier": "^5.2.1", "nitro-codegen": "*", "prettier": "^3.3.3", "react": "19.0.0", "react-native": "0.79.3", "react-native-nitro-modules": "*", "release-it": "^17.10.0", "typescript": "^5.5.4" }, "peerDependencies": { "react": "*", "react-native": "*", "react-native-nitro-modules": "*" } }],
+    "NitroImageExample/react-native-nitro-image": ["react-native-nitro-image@file:", { "devDependencies": { "@react-native/eslint-config": "0.79.3", "@release-it/conventional-changelog": "^8.0.2", "@types/react": "^19.0.6", "eslint": "^8.57.0", "eslint-config-prettier": "^9.1.0", "eslint-plugin-prettier": "^5.2.1", "nitro-codegen": "*", "prettier": "^3.3.3", "react": "19.0.0", "react-native": "0.79.3", "react-native-nitro-modules": "^0.26.3", "release-it": "^17.10.0", "typescript": "^5.5.4" }, "peerDependencies": { "react": "*", "react-native": "*", "react-native-nitro-modules": "*" } }],
 
     "NitroImageExample/typescript": ["typescript@5.0.4", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw=="],
 
