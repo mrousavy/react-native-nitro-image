@@ -3,7 +3,7 @@ name: Build Android
 on:
   push:
     branches:
-      - ci-test
+      - c-test-2
     paths:
       - '.github/workflows/build-android.yml'
       - 'example/android/**'
