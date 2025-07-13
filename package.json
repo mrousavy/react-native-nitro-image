@@ -1,154 +1,154 @@
 {
-  "name": "react-native-nitro-image",
-  "version": "0.4.0",
-  "description": "react-native-nitro-image",
-  "main": "lib/index",
-  "module": "lib/index",
-  "types": "lib/index.d.ts",
-  "react-native": "src/index",
-  "source": "src/index",
-  "workspaces": [
-    "example"
-  ],
-  "files": [
-    "src",
-    "react-native.config.js",
-    "lib",
-    "nitrogen",
-    "android/build.gradle",
-    "android/gradle.properties",
-    "android/CMakeLists.txt",
-    "android/src",
-    "ios/**/*.h",
-    "ios/**/*.m",
-    "ios/**/*.mm",
-    "ios/**/*.cpp",
-    "ios/**/*.swift",
-    "app.plugin.js",
-    "nitro.json",
-    "*.podspec",
-    "README.md"
-  ],
-  "scripts": {
-    "postinstall": "tsc || exit 0;",
-    "typecheck": "tsc --noEmit",
-    "clean": "rm -rf android/build node_modules/**/android/build lib",
-    "lint": "biome check . --fix",
-    "lint-ci": "biome check . --fix",
-    "release": "release-it",
-    "typescript": "tsc",
-    "specs": "tsc && nitro-codegen --logLevel=\"debug\""
-  },
-  "keywords": [
-    "react-native",
-    "nitro"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mrousavy/react-native-nitro-image.git"
-  },
-  "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mrousavy/react-native-nitro-image/issues"
-  },
-  "homepage": "https://github.com/mrousavy/react-native-nitro-image#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.1.0",
-    "@release-it/conventional-changelog": "^8.0.2",
-    "@types/react": "^19.0.6",
-    "nitro-codegen": "*",
-    "react": "19.0.0",
-    "react-native": "0.79.3",
-    "react-native-nitro-modules": "^0.26.3",
-    "release-it": "^17.10.0",
-    "typescript": "^5.5.4"
-  },
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*",
-    "react-native-nitro-modules": "*"
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "@react-native",
-      "prettier"
-    ],
-    "plugins": [
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "warn",
-        {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
-        }
-      ]
-    }
-  },
-  "eslintIgnore": [
-    "node_modules/",
-    "lib/"
-  ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false,
-    "semi": false
-  },
-  "release-it": {
-    "npm": {
-      "publish": true
-    },
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}",
-      "requireCleanWorkingDir": true
-    },
-    "github": {
-      "release": true
-    },
-    "hooks": {
-      "before:release": "bun i && bun typescript"
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": {
-          "name": "conventionalcommits",
-          "types": [
-            {
-              "type": "feat",
-              "section": "✨ Features"
-            },
-            {
-              "type": "perf",
-              "section": "💨 Performance Improvements"
-            },
-            {
-              "type": "fix",
-              "section": "🐛 Bug Fixes"
-            },
-            {
-              "type": "chore(deps)",
-              "section": "🛠️ Dependency Upgrades"
-            },
-            {
-              "type": "docs",
-              "section": "📚 Documentation"
-            }
-          ]
-        }
-      }
-    }
-  }
+	"name": "react-native-nitro-image",
+	"version": "0.4.0",
+	"description": "react-native-nitro-image",
+	"main": "lib/index",
+	"module": "lib/index",
+	"types": "lib/index.d.ts",
+	"react-native": "src/index",
+	"source": "src/index",
+	"workspaces": [
+		"example"
+	],
+	"files": [
+		"src",
+		"react-native.config.js",
+		"lib",
+		"nitrogen",
+		"android/build.gradle",
+		"android/gradle.properties",
+		"android/CMakeLists.txt",
+		"android/src",
+		"ios/**/*.h",
+		"ios/**/*.m",
+		"ios/**/*.mm",
+		"ios/**/*.cpp",
+		"ios/**/*.swift",
+		"app.plugin.js",
+		"nitro.json",
+		"*.podspec",
+		"README.md"
+	],
+	"scripts": {
+		"postinstall": "tsc || exit 0;",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf android/build node_modules/**/android/build lib",
+		"lint": "biome check . --fix",
+		"lint-ci": "biome lint .",
+		"release": "release-it",
+		"typescript": "tsc",
+		"specs": "tsc && nitro-codegen --logLevel=\"debug\""
+	},
+	"keywords": [
+		"react-native",
+		"nitro"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mrousavy/react-native-nitro-image.git"
+	},
+	"author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/mrousavy/react-native-nitro-image/issues"
+	},
+	"homepage": "https://github.com/mrousavy/react-native-nitro-image#readme",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.1.1",
+		"@release-it/conventional-changelog": "^8.0.2",
+		"@types/react": "^19.0.6",
+		"nitro-codegen": "*",
+		"react": "19.0.0",
+		"react-native": "0.79.3",
+		"react-native-nitro-modules": "^0.26.3",
+		"release-it": "^17.10.0",
+		"typescript": "^5.5.4"
+	},
+	"peerDependencies": {
+		"react": "*",
+		"react-native": "*",
+		"react-native-nitro-modules": "*"
+	},
+	"eslintConfig": {
+		"root": true,
+		"extends": [
+			"@react-native",
+			"prettier"
+		],
+		"plugins": [
+			"prettier"
+		],
+		"rules": {
+			"prettier/prettier": [
+				"warn",
+				{
+					"quoteProps": "consistent",
+					"singleQuote": true,
+					"tabWidth": 2,
+					"trailingComma": "es5",
+					"useTabs": false
+				}
+			]
+		}
+	},
+	"eslintIgnore": [
+		"node_modules/",
+		"lib/"
+	],
+	"prettier": {
+		"quoteProps": "consistent",
+		"singleQuote": true,
+		"tabWidth": 2,
+		"trailingComma": "es5",
+		"useTabs": false,
+		"semi": false
+	},
+	"release-it": {
+		"npm": {
+			"publish": true
+		},
+		"git": {
+			"commitMessage": "chore: release ${version}",
+			"tagName": "v${version}",
+			"requireCleanWorkingDir": true
+		},
+		"github": {
+			"release": true
+		},
+		"hooks": {
+			"before:release": "bun i && bun typescript"
+		},
+		"plugins": {
+			"@release-it/conventional-changelog": {
+				"preset": {
+					"name": "conventionalcommits",
+					"types": [
+						{
+							"type": "feat",
+							"section": "✨ Features"
+						},
+						{
+							"type": "perf",
+							"section": "💨 Performance Improvements"
+						},
+						{
+							"type": "fix",
+							"section": "🐛 Bug Fixes"
+						},
+						{
+							"type": "chore(deps)",
+							"section": "🛠️ Dependency Upgrades"
+						},
+						{
+							"type": "docs",
+							"section": "📚 Documentation"
+						}
+					]
+				}
+			}
+		}
+	}
 }
