@@ -3,7 +3,7 @@ name: Run Nitrogen
 on:
   push:
     branches:
-      - main
+      - ci-test
     paths:
       - '.github/workflows/run-nitrogen.yml'
       - 'src/specs/**'

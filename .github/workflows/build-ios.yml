@@ -3,7 +3,7 @@ name: Build iOS
 on:
   push:
     branches:
-      - main
+      - ci-test
     paths:
       - '.github/workflows/build-ios.yml'
       - 'example/ios/**'
