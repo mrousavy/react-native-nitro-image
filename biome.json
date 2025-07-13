@@ -7,12 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": [
-			"**",
-			"!lib/**",
-			"!**/ios/**",
-			"!**/android/**"
-		]
+		"includes": ["**", "!lib/**", "!**/ios/**", "!**/android/**"]
 	},
 	"formatter": {
 		"enabled": true,
