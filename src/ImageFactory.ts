@@ -44,7 +44,7 @@ export const loadImageFromResources = factory.loadFromResources.bind(factory);
  * @throws If the file under the given {@linkcode name} cannot be parsed as an {@linkcode Image}.
  */
 export const loadImageFromResourcesAsync =
-	factory.loadFromResourcesAsync.bind(factory);
+    factory.loadFromResourcesAsync.bind(factory);
 
 /**
  * Synchronously loads an {@linkcode Image} from the given symbol name.
@@ -61,14 +61,14 @@ export const loadImageFromSymbol = factory.loadFromSymbol.bind(factory);
  * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
  */
 export const loadImageFromArrayBuffer =
-	factory.loadFromArrayBuffer.bind(factory);
+    factory.loadFromArrayBuffer.bind(factory);
 /**
  * Asynchronously convert the given given {@linkcode ArrayBuffer} to an {@linkcode Image}.
  * @param buffer
  * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
  */
 export const loadImageFromArrayBufferAsync =
-	factory.loadFromArrayBufferAsync.bind(factory);
+    factory.loadFromArrayBufferAsync.bind(factory);
 
 /**
  * Synchronously decodes the given {@linkcode thumbhash} to an {@linkcode Image}.
@@ -85,4 +85,4 @@ export const loadImageFromThumbHash = factory.loadFromThumbHash.bind(factory);
  * @note If your thumbhash is a base64 string, use `thumbHashFromBase64String(...)`
  */
 export const loadImageFromThumbHashAsync =
-	factory.loadFromThumbHashAsync.bind(factory);
+    factory.loadFromThumbHashAsync.bind(factory);

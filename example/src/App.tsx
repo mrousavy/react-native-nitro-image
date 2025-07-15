@@ -12,17 +12,17 @@ import { FastImageTab } from "./FastImageTab";
 import { NitroImageTab } from "./NitroImageTab";
 
 const Tabs = createBottomTabNavigator({
-	detachInactiveScreens: false,
-	screens: {
-		Empty: EmptyTab,
-		FastImage: FastImageTab,
-		NitroImage: NitroImageTab,
-	},
+    detachInactiveScreens: false,
+    screens: {
+        Empty: EmptyTab,
+        FastImage: FastImageTab,
+        NitroImage: NitroImageTab,
+    },
 });
 const Navigation = createStaticNavigation(Tabs);
 
 function App(): React.JSX.Element {
-	return <Navigation />;
+    return <Navigation />;
 }
 
 export default App;

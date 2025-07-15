@@ -10,16 +10,16 @@ const root = path.resolve(__dirname, "..");
  * @type {import('@react-native/metro-config').MetroConfig}
  */
 const config = {
-	watchFolders: [root],
+    watchFolders: [root],
 
-	transformer: {
-		getTransformOptions: async () => ({
-			transform: {
-				experimentalImportSupport: false,
-				inlineRequires: true,
-			},
-		}),
-	},
+    transformer: {
+        getTransformOptions: async () => ({
+            transform: {
+                experimentalImportSupport: false,
+                inlineRequires: true,
+            },
+        }),
+    },
 };
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);
