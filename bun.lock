@@ -10,7 +10,7 @@
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.2.1",
-        "nitro-codegen": "*",
+        "nitro-codegen": "^0.26.3",
         "prettier": "^3.3.3",
         "react": "19.0.0",
         "react-native": "0.79.3",
@@ -1323,7 +1323,7 @@
 
     "new-github-release-url": ["new-github-release-url@2.0.0", "", { "dependencies": { "type-fest": "^2.5.1" } }, "sha512-NHDDGYudnvRutt/VhKFlX26IotXe1w0cmkDm6JGquh5bz/bDTw0LufSmH/GxTjEdpHEO+bVKFTwdrcGa/9XlKQ=="],
 
-    "nitro-codegen": ["nitro-codegen@0.26.2", "", { "dependencies": { "chalk": "^5.3.0", "react-native-nitro-modules": "^0.26.2", "ts-morph": "^25.0.0", "yargs": "^17.7.2", "zod": "^3.23.8" }, "bin": { "nitro-codegen": "lib/index.js" } }, "sha512-Z66PE0kzwrTdvyUMsq0eCv6IcEsv+tpkZovGcIat/UVJrcbbBNaScKuFRL07Qoh7idm4mErJiei6IRewJUDghA=="],
+    "nitro-codegen": ["nitro-codegen@0.26.3", "", { "dependencies": { "chalk": "^5.3.0", "react-native-nitro-modules": "^0.26.3", "ts-morph": "^25.0.0", "yargs": "^17.7.2", "zod": "^3.23.8" }, "bin": { "nitro-codegen": "lib/index.js" } }, "sha512-hFAjx2hHWNHmX8SLbt6F4KrMfLOWAlcgIe4wGmt9iP/BzSZ/GHPeiI0o28lS52ZzcorvRAy7xjzQgnM1jJ0Amw=="],
 
     "nocache": ["nocache@3.0.4", "", {}, "sha512-WDD0bdg9mbq6F4mRxEYcPWwfA1vxd0mrvKOyxI7Xj/atfRHVeutzuWByG//jfm4uPzp0y4Kj051EORCBSQMycw=="],
 
@@ -1809,7 +1809,7 @@
 
     "yoctocolors-cjs": ["yoctocolors-cjs@2.1.2", "", {}, "sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA=="],
 
-    "zod": ["zod@3.25.57", "", {}, "sha512-6tgzLuwVST5oLUxXTmBqoinKMd3JeesgbgseXeFasKKj8Q1FCZrHnbqJOyiEvr4cVAlbug+CgIsmJ8cl/pU5FA=="],
+    "zod": ["zod@3.25.76", "", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
     "@babel/core/semver": ["semver@6.3.1", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
 
@@ -1891,7 +1891,7 @@
 
     "NitroImageExample/prettier": ["prettier@2.8.8", "", { "bin": { "prettier": "bin-prettier.js" } }, "sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q=="],
 
-    "NitroImageExample/react-native-nitro-image": ["react-native-nitro-image@file:", { "devDependencies": { "@react-native/eslint-config": "0.79.3", "@release-it/conventional-changelog": "^8.0.2", "@types/react": "^19.0.6", "eslint": "^8.57.0", "eslint-config-prettier": "^9.1.0", "eslint-plugin-prettier": "^5.2.1", "nitro-codegen": "*", "prettier": "^3.3.3", "react": "19.0.0", "react-native": "0.79.3", "react-native-nitro-modules": "^0.26.3", "release-it": "^17.10.0", "typescript": "^5.5.4" }, "peerDependencies": { "react": "*", "react-native": "*", "react-native-nitro-modules": "*" } }],
+    "NitroImageExample/react-native-nitro-image": ["react-native-nitro-image@file:", { "devDependencies": { "@react-native/eslint-config": "0.79.3", "@release-it/conventional-changelog": "^8.0.2", "@types/react": "^19.0.6", "eslint": "^8.57.0", "eslint-config-prettier": "^9.1.0", "eslint-plugin-prettier": "^5.2.1", "prettier": "^3.3.3", "react": "19.0.0", "react-native": "0.79.3", "react-native-nitro-modules": "0.26.3", "release-it": "^17.10.0", "typescript": "^5.5.4" }, "peerDependencies": { "react": "*", "react-native": "*", "react-native-nitro-modules": "*" } }],
 
     "NitroImageExample/typescript": ["typescript@5.0.4", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw=="],
 
@@ -2000,8 +2000,6 @@
     "new-github-release-url/type-fest": ["type-fest@2.19.0", "", {}, "sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA=="],
 
     "nitro-codegen/chalk": ["chalk@5.4.1", "", {}, "sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w=="],
-
-    "nitro-codegen/react-native-nitro-modules": ["react-native-nitro-modules@0.26.2", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-PvTUOryU/J1RDsPh1IvmAEDkYVVL32wCIYxkg6HsKgq+Dl+C8lth/MtW7cRZ+fJ0qW21NILbhBdhSXFzBx51fA=="],
 
     "npm-run-path/path-key": ["path-key@4.0.0", "", {}, "sha512-haREypq7xkM7ErfgIyA0z+Bj4AGKlMSdlQE2jvJo6huWD1EdkKYV+G/T4nq0YEF2vgTT8kqMFKo1uHn950r4SQ=="],
 
