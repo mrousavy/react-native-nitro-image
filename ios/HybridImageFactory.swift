@@ -44,7 +44,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       requestOptions.isNetworkAccessAllowed = true
       
       if let size = options?.size {
-        let contentMode = PHImageContentMode(options?.aspectFit)
+        let contentMode = PHImageContentMode(aspectFit: options?.aspectFit)
         let uiImage = try await PHImageManager.default().requestImage(
           for: asset,
           targetSize: CGSize(width: size.width, height: size.height),
@@ -60,7 +60,7 @@ class HybridImageFactory: HybridImageFactorySpec {
         guard let cgImage = UIImage(data: imageData)?.cgImage else {
           throw RuntimeError.error(withMessage: "Failed to create CGImage from data")
         }
-        let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: UIImage.Orientation(orientation))
+        let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: UIImage.Orientation(cgImageOrientation: orientation))
         return HybridImage(uiImage: uiImage)
       }
     }
