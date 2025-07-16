@@ -1,32 +1,26 @@
 {
-  "$schema": "https://nitro.margelo.com/nitro.schema.json",
-  "cxxNamespace": [
-    "image"
-  ],
-  "ios": {
-    "iosModuleName": "NitroImage"
-  },
-  "android": {
-    "androidNamespace": [
-      "image"
-    ],
-    "androidCxxLibName": "NitroImage"
-  },
-  "autolinking": {
-    "ImageFactory": {
-      "swift": "HybridImageFactory",
-      "kotlin": "HybridImageFactory"
+    "$schema": "https://nitro.margelo.com/nitro.schema.json",
+    "cxxNamespace": ["image"],
+    "ios": {
+        "iosModuleName": "NitroImage"
     },
-    "ImageUtils": {
-      "swift": "HybridImageUtils",
-      "kotlin": "HybridImageUtils"
+    "android": {
+        "androidNamespace": ["image"],
+        "androidCxxLibName": "NitroImage"
     },
-    "NitroImageView": {
-      "swift": "HybridImageView",
-      "kotlin": "HybridImageView"
-    }
-  },
-  "ignorePaths": [
-    "**/node_modules"
-  ]
+    "autolinking": {
+        "ImageFactory": {
+            "swift": "HybridImageFactory",
+            "kotlin": "HybridImageFactory"
+        },
+        "ImageUtils": {
+            "swift": "HybridImageUtils",
+            "kotlin": "HybridImageUtils"
+        },
+        "NitroImageView": {
+            "swift": "HybridImageView",
+            "kotlin": "HybridImageView"
+        }
+    },
+    "ignorePaths": ["**/node_modules"]
 }
