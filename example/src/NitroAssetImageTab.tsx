@@ -1,60 +1,65 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Image, loadImageFromAssetAsync, NitroImage } from 'react-native-nitro-image';
-import { CameraRoll } from '@react-native-camera-roll/camera-roll';
+import { CameraRoll } from "@react-native-camera-roll/camera-roll";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+    type Image,
+    loadImageFromAssetAsync,
+    NitroImage,
+} from "react-native-nitro-image";
 
+function useAssetImage(url: string): Image | undefined {
+    const [image, setImage] = useState<Image | undefined>(undefined);
 
-function useAssetImage(
-  url: string,
-): Image | undefined {
-  const [image, setImage] = useState<Image | undefined>(undefined);
+    useEffect(() => {
+        const load = async () => {
+            try {
+                const i = await loadImageFromAssetAsync(
+                    url.replace(/^ph:\/\//, ""),
+                );
+                setImage(i);
+            } catch (error) {
+                console.error(`Failed to load image from "${url}"!`, error);
+                setImage(undefined);
+            }
+        };
+        load();
+    }, [url]);
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const i = await loadImageFromAssetAsync(url.replace(/^ph:\/\//, ''));
-        setImage(i);
-      } catch (error) {
-        console.error(`Failed to load image from "${url}"!`, error);
-        setImage(undefined);
-      }
-    };
-    load();
-  }, [url]);
-
-  return image;
+    return image;
 }
 function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
-  const image = useAssetImage(url);
-  return <NitroImage style={styles.image} image={image} />;
+    const image = useAssetImage(url);
+    return <NitroImage style={styles.image} image={image} />;
 }
 const AsyncImage = React.memo(AsyncImageImpl);
 
 export function NitroAssetImageTab() {
-  const [imageURLs, setImageURLs] = useState<string[]>([]);
+    const [imageURLs, setImageURLs] = useState<string[]>([]);
 
-  useEffect(() => {
-    CameraRoll.getPhotos({ first: 100,assetType: 'Photos' }).then((res) => {
-      setImageURLs(res.edges.map((edge) => edge.node.image.uri));
-    });
-  }, []);
+    useEffect(() => {
+        CameraRoll.getPhotos({ first: 100, assetType: "Photos" }).then(
+            (res) => {
+                setImageURLs(res.edges.map((edge) => edge.node.image.uri));
+            },
+        );
+    }, []);
 
-  return (<View>
-    <Text>NitroMediaLibraryImage Tab</Text>
-    <FlatList
-      numColumns={4}
-      windowSize={3}
-      data={imageURLs}
-      renderItem={({ item: url }) => (
-        <AsyncImage url={url} />
-      )}
-    />
-  </View>);
+    return (
+        <View>
+            <Text>NitroMediaLibraryImage Tab</Text>
+            <FlatList
+                numColumns={4}
+                windowSize={3}
+                data={imageURLs}
+                renderItem={({ item: url }) => <AsyncImage url={url} />}
+            />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  image: {
-    width: '25%',
-    aspectRatio: 1,
-  },
+    image: {
+        width: "25%",
+        aspectRatio: 1,
+    },
 });
