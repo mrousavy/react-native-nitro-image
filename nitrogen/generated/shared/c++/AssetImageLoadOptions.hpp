@@ -36,10 +36,11 @@ namespace margelo::nitro::image {
   public:
     std::optional<ImageSize> size     SWIFT_PRIVATE;
     std::optional<AspectFit> aspectFit     SWIFT_PRIVATE;
+    bool foo     SWIFT_PRIVATE;
 
   public:
     AssetImageLoadOptions() = default;
-    explicit AssetImageLoadOptions(std::optional<ImageSize> size, std::optional<AspectFit> aspectFit): size(size), aspectFit(aspectFit) {}
+    explicit AssetImageLoadOptions(std::optional<ImageSize> size, std::optional<AspectFit> aspectFit, bool foo): size(size), aspectFit(aspectFit), foo(foo) {}
   };
 
 } // namespace margelo::nitro::image
@@ -55,13 +56,15 @@ namespace margelo::nitro {
       jsi::Object obj = arg.asObject(runtime);
       return AssetImageLoadOptions(
         JSIConverter<std::optional<ImageSize>>::fromJSI(runtime, obj.getProperty(runtime, "size")),
-        JSIConverter<std::optional<AspectFit>>::fromJSI(runtime, obj.getProperty(runtime, "aspectFit"))
+        JSIConverter<std::optional<AspectFit>>::fromJSI(runtime, obj.getProperty(runtime, "aspectFit")),
+        JSIConverter<bool>::fromJSI(runtime, obj.getProperty(runtime, "foo"))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const AssetImageLoadOptions& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "size", JSIConverter<std::optional<ImageSize>>::toJSI(runtime, arg.size));
       obj.setProperty(runtime, "aspectFit", JSIConverter<std::optional<AspectFit>>::toJSI(runtime, arg.aspectFit));
+      obj.setProperty(runtime, "foo", JSIConverter<bool>::toJSI(runtime, arg.foo));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -71,6 +74,7 @@ namespace margelo::nitro {
       jsi::Object obj = value.getObject(runtime);
       if (!JSIConverter<std::optional<ImageSize>>::canConvert(runtime, obj.getProperty(runtime, "size"))) return false;
       if (!JSIConverter<std::optional<AspectFit>>::canConvert(runtime, obj.getProperty(runtime, "aspectFit"))) return false;
+      if (!JSIConverter<bool>::canConvert(runtime, obj.getProperty(runtime, "foo"))) return false;
       return true;
     }
   };
