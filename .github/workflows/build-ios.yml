@@ -62,6 +62,9 @@ jobs:
       - name: Install Pods
         working-directory: example/ios
         run: pod install
+      
+      - name: Install LLVM
+        run: brew install llvm
       - name: Build App
         working-directory: example/ios
         run: "set -o pipefail && xcodebuild \
