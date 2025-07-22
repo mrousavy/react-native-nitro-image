@@ -12,6 +12,7 @@ import NitroModules
 public protocol HybridNitroImageViewSpec_protocol: HybridObject, HybridView {
   // Properties
   var image: (any HybridImageSpec)? { get set }
+  var resizeMode: ResizeMode? { get set }
 
   // Methods
   

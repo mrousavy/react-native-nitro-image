@@ -24,6 +24,8 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 namespace margelo::nitro::image { class HybridImageUtilsSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::image { enum class ResizeMode; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridImageFactorySpec_cxx` to properly resolve imports.
@@ -42,6 +44,7 @@ namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 #include "HybridImageSpec.hpp"
 #include "HybridImageUtilsSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
+#include "ResizeMode.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
 #include <NitroModules/Promise.hpp>
@@ -350,6 +353,15 @@ namespace margelo::nitro::image::bridge::swift {
   using std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ = std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>;
   inline std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> create_std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& value) {
     return std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>(value);
+  }
+  
+  // pragma MARK: std::optional<ResizeMode>
+  /**
+   * Specialized version of `std::optional<ResizeMode>`.
+   */
+  using std__optional_ResizeMode_ = std::optional<ResizeMode>;
+  inline std::optional<ResizeMode> create_std__optional_ResizeMode_(const ResizeMode& value) {
+    return std::optional<ResizeMode>(value);
   }
   
   // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>

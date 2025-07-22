@@ -14,10 +14,13 @@ namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::image { enum class ResizeMode; }
 
 #include <optional>
 #include <memory>
 #include "HybridImageSpec.hpp"
+#include "ResizeMode.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -60,6 +63,13 @@ namespace margelo::nitro::image {
     }
     inline void setImage(const std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>& image) noexcept override {
       _swiftPart.setImage(image);
+    }
+    inline std::optional<ResizeMode> getResizeMode() noexcept override {
+      auto __result = _swiftPart.getResizeMode();
+      return __result;
+    }
+    inline void setResizeMode(std::optional<ResizeMode> resizeMode) noexcept override {
+      _swiftPart.setResizeMode(resizeMode);
     }
 
   public:

@@ -24,6 +24,8 @@ namespace margelo::nitro::image { class HybridImageUtilsSpec; }
 namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 // Forward declaration of `ImageFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class ImageFormat; }
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::image { enum class ResizeMode; }
 
 // Include C++ defined types
 #include "AsyncImageLoadOptions.hpp"
@@ -33,6 +35,7 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 #include "HybridImageUtilsSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
 #include "ImageFormat.hpp"
+#include "ResizeMode.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>

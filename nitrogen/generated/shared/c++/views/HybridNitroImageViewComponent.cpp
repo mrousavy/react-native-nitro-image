@@ -35,6 +35,16 @@ namespace margelo::nitro::image::views {
         throw std::runtime_error(std::string("NitroImageView.image: ") + exc.what());
       }
     }()),
+    resizeMode([&]() -> CachedProp<std::optional<ResizeMode>> {
+      try {
+        const react::RawValue* rawValue = rawProps.at("resizeMode", nullptr, nullptr);
+        if (rawValue == nullptr) return sourceProps.resizeMode;
+        const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
+        return CachedProp<std::optional<ResizeMode>>::fromRawValue(*runtime, value, sourceProps.resizeMode);
+      } catch (const std::exception& exc) {
+        throw std::runtime_error(std::string("NitroImageView.resizeMode: ") + exc.what());
+      }
+    }()),
     hybridRef([&]() -> CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("hybridRef", nullptr, nullptr);
@@ -49,11 +59,13 @@ namespace margelo::nitro::image::views {
   HybridNitroImageViewProps::HybridNitroImageViewProps(const HybridNitroImageViewProps& other):
     react::ViewProps(),
     image(other.image),
+    resizeMode(other.resizeMode),
     hybridRef(other.hybridRef) { }
 
   bool HybridNitroImageViewProps::filterObjectKeys(const std::string& propName) {
     switch (hashString(propName)) {
       case hashString("image"): return true;
+      case hashString("resizeMode"): return true;
       case hashString("hybridRef"): return true;
       default: return false;
     }
