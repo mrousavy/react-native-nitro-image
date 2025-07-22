@@ -3,9 +3,11 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { NitroImage, useWebImage } from "react-native-nitro-image";
 import { createImageURLs } from "./createImageURLs";
 
-function AsyncImageImpl({ url }: { url: string }): React.ReactNode 
+function AsyncImageImpl({ url }: { url: string }): React.ReactNode {
     const image = useWebImage(url);
-    return <NitroImage style={styles.image} image={image} resizeMode="contain" />;
+    return (
+        <NitroImage style={styles.image} image={image} resizeMode="contain" />
+    );
 }
 const AsyncImage = React.memo(AsyncImageImpl);
 

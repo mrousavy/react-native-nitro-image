@@ -5,11 +5,11 @@ import type {
 } from "react-native-nitro-modules";
 import type { Image } from "./Image.nitro";
 
-type ResizeMode = 'cover' | 'contain' | 'center' | 'stretch'
+type ResizeMode = "cover" | "contain" | "center" | "stretch";
 
 export interface NitroImageViewProps extends HybridViewProps {
-    image?: Image
-    resizeMode?: ResizeMode
+    image?: Image;
+    resizeMode?: ResizeMode;
 }
 
 export interface NitroImageViewMethods extends HybridViewMethods {
