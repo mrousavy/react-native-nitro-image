@@ -30,6 +30,8 @@ namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 namespace margelo::nitro::image { enum class ImageFormat; }
 // Forward declaration of `ImageSize` to properly resolve imports.
 namespace margelo::nitro::image { struct ImageSize; }
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::image { enum class ResizeMode; }
 
 // Include C++ defined types
 #include "AspectFit.hpp"
@@ -42,6 +44,7 @@ namespace margelo::nitro::image { struct ImageSize; }
 #include "HybridNitroImageViewSpec.hpp"
 #include "ImageFormat.hpp"
 #include "ImageSize.hpp"
+#include "ResizeMode.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
@@ -55,7 +58,7 @@ namespace margelo::nitro::image { struct ImageSize; }
 
 // Common C++ types used in Swift
 #include <NitroModules/ArrayBufferHolder.hpp>
-#include <NitroModules/AnyMapHolder.hpp>
+#include <NitroModules/AnyMapUtils.hpp>
 #include <NitroModules/RuntimeError.hpp>
 #include <NitroModules/DateToChronoDate.hpp>
 

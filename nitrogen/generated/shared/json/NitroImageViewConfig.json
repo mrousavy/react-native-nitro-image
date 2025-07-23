@@ -5,6 +5,7 @@
   "directEventTypes": {},
   "validAttributes": {
     "image": true,
+    "resizeMode": true,
     "hybridRef": true
   }
 }

@@ -72,32 +72,6 @@
         "react-native": "*",
         "react-native-nitro-modules": "*"
     },
-    "eslintConfig": {
-        "root": true,
-        "extends": [
-            "@react-native",
-            "prettier"
-        ],
-        "plugins": [
-            "prettier"
-        ],
-        "rules": {
-            "prettier/prettier": [
-                "warn",
-                {
-                    "quoteProps": "consistent",
-                    "singleQuote": true,
-                    "tabWidth": 2,
-                    "trailingComma": "es5",
-                    "useTabs": false
-                }
-            ]
-        }
-    },
-    "eslintIgnore": [
-        "node_modules/",
-        "lib/"
-    ],
     "prettier": {
         "quoteProps": "consistent",
         "singleQuote": true,

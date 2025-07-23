@@ -47,7 +47,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SDWebImage
     - Yoga
-  - NitroModules (0.26.3):
+  - NitroModules (0.26.4):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1890,7 +1890,7 @@ DEPENDENCIES:
   - glog (from `../../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - NitroImage (from `../node_modules/react-native-nitro-image`)
-  - NitroModules (from `../../node_modules/react-native-nitro-modules`)
+  - NitroModules (from `../node_modules/react-native-nitro-modules`)
   - RCT-Folly (from `../../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1988,7 +1988,7 @@ EXTERNAL SOURCES:
   NitroImage:
     :path: "../node_modules/react-native-nitro-image"
   NitroModules:
-    :path: "../../node_modules/react-native-nitro-modules"
+    :path: "../node_modules/react-native-nitro-modules"
   RCT-Folly:
     :podspec: "../../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -2134,7 +2134,7 @@ SPEC CHECKSUMS:
   hermes-engine: 94ed01537bdeccaab1adbf94b040d115d6fa1a7f
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   NitroImage: 7f0a8fda3268c7169c9f4f23437d5841cbf4c96a
-  NitroModules: f36b94e48ff1705fc6b84bc1953f40e2da4196c2
+  NitroModules: 763fe03c46a734a615e648ff2c77158cd26d8f89
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
   RCTDeprecation: c3e3f5b4ea83e7ff3bc86ce09e2a54b7affd687d
   RCTRequired: ee438439880dffc9425930d1dd1a3c883ee6879c
