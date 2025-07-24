@@ -101,7 +101,7 @@ public class HybridImageUtilsSpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func thumbHashToBase64String(thumbhash: ArrayBuffer) -> bridge.Result_std__string_ {
+  public final func thumbHashToBase64String(thumbhash: ArrayBufferHolder) -> bridge.Result_std__string_ {
     do {
       let __result = try self.__implementation.thumbHashToBase64String(thumbhash: thumbhash)
       let __resultCpp = std.string(__result)

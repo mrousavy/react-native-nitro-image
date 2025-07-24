@@ -246,7 +246,7 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromArrayBuffer(buffer: ArrayBuffer) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
+  public final func loadFromArrayBuffer(buffer: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
     do {
       let __result = try self.__implementation.loadFromArrayBuffer(buffer: buffer)
       let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
@@ -261,7 +261,7 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromArrayBufferAsync(buffer: ArrayBuffer) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
+  public final func loadFromArrayBufferAsync(buffer: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
     do {
       let __result = try self.__implementation.loadFromArrayBufferAsync(buffer: buffer)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in
@@ -283,7 +283,7 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromThumbHash(thumbhash: ArrayBuffer) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
+  public final func loadFromThumbHash(thumbhash: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
     do {
       let __result = try self.__implementation.loadFromThumbHash(thumbhash: thumbhash)
       let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
@@ -298,7 +298,7 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromThumbHashAsync(thumbhash: ArrayBuffer) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
+  public final func loadFromThumbHashAsync(thumbhash: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
     do {
       let __result = try self.__implementation.loadFromThumbHashAsync(thumbhash: thumbhash)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in
