@@ -8,6 +8,7 @@
 import Foundation
 import NitroModules
 import SDWebImage
+import Photos
 
 class HybridImageFactory: HybridImageFactorySpec {
   private let queue = DispatchQueue(label: "image-loader",
@@ -21,11 +22,47 @@ class HybridImageFactory: HybridImageFactorySpec {
     guard let url = URL(string: urlString) else {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
     }
-
+    
     return Promise.async {
       let webImageOptions = options?.toSDWebImageOptions() ?? []
       let uiImage = try await SDWebImageManager.shared.loadImage(with: url, options: webImageOptions)
       return HybridImage(uiImage: uiImage)
+    }
+  }
+  
+  /**
+   * Load Image from Photo Library Asset ID
+   */
+  func loadFromAssetAsync(assetId: String, options: AssetImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
+    return Promise.async {
+      // Move PHAsset fetching inside the async block
+      let asset = try await PHAsset.fetchAsset(withLocalIdentifier: assetId)
+      
+      let requestOptions = PHImageRequestOptions()
+      requestOptions.version = .current
+      requestOptions.deliveryMode = .highQualityFormat
+      requestOptions.isNetworkAccessAllowed = true
+      
+      if let size = options?.size {
+        let contentMode = PHImageContentMode(aspectFit: options?.aspectFit)
+        let uiImage = try await PHImageManager.default().requestImage(
+          for: asset,
+          targetSize: CGSize(width: size.width, height: size.height),
+          contentMode: contentMode,
+          options: requestOptions
+        )
+        return HybridImage(uiImage: uiImage)
+      } else {
+        let (imageData, orientation) = try await PHImageManager.default().requestImageDataAndOrientation(
+          for: asset,
+          options: requestOptions
+        )
+        guard let cgImage = UIImage(data: imageData)?.cgImage else {
+          throw RuntimeError.error(withMessage: "Failed to create CGImage from data")
+        }
+        let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: UIImage.Orientation(cgImageOrientation: orientation))
+        return HybridImage(uiImage: uiImage)
+      }
     }
   }
   

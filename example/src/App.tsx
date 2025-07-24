@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStaticNavigation } from "@react-navigation/native";
 import { EmptyTab } from "./EmptyTab";
 import { FastImageTab } from "./FastImageTab";
+import { NitroAssetImageTab } from "./NitroAssetImageTab";
 import { NitroImageTab } from "./NitroImageTab";
 
 const Tabs = createBottomTabNavigator({
@@ -17,6 +18,7 @@ const Tabs = createBottomTabNavigator({
         Empty: EmptyTab,
         FastImage: FastImageTab,
         NitroImage: NitroImageTab,
+        NitroMediaLibraryImage: NitroAssetImageTab,
     },
 });
 const Navigation = createStaticNavigation(Tabs);

@@ -39,6 +39,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
 
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
+
       - name: Install npm dependencies (bun)
         run: bun install
 
