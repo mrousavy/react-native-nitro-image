@@ -234,7 +234,7 @@ For performance reasons, a ThumbHash is represented as an `ArrayBuffer`.
 
 ```ts
 const thumbHash      = // from server
-const image          = loadImageFromThumbHash(thumbHash)
+const image          = Images.loadFromThumbHash(thumbHash)
 const thumbHashAgain = image.toThumbHash()
 ```
 
@@ -254,7 +254,7 @@ Since ThumbHash decoding or encoding can be a slow process, you should consider 
 
 ```ts
 const thumbHash      = // from server
-const image          = await loadImageFromThumbHashAsync(thumbHash)
+const image          = await Images.loadFromThumbHashAsync(thumbHash)
 const thumbHashAgain = await image.toThumbHash()
 ```
 
