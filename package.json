@@ -1,0 +1,97 @@
+{
+  "name": "react-native-nitro-image-monorepo",
+  "packageManager": "bun@1.1.42",
+  "private": true,
+  "version": "0.0.0",
+  "repository": "https://github.com/mrousavy/react-native-nitro-image.git",
+  "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
+  "workspaces": [
+    "packages/react-native-nitro-image",
+    "packages/react-native-nitro-web-image",
+    "example"
+  ],
+  "scripts": {
+    "build": "bun run --cwd packages/react-native-nitro-image build && bun run --cwd packages/react-native-nitro-web-image build",
+    "bootstrap": "bun i && bun run build && cd example && bundle install && bun pods",
+    "typecheck": "bun --filter=\"**\" typecheck",
+    "lint": "bun image lint && bun web-image lint",
+    "clean": "git clean -dfx",
+    "release": "./scripts/release.sh",
+    "image": "bun --cwd packages/react-native-nitro-image",
+    "web-image": "bun --cwd packages/react-native-nitro-web-image",
+    "example": "bun --cwd example"
+  },
+  "devDependencies": {
+    "@release-it-plugins/workspaces": "^4.2.1",
+    "@release-it/bumper": "^6.0.1",
+    "@release-it/conventional-changelog": "^8.0.2",
+    "@tsconfig/react-native": "^2.0.3",
+    "@types/react": "^19.1.8",
+    "prettier": "^3.6.2",
+    "react": "19.1.0",
+    "react-native": "0.80.1",
+    "release-it": "^17.11.0",
+    "typescript": "~5.5.4"
+  },
+  "release-it": {
+    "npm": {
+      "publish": false
+    },
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}",
+      "requireCleanWorkingDir": false
+    },
+    "github": {
+      "release": true
+    },
+    "hooks": {
+      "before:release": "bun image build && bun example pods && git add example/ios/Podfile.lock"
+    },
+    "plugins": {
+      "@release-it/bumper": {
+        "out": [
+          {
+            "file": "packages/react-native-nitro-image/package.json",
+            "path": "version"
+          },
+          {
+            "file": "packages/react-native-nitro-web-image/package.json",
+            "path": "version"
+          },
+          {
+            "file": "example/package.json",
+            "path": "version"
+          }
+        ]
+      },
+      "@release-it/conventional-changelog": {
+        "preset": {
+          "name": "conventionalcommits",
+          "types": [
+            {
+              "type": "feat",
+              "section": "✨ Features"
+            },
+            {
+              "type": "perf",
+              "section": "💨 Performance Improvements"
+            },
+            {
+              "type": "fix",
+              "section": "🐛 Bug Fixes"
+            },
+            {
+              "type": "chore(deps)",
+              "section": "🛠️ Dependency Upgrades"
+            },
+            {
+              "type": "docs",
+              "section": "📚 Documentation"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
