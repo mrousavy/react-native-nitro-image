@@ -12,7 +12,7 @@
     "dependencies": {
         "@react-navigation/bottom-tabs": "^7.3.14",
         "@react-navigation/native": "^7.1.10",
-        "react": "19.0.0",
+        "react": "19.1.0",
         "react-native": "0.80.2",
         "react-native-fast-image": "^8.6.3",
         "react-native-nitro-image": "../packages/react-native-nitro-image",
@@ -30,7 +30,7 @@
         "@react-native/babel-preset": "0.80.2",
         "@react-native/metro-config": "0.80.2",
         "@react-native/typescript-config": "0.80.2",
-        "@types/react": "^19.0.0",
+        "@types/react": "^19.1.0",
         "typescript": "5.0.4"
     },
     "engines": {

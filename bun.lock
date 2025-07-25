@@ -22,7 +22,7 @@
       "dependencies": {
         "@react-navigation/bottom-tabs": "^7.3.14",
         "@react-navigation/native": "^7.1.10",
-        "react": "19.0.0",
+        "react": "19.1.0",
         "react-native": "0.80.2",
         "react-native-fast-image": "^8.6.3",
         "react-native-nitro-image": "../packages/react-native-nitro-image",
@@ -40,7 +40,7 @@
         "@react-native/babel-preset": "0.80.2",
         "@react-native/metro-config": "0.80.2",
         "@react-native/typescript-config": "0.80.2",
-        "@types/react": "^19.0.0",
+        "@types/react": "^19.1.0",
         "typescript": "5.0.4",
       },
     },
@@ -52,7 +52,7 @@
         "@release-it/conventional-changelog": "^8.0.2",
         "@types/react": "^19.0.6",
         "nitro-codegen": "^0.26.3",
-        "react": "19.0.0",
+        "react": "19.1.0",
         "react-native": "0.80.2",
         "react-native-nitro-modules": "^0.26.3",
         "release-it": "^17.10.0",
@@ -72,7 +72,7 @@
         "@release-it/conventional-changelog": "^8.0.2",
         "@types/react": "^19.0.6",
         "nitro-codegen": "^0.26.3",
-        "react": "19.0.0",
+        "react": "19.1.0",
         "react-native": "0.80.2",
         "react-native-nitro-modules": "^0.26.3",
         "release-it": "^17.10.0",
@@ -1638,8 +1638,6 @@
 
     "@ts-morph/common/minimatch": ["minimatch@9.0.5", "", { "dependencies": { "brace-expansion": "^2.0.1" } }, "sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow=="],
 
-    "NitroImageExample/react": ["react@19.0.0", "", {}, "sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ=="],
-
     "NitroImageExample/typescript": ["typescript@5.0.4", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw=="],
 
     "accepts/negotiator": ["negotiator@0.6.3", "", {}, "sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg=="],
@@ -1746,11 +1744,7 @@
 
     "react-devtools-core/ws": ["ws@7.5.10", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": "^5.0.2" }, "optionalPeers": ["bufferutil", "utf-8-validate"] }, "sha512-+dbF1tHwZpXcbOJdVOkzLDxZP1ailvSxM6ZweXTegylPny803bFhA+vqBYw4s31NSAk4S2Qz+AKXK9a4wkdjcQ=="],
 
-    "react-native-nitro-image/react": ["react@19.0.0", "", {}, "sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ=="],
-
     "react-native-nitro-image/typescript": ["typescript@5.8.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ=="],
-
-    "react-native-nitro-web-image/react": ["react@19.0.0", "", {}, "sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ=="],
 
     "react-native-nitro-web-image/typescript": ["typescript@5.8.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ=="],
 
