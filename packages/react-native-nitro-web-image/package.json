@@ -1,7 +1,7 @@
 {
-    "name": "react-native-nitro-image",
+    "name": "react-native-nitro-web-image",
     "version": "0.4.0",
-    "description": "react-native-nitro-image",
+    "description": "react-native-nitro-web-image",
     "main": "lib/index",
     "module": "lib/index",
     "types": "lib/index.d.ts",
@@ -45,14 +45,14 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/mrousavy/react-native-nitro-image.git"
+        "url": "git+https://github.com/mrousavy/react-native-nitro-web-image.git"
     },
     "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/mrousavy/react-native-nitro-image/issues"
+        "url": "https://github.com/mrousavy/react-native-nitro-web-image/issues"
     },
-    "homepage": "https://github.com/mrousavy/react-native-nitro-image#readme",
+    "homepage": "https://github.com/mrousavy/react-native-nitro-web-image#readme",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },

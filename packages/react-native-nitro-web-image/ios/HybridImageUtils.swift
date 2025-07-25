@@ -1,6 +1,6 @@
 //
 //  HybridImageFactory.swift
-//  react-native-nitro-image
+//  react-native-nitro-web-image
 //
 //  Created by Marc Rousavy on 10.06.25.
 //

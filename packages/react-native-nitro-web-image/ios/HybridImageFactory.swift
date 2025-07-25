@@ -1,6 +1,6 @@
 //
 //  HybridImageFactory.swift
-//  react-native-nitro-image
+//  react-native-nitro-web-image
 //
 //  Created by Marc Rousavy on 10.06.25.
 //
@@ -13,7 +13,7 @@ class HybridImageFactory: HybridImageFactorySpec {
   private let queue = DispatchQueue(label: "image-loader",
                                     qos: .default,
                                     attributes: .concurrent)
-  
+
   /**
    * Load Image from URL
    */
@@ -28,7 +28,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return HybridImage(uiImage: uiImage)
     }
   }
-  
+
   /**
    * Load Image from file path
    */
@@ -43,7 +43,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return try self.loadFromFile(filePath: filePath)
     }
   }
-  
+
   /**
    * Load Image from resources
    */
@@ -58,7 +58,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return try self.loadFromResources(name: name)
     }
   }
-  
+
   /**
    * Load Image from SF Symbol Name
    */
@@ -68,7 +68,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
     return HybridImage(uiImage: uiImage)
   }
-  
+
   /**
    * Load Image from the given ArrayBuffer
    */
@@ -88,7 +88,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return HybridImage(uiImage: uiImage)
     }
   }
-  
+
   func loadFromThumbHash(thumbhash: ArrayBufferHolder) throws -> any HybridImageSpec {
     let data = thumbhash.toData(copyIfNeeded: false)
     let uiImage = thumbHashToImage(hash: data)

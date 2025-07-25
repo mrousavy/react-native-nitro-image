@@ -1,6 +1,6 @@
 //
 //  ImageFormat+toUTType.swift
-//  react-native-nitro-image
+//  react-native-nitro-web-image
 //
 //  Created by Marc Rousavy on 11.06.25.
 //
