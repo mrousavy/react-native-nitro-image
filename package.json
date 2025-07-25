@@ -30,7 +30,7 @@
     "@types/react": "^19.1.8",
     "prettier": "^3.6.2",
     "react": "19.1.0",
-    "react-native": "0.80.1",
+    "react-native": "0.80.2",
     "release-it": "^17.11.0",
     "typescript": "~5.5.4"
   },
