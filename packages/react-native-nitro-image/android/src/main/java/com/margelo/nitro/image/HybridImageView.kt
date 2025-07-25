@@ -13,7 +13,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
                 ResizeMode.CONTAIN -> ImageView.ScaleType.FIT_CENTER
                 ResizeMode.STRETCH -> ImageView.ScaleType.FIT_XY
                 ResizeMode.CENTER -> ImageView.ScaleType.CENTER
-                null -> ImageView.ScaleType.FIT_CENTER
+                null -> ImageView.ScaleType.CENTER_CROP
             }
             updateImage()
         }

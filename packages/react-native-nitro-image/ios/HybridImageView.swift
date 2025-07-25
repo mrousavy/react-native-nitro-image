@@ -48,7 +48,7 @@ fileprivate extension UIView {
   }
 }
 
-class HybridImageView: HybridNitroImageViewSpec, ViewLifecycleDelegate, NativeImageView {
+class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
   let imageView: UIImageView
   let view: UIView
   
@@ -65,34 +65,23 @@ class HybridImageView: HybridNitroImageViewSpec, ViewLifecycleDelegate, NativeIm
       switch image {
       case .first(let hybridImageSpec):
         // Specific image
-        print("IMAGE IS A IMAGE")
         guard let image = hybridImageSpec as? NativeImage else {
           fatalError("Can't set `image` to a type that doesn't conform to `NativeImage`!")
         }
         imageView.image = image.uiImage
       case .second:
         // Image Loader - trigger a load or drop
-        print("IMAGE IS A IMAGELOADER")
-        if imageView.isVisible {
-          willShow()
-        } else {
-          willHide()
-        }
+        didSetImageLoader()
       case nil:
         // No Image
-        print("IMAGE IS NIL")
         imageView.image = nil
       }
     }
   }
-  private var imageLoader: HybridImageLoader? {
-    guard case let .second(hybridImageLoaderSpec) = image else { return nil }
-    return hybridImageLoaderSpec as? HybridImageLoader
-  }
 
   var resizeMode: ResizeMode? {
     didSet {
-      let mode = resizeMode ?? .contain
+      let mode = resizeMode ?? .cover
       switch mode {
         case .cover:
           imageView.contentMode = .scaleAspectFill
@@ -103,6 +92,23 @@ class HybridImageView: HybridNitroImageViewSpec, ViewLifecycleDelegate, NativeIm
         case .center:
           imageView.contentMode = .center
       }
+    }
+  }
+}
+
+// Implementation for "asynchronously" loading Images using ImageLoader
+extension HybridImageView: ViewLifecycleDelegate {
+  private var imageLoader: HybridImageLoader? {
+    guard case let .second(hybridImageLoaderSpec) = image else { return nil }
+    return hybridImageLoaderSpec as? HybridImageLoader
+  }
+  
+  private func didSetImageLoader() {
+    // An ImageLoader was set - trigger an update (load or drop)
+    if imageView.isVisible {
+      willShow()
+    } else {
+      willHide()
     }
   }
   
