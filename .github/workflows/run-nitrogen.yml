@@ -30,8 +30,11 @@ jobs:
       - name: Build the typescript types
         run: bun typescript
 
-      - name: Run nitro-codegen
-        run: bun specs
+      - name: Run nitro-codegen for NitroImage
+        run: bun image specs
+
+      - name: Run nitro-codegen for NitroWebImage
+        run: bun web-image specs
 
       - name: Verify no files have changed after nitrogen
         run: git diff --exit-code HEAD -- . ':(exclude)bun.lockb'

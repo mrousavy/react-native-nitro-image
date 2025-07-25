@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { FlatList, Text, View } from "react-native";
-import { NitroWebImage } from "react-native-nitro-image";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { NitroImage } from "react-native-nitro-image";
 import { createImageURLs } from "./createImageURLs";
 
 export function NitroImageTab() {
@@ -14,9 +14,19 @@ export function NitroImageTab() {
                 windowSize={3}
                 data={imageURLs}
                 renderItem={({ item: url }) => (
-                    <NitroWebImage url={url} resizeMode="cover" />
+                    <NitroImage
+                    image={{ url: url }}
+                        style={styles.image}
+                      resizeMode="cover" />
                 )}
             />
         </View>
     );
 }
+
+const styles= StyleSheet.create({
+    image: {
+        width: '25%',
+        aspectRatio: 1
+    }
+})
