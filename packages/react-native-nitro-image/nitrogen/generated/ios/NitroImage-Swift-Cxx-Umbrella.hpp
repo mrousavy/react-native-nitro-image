@@ -16,6 +16,10 @@ namespace margelo::nitro::image { struct AsyncImageLoadOptions; }
 namespace margelo::nitro::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageFactorySpec; }
+// Forward declaration of `HybridImageLoaderFactorySpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageLoaderFactorySpec; }
+// Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridImageUtilsSpec` to properly resolve imports.
@@ -31,6 +35,8 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 #include "AsyncImageLoadOptions.hpp"
 #include "AsyncImagePriority.hpp"
 #include "HybridImageFactorySpec.hpp"
+#include "HybridImageLoaderFactorySpec.hpp"
+#include "HybridImageLoaderSpec.hpp"
 #include "HybridImageSpec.hpp"
 #include "HybridImageUtilsSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
@@ -56,6 +62,10 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridImageFactorySpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageFactorySpec_cxx; }
+// Forward declaration of `HybridImageLoaderFactorySpec_cxx` to properly resolve imports.
+namespace NitroImage { class HybridImageLoaderFactorySpec_cxx; }
+// Forward declaration of `HybridImageLoaderSpec_cxx` to properly resolve imports.
+namespace NitroImage { class HybridImageLoaderSpec_cxx; }
 // Forward declaration of `HybridImageSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageSpec_cxx; }
 // Forward declaration of `HybridImageUtilsSpec_cxx` to properly resolve imports.

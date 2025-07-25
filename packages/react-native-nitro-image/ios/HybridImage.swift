@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 import NitroModules
 
-class HybridImage: HybridImageSpec {
+protocol NativeImage {
+  var uiImage: UIImage { get }
+}
+
+class HybridImage: HybridImageSpec, NativeImage {
   let uiImage: UIImage
 
   var width: Double {

@@ -29,12 +29,16 @@ target_sources(
   # Shared Nitrogen C++ sources
   ../nitrogen/generated/shared/c++/HybridImageSpec.cpp
   ../nitrogen/generated/shared/c++/HybridImageFactorySpec.cpp
+  ../nitrogen/generated/shared/c++/HybridImageLoaderSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridImageLoaderFactorySpec.cpp
   ../nitrogen/generated/shared/c++/HybridImageUtilsSpec.cpp
   ../nitrogen/generated/shared/c++/HybridNitroImageViewSpec.cpp
   ../nitrogen/generated/shared/c++/views/HybridNitroImageViewComponent.cpp
   # Android-specific Nitrogen C++ sources
   ../nitrogen/generated/android/c++/JHybridImageSpec.cpp
   ../nitrogen/generated/android/c++/JHybridImageFactorySpec.cpp
+  ../nitrogen/generated/android/c++/JHybridImageLoaderSpec.cpp
+  ../nitrogen/generated/android/c++/JHybridImageLoaderFactorySpec.cpp
   ../nitrogen/generated/android/c++/JHybridImageUtilsSpec.cpp
   ../nitrogen/generated/android/c++/JHybridNitroImageViewSpec.cpp
   ../nitrogen/generated/android/c++/views/JHybridNitroImageViewStateUpdater.cpp

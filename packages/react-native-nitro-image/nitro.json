@@ -13,6 +13,10 @@
             "swift": "HybridImageFactory",
             "kotlin": "HybridImageFactory"
         },
+        "ImageLoaderFactory": {
+            "swift": "HybridImageLoaderFactory",
+            "kotlin": "HybridImageLoaderFactory"
+        },
         "ImageUtils": {
             "swift": "HybridImageUtils",
             "kotlin": "HybridImageUtils"
