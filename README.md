@@ -13,7 +13,7 @@
 - Powered by [Nitro Modules](https://nitro.margelo.com) for highly efficient native bindings! 🔥
 - Instance-based `Image` type with byte-buffer pixel data access 🔗
 - Supports in-memory image operations like resizing and cropping without saving to file 📐
-- Supports deferred `Image` loading to optimize for displaying large lists of Images ⏳
+- Supports deferred `ImageLoader` types to optimize for displaying large lists of Images ⏳
 - Fast Web Image loading and caching using [SDWebImage](https://github.com/SDWebImage/SDWebImage) (iOS) and [Coil](https://github.com/coil-kt/coil) (Android) 🌎
 - [ThumbHash](https://github.com/evanw/thumbhash) support for elegant placeholders 🖼️
 
