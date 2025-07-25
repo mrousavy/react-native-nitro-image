@@ -9,10 +9,6 @@ import Foundation
 import UIKit
 import NitroModules
 
-protocol NativeImage {
-  var uiImage: UIImage { get }
-}
-
 class HybridImage: HybridImageSpec, NativeImage {
   let uiImage: UIImage
 

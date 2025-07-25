@@ -17,8 +17,11 @@
 #include <react/renderer/components/view/ViewProps.h>
 
 #include <optional>
+#include <variant>
 #include <memory>
 #include "HybridImageSpec.hpp"
+#include <memory>
+#include "HybridImageLoaderSpec.hpp"
 #include <optional>
 #include "ResizeMode.hpp"
 #include <optional>
@@ -47,7 +50,7 @@ namespace margelo::nitro::image::views {
                               const react::RawProps& rawProps);
 
   public:
-    CachedProp<std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> image;
+    CachedProp<std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>> image;
     CachedProp<std::optional<ResizeMode>> resizeMode;
     CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
 

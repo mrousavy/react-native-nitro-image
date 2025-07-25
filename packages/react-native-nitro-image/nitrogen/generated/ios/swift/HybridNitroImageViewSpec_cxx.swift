@@ -97,15 +97,25 @@ public class HybridNitroImageViewSpec_cxx {
   }
 
   // Properties
-  public final var image: bridge.std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
+  public final var image: bridge.std__optional_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec___ {
     @inline(__always)
     get {
-      return { () -> bridge.std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ in
+      return { () -> bridge.std__optional_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec___ in
         if let __unwrappedValue = self.__implementation.image {
-          return bridge.create_std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__({ () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
-            let __cxxWrapped = __unwrappedValue.getCxxWrapper()
-            return __cxxWrapped.getCxxPart()
-          }())
+          return bridge.create_std__optional_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec___({ () -> bridge.std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ in
+            switch __unwrappedValue {
+              case .first(let __value):
+                return bridge.create_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__({ () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
+                  let __cxxWrapped = __value.getCxxWrapper()
+                  return __cxxWrapped.getCxxPart()
+                }())
+              case .second(let __value):
+                return bridge.create_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__({ () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ in
+                  let __cxxWrapped = __value.getCxxWrapper()
+                  return __cxxWrapped.getCxxPart()
+                }())
+            }
+          }().variant)
         } else {
           return .init()
         }
@@ -113,12 +123,28 @@ public class HybridNitroImageViewSpec_cxx {
     }
     @inline(__always)
     set {
-      self.__implementation.image = { () -> (any HybridImageSpec)? in
+      self.__implementation.image = { () -> Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_? in
         if let __unwrapped = newValue.value {
-          return { () -> HybridImageSpec in
-            let __unsafePointer = bridge.get_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(__unwrapped)
-            let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
-            return __instance.getHybridImageSpec()
+          return { () -> Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_ in
+            let __variant = bridge.std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__unwrapped)
+            switch __variant.index() {
+              case 0:
+                let __actual = __variant.get_0()
+                return .first({ () -> HybridImageSpec in
+                  let __unsafePointer = bridge.get_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(__actual)
+                  let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
+                  return __instance.getHybridImageSpec()
+                }())
+              case 1:
+                let __actual = __variant.get_1()
+                return .second({ () -> HybridImageLoaderSpec in
+                  let __unsafePointer = bridge.get_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(__actual)
+                  let __instance = HybridImageLoaderSpec_cxx.fromUnsafe(__unsafePointer)
+                  return __instance.getHybridImageLoaderSpec()
+                }())
+              default:
+                fatalError("Variant can never have index \(__variant.index())!")
+            }
           }()
         } else {
           return nil

@@ -49,6 +49,7 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 #include <memory>
 #include <optional>
 #include <string>
+#include <variant>
 
 // C++ helpers for Swift
 #include "NitroImage-Swift-Cxx-Bridge.hpp"

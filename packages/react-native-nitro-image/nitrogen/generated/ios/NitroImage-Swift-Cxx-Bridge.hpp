@@ -65,6 +65,7 @@ namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 #include <memory>
 #include <optional>
 #include <string>
+#include <variant>
 
 /**
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
@@ -410,13 +411,42 @@ namespace margelo::nitro::image::bridge::swift {
     return Result<std::string>::withError(error);
   }
   
-  // pragma MARK: std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>
+  // pragma MARK: std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>
   /**
-   * Specialized version of `std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>`.
+   * Wrapper struct for `std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>`.
+   * std::variant cannot be used in Swift because of a Swift bug.
+   * Not even specializing it works. So we create a wrapper struct.
    */
-  using std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ = std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>;
-  inline std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> create_std__optional_std__shared_ptr_margelo__nitro__image__HybridImageSpec__(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& value) {
-    return std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>(value);
+  struct std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
+    std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>> variant;
+    std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>> variant): variant(variant) { }
+    operator std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>() const {
+      return variant;
+    }
+    inline size_t index() const {
+      return variant.index();
+    }
+    inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> get_0() const {
+      return std::get<0>(variant);
+    }
+    inline std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> get_1() const {
+      return std::get<1>(variant);
+    }
+  };
+  inline std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ create_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& value) {
+    return std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(value);
+  }
+  inline std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ create_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(const std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>& value) {
+    return std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(value);
+  }
+  
+  // pragma MARK: std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>
+  /**
+   * Specialized version of `std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>`.
+   */
+  using std__optional_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec___ = std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>;
+  inline std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>> create_std__optional_std__variant_std__shared_ptr_margelo__nitro__image__HybridImageSpec___std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec___(const std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>& value) {
+    return std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>(value);
   }
   
   // pragma MARK: std::optional<ResizeMode>

@@ -25,12 +25,12 @@ namespace margelo::nitro::image::views {
                                                        const HybridNitroImageViewProps& sourceProps,
                                                        const react::RawProps& rawProps):
     react::ViewProps(context, sourceProps, rawProps, filterObjectKeys),
-    image([&]() -> CachedProp<std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> {
+    image([&]() -> CachedProp<std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("image", nullptr, nullptr);
         if (rawValue == nullptr) return sourceProps.image;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>::fromRawValue(*runtime, value, sourceProps.image);
+        return CachedProp<std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>>::fromRawValue(*runtime, value, sourceProps.image);
       } catch (const std::exception& exc) {
         throw std::runtime_error(std::string("NitroImageView.image: ") + exc.what());
       }

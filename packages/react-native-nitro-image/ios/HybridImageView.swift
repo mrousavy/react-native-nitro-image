@@ -10,17 +10,17 @@ import UIKit
 import SDWebImage
 import NitroModules
 
-protocol ViewEventListener {
+fileprivate protocol ViewLifecycleDelegate: AnyObject {
   func willShow()
   func willHide()
 }
 
-protocol NativeImageView {
-  var imageView: UIImageView { get }
-}
-
 class CustomImageView: UIImageView {
-  private var listeners: [ViewEventListener] = []
+  fileprivate weak var delegate: ViewLifecycleDelegate? = nil {
+    didSet {
+      onVisibilityChanged(isVisible: superview != nil)
+    }
+  }
   
   init() {
     super.init(image: nil)
@@ -29,44 +29,91 @@ class CustomImageView: UIImageView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func addListener(listener: ViewEventListener) {
-    listeners.append(listener)
-  }
-  
   override func willMove(toSuperview newSuperview: UIView?) {
-    if superview == nil {
-      listeners.forEach { $0.willHide() }
+    super.willMove(toSuperview: newSuperview)
+    onVisibilityChanged(isVisible: newSuperview != nil)
+  }
+  private func onVisibilityChanged(isVisible: Bool) {
+    if isVisible {
+      delegate?.willShow()
     } else {
-      listeners.forEach { $0.willShow() }
+      delegate?.willHide()
     }
   }
 }
 
-class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
-  let imageView: UIImageView = CustomImageView()
-  var view: UIView { imageView }
+fileprivate extension UIView {
+  var isVisible: Bool {
+    return superview != nil
+  }
+}
+
+class HybridImageView: HybridNitroImageViewSpec, ViewLifecycleDelegate, NativeImageView {
+  let imageView: UIImageView
+  let view: UIView
   
-  // TODO: REMOVE
-  var image: (any HybridImageSpec)? = nil
+  override init() {
+    let imageView = CustomImageView()
+    self.imageView = imageView
+    self.view = imageView
+    super.init()
+    imageView.delegate = self
+  }
+  
+  var image: (Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_)? = nil {
+    didSet {
+      switch image {
+      case .first(let hybridImageSpec):
+        // Specific image
+        print("IMAGE IS A IMAGE")
+        guard let image = hybridImageSpec as? NativeImage else {
+          fatalError("Can't set `image` to a type that doesn't conform to `NativeImage`!")
+        }
+        imageView.image = image.uiImage
+      case .second:
+        // Image Loader - trigger a load or drop
+        print("IMAGE IS A IMAGELOADER")
+        if imageView.isVisible {
+          willShow()
+        } else {
+          willHide()
+        }
+      case nil:
+        // No Image
+        print("IMAGE IS NIL")
+        imageView.image = nil
+      }
+    }
+  }
+  private var imageLoader: HybridImageLoader? {
+    guard case let .second(hybridImageLoaderSpec) = image else { return nil }
+    return hybridImageLoaderSpec as? HybridImageLoader
+  }
 
   var resizeMode: ResizeMode? {
     didSet {
       let mode = resizeMode ?? .contain
       switch mode {
         case .cover:
-            imageView.contentMode = .scaleAspectFill
+          imageView.contentMode = .scaleAspectFill
         case .contain:
-            imageView.contentMode = .scaleAspectFit
+          imageView.contentMode = .scaleAspectFit
         case .stretch:
-            imageView.contentMode = .scaleToFill
+          imageView.contentMode = .scaleToFill
         case .center:
-            imageView.contentMode = .center
+          imageView.contentMode = .center
       }
     }
   }
   
-  func addListener(listener: ViewEventListener) {
-    (imageView as! CustomImageView).addListener(listener: listener)
+  func willShow() {
+    guard let imageLoader else { return }
+    try? imageLoader.requestImage(forView: self)
+  }
+  
+  func willHide() {
+    guard let imageLoader else { return }
+    try? imageLoader.dropImage(forView: self)
   }
 }
 

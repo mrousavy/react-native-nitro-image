@@ -14,12 +14,16 @@ namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `ResizeMode` to properly resolve imports.
 namespace margelo::nitro::image { enum class ResizeMode; }
 
 #include <optional>
+#include <variant>
 #include <memory>
 #include "HybridImageSpec.hpp"
+#include "HybridImageLoaderSpec.hpp"
 #include "ResizeMode.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
@@ -57,11 +61,11 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
-    inline std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> getImage() noexcept override {
+    inline std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>> getImage() noexcept override {
       auto __result = _swiftPart.getImage();
       return __result;
     }
-    inline void setImage(const std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>& image) noexcept override {
+    inline void setImage(const std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>& image) noexcept override {
       _swiftPart.setImage(image);
     }
     inline std::optional<ResizeMode> getResizeMode() noexcept override {

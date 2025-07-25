@@ -47,8 +47,8 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
-    std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>> getImage() override;
-    void setImage(const std::optional<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>& image) override;
+    std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>> getImage() override;
+    void setImage(const std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>& image) override;
     std::optional<ResizeMode> getResizeMode() override;
     void setResizeMode(std::optional<ResizeMode> resizeMode) override;
 
