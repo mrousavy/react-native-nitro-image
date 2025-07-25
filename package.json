@@ -27,10 +27,12 @@
     "@release-it/bumper": "^6.0.1",
     "@release-it/conventional-changelog": "^8.0.2",
     "@tsconfig/react-native": "^2.0.3",
+    "@types/jest": "^30.0.0",
     "@types/react": "^19.1.8",
     "prettier": "^3.6.2",
     "react": "19.1.0",
     "react-native": "0.80.2",
+    "react-native-builder-bob": "^0.37.0",
     "release-it": "^17.11.0",
     "typescript": "~5.5.4"
   },

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { NitroWebImage } from "react-native-nitro-image";
+import { NitroImage } from "react-native-nitro-image";
 import { createImageURLs } from "./createImageURLs";
 
 export function NitroImageTab() {
@@ -14,10 +14,10 @@ export function NitroImageTab() {
                 windowSize={3}
                 data={imageURLs}
                 renderItem={({ item: url }) => (
-                    <NitroWebImage
-                    // @ts-expect-error types are kinda weird hold on
-                    style={styles.image}
-                     url={url} resizeMode="cover" />
+                    <NitroImage
+                    image={{ url: url }}
+                        style={styles.image}
+                      resizeMode="cover" />
                 )}
             />
         </View>

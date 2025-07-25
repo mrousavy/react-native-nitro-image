@@ -1,3 +1,4 @@
+import React from "react";
 import { NativeNitroImage } from "./NativeNitroImage";
 import type { AsyncImageSource } from "./AsyncImageSource";
 import { useImageLoader } from "./useImageLoader";
