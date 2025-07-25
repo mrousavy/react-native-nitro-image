@@ -15,7 +15,7 @@ import type { ImageLoader } from "./ImageLoader.nitro";
  */
 export type ResizeMode = "cover" | "contain" | "center" | "stretch";
 
-export interface NitroImageViewProps extends HybridViewProps {
+export interface NativeNitroImageViewProps extends HybridViewProps {
     /**
      * Represents the image actually shown in this Image View.
      * - {@linkcode Image}: Shows a specific in-memory {@linkcode Image}
@@ -40,11 +40,11 @@ export interface NitroImageViewProps extends HybridViewProps {
     resizeMode?: ResizeMode;
 }
 
-export interface NitroImageViewMethods extends HybridViewMethods {
+export interface NativeNitroImageViewMethods extends HybridViewMethods {
     // no methods
 }
 
 export type NitroImageView = HybridView<
-    NitroImageViewProps,
-    NitroImageViewMethods
+    NativeNitroImageViewProps,
+    NativeNitroImageViewMethods
 >;

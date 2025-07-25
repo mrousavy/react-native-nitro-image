@@ -10,7 +10,6 @@ export type AsyncImageSource =
   | { resource: string }
   | { symbolName: string }
 
-
 // @ts-expect-error i know what I'm doing
 export function isHybridObject<T extends object>(obj: T): obj is HybridObject {
   // @ts-expect-error

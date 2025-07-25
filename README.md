@@ -20,7 +20,7 @@
 ```tsx
 function App() {
   return (
-    <NitroAsyncImage
+    <NitroImage
       image={{ filePath: '/tmp/image.jpg' }}
       style={{ width: 400, height: 400 }}
     />
@@ -125,13 +125,13 @@ function App() {
 
 #### The `useImageLoader()` hook
 
-The `useImageLoader()` hook creates an asynchronous `ImageLoader` which can be passed to a `<NitroAsyncImage />` view to defer image loading:
+The `useImageLoader()` hook creates an asynchronous `ImageLoader` which can be passed to a `<NitroImage />` view to defer image loading:
 
 ```tsx
 function App() {
   const loader = useImageLoader({ filePath: '/tmp/image.jpg' })
   return (
-    <NitroAsyncImage
+    <NitroImage
       image={loader}
       style={{ width: 400, height: 400 }}
     />
@@ -141,29 +141,29 @@ function App() {
 
 ### The `<NitroImage />` view
 
-The `<NitroImage />` view is a native Nitro View component for rendering an `Image` instance:
+The `<NitroImage />` view is a React Native view that allows you to render `Image` - either asynchronously (by wrapping `ImageLoader`s), or synchronously (by passing `Image` instances directly):
 
 ```tsx
 function App() {
-  const image = …
   return (
     <NitroImage
-      image={image}
+      image={{ filePath: '/tmp/image.jpg' }}
       style={{ width: 400, height: 400 }}
     />
   )
 }
 ```
 
-### The `<NitroAsyncImage />` view
+### The `<NativeNitroImage />` view
 
-The `<NitroAsyncImage />` view is a JS-based view that simplifies image rendering - it just uses `<NitroImage />` under the hood:
+The `<NativeNitroImage />` view is the actual native Nitro View component for rendering an `Image` instance. It is recommended to use abstractions like [`<NitroImage />`](#the-nitroimage--view) instead of the actual native component. However if you need to use the native component instead, it is still exposed:
 
 ```tsx
 function App() {
+  const image = …
   return (
-    <NitroAsyncImage
-      image={{ filePath: '/tmp/image.jpg' }}
+    <NativeNitroImage
+      image={image}
       style={{ width: 400, height: 400 }}
     />
   )
