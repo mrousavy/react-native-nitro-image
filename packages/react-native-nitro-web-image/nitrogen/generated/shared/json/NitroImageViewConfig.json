@@ -1,0 +1,11 @@
+{
+  "uiViewClassName": "NitroImageView",
+  "supportsRawText": false,
+  "bubblingEventTypes": {},
+  "directEventTypes": {},
+  "validAttributes": {
+    "image": true,
+    "resizeMode": true,
+    "hybridRef": true
+  }
+}
