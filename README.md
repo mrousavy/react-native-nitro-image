@@ -58,10 +58,10 @@ target '…' do
 There are numerous ways to create an `Image` through the `Images` factory:
 
 ```ts
-const webImage      = await Images.loadImageFromURLAsync('https://picsum.photos/seed/123/400')
-const fileImage     = await Images.loadImageFromFileAsync('file://my-image.jpg')
-const resourceImage = Images.loadImageFromResources('my-resource.jpg')
-const symbolImage   = Images.loadImageFromSymbol('star')
+const webImage      = await Images.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const fileImage     = await Images.loadFromFileAsync('file://my-image.jpg')
+const resourceImage = Images.loadFromResources('my-resource.jpg')
+const symbolImage   = Images.loadFromSymbol('star')
 ```
 
 #### Load with Options
@@ -69,8 +69,8 @@ const symbolImage   = Images.loadImageFromSymbol('star')
 When loading from a remote URL, you can tweak options such as `priority`:
 
 ```ts
-const image1 = await Images.loadImageFromURLAsync(URL1, { priority: 'low' })
-const image2 = await Images.loadImageFromURLAsync(URL2, { priority: 'high' })
+const image1 = await Images.loadFromURLAsync(URL1, { priority: 'low' })
+const image2 = await Images.loadFromURLAsync(URL2, { priority: 'high' })
 ```
 
 #### `ArrayBuffer`
@@ -78,9 +78,9 @@ const image2 = await Images.loadImageFromURLAsync(URL2, { priority: 'high' })
 The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in ARGB format:
 
 ```ts
-const webImage        = await Images.loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage        = await Images.loadFromURLAsync('https://picsum.photos/seed/123/400')
 const arrayBuffer     = await webImage.toArrayBufferAsync()
-const sameImageCopied = await Images.loadImageFromArrayBufferAsync(arrayBuffer)
+const sameImageCopied = await Images.loadFromArrayBufferAsync(arrayBuffer)
 ```
 
 #### Resizing
@@ -88,7 +88,7 @@ const sameImageCopied = await Images.loadImageFromArrayBufferAsync(arrayBuffer)
 An `Image` can be resized entirely in-memory, without ever writing to- or reading from- a file:
 
 ```ts
-const webImage = await Images.loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage = await Images.loadFromURLAsync('https://picsum.photos/seed/123/400')
 const smaller  = await webImage.resizeAsync(200, 200)
 ```
 
@@ -97,7 +97,7 @@ const smaller  = await webImage.resizeAsync(200, 200)
 An `Image` can be cropped entirely in-memory, without ever writing to- or reading from- a file:
 
 ```ts
-const webImage = await Images.loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage = await Images.loadFromURLAsync('https://picsum.photos/seed/123/400')
 const smaller  = await webImage.cropAsync(100, 100, 50, 50)
 ```
 
