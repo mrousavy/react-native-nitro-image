@@ -15,6 +15,7 @@
     "bootstrap": "bun i && bun run build && cd example && bundle install && bun pods",
     "typecheck": "bun --filter=\"**\" typecheck",
     "lint": "bun image lint && bun web-image lint",
+    "lint-ci": "bun image lint-ci && bun web-image lint-ci",
     "clean": "git clean -dfx",
     "release": "./scripts/release.sh",
     "image": "bun --cwd packages/react-native-nitro-image",
