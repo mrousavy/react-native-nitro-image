@@ -6,7 +6,14 @@ import type {
 } from "./specs/ImageView.nitro";
 
 /**
- * The renderable `<NitroImage />` view.
+ * The native renderable `<NitroImage />` view.
+ * @example
+ * ```tsx
+ * function App() {
+ *   const image = useImage('https://picsum.photos/seed/123/400')
+ *   return <NitroImage image={image} style={{ width: 100, height: 100 }} />
+ * }
+ * ```
  */
 export const NitroImage = getHostComponent<
     NitroImageViewProps,

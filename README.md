@@ -18,10 +18,9 @@
 
 ```tsx
 function App() {
-  const image = useWebImage('https://picsum.photos/seed/123/400')
   return (
-    <NitroImage
-      image={image}
+    <NitroAsyncImage
+      image={{ filePath: '/tmp/image.jpg' }}
       style={{ width: 400, height: 400 }}
     />
   )
@@ -55,13 +54,13 @@ target '…' do
 
 ### Creating `Image`s
 
-There are numerous ways to create an `Image` through the `ImageFactory`:
+There are numerous ways to create an `Image` through the `Images` factory:
 
 ```ts
-const webImage      = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
-const fileImage     = await loadImageFromFileAsync('file://my-image.jpg')
-const resourceImage = loadImageFromResources('my-resource.jpg')
-const symbolImage   = loadImageFromSymbol('star')
+const webImage      = await Images.loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const fileImage     = await Images.loadImageFromFileAsync('file://my-image.jpg')
+const resourceImage = Images.loadImageFromResources('my-resource.jpg')
+const symbolImage   = Images.loadImageFromSymbol('star')
 ```
 
 #### Load with Options
@@ -69,8 +68,8 @@ const symbolImage   = loadImageFromSymbol('star')
 When loading from a remote URL, you can tweak options such as `priority`:
 
 ```ts
-const image1 = await loadImageFromURLAsync(URL1, { priority: 'low' })
-const image2 = await loadImageFromURLAsync(URL2, { priority: 'high' })
+const image1 = await Images.loadImageFromURLAsync(URL1, { priority: 'low' })
+const image2 = await Images.loadImageFromURLAsync(URL2, { priority: 'high' })
 ```
 
 #### `ArrayBuffer`
@@ -78,9 +77,9 @@ const image2 = await loadImageFromURLAsync(URL2, { priority: 'high' })
 The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in ARGB format:
 
 ```ts
-const webImage        = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage        = await Images.loadImageFromURLAsync('https://picsum.photos/seed/123/400')
 const arrayBuffer     = await webImage.toArrayBufferAsync()
-const sameImageCopied = await loadImageFromArrayBufferAsync(arrayBuffer)
+const sameImageCopied = await Images.loadImageFromArrayBufferAsync(arrayBuffer)
 ```
 
 #### Resizing
@@ -88,7 +87,7 @@ const sameImageCopied = await loadImageFromArrayBufferAsync(arrayBuffer)
 An `Image` can be resized entirely in-memory, without ever writing to- or reading from- a file:
 
 ```ts
-const webImage = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage = await Images.loadImageFromURLAsync('https://picsum.photos/seed/123/400')
 const smaller  = await webImage.resizeAsync(200, 200)
 ```
 
@@ -97,7 +96,7 @@ const smaller  = await webImage.resizeAsync(200, 200)
 An `Image` can be cropped entirely in-memory, without ever writing to- or reading from- a file:
 
 ```ts
-const webImage = await loadImageFromURLAsync('https://picsum.photos/seed/123/400')
+const webImage = await Images.loadImageFromURLAsync('https://picsum.photos/seed/123/400')
 const smaller  = await webImage.cropAsync(100, 100, 50, 50)
 ```
 
@@ -112,26 +111,58 @@ const path     = await smaller.saveToTemporaryFileAsync('jpg', 90)
 
 ### Hooks
 
-#### The `useWebImage()` hook
+#### The `useImage()` hook
 
-The `useWebImage()` hook loads an `Image` from a remote URL and returns it as a React state:
+The `useImage()` hook asynchronously loads an `Image` from the given source and returns it as a React state:
 
 ```tsx
 function App() {
-  const image = useWebImage('https://picsum.photos/seed/123/400')
+  const image = useImage({ filePath: '/tmp/image.jpg' })
+  return …
+}
+```
+
+#### The `useImageLoader()` hook
+
+The `useImageLoader()` hook creates an asynchronous `ImageLoader` which can be passed to a `<NitroAsyncImage />` view to defer image loading:
+
+```tsx
+function App() {
+  const loader = useImageLoader({ filePath: '/tmp/image.jpg' })
+  return (
+    <NitroAsyncImage
+      image={loader}
+      style={{ width: 400, height: 400 }}
+    />
+  )
 }
 ```
 
 ### The `<NitroImage />` view
 
-The `<NitroImage />` view is a React Native view component for rendering an `Image` instance:
+The `<NitroImage />` view is a native Nitro View component for rendering an `Image` instance:
 
 ```tsx
 function App() {
-  const image = useWebImage('https://picsum.photos/seed/123/400')
+  const image = …
   return (
     <NitroImage
       image={image}
+      style={{ width: 400, height: 400 }}
+    />
+  )
+}
+```
+
+### The `<NitroAsyncImage />` view
+
+The `<NitroAsyncImage />` view is a JS-based view that simplifies image rendering - it just uses `<NitroImage />` under the hood:
+
+```tsx
+function App() {
+  return (
+    <NitroAsyncImage
+      image={{ filePath: '/tmp/image.jpg' }}
       style={{ width: 400, height: 400 }}
     />
   )
@@ -161,7 +192,7 @@ To achieve a dynamic width or height calculation, you can use the `image`'s dime
 
 ```tsx
 function App() {
-  const image = useWebImage('https://picsum.photos/seed/123/400')
+  const image = useImage({ filePath: '/tmp/image.jpg' })
   const aspect = (image?.width ?? 1) / (image?.height ?? 1)
   return (
     <NitroImage
@@ -186,11 +217,11 @@ Since it is a very small buffer (or base64 string), it can be added to a payload
 
 
   For example, your `users` database could have a `users.profile_picture_url` field which you use to asynchronously load the web Image, and a `users.profile_picture_thumbhash` field which contains the ThumbHash buffer (or base64 string) which you can display on-device immediately.
-  
+
   - `users`
     - `users.profile_picture_url`: Load asynchronously
     - `users.profile_picture_thumbhash`: Decode & Display immediately
-  
+
   Everytime you upload a new profile picture for the user, you should encode the image to a new ThumbHash again and update the `users.profile_picture_thumbhash` field. This should ideally happen on your backend, but can also be performed on-device if needed.
 </details>
 
