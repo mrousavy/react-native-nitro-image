@@ -24,7 +24,8 @@ class HybridImageFactory: HybridImageFactorySpec {
 
     return Promise.async {
       let webImageOptions = options?.toSDWebImageOptions() ?? []
-      let uiImage = try await SDWebImageManager.shared.loadImage(with: url, options: webImageOptions)
+      let webImageContext = options?.toSDWebImageContext() ?? [:]
+      let uiImage = try await SDWebImageManager.shared.loadImage(with: url, options: webImageOptions, context: webImageContext)
       return HybridImage(uiImage: uiImage)
     }
   }

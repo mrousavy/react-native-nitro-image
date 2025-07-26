@@ -5,6 +5,7 @@ import { NitroImage } from "./NitroImage";
 import type { Image } from "./specs/Image.nitro";
 import type { AsyncImageLoadOptions } from "./specs/ImageFactory.nitro";
 import type { NitroImageViewProps } from "./specs/ImageView.nitro";
+import type { StyleProp, ViewStyle } from "react-native";
 import { useWebImage } from "./useWebImage";
 
 interface ImagePlaceholder {
@@ -18,6 +19,7 @@ interface ViewPlaceholder {
 }
 
 export interface NitroWebImageProps extends Omit<NitroImageViewProps, "image"> {
+    style?: StyleProp<ViewStyle>;
     url: string;
     options?: AsyncImageLoadOptions;
     placeholder?: ImagePlaceholder | ThumbHashPlaceholder | ViewPlaceholder;
