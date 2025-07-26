@@ -12,14 +12,14 @@ suspend fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): 
     var result = this
 
     if (options.priority != null) {
-        result = result.coroutineContext(options.priority.toCoroutineContext())
+        result.coroutineContext(options.priority.toCoroutineContext())
     }
 
     if (options.forceRefresh == true) {
         // don't allow reading from cache, only writing.
-        result = result.diskCachePolicy(CachePolicy.WRITE_ONLY)
-        result = result.memoryCachePolicy(CachePolicy.WRITE_ONLY)
-        result = result.networkCachePolicy(CachePolicy.WRITE_ONLY)
+        result.diskCachePolicy(CachePolicy.WRITE_ONLY)
+            .memoryCachePolicy(CachePolicy.WRITE_ONLY)
+            .networkCachePolicy(CachePolicy.WRITE_ONLY)
     }
 
     if (options.continueInBackground == true) {
@@ -32,8 +32,8 @@ suspend fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): 
 
     if (options.scaleDownLargeImages == true) {
         // Limit to 4096x4096 (~60 MB)
-        result = result.size(4096, 4096)
-        result = result.precision(Precision.INEXACT)
+        result.size(4096, 4096)
+            .precision(Precision.INEXACT)
     }
 
     if (options.queryMemoryDataSync == true) {
@@ -45,8 +45,11 @@ suspend fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): 
     }
 
     if (options.decodeImage == false) {
-        result = result.decoderFactory(BlackholeDecoder.Factory())
+        result.decoderFactory(BlackholeDecoder.Factory())
     }
 
+    if (options.cacheKey != null) {
+        result.diskCacheKey(options.cacheKey)
+    }
     return result
 }

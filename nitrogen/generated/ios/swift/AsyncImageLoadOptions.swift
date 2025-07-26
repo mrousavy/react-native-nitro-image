@@ -18,7 +18,7 @@ public extension AsyncImageLoadOptions {
   /**
    * Create a new instance of `AsyncImageLoadOptions`.
    */
-  init(priority: AsyncImagePriority?, forceRefresh: Bool?, continueInBackground: Bool?, allowInvalidSSLCertificates: Bool?, scaleDownLargeImages: Bool?, queryMemoryDataSync: Bool?, queryDiskDataSync: Bool?, decodeImage: Bool?) {
+  init(priority: AsyncImagePriority?, forceRefresh: Bool?, cacheKey: String?, continueInBackground: Bool?, allowInvalidSSLCertificates: Bool?, scaleDownLargeImages: Bool?, queryMemoryDataSync: Bool?, queryDiskDataSync: Bool?, decodeImage: Bool?) {
     self.init({ () -> bridge.std__optional_AsyncImagePriority_ in
       if let __unwrappedValue = priority {
         return bridge.create_std__optional_AsyncImagePriority_(__unwrappedValue)
@@ -28,6 +28,12 @@ public extension AsyncImageLoadOptions {
     }(), { () -> bridge.std__optional_bool_ in
       if let __unwrappedValue = forceRefresh {
         return bridge.create_std__optional_bool_(__unwrappedValue)
+      } else {
+        return .init()
+      }
+    }(), { () -> bridge.std__optional_std__string_ in
+      if let __unwrappedValue = cacheKey {
+        return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
       } else {
         return .init()
       }
@@ -97,6 +103,29 @@ public extension AsyncImageLoadOptions {
       self.__forceRefresh = { () -> bridge.std__optional_bool_ in
         if let __unwrappedValue = newValue {
           return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+  }
+  
+  var cacheKey: String? {
+    @inline(__always)
+    get {
+      return { () -> String? in
+        if let __unwrapped = self.__cacheKey.value {
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__cacheKey = { () -> bridge.std__optional_std__string_ in
+        if let __unwrappedValue = newValue {
+          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
         } else {
           return .init()
         }

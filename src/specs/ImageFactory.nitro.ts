@@ -18,6 +18,12 @@ export interface AsyncImageLoadOptions {
     forceRefresh?: boolean;
 
     /**
+     * A custom cache key to use for the image.
+     * @default The URL of the image.
+     */
+    cacheKey?: string;
+
+    /**
      * Allows the Image download to continue even when the app is backgrounded.
      * @default false
      */
