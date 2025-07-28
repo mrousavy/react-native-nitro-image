@@ -7,12 +7,14 @@ import coil3.request.ImageRequest
 import coil3.size.Precision
 
 @OptIn(ExperimentalCoilApi::class)
-suspend fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageRequest.Builder {
+fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageRequest.Builder {
     if (options == null) return this
     var result = this
 
     if (options.priority != null) {
-        result = result.coroutineContext(options.priority.toCoroutineContext())
+        options.priority.toCoroutineContext()?.let { context ->
+            result = result.coroutineContext(context)
+        }
     }
 
     if (options.forceRefresh == true) {
