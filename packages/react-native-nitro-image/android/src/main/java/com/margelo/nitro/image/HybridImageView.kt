@@ -18,7 +18,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
             updateImage()
         }
 
-    override var image: HybridImageSpec? = null
+    override var image: Variant_HybridImageSpec_HybridImageLoaderSpec? = null
         set(value) {
             field = value
             updateImage()
@@ -28,7 +28,6 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
     override val view: View = imageView
 
     private fun updateImage() {
-        val image = image as? HybridImage ?: return
-        imageView.setImageBitmap(image.bitmap)
+        throw Error("updateImage() is not yet implemented for the new variant type!")
     }
 }
