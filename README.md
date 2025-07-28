@@ -41,6 +41,15 @@ cd ios && pod install
 > [!NOTE]
 > Since NitroImage is built with [Nitro Views](https://nitro.margelo.com/docs/hybrid-views), it requires the [new architecture](https://reactnative.dev/architecture/landing-page) to be enabled.
 
+### Web Images
+
+To keep NitroImage super lightweight, it does not ship a web image loader and caching system.
+If you want to load images from the web, install NitroWebImage as well:
+
+```sh
+npm i react-native-nitro-web-image
+```
+
 Then, since [SDWebImage does not enable modular headers](https://github.com/SDWebImage/SDWebImage?tab=readme-ov-file#swift-and-static-framework) for static linkage, you need to enable those yourself **in your app's `Podfile`**:
 
 ```rb
@@ -170,23 +179,6 @@ function App() {
 }
 ```
 
-### The `<NitroWebImage />` view
-
-The `<NitroWebImage />` view is a JS-based React Native view component that fetches an `Image` from a remote URL as soon as it is mounted and displays it:
-
-```tsx
-function App() {
-  return (
-    <NitroWebImage
-      url="https://picsum.photos/seed/123/400"
-      placeholder={{ thumbHash: '…' }}
-      options={{ priority: 'high' }}
-      style={{ width: 400, height: 400 }}
-    />
-  )
-}
-```
-
 #### Dynamic width or height
 
 To achieve a dynamic width or height calculation, you can use the `image`'s dimensions:
@@ -258,3 +250,25 @@ const image          = await Images.loadFromThumbHashAsync(thumbHash)
 const thumbHashAgain = await image.toThumbHash()
 ```
 
+## Using the native `Image` type in a third-party library
+
+To use the native `Image` type in your library (e.g. in a Camera library), you need to follow these steps:
+
+1. Add the dependency on `react-native-nitro-image`
+    - JS: Add `react-native-nitro-image` to `peerDependencies` and `devDependencies`
+    - Android: Add `:react-native-nitro-image` to your `build.gradle`'s `dependencies`, and `react-native-nitro-image::NitroImage` to your CMake's dependencies (it's a prefab)
+    - iOS: Add `NitroImage` to your `*.podspec`'s dependencies
+2. In your Nitro specs (`*.nitro.ts`), just import `Image` from `'react-native-nitro-image'` and use it as a type
+3. In your native implementation, you can either;
+    - Implement `HybridImageSpec`, `HybridImageLoaderSpec` or `HybridImageViewSpec` with your custom implementation, e.g. to create a `Image` implementation that doesn't use `UIImage` but instead uses `CGImage`, or an `AVPhoto`
+    - Use the `HybridImageSpec`, `HybridImageLoaderSpec` or `HybridImageViewSpec` types. You can either use them abstract (with all the methods that are also exposed to JS), or by downcasting them to a specific type - all of them follow a protocol like `NativeImage`:
+      ```swift
+      class HybridCustom: HybridCustomSpec {
+        func doSomething(image: any HybridImageSpec) throws {
+          guard let image = image as? NativeImage else { return }
+          let uiImage = image.uiImage
+          // ...
+        }
+      }
+      ```
+4. Done! 🎉 Now you can benefit from a common, shared `Image` type - e.g. your Camera library can directly return an `Image` instance in `takePhoto()`, which can be instantly rendered using `<NitroImage />` - no more file I/O!
