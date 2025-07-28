@@ -9,6 +9,7 @@ package com.margelo.nitro.image
 
 import com.facebook.proguard.annotations.DoNotStrip
 
+
 /**
  * Represents the TypeScript variant "HybridImageSpec|HybridImageLoaderSpec".
  */

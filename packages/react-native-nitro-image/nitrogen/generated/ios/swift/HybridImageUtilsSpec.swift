@@ -21,6 +21,7 @@ public protocol HybridImageUtilsSpec_protocol: HybridObject {
 /// See ``HybridImageUtilsSpec``
 open class HybridImageUtilsSpec_base {
   private weak var cxxWrapper: HybridImageUtilsSpec_cxx? = nil
+  public init() { }
   public func getCxxWrapper() -> HybridImageUtilsSpec_cxx {
   #if DEBUG
     guard self is HybridImageUtilsSpec else {

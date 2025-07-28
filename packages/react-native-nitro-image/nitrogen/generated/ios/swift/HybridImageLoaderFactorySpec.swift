@@ -23,6 +23,7 @@ public protocol HybridImageLoaderFactorySpec_protocol: HybridObject {
 /// See ``HybridImageLoaderFactorySpec``
 open class HybridImageLoaderFactorySpec_base {
   private weak var cxxWrapper: HybridImageLoaderFactorySpec_cxx? = nil
+  public init() { }
   public func getCxxWrapper() -> HybridImageLoaderFactorySpec_cxx {
   #if DEBUG
     guard self is HybridImageLoaderFactorySpec else {

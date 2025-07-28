@@ -10,9 +10,6 @@
 // Include C++ implementation defined types
 #include "HybridWebImageFactorySpecSwift.hpp"
 #include "NitroWebImage-Swift-Cxx-Umbrella.hpp"
-// #include <NitroImage/HybridImageLoaderSpecSwift.hpp>
-// #include <NitroImage/HybridImageSpecSwift.hpp>
-
 #include <NitroImage/NitroImage-Swift-Cxx-Bridge.hpp>
 
 namespace margelo::nitro::web::image::bridge::swift {
@@ -56,11 +53,11 @@ namespace margelo::nitro::web::image::bridge::swift {
   }
   void* _Nonnull get_std__shared_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_(std__shared_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_ cppType) {
     std::shared_ptr<margelo::nitro::web::image::HybridWebImageFactorySpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::web::image::HybridWebImageFactorySpecSwift>(cppType);
-  #ifdef NITRO_DEBUG
+    #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {
       throw std::runtime_error("Class \"HybridWebImageFactorySpec\" is not implemented in Swift!");
     }
-  #endif
+    #endif
     NitroWebImage::HybridWebImageFactorySpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }
