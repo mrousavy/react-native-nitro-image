@@ -1,4 +1,4 @@
-import type { ImageLoader } from "react-native-nitro-image";
 import { NitroModules } from "react-native-nitro-modules";
+import type { WebImageLoaderFactory } from "./specs/WebImageLoaderFactory.nitro";
 
-export const WebImageLoader = NitroModules.createHybridObject<ImageLoader>('WebImageLoader')
+export const WebImages = NitroModules.createHybridObject<WebImageLoaderFactory>('WebImageLoaderFactory')

@@ -1,5 +1,5 @@
 //
-//  HybridImageFactory.swift
+//  HybridWebImageFactory.swift
 //  react-native-nitro-web-image
 //
 //  Created by Marc Rousavy on 10.06.25.
@@ -9,7 +9,7 @@ import Foundation
 import NitroModules
 import SDWebImage
 
-class HybridImageFactory: HybridImageFactorySpec {
+class HybridWebImageFactory: HybridWebImageFactorySpec {
   private let queue = DispatchQueue(label: "image-loader",
                                     qos: .default,
                                     attributes: .concurrent)

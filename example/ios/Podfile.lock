@@ -20,7 +20,37 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - NitroImage (0.4.0):
+  - NitroModules (0.26.3):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-callinvoker
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
+  - NitroWebImage (0.4.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -50,36 +80,6 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - SDWebImage
-    - SocketRocket
-    - Yoga
-  - NitroModules (0.26.3):
-    - boost
-    - DoubleConversion
-    - fast_float
-    - fmt
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCT-Folly/Fabric
-    - RCTRequired
-    - RCTTypeSafety
-    - React-callinvoker
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-hermes
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
   - RCT-Folly (2024.11.18.00):
@@ -2368,8 +2368,8 @@ DEPENDENCIES:
   - fmt (from `../../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
-  - NitroImage (from `../../node_modules/react-native-nitro-image`)
   - NitroModules (from `../../node_modules/react-native-nitro-modules`)
+  - NitroWebImage (from `../../node_modules/react-native-nitro-web-image`)
   - RCT-Folly (from `../../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
   - RCTRequired (from `../../node_modules/react-native/Libraries/Required`)
@@ -2465,10 +2465,10 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2025-07-24-RNv0.80.2-5c7dbc0a78cb2d2a8bc81c41c617c3abecf209ff
-  NitroImage:
-    :path: "../../node_modules/react-native-nitro-image"
   NitroModules:
     :path: "../../node_modules/react-native-nitro-modules"
+  NitroWebImage:
+    :path: "../../node_modules/react-native-nitro-web-image"
   RCT-Folly:
     :podspec: "../../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -2615,8 +2615,8 @@ SPEC CHECKSUMS:
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: bbc1152da7d2d40f9e59c28acc6576fcf5d28e2a
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  NitroImage: 6126eb53da23a4371ba18b2707c59df2bfca0af8
   NitroModules: 535de81b3e13ddceca0ea79afa8a873c27b31186
+  NitroWebImage: 413ad7b8d67d5ede41db5e8e897c21c10778ba2c
   RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: 300c5eb91114d4339b0bb39505d0f4824d7299b7
   RCTRequired: e0446b01093475b7082fbeee5d1ef4ad1fe20ac4

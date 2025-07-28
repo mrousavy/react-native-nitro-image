@@ -10,7 +10,7 @@
 #import "NitroWebImage-Swift-Cxx-Umbrella.hpp"
 #import <type_traits>
 
-#include "HybridWebImageLoaderSpecSwift.hpp"
+#include "HybridWebImageLoaderFactorySpecSwift.hpp"
 
 @interface NitroWebImageAutolinking : NSObject
 @end
@@ -22,9 +22,9 @@
   using namespace margelo::nitro::web::image;
 
   HybridObjectRegistry::registerHybridObjectConstructor(
-    "WebImageLoader",
+    "WebImageLoaderFactory",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> hybridObject = NitroWebImage::NitroWebImageAutolinking::createWebImageLoader();
+      std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderFactorySpec> hybridObject = NitroWebImage::NitroWebImageAutolinking::createWebImageLoaderFactory();
       return hybridObject;
     }
   );

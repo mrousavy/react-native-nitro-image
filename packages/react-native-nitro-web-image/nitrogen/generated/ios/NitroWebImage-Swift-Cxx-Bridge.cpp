@@ -11,6 +11,7 @@
 #include "HybridImageLoaderSpecSwift.hpp"
 #include "HybridImageSpecSwift.hpp"
 #include "HybridNitroImageViewSpecSwift.hpp"
+#include "HybridWebImageLoaderFactorySpecSwift.hpp"
 #include "HybridWebImageLoaderSpecSwift.hpp"
 #include "NitroWebImage-Swift-Cxx-Umbrella.hpp"
 
@@ -93,6 +94,22 @@ namespace margelo::nitro::web::image::bridge::swift {
     }
   #endif
     NitroWebImage::HybridWebImageLoaderSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    return swiftPart.toUnsafe();
+  }
+  
+  // pragma MARK: std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderFactorySpec>
+  std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderFactorySpec> create_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderFactorySpec_(void* _Nonnull swiftUnsafePointer) {
+    NitroWebImage::HybridWebImageLoaderFactorySpec_cxx swiftPart = NitroWebImage::HybridWebImageLoaderFactorySpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::web::image::HybridWebImageLoaderFactorySpecSwift>(swiftPart);
+  }
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderFactorySpec_(std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderFactorySpec_ cppType) {
+    std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderFactorySpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::web::image::HybridWebImageLoaderFactorySpecSwift>(cppType);
+  #ifdef NITRO_DEBUG
+    if (swiftWrapper == nullptr) [[unlikely]] {
+      throw std::runtime_error("Class \"HybridWebImageLoaderFactorySpec\" is not implemented in Swift!");
+    }
+  #endif
+    NitroWebImage::HybridWebImageLoaderFactorySpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }
 

@@ -13,7 +13,7 @@ import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import java.nio.ByteBuffer
 
-class HybridImageFactory: HybridImageFactorySpec() {
+class HybridWebImageFactory: HybridWebImageFactorySpec() {
     private val context: ReactApplicationContext
         get() = NitroModules.applicationContext ?: throw Error("No context - NitroModules.applicationContext was null!")
     private val imageLoader = ImageLoader(context)
