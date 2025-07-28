@@ -7,6 +7,7 @@
 
 import Foundation
 import NitroModules
+import NitroImage
 
 /// See ``HybridWebImageLoaderSpec``
 public protocol HybridWebImageLoaderSpec_protocol: HybridObject, HybridImageLoaderSpec_protocol {

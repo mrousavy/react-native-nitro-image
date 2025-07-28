@@ -22,6 +22,6 @@ class HybridWebImageLoaderFactory: HybridWebImageLoaderFactorySpec {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
     }
     
-    return HybridWebImageLoader(url: URL, options: options)
+    return HybridWebImageLoader(url: url, options: options)
   }
 }

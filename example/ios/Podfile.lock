@@ -88,6 +88,7 @@ PODS:
     - fmt
     - glog
     - hermes-engine
+    - NitroImage
     - NitroModules
     - RCT-Folly
     - RCT-Folly/Fabric
@@ -2651,7 +2652,7 @@ SPEC CHECKSUMS:
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   NitroImage: 67131db44c0d6ea571fbdac262c266d0617c3802
   NitroModules: 535de81b3e13ddceca0ea79afa8a873c27b31186
-  NitroWebImage: 413ad7b8d67d5ede41db5e8e897c21c10778ba2c
+  NitroWebImage: 61eb681731d602336fce7f2ffbcc8bb6e09c2946
   RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: 300c5eb91114d4339b0bb39505d0f4824d7299b7
   RCTRequired: e0446b01093475b7082fbeee5d1ef4ad1fe20ac4
