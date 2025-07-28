@@ -1,5 +1,6 @@
 import type { HybridObject } from "react-native-nitro-modules";
 import type { WebImageLoader } from "./WebImageLoader.nitro";
+import type { Image } from "react-native-nitro-image";
 
 export type AsyncImagePriority = "low" | "default" | "high";
 
@@ -56,6 +57,7 @@ export interface AsyncImageLoadOptions {
     decodeImage?: boolean;
 }
 
-export interface WebImageLoaderFactory extends HybridObject<{ ios: 'swift', android: 'kotlin' }> {
+export interface WebImageFactory extends HybridObject<{ ios: 'swift', android: 'kotlin' }> {
   createWebImageLoader(url: string, options?: AsyncImageLoadOptions): WebImageLoader
+  loadImageAsync(url: string, options?: AsyncImageLoadOptions): Promise<Image>
 }

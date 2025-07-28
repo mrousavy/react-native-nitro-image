@@ -18,8 +18,8 @@ namespace margelo::nitro::web::image { class HybridImageLoaderSpec; }
 namespace margelo::nitro::web::image { class HybridImageSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridNitroImageViewSpec; }
-// Forward declaration of `HybridWebImageLoaderFactorySpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridWebImageLoaderFactorySpec; }
+// Forward declaration of `HybridWebImageFactorySpec` to properly resolve imports.
+namespace margelo::nitro::web::image { class HybridWebImageFactorySpec; }
 // Forward declaration of `HybridWebImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
 
@@ -29,7 +29,7 @@ namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
 #include "HybridImageLoaderSpec.hpp"
 #include "HybridImageSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
-#include "HybridWebImageLoaderFactorySpec.hpp"
+#include "HybridWebImageFactorySpec.hpp"
 #include "HybridWebImageLoaderSpec.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
@@ -54,8 +54,8 @@ namespace NitroWebImage { class HybridImageLoaderSpec_cxx; }
 namespace NitroWebImage { class HybridImageSpec_cxx; }
 // Forward declaration of `HybridNitroImageViewSpec_cxx` to properly resolve imports.
 namespace NitroWebImage { class HybridNitroImageViewSpec_cxx; }
-// Forward declaration of `HybridWebImageLoaderFactorySpec_cxx` to properly resolve imports.
-namespace NitroWebImage { class HybridWebImageLoaderFactorySpec_cxx; }
+// Forward declaration of `HybridWebImageFactorySpec_cxx` to properly resolve imports.
+namespace NitroWebImage { class HybridWebImageFactorySpec_cxx; }
 // Forward declaration of `HybridWebImageLoaderSpec_cxx` to properly resolve imports.
 namespace NitroWebImage { class HybridWebImageLoaderSpec_cxx; }
 

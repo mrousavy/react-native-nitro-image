@@ -20,7 +20,7 @@ public protocol HybridImageLoaderSpec_protocol: HybridObject {
 }
 
 /// See ``HybridImageLoaderSpec``
-open class HybridImageLoaderSpec_base {
+public class HybridImageLoaderSpec_base {
   private weak var cxxWrapper: HybridImageLoaderSpec_cxx? = nil
   public func getCxxWrapper() -> HybridImageLoaderSpec_cxx {
   #if DEBUG

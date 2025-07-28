@@ -21,7 +21,7 @@ class HybridWebImageLoaderFactory: HybridWebImageLoaderFactorySpec {
     guard let url = URL(string: urlString) else {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
     }
-    
+
     return HybridWebImageLoader(url: url, options: options)
   }
 }

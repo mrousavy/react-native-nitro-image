@@ -10,7 +10,7 @@ package com.margelo.nitro.web.image
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.*
+import com.margelo.nitro.image.HybridImageLoaderSpec
 
 /**
  * A Kotlin class representing the WebImageLoader HybridObject.
