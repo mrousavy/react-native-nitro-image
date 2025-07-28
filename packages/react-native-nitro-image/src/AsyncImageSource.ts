@@ -21,9 +21,9 @@ export function isHybridImage<T extends object>(obj: T): obj is Image {
     // @ts-expect-error
     return typeof obj === "object" && obj != null && obj.toArrayBuffer != null;
 }
-// @ts-expect-error i know what I'm doing
 export function isHybridImageLoader<T extends object>(
     obj: T,
+    // @ts-expect-error i know what I'm doing
 ): obj is ImageLoader {
     // @ts-expect-error
     return typeof obj === "object" && obj != null && obj.loadImage != null;
