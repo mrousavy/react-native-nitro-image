@@ -55,8 +55,8 @@ namespace margelo::nitro::web::image {
   public:
     // Methods
     std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImage() override;
-    void requestImage(const std::shared_ptr<margelo::nitro::web::image::HybridNitroImageViewSpec>& forView) override;
-    void dropImage(const std::shared_ptr<margelo::nitro::web::image::HybridNitroImageViewSpec>& forView) override;
+    void requestImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) override;
+    void dropImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) override;
 
   private:
     friend HybridBase;

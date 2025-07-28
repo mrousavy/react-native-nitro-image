@@ -63,13 +63,13 @@ namespace margelo::nitro::web::image {
       return __promise;
     }();
   }
-  void JHybridWebImageLoaderSpec::requestImage(const std::shared_ptr<margelo::nitro::web::image::HybridNitroImageViewSpec>& forView) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JHybridNitroImageViewSpec::javaobject> /* forView */)>("requestImage");
-    method(_javaPart, std::dynamic_pointer_cast<JHybridNitroImageViewSpec>(forView)->getJavaPart());
+  void JHybridWebImageLoaderSpec::requestImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<margelo::nitro::image::JHybridNitroImageViewSpec::javaobject> /* forView */)>("requestImage");
+    method(_javaPart, std::dynamic_pointer_cast<margelo::nitro::image::JHybridNitroImageViewSpec>(forView)->getJavaPart());
   }
-  void JHybridWebImageLoaderSpec::dropImage(const std::shared_ptr<margelo::nitro::web::image::HybridNitroImageViewSpec>& forView) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JHybridNitroImageViewSpec::javaobject> /* forView */)>("dropImage");
-    method(_javaPart, std::dynamic_pointer_cast<JHybridNitroImageViewSpec>(forView)->getJavaPart());
+  void JHybridWebImageLoaderSpec::dropImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<margelo::nitro::image::JHybridNitroImageViewSpec::javaobject> /* forView */)>("dropImage");
+    method(_javaPart, std::dynamic_pointer_cast<margelo::nitro::image::JHybridNitroImageViewSpec>(forView)->getJavaPart());
   }
 
 } // namespace margelo::nitro::web::image
