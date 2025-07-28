@@ -44,10 +44,11 @@ cd ios && pod install
 ### Web Images
 
 To keep NitroImage super lightweight, it does not ship a web image loader and caching system.
-If you want to load images from the web, install NitroWebImage as well:
+If you want to load images from the web, install [react-native-nitro-web-image](https://www.npmjs.com/package/react-native-nitro-web-image) as well:
 
 ```sh
 npm i react-native-nitro-web-image
+cd ios && pod install
 ```
 
 Then, since [SDWebImage does not enable modular headers](https://github.com/SDWebImage/SDWebImage?tab=readme-ov-file#swift-and-static-framework) for static linkage, you need to enable those yourself **in your app's `Podfile`**:
