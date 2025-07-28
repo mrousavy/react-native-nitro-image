@@ -52,14 +52,14 @@ class HybridImageFactory: HybridImageFactorySpec {
   /**
    * Load Image from the given ArrayBuffer
    */
-  func loadFromArrayBuffer(buffer: ArrayBufferHolder) throws -> (any HybridImageSpec) {
+  func loadFromArrayBuffer(buffer: ArrayBuffer) throws -> (any HybridImageSpec) {
     let data = buffer.toData(copyIfNeeded: false)
     guard let uiImage = UIImage(data: data) else {
       throw RuntimeError.error(withMessage: "The given ArrayBuffer could not be converted to a UIImage!")
     }
     return HybridImage(uiImage: uiImage)
   }
-  func loadFromArrayBufferAsync(buffer: ArrayBufferHolder) throws -> Promise<any HybridImageSpec> {
+  func loadFromArrayBufferAsync(buffer: ArrayBuffer) throws -> Promise<any HybridImageSpec> {
     let data = buffer.toData(copyIfNeeded: true)
     return Promise.async {
       guard let uiImage = UIImage(data: data) else {
@@ -69,12 +69,12 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
   }
 
-  func loadFromThumbHash(thumbhash: ArrayBufferHolder) throws -> any HybridImageSpec {
+  func loadFromThumbHash(thumbhash: ArrayBuffer) throws -> any HybridImageSpec {
     let data = thumbhash.toData(copyIfNeeded: false)
     let uiImage = thumbHashToImage(hash: data)
     return HybridImage(uiImage: uiImage)
   }
-  func loadFromThumbHashAsync(thumbhash: ArrayBufferHolder) throws -> Promise<any HybridImageSpec> {
+  func loadFromThumbHashAsync(thumbhash: ArrayBuffer) throws -> Promise<any HybridImageSpec> {
     let data = thumbhash.toData(copyIfNeeded: true)
     return Promise.async {
       let uiImage = thumbHashToImage(hash: data)

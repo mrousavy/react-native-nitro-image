@@ -6,7 +6,7 @@ extension UIImage {
   /**
    * Returns raw RGBA data of this UIImage
    */
-  func toRawRgbaArrayBuffer() throws -> ArrayBufferHolder {
+  func toRawRgbaArrayBuffer() throws -> ArrayBuffer {
     guard let cg = self.cgImage else {
       throw RuntimeError.error(withMessage: "Failed to get Image's underlying cgImage!")
     }
@@ -19,7 +19,7 @@ extension UIImage {
 
     // Allocate a Data buffer of the right size
     let totalSize = width * height * bytesPerPixel
-    let arrayBuffer = ArrayBufferHolder.allocate(size: totalSize)
+    let arrayBuffer = ArrayBuffer.allocate(size: totalSize)
 
     // Create a RGB-premultiplied-first context (aka ARGB)
     let colorSpace = CGColorSpaceCreateDeviceRGB()
