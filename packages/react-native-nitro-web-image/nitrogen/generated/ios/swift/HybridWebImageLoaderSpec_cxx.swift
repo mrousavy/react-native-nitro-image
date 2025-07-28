@@ -85,7 +85,7 @@ open class HybridWebImageLoaderSpec_cxx : HybridImageLoaderSpec_cxx {
     }
   }
 
-  public override func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__web__image__HybridImageLoaderSpec_ {
+  public override func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ {
     let ownCxxPart: bridge.std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_ = getCxxPart()
     return bridge.upcast_WebImageLoader_to_ImageLoader(ownCxxPart)
   }

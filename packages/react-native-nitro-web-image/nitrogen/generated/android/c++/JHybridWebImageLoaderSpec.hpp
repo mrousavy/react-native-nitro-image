@@ -19,7 +19,7 @@ namespace margelo::nitro::web::image {
 
   using namespace facebook;
 
-  class JHybridWebImageLoaderSpec: public jni::HybridClass<JHybridWebImageLoaderSpec, JHybridImageLoaderSpec>,
+  class JHybridWebImageLoaderSpec: public jni::HybridClass<JHybridWebImageLoaderSpec, margelo::nitro::image::JHybridImageLoaderSpec>,
                                    public virtual HybridWebImageLoaderSpec {
   public:
     static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageLoaderSpec;";

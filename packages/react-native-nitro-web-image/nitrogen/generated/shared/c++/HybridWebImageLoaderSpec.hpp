@@ -14,10 +14,10 @@
 #endif
 
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridImageLoaderSpec; }
+namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 
 #include <memory>
-#include "HybridImageLoaderSpec.hpp"
+#include <NitroImage/HybridImageLoaderSpec.hpp>
 
 namespace margelo::nitro::web::image {
 
@@ -36,7 +36,7 @@ namespace margelo::nitro::web::image {
    * };
    * ```
    */
-  class HybridWebImageLoaderSpec: public virtual HybridObject, public virtual HybridImageLoaderSpec {
+  class HybridWebImageLoaderSpec: public virtual HybridObject, public virtual margelo::nitro::image::HybridImageLoaderSpec {
     public:
       // Constructor
       explicit HybridWebImageLoaderSpec(): HybridObject(TAG) { }
