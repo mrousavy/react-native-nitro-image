@@ -30,7 +30,10 @@ export function useImageLoader(
         } else if ("symbolName" in source) {
             return ImageLoaders.createSymbolImageLoader(source.symbolName);
         } else if ("url" in source) {
-            return OptionalWebImages.createWebImageLoader(source.url);
+            return OptionalWebImages.createWebImageLoader(
+                source.url,
+                source.options,
+            );
         } else {
             return undefined;
         }

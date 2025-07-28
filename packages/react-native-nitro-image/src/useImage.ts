@@ -33,7 +33,7 @@ function createLoader(
     } else if ("url" in source) {
         // It's a { url }
         return () =>
-            Promise.resolve(OptionalWebImages.loadImageAsync(source.url));
+            OptionalWebImages.loadImageAsync(source.url, source.options);
     } else {
         throw new Error(`Unknown Image source! ${JSON.stringify(source)}`);
     }

@@ -1,4 +1,5 @@
 import type { HybridObject } from "react-native-nitro-modules";
+import type { OptionalAsyncOptions } from "./OptionalWebLoader";
 import type { Image } from "./specs/Image.nitro";
 import type { ImageLoader } from "./specs/ImageLoader.nitro";
 
@@ -9,7 +10,7 @@ export type AsyncImageSource =
     | { arrayBuffer: ArrayBuffer }
     | { resource: string }
     | { symbolName: string }
-    | { url: string };
+    | { url: string; options?: OptionalAsyncOptions };
 
 // @ts-expect-error i know what I'm doing
 export function isHybridObject<T extends object>(obj: T): obj is HybridObject {
