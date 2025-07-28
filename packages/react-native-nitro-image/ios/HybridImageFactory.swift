@@ -10,25 +10,6 @@ import NitroModules
 import SDWebImage
 
 class HybridImageFactory: HybridImageFactorySpec {
-  private let queue = DispatchQueue(label: "image-loader",
-                                    qos: .default,
-                                    attributes: .concurrent)
-  
-  /**
-   * Load Image from URL
-   */
-  func loadFromURLAsync(url urlString: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
-    guard let url = URL(string: urlString) else {
-      throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
-    }
-
-    return Promise.async {
-      let webImageOptions = options?.toSDWebImageOptions() ?? []
-      let uiImage = try await SDWebImageManager.shared.loadImage(with: url, options: webImageOptions)
-      return HybridImage(uiImage: uiImage)
-    }
-  }
-  
   /**
    * Load Image from file path
    */
@@ -43,7 +24,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return try self.loadFromFile(filePath: filePath)
     }
   }
-  
+
   /**
    * Load Image from resources
    */
@@ -58,7 +39,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return try self.loadFromResources(name: name)
     }
   }
-  
+
   /**
    * Load Image from SF Symbol Name
    */
@@ -68,7 +49,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
     return HybridImage(uiImage: uiImage)
   }
-  
+
   /**
    * Load Image from the given ArrayBuffer
    */
@@ -88,7 +69,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return HybridImage(uiImage: uiImage)
     }
   }
-  
+
   func loadFromThumbHash(thumbhash: ArrayBufferHolder) throws -> any HybridImageSpec {
     let data = thumbhash.toData(copyIfNeeded: false)
     let uiImage = thumbHashToImage(hash: data)
