@@ -61,10 +61,10 @@
         "@biomejs/biome": "2.1.1",
         "@release-it/conventional-changelog": "^8.0.2",
         "@types/react": "^19.0.6",
-        "nitro-codegen": "^0.27.1",
+        "nitro-codegen": "^0.27.2",
         "react": "19.1.0",
         "react-native": "0.80.2",
-        "react-native-nitro-modules": "^0.27.1",
+        "react-native-nitro-modules": "^0.27.2",
         "release-it": "^17.10.0",
         "typescript": "^5.5.4"
     },
