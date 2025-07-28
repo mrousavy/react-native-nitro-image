@@ -23,7 +23,7 @@ class HybridWebImageFactory: HybridWebImageFactorySpec() {
         return HybridWebImageLoader(imageLoader, url, options, context)
     }
 
-    override fun loadImageAsync(
+    override fun loadFromURLAsync(
         url: String,
         options: AsyncImageLoadOptions?
     ): Promise<HybridImageSpec> {
