@@ -39,6 +39,7 @@ namespace margelo::nitro::web::image {
 
   public:
     size_t getExternalMemorySize() noexcept override;
+    void dispose() noexcept override;
 
   public:
     inline const jni::global_ref<JHybridWebImageFactorySpec::javaobject>& getJavaPart() const noexcept {
@@ -52,7 +53,7 @@ namespace margelo::nitro::web::image {
   public:
     // Methods
     std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override;
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>>> loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override;
+    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override;
 
   private:
     friend HybridBase;

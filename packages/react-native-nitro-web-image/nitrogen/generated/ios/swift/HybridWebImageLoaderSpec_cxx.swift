@@ -17,7 +17,7 @@ import NitroModules
  * - Other HybridObjects need to be wrapped/unwrapped from the Swift TCxx wrapper
  * - Throwing methods need to be wrapped with a Result<T, Error> type, as exceptions cannot be propagated to C++
  */
-public class HybridWebImageLoaderSpec_cxx : HybridImageLoaderSpec_cxx {
+open class HybridWebImageLoaderSpec_cxx : HybridImageLoaderSpec_cxx {
   /**
    * The Swift <> C++ bridge's namespace (`margelo::nitro::web::image::bridge::swift`)
    * from `NitroWebImage-Swift-Cxx-Bridge.hpp`.
@@ -97,6 +97,15 @@ public class HybridWebImageLoaderSpec_cxx : HybridImageLoaderSpec_cxx {
   @inline(__always)
   public override var memorySize: Int {
     return MemoryHelper.getSizeOf(self.__implementation) + self.__implementation.memorySize
+  }
+
+  /**
+   * Call dispose() on the Swift class.
+   * This _may_ be called manually from JS.
+   */
+  @inline(__always)
+  public override func dispose() {
+    self.__implementation.dispose()
   }
 
   // Properties

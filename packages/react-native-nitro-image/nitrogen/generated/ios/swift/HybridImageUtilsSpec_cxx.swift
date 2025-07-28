@@ -17,7 +17,7 @@ import NitroModules
  * - Other HybridObjects need to be wrapped/unwrapped from the Swift TCxx wrapper
  * - Throwing methods need to be wrapped with a Result<T, Error> type, as exceptions cannot be propagated to C++
  */
-public class HybridImageUtilsSpec_cxx {
+open class HybridImageUtilsSpec_cxx {
   /**
    * The Swift <> C++ bridge's namespace (`margelo::nitro::image::bridge::swift`)
    * from `NitroImage-Swift-Cxx-Bridge.hpp`.
@@ -96,12 +96,21 @@ public class HybridImageUtilsSpec_cxx {
     return MemoryHelper.getSizeOf(self.__implementation) + self.__implementation.memorySize
   }
 
+  /**
+   * Call dispose() on the Swift class.
+   * This _may_ be called manually from JS.
+   */
+  @inline(__always)
+  public func dispose() {
+    self.__implementation.dispose()
+  }
+
   // Properties
   
 
   // Methods
   @inline(__always)
-  public final func thumbHashToBase64String(thumbhash: ArrayBufferHolder) -> bridge.Result_std__string_ {
+  public final func thumbHashToBase64String(thumbhash: ArrayBuffer) -> bridge.Result_std__string_ {
     do {
       let __result = try self.__implementation.thumbHashToBase64String(thumbhash: thumbhash)
       let __resultCpp = std.string(__result)

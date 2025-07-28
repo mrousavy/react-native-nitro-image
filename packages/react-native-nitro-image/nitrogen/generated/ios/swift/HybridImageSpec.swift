@@ -15,20 +15,20 @@ public protocol HybridImageSpec_protocol: HybridObject {
   var height: Double { get }
 
   // Methods
-  func toArrayBuffer() throws -> ArrayBufferHolder
-  func toArrayBufferAsync() throws -> Promise<ArrayBufferHolder>
+  func toArrayBuffer() throws -> ArrayBuffer
+  func toArrayBufferAsync() throws -> Promise<ArrayBuffer>
   func resize(width: Double, height: Double) throws -> (any HybridImageSpec)
   func resizeAsync(width: Double, height: Double) throws -> Promise<(any HybridImageSpec)>
   func crop(startX: Double, startY: Double, endX: Double, endY: Double) throws -> (any HybridImageSpec)
   func cropAsync(startX: Double, startY: Double, endX: Double, endY: Double) throws -> Promise<(any HybridImageSpec)>
   func saveToFileAsync(path: String, format: ImageFormat, quality: Double) throws -> Promise<Void>
   func saveToTemporaryFileAsync(format: ImageFormat, quality: Double) throws -> Promise<String>
-  func toThumbHash() throws -> ArrayBufferHolder
-  func toThumbHashAsync() throws -> Promise<ArrayBufferHolder>
+  func toThumbHash() throws -> ArrayBuffer
+  func toThumbHashAsync() throws -> Promise<ArrayBuffer>
 }
 
 /// See ``HybridImageSpec``
-public class HybridImageSpec_base {
+open class HybridImageSpec_base {
   private weak var cxxWrapper: HybridImageSpec_cxx? = nil
   public func getCxxWrapper() -> HybridImageSpec_cxx {
   #if DEBUG

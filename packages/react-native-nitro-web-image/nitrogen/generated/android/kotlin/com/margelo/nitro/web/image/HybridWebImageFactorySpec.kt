@@ -47,7 +47,7 @@ abstract class HybridWebImageFactorySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun loadImageAsync(url: String, options: AsyncImageLoadOptions?): Promise<HybridImageSpec>
+  abstract fun loadImageAsync(url: String, options: AsyncImageLoadOptions?): Promise<com.margelo.nitro.image.HybridImageSpec>
 
   private external fun initHybrid(): HybridData
 

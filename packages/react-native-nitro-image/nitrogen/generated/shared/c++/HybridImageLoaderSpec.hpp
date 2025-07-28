@@ -18,9 +18,9 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 
-#include <NitroModules/Promise.hpp>
 #include <memory>
 #include "HybridImageSpec.hpp"
+#include <NitroModules/Promise.hpp>
 #include "HybridNitroImageViewSpec.hpp"
 
 namespace margelo::nitro::image {

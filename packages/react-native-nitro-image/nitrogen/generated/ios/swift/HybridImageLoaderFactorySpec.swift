@@ -17,11 +17,11 @@ public protocol HybridImageLoaderFactorySpec_protocol: HybridObject {
   func createFileImageLoader(filePath: String) throws -> (any HybridImageLoaderSpec)
   func createResourceImageLoader(name: String) throws -> (any HybridImageLoaderSpec)
   func createSymbolImageLoader(symbolName: String) throws -> (any HybridImageLoaderSpec)
-  func createArrayBufferImageLoader(buffer: ArrayBufferHolder) throws -> (any HybridImageLoaderSpec)
+  func createArrayBufferImageLoader(buffer: ArrayBuffer) throws -> (any HybridImageLoaderSpec)
 }
 
 /// See ``HybridImageLoaderFactorySpec``
-public class HybridImageLoaderFactorySpec_base {
+open class HybridImageLoaderFactorySpec_base {
   private weak var cxxWrapper: HybridImageLoaderFactorySpec_cxx? = nil
   public func getCxxWrapper() -> HybridImageLoaderFactorySpec_cxx {
   #if DEBUG

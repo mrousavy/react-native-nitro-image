@@ -12,9 +12,9 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 
-#include <NitroModules/Promise.hpp>
 #include <memory>
 #include "HybridImageSpec.hpp"
+#include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
 #include "JHybridImageSpec.hpp"
 #include <NitroModules/JNISharedPtr.hpp>
@@ -36,6 +36,11 @@ namespace margelo::nitro::image {
   size_t JHybridImageLoaderSpec::getExternalMemorySize() noexcept {
     static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
     return method(_javaPart);
+  }
+
+  void JHybridImageLoaderSpec::dispose() noexcept {
+    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
+    method(_javaPart);
   }
 
   // Properties

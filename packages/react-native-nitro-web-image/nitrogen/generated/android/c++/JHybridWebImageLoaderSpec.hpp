@@ -41,6 +41,7 @@ namespace margelo::nitro::web::image {
 
   public:
     size_t getExternalMemorySize() noexcept override;
+    void dispose() noexcept override;
 
   public:
     inline const jni::global_ref<JHybridWebImageLoaderSpec::javaobject>& getJavaPart() const noexcept {
@@ -53,7 +54,7 @@ namespace margelo::nitro::web::image {
 
   public:
     // Methods
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>>> loadImage() override;
+    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImage() override;
     void requestImage(const std::shared_ptr<margelo::nitro::web::image::HybridNitroImageViewSpec>& forView) override;
     void dropImage(const std::shared_ptr<margelo::nitro::web::image::HybridNitroImageViewSpec>& forView) override;
 

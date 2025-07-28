@@ -21,8 +21,8 @@
 // Forward declaration of `AsyncImagePriority` to properly resolve imports.
 namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 
-#include <optional>
 #include "AsyncImagePriority.hpp"
+#include <optional>
 
 namespace margelo::nitro::web::image {
 

@@ -28,18 +28,23 @@ namespace margelo::nitro::web::image {
     return method(_javaPart);
   }
 
+  void JHybridWebImageLoaderSpec::dispose() noexcept {
+    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
+    method(_javaPart);
+  }
+
   // Properties
   
 
   // Methods
-  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>>> JHybridWebImageLoaderSpec::loadImage() {
+  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridWebImageLoaderSpec::loadImage() {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("loadImage");
     auto __result = method(_javaPart);
     return [&]() {
-      auto __promise = Promise<std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>>::create();
+      auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result)));
+        auto __result = jni::static_ref_cast<margelo::nitro::image::JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(JNISharedPtr::make_shared_from_jni<margelo::nitro::image::JHybridImageSpec>(jni::make_global(__result)));
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);

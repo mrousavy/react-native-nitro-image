@@ -19,11 +19,11 @@ namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `ResizeMode` to properly resolve imports.
 namespace margelo::nitro::image { enum class ResizeMode; }
 
-#include <optional>
-#include <variant>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include "HybridImageLoaderSpec.hpp"
+#include <variant>
+#include <optional>
 #include "ResizeMode.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
@@ -54,9 +54,11 @@ namespace margelo::nitro::image {
     }
 
   public:
-    // Get memory pressure
     inline size_t getExternalMemorySize() noexcept override {
       return _swiftPart.getMemorySize();
+    }
+    void dispose() noexcept override {
+      _swiftPart.dispose();
     }
 
   public:

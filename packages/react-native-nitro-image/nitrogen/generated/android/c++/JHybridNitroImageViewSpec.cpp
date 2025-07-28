@@ -14,11 +14,11 @@ namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `ResizeMode` to properly resolve imports.
 namespace margelo::nitro::image { enum class ResizeMode; }
 
-#include <optional>
-#include <variant>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include "HybridImageLoaderSpec.hpp"
+#include <variant>
+#include <optional>
 #include "JVariant_HybridImageSpec_HybridImageLoaderSpec.hpp"
 #include "JHybridImageSpec.hpp"
 #include <NitroModules/JNISharedPtr.hpp>
@@ -41,6 +41,11 @@ namespace margelo::nitro::image {
   size_t JHybridNitroImageViewSpec::getExternalMemorySize() noexcept {
     static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
     return method(_javaPart);
+  }
+
+  void JHybridNitroImageViewSpec::dispose() noexcept {
+    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
+    method(_javaPart);
   }
 
   // Properties

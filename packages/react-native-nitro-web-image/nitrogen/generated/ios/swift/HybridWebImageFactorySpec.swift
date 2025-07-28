@@ -7,6 +7,7 @@
 
 import Foundation
 import NitroModules
+import NitroImage
 
 /// See ``HybridWebImageFactorySpec``
 public protocol HybridWebImageFactorySpec_protocol: HybridObject {
@@ -15,11 +16,11 @@ public protocol HybridWebImageFactorySpec_protocol: HybridObject {
 
   // Methods
   func createWebImageLoader(url: String, options: AsyncImageLoadOptions?) throws -> (any HybridWebImageLoaderSpec)
-  func loadImageAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<(any HybridImageSpec)>
+  func loadImageAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<(any NitroImage.HybridImageSpec)>
 }
 
 /// See ``HybridWebImageFactorySpec``
-public class HybridWebImageFactorySpec_base {
+open class HybridWebImageFactorySpec_base {
   private weak var cxxWrapper: HybridWebImageFactorySpec_cxx? = nil
   public func getCxxWrapper() -> HybridWebImageFactorySpec_cxx {
   #if DEBUG

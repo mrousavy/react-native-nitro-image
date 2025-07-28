@@ -39,6 +39,7 @@ namespace margelo::nitro::image {
 
   public:
     size_t getExternalMemorySize() noexcept override;
+    void dispose() noexcept override;
 
   public:
     inline const jni::global_ref<JHybridImageSpec::javaobject>& getJavaPart() const noexcept {

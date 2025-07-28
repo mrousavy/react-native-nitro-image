@@ -8,28 +8,28 @@
 #include "NitroWebImage-Swift-Cxx-Bridge.hpp"
 
 // Include C++ implementation defined types
-#include "HybridImageLoaderSpecSwift.hpp"
-#include "HybridImageSpecSwift.hpp"
 #include "HybridNitroImageViewSpecSwift.hpp"
 #include "HybridWebImageFactorySpecSwift.hpp"
 #include "HybridWebImageLoaderSpecSwift.hpp"
 #include "NitroWebImage-Swift-Cxx-Umbrella.hpp"
+#include <NitroImage/HybridImageLoaderSpecSwift.hpp>
+#include <NitroImage/HybridImageSpecSwift.hpp>
 
 namespace margelo::nitro::web::image::bridge::swift {
 
-  // pragma MARK: std::shared_ptr<margelo::nitro::web::image::HybridImageLoaderSpec>
-  std::shared_ptr<margelo::nitro::web::image::HybridImageLoaderSpec> create_std__shared_ptr_margelo__nitro__web__image__HybridImageLoaderSpec_(void* _Nonnull swiftUnsafePointer) {
-    NitroWebImage::HybridImageLoaderSpec_cxx swiftPart = NitroWebImage::HybridImageLoaderSpec_cxx::fromUnsafe(swiftUnsafePointer);
-    return std::make_shared<margelo::nitro::web::image::HybridImageLoaderSpecSwift>(swiftPart);
+  // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>
+  std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> create_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(void* _Nonnull swiftUnsafePointer) {
+    NitroImage::HybridImageLoaderSpec_cxx swiftPart = NitroImage::HybridImageLoaderSpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::image::HybridImageLoaderSpecSwift>(swiftPart);
   }
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__web__image__HybridImageLoaderSpec_(std__shared_ptr_margelo__nitro__web__image__HybridImageLoaderSpec_ cppType) {
-    std::shared_ptr<margelo::nitro::web::image::HybridImageLoaderSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::web::image::HybridImageLoaderSpecSwift>(cppType);
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ cppType) {
+    std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::image::HybridImageLoaderSpecSwift>(cppType);
   #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {
       throw std::runtime_error("Class \"HybridImageLoaderSpec\" is not implemented in Swift!");
     }
   #endif
-    NitroWebImage::HybridImageLoaderSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    NitroImage::HybridImageLoaderSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }
   
@@ -49,26 +49,26 @@ namespace margelo::nitro::web::image::bridge::swift {
     return swiftPart.toUnsafe();
   }
   
-  // pragma MARK: std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>
-  std::shared_ptr<margelo::nitro::web::image::HybridImageSpec> create_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec_(void* _Nonnull swiftUnsafePointer) {
-    NitroWebImage::HybridImageSpec_cxx swiftPart = NitroWebImage::HybridImageSpec_cxx::fromUnsafe(swiftUnsafePointer);
-    return std::make_shared<margelo::nitro::web::image::HybridImageSpecSwift>(swiftPart);
+  // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridImageSpec>
+  std::shared_ptr<margelo::nitro::image::HybridImageSpec> create_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(void* _Nonnull swiftUnsafePointer) {
+    NitroImage::HybridImageSpec_cxx swiftPart = NitroImage::HybridImageSpec_cxx::fromUnsafe(swiftUnsafePointer);
+    return std::make_shared<margelo::nitro::image::HybridImageSpecSwift>(swiftPart);
   }
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec_(std__shared_ptr_margelo__nitro__web__image__HybridImageSpec_ cppType) {
-    std::shared_ptr<margelo::nitro::web::image::HybridImageSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::web::image::HybridImageSpecSwift>(cppType);
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(std__shared_ptr_margelo__nitro__image__HybridImageSpec_ cppType) {
+    std::shared_ptr<margelo::nitro::image::HybridImageSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::image::HybridImageSpecSwift>(cppType);
   #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {
       throw std::runtime_error("Class \"HybridImageSpec\" is not implemented in Swift!");
     }
   #endif
-    NitroWebImage::HybridImageSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
+    NitroImage::HybridImageSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }
   
-  // pragma MARK: std::function<void(const std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>& /* result */)>
-  Func_void_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec_ create_Func_void_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec_(void* _Nonnull swiftClosureWrapper) {
-    auto swiftClosure = NitroWebImage::Func_void_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec_::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>& result) mutable -> void {
+  // pragma MARK: std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& /* result */)>
+  Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_ create_Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(void* _Nonnull swiftClosureWrapper) {
+    auto swiftClosure = NitroWebImage::Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& result) mutable -> void {
       swiftClosure.call(result);
     };
   }

@@ -16,18 +16,18 @@
 #include <react/renderer/components/view/ConcreteViewShadowNode.h>
 #include <react/renderer/components/view/ViewProps.h>
 
-#include <optional>
-#include <variant>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <memory>
 #include "HybridImageLoaderSpec.hpp"
+#include <variant>
 #include <optional>
 #include "ResizeMode.hpp"
 #include <optional>
-#include <functional>
 #include <memory>
 #include "HybridNitroImageViewSpec.hpp"
+#include <functional>
+#include <optional>
 
 namespace margelo::nitro::image::views {
 

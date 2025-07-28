@@ -32,6 +32,11 @@ namespace margelo::nitro::image {
     return method(_javaPart);
   }
 
+  void JHybridImageUtilsSpec::dispose() noexcept {
+    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
+    method(_javaPart);
+  }
+
   // Properties
   
 

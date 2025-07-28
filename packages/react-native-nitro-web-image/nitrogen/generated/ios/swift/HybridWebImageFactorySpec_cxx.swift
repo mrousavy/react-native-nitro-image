@@ -7,6 +7,7 @@
 
 import Foundation
 import NitroModules
+import NitroImage
 
 /**
  * A class implementation that bridges HybridWebImageFactorySpec over to C++.
@@ -17,7 +18,7 @@ import NitroModules
  * - Other HybridObjects need to be wrapped/unwrapped from the Swift TCxx wrapper
  * - Throwing methods need to be wrapped with a Result<T, Error> type, as exceptions cannot be propagated to C++
  */
-public class HybridWebImageFactorySpec_cxx {
+open class HybridWebImageFactorySpec_cxx {
   /**
    * The Swift <> C++ bridge's namespace (`margelo::nitro::web::image::bridge::swift`)
    * from `NitroWebImage-Swift-Cxx-Bridge.hpp`.
@@ -96,6 +97,15 @@ public class HybridWebImageFactorySpec_cxx {
     return MemoryHelper.getSizeOf(self.__implementation) + self.__implementation.memorySize
   }
 
+  /**
+   * Call dispose() on the Swift class.
+   * This _may_ be called manually from JS.
+   */
+  @inline(__always)
+  public func dispose() {
+    self.__implementation.dispose()
+  }
+
   // Properties
   
 
@@ -122,7 +132,7 @@ public class HybridWebImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadImageAsync(url: std.string, options: bridge.std__optional_AsyncImageLoadOptions_) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec____ {
+  public final func loadImageAsync(url: std.string, options: bridge.std__optional_AsyncImageLoadOptions_) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
     do {
       let __result = try self.__implementation.loadImageAsync(url: String(url), options: { () -> AsyncImageLoadOptions? in
         if let __unwrapped = options.value {
@@ -131,21 +141,21 @@ public class HybridWebImageFactorySpec_cxx {
           return nil
         }
       }())
-      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec___ in
-        let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec___()
-        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec___(__promise)
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in
+        let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___(__promise)
         __result
-          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__shared_ptr_margelo__nitro__web__image__HybridImageSpec_ in
+          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
               let __cxxWrapped = __result.getCxxWrapper()
               return __cxxWrapped.getCxxPart()
             }()) })
           .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
         return __promise
       }()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec____(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__web__image__HybridImageSpec____(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(__exceptionPtr)
     }
   }
 }

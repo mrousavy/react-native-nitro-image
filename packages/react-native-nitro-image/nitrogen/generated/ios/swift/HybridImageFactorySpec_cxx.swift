@@ -17,7 +17,7 @@ import NitroModules
  * - Other HybridObjects need to be wrapped/unwrapped from the Swift TCxx wrapper
  * - Throwing methods need to be wrapped with a Result<T, Error> type, as exceptions cannot be propagated to C++
  */
-public class HybridImageFactorySpec_cxx {
+open class HybridImageFactorySpec_cxx {
   /**
    * The Swift <> C++ bridge's namespace (`margelo::nitro::image::bridge::swift`)
    * from `NitroImage-Swift-Cxx-Bridge.hpp`.
@@ -94,6 +94,15 @@ public class HybridImageFactorySpec_cxx {
   @inline(__always)
   public var memorySize: Int {
     return MemoryHelper.getSizeOf(self.__implementation) + self.__implementation.memorySize
+  }
+
+  /**
+   * Call dispose() on the Swift class.
+   * This _may_ be called manually from JS.
+   */
+  @inline(__always)
+  public func dispose() {
+    self.__implementation.dispose()
   }
 
   // Properties
@@ -190,7 +199,7 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromArrayBuffer(buffer: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
+  public final func loadFromArrayBuffer(buffer: ArrayBuffer) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
     do {
       let __result = try self.__implementation.loadFromArrayBuffer(buffer: buffer)
       let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
@@ -205,7 +214,7 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromArrayBufferAsync(buffer: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
+  public final func loadFromArrayBufferAsync(buffer: ArrayBuffer) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
     do {
       let __result = try self.__implementation.loadFromArrayBufferAsync(buffer: buffer)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in
@@ -227,7 +236,7 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromThumbHash(thumbhash: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
+  public final func loadFromThumbHash(thumbhash: ArrayBuffer) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
     do {
       let __result = try self.__implementation.loadFromThumbHash(thumbhash: thumbhash)
       let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
@@ -242,7 +251,7 @@ public class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromThumbHashAsync(thumbhash: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
+  public final func loadFromThumbHashAsync(thumbhash: ArrayBuffer) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
     do {
       let __result = try self.__implementation.loadFromThumbHashAsync(thumbhash: thumbhash)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in

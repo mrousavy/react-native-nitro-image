@@ -19,7 +19,7 @@ void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCla
                                            jni::alias_ref<JHybridNitroImageViewSpec::javaobject> javaView,
                                            jni::alias_ref<JStateWrapper::javaobject> stateWrapperInterface) {
   JHybridNitroImageViewSpec* view = javaView->cthis();
-  
+
   // Get concrete StateWrapperImpl from passed StateWrapper interface object
   jobject rawStateWrapper = stateWrapperInterface.get();
   if (!stateWrapperInterface->isInstanceOf(react::StateWrapperImpl::javaClassStatic())) {

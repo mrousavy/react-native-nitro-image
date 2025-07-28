@@ -18,7 +18,7 @@ public protocol HybridWebImageLoaderSpec_protocol: HybridObject, HybridImageLoad
 }
 
 /// See ``HybridWebImageLoaderSpec``
-public class HybridWebImageLoaderSpec_base: HybridImageLoaderSpec_base {
+open class HybridWebImageLoaderSpec_base: HybridImageLoaderSpec_base {
   private weak var cxxWrapper: HybridWebImageLoaderSpec_cxx? = nil
   public override func getCxxWrapper() -> HybridWebImageLoaderSpec_cxx {
   #if DEBUG

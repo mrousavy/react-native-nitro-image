@@ -17,7 +17,7 @@ import NitroModules
  * - Other HybridObjects need to be wrapped/unwrapped from the Swift TCxx wrapper
  * - Throwing methods need to be wrapped with a Result<T, Error> type, as exceptions cannot be propagated to C++
  */
-public class HybridImageLoaderFactorySpec_cxx {
+open class HybridImageLoaderFactorySpec_cxx {
   /**
    * The Swift <> C++ bridge's namespace (`margelo::nitro::image::bridge::swift`)
    * from `NitroImage-Swift-Cxx-Bridge.hpp`.
@@ -96,6 +96,15 @@ public class HybridImageLoaderFactorySpec_cxx {
     return MemoryHelper.getSizeOf(self.__implementation) + self.__implementation.memorySize
   }
 
+  /**
+   * Call dispose() on the Swift class.
+   * This _may_ be called manually from JS.
+   */
+  @inline(__always)
+  public func dispose() {
+    self.__implementation.dispose()
+  }
+
   // Properties
   
 
@@ -146,7 +155,7 @@ public class HybridImageLoaderFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func createArrayBufferImageLoader(buffer: ArrayBufferHolder) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
+  public final func createArrayBufferImageLoader(buffer: ArrayBuffer) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
     do {
       let __result = try self.__implementation.createArrayBufferImageLoader(buffer: buffer)
       let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ in

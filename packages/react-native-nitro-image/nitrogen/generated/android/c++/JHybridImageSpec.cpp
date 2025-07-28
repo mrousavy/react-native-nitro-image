@@ -44,6 +44,11 @@ namespace margelo::nitro::image {
     return method(_javaPart);
   }
 
+  void JHybridImageSpec::dispose() noexcept {
+    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
+    method(_javaPart);
+  }
+
   // Properties
   double JHybridImageSpec::getWidth() {
     static const auto method = javaClassStatic()->getMethod<double()>("getWidth");

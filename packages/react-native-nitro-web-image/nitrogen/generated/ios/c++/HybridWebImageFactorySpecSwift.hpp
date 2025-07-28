@@ -19,16 +19,16 @@ namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
 // Forward declaration of `AsyncImagePriority` to properly resolve imports.
 namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <memory>
 #include "HybridWebImageLoaderSpec.hpp"
 #include <string>
-#include <optional>
 #include "AsyncImageLoadOptions.hpp"
+#include <optional>
 #include "AsyncImagePriority.hpp"
+#include <NitroImage/HybridImageSpec.hpp>
 #include <NitroModules/Promise.hpp>
-#include "HybridImageSpec.hpp"
 
 #include "NitroWebImage-Swift-Cxx-Umbrella.hpp"
 
@@ -58,9 +58,11 @@ namespace margelo::nitro::web::image {
     }
 
   public:
-    // Get memory pressure
     inline size_t getExternalMemorySize() noexcept override {
       return _swiftPart.getMemorySize();
+    }
+    void dispose() noexcept override {
+      _swiftPart.dispose();
     }
 
   public:
@@ -77,7 +79,7 @@ namespace margelo::nitro::web::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>>> loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override {
+    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override {
       auto __result = _swiftPart.loadImageAsync(url, options);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());

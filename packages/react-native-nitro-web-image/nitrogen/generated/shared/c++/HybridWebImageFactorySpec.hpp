@@ -18,15 +18,15 @@ namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
 // Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
 namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <memory>
 #include "HybridWebImageLoaderSpec.hpp"
 #include <string>
-#include <optional>
 #include "AsyncImageLoadOptions.hpp"
+#include <optional>
+#include <NitroImage/HybridImageSpec.hpp>
 #include <NitroModules/Promise.hpp>
-#include "HybridImageSpec.hpp"
 
 namespace margelo::nitro::web::image {
 
@@ -60,7 +60,7 @@ namespace margelo::nitro::web::image {
     public:
       // Methods
       virtual std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::web::image::HybridImageSpec>>> loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
 
     protected:
       // Hybrid Setup

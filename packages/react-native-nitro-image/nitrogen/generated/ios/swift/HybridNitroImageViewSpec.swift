@@ -19,7 +19,7 @@ public protocol HybridNitroImageViewSpec_protocol: HybridObject, HybridView {
 }
 
 /// See ``HybridNitroImageViewSpec``
-public class HybridNitroImageViewSpec_base {
+open class HybridNitroImageViewSpec_base {
   private weak var cxxWrapper: HybridNitroImageViewSpec_cxx? = nil
   public func getCxxWrapper() -> HybridNitroImageViewSpec_cxx {
   #if DEBUG

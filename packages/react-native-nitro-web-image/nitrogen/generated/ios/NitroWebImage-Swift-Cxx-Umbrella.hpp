@@ -13,9 +13,9 @@ namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
 // Forward declaration of `AsyncImagePriority` to properly resolve imports.
 namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridImageLoaderSpec; }
+namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridImageSpec; }
+namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridNitroImageViewSpec; }
 // Forward declaration of `HybridWebImageFactorySpec` to properly resolve imports.
@@ -26,11 +26,11 @@ namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
 // Include C++ defined types
 #include "AsyncImageLoadOptions.hpp"
 #include "AsyncImagePriority.hpp"
-#include "HybridImageLoaderSpec.hpp"
-#include "HybridImageSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
 #include "HybridWebImageFactorySpec.hpp"
 #include "HybridWebImageLoaderSpec.hpp"
+#include <NitroImage/HybridImageLoaderSpec.hpp>
+#include <NitroImage/HybridImageSpec.hpp>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
@@ -43,15 +43,15 @@ namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
 
 // Common C++ types used in Swift
 #include <NitroModules/ArrayBufferHolder.hpp>
-#include <NitroModules/AnyMapHolder.hpp>
+#include <NitroModules/AnyMapUtils.hpp>
 #include <NitroModules/RuntimeError.hpp>
 #include <NitroModules/DateToChronoDate.hpp>
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridImageLoaderSpec_cxx` to properly resolve imports.
-namespace NitroWebImage { class HybridImageLoaderSpec_cxx; }
+namespace NitroImage { class HybridImageLoaderSpec_cxx; }
 // Forward declaration of `HybridImageSpec_cxx` to properly resolve imports.
-namespace NitroWebImage { class HybridImageSpec_cxx; }
+namespace NitroImage { class HybridImageSpec_cxx; }
 // Forward declaration of `HybridNitroImageViewSpec_cxx` to properly resolve imports.
 namespace NitroWebImage { class HybridNitroImageViewSpec_cxx; }
 // Forward declaration of `HybridWebImageFactorySpec_cxx` to properly resolve imports.
