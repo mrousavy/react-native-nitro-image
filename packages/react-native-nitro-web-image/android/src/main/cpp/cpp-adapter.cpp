@@ -1,6 +1,6 @@
 #include <jni.h>
-#include "NitroImageOnLoad.hpp"
+#include "NitroWebImageOnLoad.hpp"
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
-  return margelo::nitro::image::initialize(vm);
+  return margelo::nitro::web::image::initialize(vm);
 }
