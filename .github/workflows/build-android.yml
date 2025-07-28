@@ -10,7 +10,7 @@ on:
       - '**/nitrogen/generated/shared/**'
       - '**/nitrogen/generated/android/**'
       - 'android/**'
-      - '**/bun.lockb'
+      - '**/bun.lock'
       - '**/react-native.config.js'
       - '**/nitro.json'
   pull_request:
@@ -20,7 +20,7 @@ on:
       - '**/nitrogen/generated/shared/**'
       - '**/nitrogen/generated/android/**'
       - 'android/**'
-      - '**/bun.lockb'
+      - '**/bun.lock'
       - '**/react-native.config.js'
       - '**/nitro.json'
 
