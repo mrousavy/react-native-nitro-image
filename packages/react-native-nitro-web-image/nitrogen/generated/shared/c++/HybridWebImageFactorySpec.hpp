@@ -60,7 +60,7 @@ namespace margelo::nitro::web::image {
     public:
       // Methods
       virtual std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
 
     protected:
       // Hybrid Setup

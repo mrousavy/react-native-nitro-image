@@ -15,7 +15,7 @@ namespace margelo::nitro::web::image {
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
       prototype.registerHybridMethod("createWebImageLoader", &HybridWebImageFactorySpec::createWebImageLoader);
-      prototype.registerHybridMethod("loadImageAsync", &HybridWebImageFactorySpec::loadImageAsync);
+      prototype.registerHybridMethod("loadFromURLAsync", &HybridWebImageFactorySpec::loadFromURLAsync);
     });
   }
 

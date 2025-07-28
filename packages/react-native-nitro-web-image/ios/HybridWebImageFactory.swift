@@ -11,7 +11,7 @@ import SDWebImage
 import NitroImage
 
 class HybridWebImageFactory: HybridWebImageFactorySpec {
-  func loadImageAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
+  func loadFromURLAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
     throw RuntimeError.error(withMessage: "Not yet implemented!")
   }
 

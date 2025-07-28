@@ -69,7 +69,7 @@ export interface WebImageFactory
         url: string,
         options?: AsyncImageLoadOptions,
     ): ImageLoader;
-    loadImageAsync(
+    loadFromURLAsync(
         url: string,
         options?: AsyncImageLoadOptions,
     ): Promise<Image>;

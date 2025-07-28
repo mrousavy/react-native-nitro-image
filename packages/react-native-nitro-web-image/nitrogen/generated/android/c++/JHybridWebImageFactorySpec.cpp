@@ -62,8 +62,8 @@ namespace margelo::nitro::web::image {
     auto __result = method(_javaPart, jni::make_jstring(url), options.has_value() ? JAsyncImageLoadOptions::fromCpp(options.value()) : nullptr);
     return JNISharedPtr::make_shared_from_jni<margelo::nitro::image::JHybridImageLoaderSpec>(jni::make_global(__result));
   }
-  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridWebImageFactorySpec::loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("loadImageAsync");
+  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridWebImageFactorySpec::loadFromURLAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("loadFromURLAsync");
     auto __result = method(_javaPart, jni::make_jstring(url), options.has_value() ? JAsyncImageLoadOptions::fromCpp(options.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
