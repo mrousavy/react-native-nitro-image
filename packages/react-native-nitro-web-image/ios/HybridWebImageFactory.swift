@@ -14,7 +14,7 @@ class HybridWebImageFactory: HybridWebImageFactorySpec {
   func loadImageAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
     throw RuntimeError.error(withMessage: "Not yet implemented!")
   }
-  
+
   private let queue = DispatchQueue(label: "image-loader",
                                     qos: .default,
                                     attributes: .concurrent)
@@ -22,7 +22,7 @@ class HybridWebImageFactory: HybridWebImageFactorySpec {
   /**
    * Load Image from URL
    */
-  func createWebImageLoader(url urlString: String, options: AsyncImageLoadOptions?) throws -> any HybridWebImageLoaderSpec {
+  func createWebImageLoader(url urlString: String, options: AsyncImageLoadOptions?) throws -> any HybridImageLoaderSpec {
     guard let url = URL(string: urlString) else {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
     }

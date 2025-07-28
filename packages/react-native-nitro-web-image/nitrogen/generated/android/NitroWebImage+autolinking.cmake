@@ -28,10 +28,8 @@ target_sources(
   ../nitrogen/generated/android/NitroWebImageOnLoad.cpp
   # Shared Nitrogen C++ sources
   ../nitrogen/generated/shared/c++/HybridWebImageFactorySpec.cpp
-  ../nitrogen/generated/shared/c++/HybridWebImageLoaderSpec.cpp
   # Android-specific Nitrogen C++ sources
   ../nitrogen/generated/android/c++/JHybridWebImageFactorySpec.cpp
-  ../nitrogen/generated/android/c++/JHybridWebImageLoaderSpec.cpp
 )
 
 # Define a flag to check if we are building properly

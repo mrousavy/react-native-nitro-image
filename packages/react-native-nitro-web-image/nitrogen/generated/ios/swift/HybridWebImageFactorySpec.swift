@@ -15,8 +15,8 @@ public protocol HybridWebImageFactorySpec_protocol: HybridObject {
   
 
   // Methods
-  func createWebImageLoader(url: String, options: AsyncImageLoadOptions?) throws -> (any HybridWebImageLoaderSpec)
-  func loadImageAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<(any NitroImage.HybridImageSpec)>
+  func createWebImageLoader(url: String, options: AsyncImageLoadOptions?) throws -> (any HybridImageLoaderSpec)
+  func loadImageAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<(any HybridImageSpec)>
 }
 
 /// See ``HybridWebImageFactorySpec``

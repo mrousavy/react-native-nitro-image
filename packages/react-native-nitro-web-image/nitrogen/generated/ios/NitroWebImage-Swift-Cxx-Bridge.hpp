@@ -16,33 +16,23 @@ namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
-// Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
-namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 // Forward declaration of `HybridWebImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridWebImageFactorySpec; }
-// Forward declaration of `HybridWebImageLoaderSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridImageLoaderSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageLoaderSpec_cxx; }
 // Forward declaration of `HybridImageSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageSpec_cxx; }
-// Forward declaration of `HybridNitroImageViewSpec_cxx` to properly resolve imports.
-namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 // Forward declaration of `HybridWebImageFactorySpec_cxx` to properly resolve imports.
 namespace NitroWebImage { class HybridWebImageFactorySpec_cxx; }
-// Forward declaration of `HybridWebImageLoaderSpec_cxx` to properly resolve imports.
-namespace NitroWebImage { class HybridWebImageLoaderSpec_cxx; }
 
 // Include C++ defined types
 #include "AsyncImageLoadOptions.hpp"
 #include "AsyncImagePriority.hpp"
 #include "HybridWebImageFactorySpec.hpp"
-#include "HybridWebImageLoaderSpec.hpp"
 #include <NitroImage/HybridImageLoaderSpec.hpp>
 #include <NitroImage/HybridImageSpec.hpp>
-#include <NitroImage/HybridNitroImageViewSpec.hpp>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/PromiseHolder.hpp>
 #include <NitroModules/Result.hpp>
@@ -68,21 +58,6 @@ namespace margelo::nitro::web::image::bridge::swift {
   // pragma MARK: std::weak_ptr<margelo::nitro::image::HybridImageLoaderSpec>
   using std__weak_ptr_margelo__nitro__image__HybridImageLoaderSpec_ = std::weak_ptr<margelo::nitro::image::HybridImageLoaderSpec>;
   inline std__weak_ptr_margelo__nitro__image__HybridImageLoaderSpec_ weakify_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(const std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>& strong) { return strong; }
-  
-  // pragma MARK: std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>
-  /**
-   * Specialized version of `std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>`.
-   */
-  using std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_ = std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>;
-  std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> create_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_(void* _Nonnull swiftUnsafePointer);
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_(std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_ cppType);
-  
-  // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>
-  inline std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> upcast_WebImageLoader_to_ImageLoader(std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> child) { return child; }
-  
-  // pragma MARK: std::weak_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>
-  using std__weak_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_ = std::weak_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>;
-  inline std__weak_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_ weakify_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_(const std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>& strong) { return strong; }
   
   // pragma MARK: std::optional<AsyncImagePriority>
   /**
@@ -191,13 +166,13 @@ namespace margelo::nitro::web::image::bridge::swift {
   using std__weak_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_ = std::weak_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec>;
   inline std__weak_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_ weakify_std__shared_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_(const std::shared_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec>& strong) { return strong; }
   
-  // pragma MARK: Result<std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>>
-  using Result_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec__ = Result<std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>>;
-  inline Result_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec__ create_Result_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec__(const std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>& value) {
-    return Result<std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>>::withValue(value);
+  // pragma MARK: Result<std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>
+  using Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ = Result<std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>;
+  inline Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(const std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>& value) {
+    return Result<std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>::withValue(value);
   }
-  inline Result_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec__ create_Result_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec__(const std::exception_ptr& error) {
-    return Result<std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>>::withError(error);
+  inline Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(const std::exception_ptr& error) {
+    return Result<std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>::withError(error);
   }
   
   // pragma MARK: Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>>
@@ -208,17 +183,5 @@ namespace margelo::nitro::web::image::bridge::swift {
   inline Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(const std::exception_ptr& error) {
     return Result<std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>>>::withError(error);
   }
-  
-  // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>
-  /**
-   * Specialized version of `std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>`.
-   */
-  using std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ = std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>;
-  std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec> create_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(void* _Nonnull swiftUnsafePointer);
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ cppType);
-  
-  // pragma MARK: std::weak_ptr<margelo::nitro::image::HybridNitroImageViewSpec>
-  using std__weak_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ = std::weak_ptr<margelo::nitro::image::HybridNitroImageViewSpec>;
-  inline std__weak_ptr_margelo__nitro__image__HybridNitroImageViewSpec_ weakify_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& strong) { return strong; }
 
 } // namespace margelo::nitro::web::image::bridge::swift

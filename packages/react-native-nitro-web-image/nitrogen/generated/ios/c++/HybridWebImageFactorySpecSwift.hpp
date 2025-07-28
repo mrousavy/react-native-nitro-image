@@ -12,8 +12,8 @@
 // Forward declaration of `HybridWebImageFactorySpec_cxx` to properly resolve imports.
 namespace NitroWebImage { class HybridWebImageFactorySpec_cxx; }
 
-// Forward declaration of `HybridWebImageLoaderSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
+// Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
 namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
 // Forward declaration of `AsyncImagePriority` to properly resolve imports.
@@ -22,7 +22,7 @@ namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <memory>
-#include "HybridWebImageLoaderSpec.hpp"
+#include <NitroImage/HybridImageLoaderSpec.hpp>
 #include <string>
 #include "AsyncImageLoadOptions.hpp"
 #include <optional>
@@ -71,7 +71,7 @@ namespace margelo::nitro::web::image {
 
   public:
     // Methods
-    inline std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override {
+    inline std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override {
       auto __result = _swiftPart.createWebImageLoader(url, options);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());

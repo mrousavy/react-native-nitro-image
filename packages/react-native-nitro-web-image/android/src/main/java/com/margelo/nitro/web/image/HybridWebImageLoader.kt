@@ -6,12 +6,13 @@ import coil3.ImageLoader
 import coil3.load
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.HybridImageSpec
+import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridNitroImageViewSpec
 
 class HybridWebImageLoader(private val imageLoader: ImageLoader,
                            private val url: String,
                            private val options: AsyncImageLoadOptions?,
-                           private val context: Context) : HybridWebImageLoaderSpec() {
+                           private val context: Context) : HybridImageLoaderSpec() {
     override fun loadImage(): Promise<HybridImageSpec> {
         return imageLoader.loadImageAsync(url, options, context)
     }

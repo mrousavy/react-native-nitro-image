@@ -11,6 +11,7 @@ import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
 import com.margelo.nitro.core.*
+import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridImageSpec
 
 /**
@@ -43,7 +44,7 @@ abstract class HybridWebImageFactorySpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun createWebImageLoader(url: String, options: AsyncImageLoadOptions?): HybridWebImageLoaderSpec
+  abstract fun createWebImageLoader(url: String, options: AsyncImageLoadOptions?): com.margelo.nitro.image.HybridImageLoaderSpec
   
   @DoNotStrip
   @Keep

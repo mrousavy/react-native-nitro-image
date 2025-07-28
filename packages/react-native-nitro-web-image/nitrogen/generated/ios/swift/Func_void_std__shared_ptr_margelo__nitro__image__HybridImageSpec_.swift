@@ -6,6 +6,7 @@
 ///
 
 import NitroModules
+import NitroImage
 
 /**
  * Wraps a Swift `(_ value: (any NitroImage.HybridImageSpec)) -> Void` as a class.
@@ -14,9 +15,9 @@ import NitroModules
 public final class Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_ {
   public typealias bridge = margelo.nitro.web.image.bridge.swift
 
-  private let closure: (_ value: (any NitroImage.HybridImageSpec)) -> Void
+  private let closure: (_ value: (any HybridImageSpec)) -> Void
 
-  public init(_ closure: @escaping (_ value: (any NitroImage.HybridImageSpec)) -> Void) {
+  public init(_ closure: @escaping (_ value: (any HybridImageSpec)) -> Void) {
     self.closure = closure
   }
 

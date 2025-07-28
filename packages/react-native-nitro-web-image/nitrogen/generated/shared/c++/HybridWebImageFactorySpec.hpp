@@ -13,15 +13,15 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-// Forward declaration of `HybridWebImageLoaderSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
+// Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
 namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include <memory>
-#include "HybridWebImageLoaderSpec.hpp"
+#include <NitroImage/HybridImageLoaderSpec.hpp>
 #include <string>
 #include "AsyncImageLoadOptions.hpp"
 #include <optional>
@@ -59,7 +59,7 @@ namespace margelo::nitro::web::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
+      virtual std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImageAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
 
     protected:
