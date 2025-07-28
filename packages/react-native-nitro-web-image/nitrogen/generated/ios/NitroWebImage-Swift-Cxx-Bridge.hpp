@@ -40,6 +40,7 @@ namespace NitroWebImage { class HybridWebImageFactorySpec_cxx; }
 #include <functional>
 #include <memory>
 #include <optional>
+#include <string>
 
 /**
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
@@ -75,6 +76,15 @@ namespace margelo::nitro::web::image::bridge::swift {
   using std__optional_bool_ = std::optional<bool>;
   inline std::optional<bool> create_std__optional_bool_(const bool& value) {
     return std::optional<bool>(value);
+  }
+  
+  // pragma MARK: std::optional<std::string>
+  /**
+   * Specialized version of `std::optional<std::string>`.
+   */
+  using std__optional_std__string_ = std::optional<std::string>;
+  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) {
+    return std::optional<std::string>(value);
   }
   
   // pragma MARK: std::optional<AsyncImageLoadOptions>
