@@ -9,17 +9,9 @@
         "androidCxxLibName": "NitroWebImage"
     },
     "autolinking": {
-        "ImageFactory": {
-            "swift": "HybridImageFactory",
-            "kotlin": "HybridImageFactory"
-        },
-        "ImageUtils": {
-            "swift": "HybridImageUtils",
-            "kotlin": "HybridImageUtils"
-        },
-        "NitroImageView": {
-            "swift": "HybridImageView",
-            "kotlin": "HybridImageView"
+        "WebImageLoader": {
+            "swift": "HybridWebImageLoader",
+            "kotlin": "HybridWebImageLoader"
         }
     },
     "ignorePaths": ["**/node_modules"]

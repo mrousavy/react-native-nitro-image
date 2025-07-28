@@ -76,6 +76,7 @@
         "nitro-codegen": "^0.26.3",
         "react": "19.1.0",
         "react-native": "0.80.2",
+        "react-native-nitro-image": "../react-native-nitro-image",
         "react-native-nitro-modules": "^0.26.3",
         "release-it": "^17.10.0",
         "typescript": "^5.5.4",
@@ -83,6 +84,7 @@
       "peerDependencies": {
         "react": "*",
         "react-native": "*",
+        "react-native-nitro-image": "*",
         "react-native-nitro-modules": "*",
       },
     },

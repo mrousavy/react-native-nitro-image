@@ -1,17 +1,4 @@
-/**
- * The core `Image` type from Nitro Image.
- */
+import type { ImageLoader } from "react-native-nitro-image";
+import { NitroModules } from "react-native-nitro-modules";
 
-/**
- * All the methods to create `Image` types
- */
-export * from "./ImageFactory";
-/**
- * All the utils for Images, like ThumbHash <> String conversion
- */
-export * from "./ImageUtils";
-export type { Image } from "./specs/Image.nitro";
-/**
- * The `useWebImage` hook
- */
-export { useWebImage } from "./useWebImage";
+export const WebImageLoader = NitroModules.createHybridObject<ImageLoader>('WebImageLoader')
