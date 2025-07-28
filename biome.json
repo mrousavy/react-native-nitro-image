@@ -9,10 +9,10 @@
         "ignoreUnknown": false,
         "includes": [
             "**",
-            "!lib/**",
+            "!**/lib/**",
             "!**/ios/**",
             "!**/android/**",
-            "!nitrogen/generated/**"
+            "!**/nitrogen/generated/**"
         ]
     },
     "formatter": {
