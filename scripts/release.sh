@@ -10,7 +10,7 @@ cd packages/react-native-nitro-image
 bun release $@
 
 echo "Publishing 'react-native-nitro-web-image' to NPM"
-cd packages/react-native-nitro-web-image
+cd ../react-native-nitro-web-image
 bun release $@
 
 echo "Creating a Git bump commit and GitHub release"
