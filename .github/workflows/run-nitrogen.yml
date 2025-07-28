@@ -28,7 +28,7 @@ jobs:
         run: bun install
 
       - name: Build the typescript types
-        run: bun typescript
+        run: bun run build
 
       - name: Run nitro-codegen for NitroImage
         run: bun image specs
