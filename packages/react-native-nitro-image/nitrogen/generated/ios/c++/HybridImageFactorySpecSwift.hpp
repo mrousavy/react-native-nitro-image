@@ -14,22 +14,15 @@ namespace NitroImage { class HybridImageFactorySpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
-// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
-namespace margelo::nitro::image { struct AsyncImageLoadOptions; }
-// Forward declaration of `AsyncImagePriority` to properly resolve imports.
-namespace margelo::nitro::image { enum class AsyncImagePriority; }
 // Forward declaration of `ArrayBuffer` to properly resolve imports.
 namespace NitroModules { class ArrayBuffer; }
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
 namespace NitroModules { class ArrayBufferHolder; }
 
-#include <NitroModules/Promise.hpp>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
-#include <optional>
-#include "AsyncImageLoadOptions.hpp"
-#include "AsyncImagePriority.hpp"
+#include <NitroModules/Promise.hpp>
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
 
@@ -72,14 +65,6 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override {
-      auto __result = _swiftPart.loadFromURLAsync(url, options);
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-      auto __value = std::move(__result.value());
-      return __value;
-    }
     inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromFile(const std::string& filePath) override {
       auto __result = _swiftPart.loadFromFile(filePath);
       if (__result.hasError()) [[unlikely]] {

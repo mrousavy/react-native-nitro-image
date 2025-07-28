@@ -10,7 +10,7 @@
 #include <fbjni/fbjni.h>
 #include "AsyncImagePriority.hpp"
 
-namespace margelo::nitro::image {
+namespace margelo::nitro::web::image {
 
   using namespace facebook;
 
@@ -19,7 +19,7 @@ namespace margelo::nitro::image {
    */
   struct JAsyncImagePriority final: public jni::JavaClass<JAsyncImagePriority> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/AsyncImagePriority;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/AsyncImagePriority;";
 
   public:
     /**
@@ -59,4 +59,4 @@ namespace margelo::nitro::image {
     }
   };
 
-} // namespace margelo::nitro::image
+} // namespace margelo::nitro::web::image

@@ -9,12 +9,21 @@
 
 // Forward declaration of `HybridWebImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 
 #include <memory>
 #include "HybridWebImageLoaderSpec.hpp"
 #include "JHybridWebImageLoaderSpec.hpp"
 #include <NitroModules/JNISharedPtr.hpp>
 #include <string>
+#include <optional>
+#include "AsyncImageLoadOptions.hpp"
+#include "JAsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
+#include "JAsyncImagePriority.hpp"
 
 namespace margelo::nitro::web::image {
 
@@ -37,9 +46,9 @@ namespace margelo::nitro::web::image {
   
 
   // Methods
-  std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> JHybridWebImageLoaderFactorySpec::createWebImageLoader(const std::string& url) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridWebImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* url */)>("createWebImageLoader");
-    auto __result = method(_javaPart, jni::make_jstring(url));
+  std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> JHybridWebImageLoaderFactorySpec::createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridWebImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("createWebImageLoader");
+    auto __result = method(_javaPart, jni::make_jstring(url), options.has_value() ? JAsyncImageLoadOptions::fromCpp(options.value()) : nullptr);
     return JNISharedPtr::make_shared_from_jni<JHybridWebImageLoaderSpec>(jni::make_global(__result));
   }
 

@@ -15,10 +15,14 @@
 
 // Forward declaration of `HybridWebImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
 
 #include <memory>
 #include "HybridWebImageLoaderSpec.hpp"
 #include <string>
+#include <optional>
+#include "AsyncImageLoadOptions.hpp"
 
 namespace margelo::nitro::web::image {
 
@@ -51,7 +55,7 @@ namespace margelo::nitro::web::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url) = 0;
+      virtual std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
 
     protected:
       // Hybrid Setup

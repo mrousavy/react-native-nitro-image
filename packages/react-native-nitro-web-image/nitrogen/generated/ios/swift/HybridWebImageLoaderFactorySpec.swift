@@ -14,7 +14,7 @@ public protocol HybridWebImageLoaderFactorySpec_protocol: HybridObject {
   
 
   // Methods
-  func createWebImageLoader(url: String) throws -> (any HybridWebImageLoaderSpec)
+  func createWebImageLoader(url: String, options: AsyncImageLoadOptions?) throws -> (any HybridWebImageLoaderSpec)
 }
 
 /// See ``HybridWebImageLoaderFactorySpec``

@@ -42,7 +42,7 @@ abstract class HybridWebImageLoaderFactorySpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun createWebImageLoader(url: String): HybridWebImageLoaderSpec
+  abstract fun createWebImageLoader(url: String, options: AsyncImageLoadOptions?): HybridWebImageLoaderSpec
 
   private external fun initHybrid(): HybridData
 

@@ -42,10 +42,6 @@ abstract class HybridImageFactorySpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun loadFromURLAsync(url: String, options: AsyncImageLoadOptions?): Promise<HybridImageSpec>
-  
-  @DoNotStrip
-  @Keep
   abstract fun loadFromFile(filePath: String): HybridImageSpec
   
   @DoNotStrip

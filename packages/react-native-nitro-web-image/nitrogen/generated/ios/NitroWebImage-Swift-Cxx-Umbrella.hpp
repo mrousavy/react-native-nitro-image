@@ -8,6 +8,10 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridImageLoaderSpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
@@ -20,6 +24,8 @@ namespace margelo::nitro::web::image { class HybridWebImageLoaderFactorySpec; }
 namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
 
 // Include C++ defined types
+#include "AsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
 #include "HybridImageLoaderSpec.hpp"
 #include "HybridImageSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
@@ -29,6 +35,7 @@ namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <memory>
+#include <optional>
 #include <string>
 
 // C++ helpers for Swift

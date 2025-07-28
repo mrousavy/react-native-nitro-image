@@ -8,6 +8,10 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridImageLoaderSpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
@@ -32,6 +36,8 @@ namespace NitroWebImage { class HybridWebImageLoaderFactorySpec_cxx; }
 namespace NitroWebImage { class HybridWebImageLoaderSpec_cxx; }
 
 // Include C++ defined types
+#include "AsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
 #include "HybridImageLoaderSpec.hpp"
 #include "HybridImageSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
@@ -43,6 +49,7 @@ namespace NitroWebImage { class HybridWebImageLoaderSpec_cxx; }
 #include <exception>
 #include <functional>
 #include <memory>
+#include <optional>
 
 /**
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
@@ -156,6 +163,33 @@ namespace margelo::nitro::web::image::bridge::swift {
   // pragma MARK: std::weak_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>
   using std__weak_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_ = std::weak_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>;
   inline std__weak_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_ weakify_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_(const std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec>& strong) { return strong; }
+  
+  // pragma MARK: std::optional<AsyncImagePriority>
+  /**
+   * Specialized version of `std::optional<AsyncImagePriority>`.
+   */
+  using std__optional_AsyncImagePriority_ = std::optional<AsyncImagePriority>;
+  inline std::optional<AsyncImagePriority> create_std__optional_AsyncImagePriority_(const AsyncImagePriority& value) {
+    return std::optional<AsyncImagePriority>(value);
+  }
+  
+  // pragma MARK: std::optional<bool>
+  /**
+   * Specialized version of `std::optional<bool>`.
+   */
+  using std__optional_bool_ = std::optional<bool>;
+  inline std::optional<bool> create_std__optional_bool_(const bool& value) {
+    return std::optional<bool>(value);
+  }
+  
+  // pragma MARK: std::optional<AsyncImageLoadOptions>
+  /**
+   * Specialized version of `std::optional<AsyncImageLoadOptions>`.
+   */
+  using std__optional_AsyncImageLoadOptions_ = std::optional<AsyncImageLoadOptions>;
+  inline std::optional<AsyncImageLoadOptions> create_std__optional_AsyncImageLoadOptions_(const AsyncImageLoadOptions& value) {
+    return std::optional<AsyncImageLoadOptions>(value);
+  }
   
   // pragma MARK: std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderFactorySpec>
   /**

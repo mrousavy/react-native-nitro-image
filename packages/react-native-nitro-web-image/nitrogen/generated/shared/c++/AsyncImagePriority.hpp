@@ -23,7 +23,7 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-namespace margelo::nitro::image {
+namespace margelo::nitro::web::image {
 
   /**
    * An enum which can be represented as a JavaScript union (AsyncImagePriority).
@@ -34,11 +34,11 @@ namespace margelo::nitro::image {
     HIGH      SWIFT_NAME(high) = 2,
   } CLOSED_ENUM;
 
-} // namespace margelo::nitro::image
+} // namespace margelo::nitro::web::image
 
 namespace margelo::nitro {
 
-  using namespace margelo::nitro::image;
+  using namespace margelo::nitro::web::image;
 
   // C++ AsyncImagePriority <> JS AsyncImagePriority (union)
   template <>

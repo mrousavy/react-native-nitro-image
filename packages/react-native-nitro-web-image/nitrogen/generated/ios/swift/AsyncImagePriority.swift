@@ -8,7 +8,7 @@
 /**
  * Represents the JS union `AsyncImagePriority`, backed by a C++ enum.
  */
-public typealias AsyncImagePriority = margelo.nitro.image.AsyncImagePriority
+public typealias AsyncImagePriority = margelo.nitro.web.image.AsyncImagePriority
 
 public extension AsyncImagePriority {
   /**

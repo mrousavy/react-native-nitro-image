@@ -19,12 +19,12 @@
 #endif
 
 // Forward declaration of `AsyncImagePriority` to properly resolve imports.
-namespace margelo::nitro::image { enum class AsyncImagePriority; }
+namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 
 #include <optional>
 #include "AsyncImagePriority.hpp"
 
-namespace margelo::nitro::image {
+namespace margelo::nitro::web::image {
 
   /**
    * A struct which can be represented as a JavaScript object (AsyncImageLoadOptions).
@@ -45,11 +45,11 @@ namespace margelo::nitro::image {
     explicit AsyncImageLoadOptions(std::optional<AsyncImagePriority> priority, std::optional<bool> forceRefresh, std::optional<bool> continueInBackground, std::optional<bool> allowInvalidSSLCertificates, std::optional<bool> scaleDownLargeImages, std::optional<bool> queryMemoryDataSync, std::optional<bool> queryDiskDataSync, std::optional<bool> decodeImage): priority(priority), forceRefresh(forceRefresh), continueInBackground(continueInBackground), allowInvalidSSLCertificates(allowInvalidSSLCertificates), scaleDownLargeImages(scaleDownLargeImages), queryMemoryDataSync(queryMemoryDataSync), queryDiskDataSync(queryDiskDataSync), decodeImage(decodeImage) {}
   };
 
-} // namespace margelo::nitro::image
+} // namespace margelo::nitro::web::image
 
 namespace margelo::nitro {
 
-  using namespace margelo::nitro::image;
+  using namespace margelo::nitro::web::image;
 
   // C++ AsyncImageLoadOptions <> JS AsyncImageLoadOptions (object)
   template <>

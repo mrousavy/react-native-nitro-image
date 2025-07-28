@@ -15,17 +15,13 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
-// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
-namespace margelo::nitro::image { struct AsyncImageLoadOptions; }
 // Forward declaration of `ArrayBuffer` to properly resolve imports.
 namespace NitroModules { class ArrayBuffer; }
 
-#include <NitroModules/Promise.hpp>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
-#include <optional>
-#include "AsyncImageLoadOptions.hpp"
+#include <NitroModules/Promise.hpp>
 #include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::image {
@@ -59,7 +55,6 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromURLAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
       virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromFile(const std::string& filePath) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) = 0;
       virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) = 0;

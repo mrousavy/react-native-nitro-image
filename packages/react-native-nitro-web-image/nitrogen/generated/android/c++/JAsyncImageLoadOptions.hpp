@@ -14,7 +14,7 @@
 #include "JAsyncImagePriority.hpp"
 #include <optional>
 
-namespace margelo::nitro::image {
+namespace margelo::nitro::web::image {
 
   using namespace facebook;
 
@@ -23,7 +23,7 @@ namespace margelo::nitro::image {
    */
   struct JAsyncImageLoadOptions final: public jni::JavaClass<JAsyncImageLoadOptions> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/AsyncImageLoadOptions;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/AsyncImageLoadOptions;";
 
   public:
     /**
@@ -80,4 +80,4 @@ namespace margelo::nitro::image {
     }
   };
 
-} // namespace margelo::nitro::image
+} // namespace margelo::nitro::web::image

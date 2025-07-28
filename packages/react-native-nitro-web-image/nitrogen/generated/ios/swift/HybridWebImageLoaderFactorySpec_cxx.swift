@@ -101,9 +101,15 @@ public class HybridWebImageLoaderFactorySpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func createWebImageLoader(url: std.string) -> bridge.Result_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec__ {
+  public final func createWebImageLoader(url: std.string, options: bridge.std__optional_AsyncImageLoadOptions_) -> bridge.Result_std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec__ {
     do {
-      let __result = try self.__implementation.createWebImageLoader(url: String(url))
+      let __result = try self.__implementation.createWebImageLoader(url: String(url), options: { () -> AsyncImageLoadOptions? in
+        if let __unwrapped = options.value {
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }())
       let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__web__image__HybridWebImageLoaderSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()

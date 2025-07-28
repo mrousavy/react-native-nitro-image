@@ -14,10 +14,17 @@ namespace NitroWebImage { class HybridWebImageLoaderFactorySpec_cxx; }
 
 // Forward declaration of `HybridWebImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridWebImageLoaderSpec; }
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 
 #include <memory>
 #include "HybridWebImageLoaderSpec.hpp"
 #include <string>
+#include <optional>
+#include "AsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
 
 #include "NitroWebImage-Swift-Cxx-Umbrella.hpp"
 
@@ -58,8 +65,8 @@ namespace margelo::nitro::web::image {
 
   public:
     // Methods
-    inline std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url) override {
-      auto __result = _swiftPart.createWebImageLoader(url);
+    inline std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override {
+      auto __result = _swiftPart.createWebImageLoader(url, options);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

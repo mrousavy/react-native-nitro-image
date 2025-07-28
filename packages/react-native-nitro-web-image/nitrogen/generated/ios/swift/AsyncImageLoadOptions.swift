@@ -10,10 +10,10 @@ import NitroModules
 /**
  * Represents an instance of `AsyncImageLoadOptions`, backed by a C++ struct.
  */
-public typealias AsyncImageLoadOptions = margelo.nitro.image.AsyncImageLoadOptions
+public typealias AsyncImageLoadOptions = margelo.nitro.web.image.AsyncImageLoadOptions
 
 public extension AsyncImageLoadOptions {
-  private typealias bridge = margelo.nitro.image.bridge.swift
+  private typealias bridge = margelo.nitro.web.image.bridge.swift
 
   /**
    * Create a new instance of `AsyncImageLoadOptions`.

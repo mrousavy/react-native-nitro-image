@@ -51,7 +51,7 @@ namespace margelo::nitro::web::image {
 
   public:
     // Methods
-    std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url) override;
+    std::shared_ptr<margelo::nitro::web::image::HybridWebImageLoaderSpec> createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override;
 
   private:
     friend HybridBase;
