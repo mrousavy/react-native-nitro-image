@@ -1,11 +1,11 @@
 import { useMemo } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
 import { loadImageFromThumbHash } from "./ImageFactory";
 import { thumbHashFromBase64String } from "./ImageUtils";
 import { NitroImage } from "./NitroImage";
 import type { Image } from "./specs/Image.nitro";
 import type { AsyncImageLoadOptions } from "./specs/ImageFactory.nitro";
 import type { NitroImageViewProps } from "./specs/ImageView.nitro";
-import type { StyleProp, ViewStyle } from "react-native";
 import { useWebImage } from "./useWebImage";
 
 interface ImagePlaceholder {
