@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import SDWebImage
 import NitroModules
 
 fileprivate protocol ViewLifecycleDelegate: AnyObject {
