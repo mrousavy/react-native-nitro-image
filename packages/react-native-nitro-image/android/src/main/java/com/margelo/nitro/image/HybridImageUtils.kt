@@ -1,10 +1,14 @@
 package com.margelo.nitro.image
 
+import androidx.annotation.Keep
+import com.facebook.common.internal.DoNotStrip
 import com.margelo.nitro.core.ArrayBuffer
 import java.nio.ByteBuffer
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
+@DoNotStrip
+@Keep
 class HybridImageUtils: HybridImageUtilsSpec() {
     @OptIn(ExperimentalEncodingApi::class)
     override fun thumbHashToBase64String(thumbhash: ArrayBuffer): String {

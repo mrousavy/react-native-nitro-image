@@ -4,8 +4,12 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.Keep
 import androidx.core.view.isVisible
+import com.facebook.common.internal.DoNotStrip
 
+@DoNotStrip
+@Keep
 class HybridImageView(context: Context): HybridNitroImageViewSpec() {
     companion object {
         private const val TAG = "HybridImageView"

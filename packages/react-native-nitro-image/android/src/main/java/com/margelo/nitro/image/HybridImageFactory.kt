@@ -3,6 +3,8 @@ package com.margelo.nitro.image
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.annotation.Keep
+import com.facebook.common.internal.DoNotStrip
 import com.facebook.react.bridge.ReactApplicationContext
 import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.NitroModules
@@ -10,6 +12,8 @@ import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import java.nio.ByteBuffer
 
+@DoNotStrip
+@Keep
 class HybridImageFactory: HybridImageFactorySpec() {
     private val context: ReactApplicationContext
         get() = NitroModules.applicationContext ?: throw Error("No context - NitroModules.applicationContext was null!")
