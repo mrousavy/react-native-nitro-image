@@ -30,7 +30,10 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
   func loadImage() throws -> Promise<(any HybridImageSpec)> {
     return Promise.async {
       let webImageOptions = self.options?.toSDWebImageOptions() ?? []
-      let uiImage = try await SDWebImageManager.shared.loadImage(with: self.url, options: webImageOptions)
+      let webImageContext = self.options?.toSDWebImageContext() ?? [:]
+      let uiImage = try await SDWebImageManager.shared.loadImage(with: self.url,
+                                                                 options: webImageOptions,
+                                                                 context: webImageContext)
       return HybridImage(uiImage: uiImage)
     }
   }

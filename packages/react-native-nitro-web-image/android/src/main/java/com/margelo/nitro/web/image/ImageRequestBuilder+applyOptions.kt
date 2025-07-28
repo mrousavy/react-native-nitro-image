@@ -50,5 +50,9 @@ fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageReq
         result = result.decoderFactory(BlackholeDecoder.Factory())
     }
 
+    if (options.cacheKey != null) {
+        result = result.diskCacheKey(options.cacheKey)
+    }
+
     return result
 }

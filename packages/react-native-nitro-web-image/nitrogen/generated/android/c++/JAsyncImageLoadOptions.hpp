@@ -13,6 +13,7 @@
 #include "AsyncImagePriority.hpp"
 #include "JAsyncImagePriority.hpp"
 #include <optional>
+#include <string>
 
 namespace margelo::nitro::web::image {
 
@@ -37,6 +38,8 @@ namespace margelo::nitro::web::image {
       jni::local_ref<JAsyncImagePriority> priority = this->getFieldValue(fieldPriority);
       static const auto fieldForceRefresh = clazz->getField<jni::JBoolean>("forceRefresh");
       jni::local_ref<jni::JBoolean> forceRefresh = this->getFieldValue(fieldForceRefresh);
+      static const auto fieldCacheKey = clazz->getField<jni::JString>("cacheKey");
+      jni::local_ref<jni::JString> cacheKey = this->getFieldValue(fieldCacheKey);
       static const auto fieldContinueInBackground = clazz->getField<jni::JBoolean>("continueInBackground");
       jni::local_ref<jni::JBoolean> continueInBackground = this->getFieldValue(fieldContinueInBackground);
       static const auto fieldAllowInvalidSSLCertificates = clazz->getField<jni::JBoolean>("allowInvalidSSLCertificates");
@@ -52,6 +55,7 @@ namespace margelo::nitro::web::image {
       return AsyncImageLoadOptions(
         priority != nullptr ? std::make_optional(priority->toCpp()) : std::nullopt,
         forceRefresh != nullptr ? std::make_optional(static_cast<bool>(forceRefresh->value())) : std::nullopt,
+        cacheKey != nullptr ? std::make_optional(cacheKey->toStdString()) : std::nullopt,
         continueInBackground != nullptr ? std::make_optional(static_cast<bool>(continueInBackground->value())) : std::nullopt,
         allowInvalidSSLCertificates != nullptr ? std::make_optional(static_cast<bool>(allowInvalidSSLCertificates->value())) : std::nullopt,
         scaleDownLargeImages != nullptr ? std::make_optional(static_cast<bool>(scaleDownLargeImages->value())) : std::nullopt,
@@ -70,6 +74,7 @@ namespace margelo::nitro::web::image {
       return newInstance(
         value.priority.has_value() ? JAsyncImagePriority::fromCpp(value.priority.value()) : nullptr,
         value.forceRefresh.has_value() ? jni::JBoolean::valueOf(value.forceRefresh.value()) : nullptr,
+        value.cacheKey.has_value() ? jni::make_jstring(value.cacheKey.value()) : nullptr,
         value.continueInBackground.has_value() ? jni::JBoolean::valueOf(value.continueInBackground.value()) : nullptr,
         value.allowInvalidSSLCertificates.has_value() ? jni::JBoolean::valueOf(value.allowInvalidSSLCertificates.value()) : nullptr,
         value.scaleDownLargeImages.has_value() ? jni::JBoolean::valueOf(value.scaleDownLargeImages.value()) : nullptr,

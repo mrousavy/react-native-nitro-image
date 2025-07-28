@@ -51,4 +51,16 @@ extension AsyncImageLoadOptions {
 
     return options
   }
+
+  func toSDWebImageContext() -> [SDWebImageContextOption: Any] {
+    var context: [SDWebImageContextOption: Any] = [:]
+
+    if let cacheKey {
+      context[.cacheKeyFilter] = SDWebImageCacheKeyFilter { _ in
+        return cacheKey
+      }
+    }
+
+    return context
+  }
 }
