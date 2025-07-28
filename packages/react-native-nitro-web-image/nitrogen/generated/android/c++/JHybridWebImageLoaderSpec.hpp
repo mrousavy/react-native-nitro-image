@@ -12,8 +12,8 @@
 #include "HybridWebImageLoaderSpec.hpp"
 
 // Forward declaration of `JHybridImageLoaderSpec` to properly resolve imports.
-namespace margelo::nitro::web::image { class JHybridImageLoaderSpec; }
-#include "JHybridImageLoaderSpec.hpp"
+namespace margelo::nitro::image { class JHybridImageLoaderSpec; }
+#include <NitroImage/JHybridImageLoaderSpec.hpp>
 
 namespace margelo::nitro::web::image {
 
