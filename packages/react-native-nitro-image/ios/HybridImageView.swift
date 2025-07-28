@@ -97,9 +97,9 @@ class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
 
 // Implementation for "asynchronously" loading Images using ImageLoader
 extension HybridImageView: ViewLifecycleDelegate {
-  private var imageLoader: HybridImageLoader? {
+  private var imageLoader: HybridImageLoaderSpec? {
     guard case let .second(hybridImageLoaderSpec) = image else { return nil }
-    return hybridImageLoaderSpec as? HybridImageLoader
+    return hybridImageLoaderSpec
   }
   
   private func didSetImageLoader() {

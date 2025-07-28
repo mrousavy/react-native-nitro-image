@@ -9,6 +9,14 @@ import NitroModules
 import SDWebImage
 import NitroImage
 
+fileprivate class HybridImage: HybridImageSpec, NativeImage {
+  let uiImage: UIImage
+  init(uiImage: UIImage) {
+    self.uiImage = uiImage
+    super.init()
+  }
+}
+
 class HybridWebImageLoader: HybridImageLoaderSpec {
   private let url: URL
   private let options: AsyncImageLoadOptions?
@@ -23,7 +31,7 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
     return Promise.async {
       let webImageOptions = self.options?.toSDWebImageOptions() ?? []
       let uiImage = try await SDWebImageManager.shared.loadImage(with: self.url, options: webImageOptions)
-      throw RuntimeError.error(withMessage: "I don't have the HybridImage type yet...")
+      return HybridImage(uiImage: uiImage)
     }
   }
 

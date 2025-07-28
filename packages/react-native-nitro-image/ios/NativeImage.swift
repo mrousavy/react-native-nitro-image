@@ -21,6 +21,9 @@ public protocol NativeImage {
 }
 
 public extension NativeImage {
+  var width: Double { uiImage.size.width }
+  var height: Double { uiImage.size.height }
+  
   func toArrayBuffer() throws -> ArrayBuffer {
     return try uiImage.toRawRgbaArrayBuffer()
   }
