@@ -1,25 +1,15 @@
 package com.margelo.nitro.image
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
 
-class CustomImageView(context: Context,
-                      private val visibilityChanged: (Boolean) -> Unit): AppCompatImageView(context) {
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        visibilityChanged(true)
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        visibilityChanged(false)
-    }
-}
-
 class HybridImageView(context: Context): HybridNitroImageViewSpec() {
+    companion object {
+        private const val TAG = "HybridImageView"
+    }
     override var resizeMode: ResizeMode? = ResizeMode.CONTAIN
         set(value) {
             field = value
@@ -30,7 +20,6 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
                 ResizeMode.CENTER -> ImageView.ScaleType.CENTER
                 null -> ImageView.ScaleType.CENTER_CROP
             }
-            updateImage()
         }
 
     override var image: Variant_HybridImageSpec_HybridImageLoaderSpec? = null
@@ -66,12 +55,20 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
     private fun onAppear() {
         val image = image ?: return
         val imageLoader = image.getAs<HybridImageLoaderSpec>() ?: return
-        imageLoader.requestImage(this)
+        try {
+            imageLoader.requestImage(this)
+        } catch (e: Throwable) {
+            Log.e(TAG, "Failed to request Image!", e)
+        }
     }
 
     private fun onDisappear() {
         val image = image ?: return
         val imageLoader = image.getAs<HybridImageLoaderSpec>() ?: return
-        imageLoader.dropImage(this)
+        try {
+            imageLoader.dropImage(this)
+        } catch (e: Throwable) {
+            Log.e(TAG, "Failed to drop Image!", e)
+        }
     }
 }
