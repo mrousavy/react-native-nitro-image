@@ -10,16 +10,16 @@
         "pods": "bundle install && cd ios && bundle exec pod install"
     },
     "dependencies": {
-        "@react-navigation/bottom-tabs": "^7.3.14",
-        "@react-navigation/native": "^7.1.10",
+        "@react-navigation/bottom-tabs": "^7.4.4",
+        "@react-navigation/native": "^7.1.16",
         "react": "19.1.0",
         "react-native": "0.80.2",
         "react-native-fast-image": "^8.6.3",
         "react-native-nitro-image": "../packages/react-native-nitro-image",
         "react-native-nitro-web-image": "../packages/react-native-nitro-web-image",
         "react-native-nitro-modules": "^0.27.2",
-        "react-native-safe-area-context": "^5.4.1",
-        "react-native-screens": "^4.11.1"
+        "react-native-safe-area-context": "^5.5.2",
+        "react-native-screens": "^4.13.1"
     },
     "devDependencies": {
         "@babel/core": "^7.27.4",

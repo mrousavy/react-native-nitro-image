@@ -2,6 +2,7 @@ import type { Image } from "./specs/Image.nitro";
 import type { ImageLoader } from "./specs/ImageLoader.nitro";
 
 export type OptionalAsyncOptions = Parameters<
+    // @ts-ignore The import doesn't work if built separately.
     typeof import("react-native-nitro-web-image")["WebImages"]["loadImageAsync"]
 >[1];
 
