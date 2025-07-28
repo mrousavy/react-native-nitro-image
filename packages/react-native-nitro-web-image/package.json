@@ -101,45 +101,13 @@
         "npm": {
             "publish": true
         },
-        "git": {
-            "commitMessage": "chore: release ${version}",
-            "tagName": "v${version}",
-            "requireCleanWorkingDir": true
-        },
+        "git": false,
         "github": {
-            "release": true
+            "release": false
         },
         "hooks": {
-            "before:release": "bun i && bun typescript"
-        },
-        "plugins": {
-            "@release-it/conventional-changelog": {
-                "preset": {
-                    "name": "conventionalcommits",
-                    "types": [
-                        {
-                            "type": "feat",
-                            "section": "✨ Features"
-                        },
-                        {
-                            "type": "perf",
-                            "section": "💨 Performance Improvements"
-                        },
-                        {
-                            "type": "fix",
-                            "section": "🐛 Bug Fixes"
-                        },
-                        {
-                            "type": "chore(deps)",
-                            "section": "🛠️ Dependency Upgrades"
-                        },
-                        {
-                            "type": "docs",
-                            "section": "📚 Documentation"
-                        }
-                    ]
-                }
-            }
+            "before:init": "bun typecheck && bun lint",
+            "after:bump": "bun run build"
         }
     }
 }
