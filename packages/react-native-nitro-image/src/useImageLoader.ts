@@ -3,6 +3,7 @@ import type { Image } from "./specs/Image.nitro";
 import type { ImageLoader } from "./specs/ImageLoader.nitro";
 import { ImageLoaders } from "./ImageLoaders";
 import { isHybridImage, isHybridImageLoader, isHybridObject, type AsyncImageSource } from "./AsyncImageSource";
+import { OptionalWebImages } from "./OptionalWebLoader";
 
 export function useImageLoader(source: AsyncImageSource): Image | ImageLoader | undefined {
   // biome-ignore lint: The dependencies array is a bit hacky.
@@ -19,6 +20,8 @@ export function useImageLoader(source: AsyncImageSource): Image | ImageLoader | 
       return ImageLoaders.createResourceImageLoader(source.resource)
     } else if ("symbolName" in source) {
       return ImageLoaders.createSymbolImageLoader(source.symbolName)
+    } else if ("url" in source) {
+      return OptionalWebImages.createWebImageLoader(source.url)
     } else {
       return undefined
     }

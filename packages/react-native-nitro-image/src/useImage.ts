@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { isHybridImage, isHybridImageLoader, isHybridObject, type AsyncImageSource } from "./AsyncImageSource";
 import type { Image } from "./specs/Image.nitro";
 import { Images } from "./Images";
+import { OptionalWebImages } from "./OptionalWebLoader";
 
 function createLoader(source: AsyncImageSource): (() => Promise<Image>) | undefined {
   if (isHybridImage(source)) {
@@ -22,6 +23,9 @@ function createLoader(source: AsyncImageSource): (() => Promise<Image>) | undefi
   } else if ("symbolName" in source) {
     // It's a { symbolName }
     return () => Promise.resolve(Images.loadFromSymbol(source.symbolName))
+  } else if ("url" in source) {
+    // It's a { url }
+    return () => Promise.resolve(OptionalWebImages.loadImageAsync(source.url))
   } else {
     throw new Error(`Unknown Image source! ${JSON.stringify(source)}`)
   }
