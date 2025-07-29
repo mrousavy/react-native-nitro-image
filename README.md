@@ -213,7 +213,7 @@ To achieve a dynamic width or height calculation, you can use the `image`'s dime
 
 ```tsx
 function App() {
-  const image = useImage({ filePath: '/tmp/image.jpg' })
+  const { image, error } = useImage({ filePath: '/tmp/image.jpg' })
   const aspect = (image?.width ?? 1) / (image?.height ?? 1)
   return (
     <NitroImage
