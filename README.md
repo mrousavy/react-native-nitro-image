@@ -91,6 +91,15 @@ If you know what Images are going to be rendered soon, you can pre-load them usi
 WebImages.preload(profilePictureLargeUrl)
 ```
 
+#### `require(…)`
+
+A React Native `require(…)` returns a resource-ID. In debug, resources are streamed over Metro (`localhost://…`), while in release, they are embedded in the resources bundle.
+NitroImage wraps those APIs so you can just pass a `require(…)` to `useImage(…)`, `useImageLoader(…)`, or `<NitroImage />` directly:
+
+```ts
+const image = useImage(require('./image.png'))
+```
+
 #### `ArrayBuffer`
 
 The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in ARGB format:
