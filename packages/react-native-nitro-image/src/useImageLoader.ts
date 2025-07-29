@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Image as RNImage } from "react-native";
 import {
     type AsyncImageSource,
     isHybridImage,
@@ -15,7 +16,19 @@ export function useImageLoader(
 ): Image | ImageLoader | undefined {
     // biome-ignore lint: The dependencies array is a bit hacky.
     return useMemo<Image | ImageLoader | undefined>(() => {
-        if (isHybridImage(source)) {
+        if (typeof source === "number") {
+            // It's a require(...)
+            if (__DEV__) {
+                // In debug, assets are streamed over the network
+                const resolvedSource = RNImage.resolveAssetSource(source);
+                return OptionalWebImages.createWebImageLoader(
+                    resolvedSource.uri,
+                );
+            } else {
+                // In release, assets are resource IDs
+                return ImageLoaders.createResourceImageLoader(`${source}`);
+            }
+        } else if (isHybridImage(source)) {
             return source;
         } else if (isHybridImageLoader(source)) {
             return source;

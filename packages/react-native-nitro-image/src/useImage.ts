@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Image as RNImage } from "react-native";
 import {
     type AsyncImageSource,
     isHybridImage,
@@ -12,7 +13,17 @@ import type { Image } from "./specs/Image.nitro";
 function createLoader(
     source: AsyncImageSource,
 ): (() => Promise<Image>) | undefined {
-    if (isHybridImage(source)) {
+    if (typeof source === "number") {
+        // It's a require(...)
+        if (__DEV__) {
+            // In debug, assets are streamed over the network
+            const resolvedSource = RNImage.resolveAssetSource(source);
+            return createLoader({ url: resolvedSource.uri });
+        } else {
+            // In release, assets are resource IDs
+            return createLoader({ resource: `${source}` });
+        }
+    } else if (isHybridImage(source)) {
         // don't do anything if this already is a HybridImage
         return;
     } else if (isHybridImageLoader(source)) {
