@@ -3,6 +3,7 @@ import type { OptionalAsyncOptions } from "./OptionalWebLoader";
 import type { Image } from "./specs/Image.nitro";
 import type { ImageLoader } from "./specs/ImageLoader.nitro";
 
+export type RequireType = number;
 export type AsyncImageSource =
     | Image
     | ImageLoader
@@ -10,19 +11,20 @@ export type AsyncImageSource =
     | { arrayBuffer: ArrayBuffer }
     | { resource: string }
     | { symbolName: string }
-    | { url: string; options?: OptionalAsyncOptions };
+    | { url: string; options?: OptionalAsyncOptions }
+    | RequireType;
 
 // @ts-expect-error i know what I'm doing
-export function isHybridObject<T extends object>(obj: T): obj is HybridObject {
+export function isHybridObject<T>(obj: T): obj is HybridObject {
     // @ts-expect-error
     return typeof obj === "object" && obj != null && obj.dispose != null;
 }
 // @ts-expect-error i know what I'm doing
-export function isHybridImage<T extends object>(obj: T): obj is Image {
+export function isHybridImage<T>(obj: T): obj is Image {
     // @ts-expect-error
     return typeof obj === "object" && obj != null && obj.toArrayBuffer != null;
 }
-export function isHybridImageLoader<T extends object>(
+export function isHybridImageLoader<T>(
     obj: T,
     // @ts-expect-error i know what I'm doing
 ): obj is ImageLoader {

@@ -65,7 +65,17 @@ target '…' do
 
 ### Creating `Image`s
 
-There are numerous ways to create an `Image` through the `Images` factory:
+The simplest way to load an Image is to use the exported `loadImage(…)` method:
+
+```ts
+const webImage      = await loadImage({ url: 'https://picsum.photos/seed/123/400' })
+const fileImage     = await loadImage({ filePath: 'file://my-image.jpg' })
+const resourceImage = await loadImage({ resource: 'my-image.jpg' })
+const symbolImage   = await loadImage({ symbol: 'star' })
+const requireImage  = await loadImage(require('./my-image.jpg'))
+```
+
+Under the hood, this uses the native methods from `Images` or `WebImages`:
 
 ```ts
 const webImage      = await WebImages.loadFromURLAsync('https://picsum.photos/seed/123/400')
@@ -89,6 +99,15 @@ If you know what Images are going to be rendered soon, you can pre-load them usi
 
 ```ts
 WebImages.preload(profilePictureLargeUrl)
+```
+
+#### `require(…)`
+
+A React Native `require(…)` returns a resource-ID. In debug, resources are streamed over Metro (`localhost://…`), while in release, they are embedded in the resources bundle.
+NitroImage wraps those APIs so you can just pass a `require(…)` to `useImage(…)`, `useImageLoader(…)`, or `<NitroImage />` directly:
+
+```ts
+const image = useImage(require('./image.png'))
 ```
 
 #### `ArrayBuffer`
@@ -194,7 +213,7 @@ To achieve a dynamic width or height calculation, you can use the `image`'s dime
 
 ```tsx
 function App() {
-  const image = useImage({ filePath: '/tmp/image.jpg' })
+  const { image, error } = useImage({ filePath: '/tmp/image.jpg' })
   const aspect = (image?.width ?? 1) / (image?.height ?? 1)
   return (
     <NitroImage

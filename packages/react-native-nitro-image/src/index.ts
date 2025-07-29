@@ -1,5 +1,7 @@
+export * from "./createImageLoader";
 export * from "./Images";
 export * from "./ImageUtils";
+export * from "./loadImage";
 export { NativeNitroImage } from "./NativeNitroImage";
 export { NitroImage } from "./NitroImage";
 export type { Image } from "./specs/Image.nitro";

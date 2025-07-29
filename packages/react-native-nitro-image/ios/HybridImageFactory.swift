@@ -12,7 +12,10 @@ class HybridImageFactory: HybridImageFactorySpec {
   /**
    * Load Image from file path
    */
-  func loadFromFile(filePath: String) throws -> any HybridImageSpec {
+  func loadFromFile(filePath rawFilePath: String) throws -> any HybridImageSpec {
+    // 1. Clean out the file:// prefix
+    let filePath = rawFilePath.replacingOccurrences(of: "file://", with: "")
+    // 2. Load UIImage from file
     guard let uiImage = UIImage(contentsOfFile: filePath) else {
       throw RuntimeError.error(withMessage: "Failed to read image from file \"\(filePath)\"!")
     }

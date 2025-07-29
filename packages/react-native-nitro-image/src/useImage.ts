@@ -1,62 +1,51 @@
 import { useEffect, useState } from "react";
-import {
-    type AsyncImageSource,
-    isHybridImage,
-    isHybridImageLoader,
-    isHybridObject,
-} from "./AsyncImageSource";
-import { Images } from "./Images";
-import { OptionalWebImages } from "./OptionalWebLoader";
+import { type AsyncImageSource, isHybridObject } from "./AsyncImageSource";
+import { loadImage } from "./loadImage";
 import type { Image } from "./specs/Image.nitro";
 
-function createLoader(
-    source: AsyncImageSource,
-): (() => Promise<Image>) | undefined {
-    if (isHybridImage(source)) {
-        // don't do anything if this already is a HybridImage
-        return;
-    } else if (isHybridImageLoader(source)) {
-        // It's an ImageLoader
-        return () => source.loadImage();
-    } else if ("filePath" in source) {
-        // It's a { filePath }
-        return () => Images.loadFromFileAsync(source.filePath);
-    } else if ("arrayBuffer" in source) {
-        // It's a { arrayBuffer }
-        return () => Images.loadFromArrayBufferAsync(source.arrayBuffer);
-    } else if ("resource" in source) {
-        // It's a { resource }
-        return () => Images.loadFromResourcesAsync(source.resource);
-    } else if ("symbolName" in source) {
-        // It's a { symbolName }
-        return () => Promise.resolve(Images.loadFromSymbol(source.symbolName));
-    } else if ("url" in source) {
-        // It's a { url }
-        return () =>
-            OptionalWebImages.loadFromURLAsync(source.url, source.options);
-    } else {
-        throw new Error(`Unknown Image source! ${JSON.stringify(source)}`);
-    }
-}
+type Result =
+    // Loading State
+    | {
+          image: undefined;
+          error: undefined;
+      }
+    // Loaded state
+    | {
+          image: Image;
+          error: undefined;
+      }
+    // Error state
+    | {
+          image: undefined;
+          error: Error;
+      };
 
 /**
  * A hook to asynchronously load an image from the
  * given {@linkcode AsyncImageSource} into memory.
  * @example
  * ```ts
- * const image = useImage({ filePath: '/tmp/image.jpg' })
+ * const { image, error } = useImage({ filePath: '/tmp/image.jpg' })
  * ```
  */
-export function useImage(source: AsyncImageSource): Image | undefined {
-    const [image, setImage] = useState<Image | undefined>();
+export function useImage(source: AsyncImageSource): Result {
+    const [image, setImage] = useState<Result>({
+        image: undefined,
+        error: undefined,
+    });
 
     // biome-ignore lint: The dependencies array is a bit hacky.
     useEffect(() => {
-        const loader = createLoader(source);
-        if (loader != null) {
-            loader().then((i) => setImage(i));
-        }
+        (async () => {
+            try {
+                const result = await loadImage(source);
+                setImage({ image: result, error: undefined });
+            } catch (e) {
+                const error = e instanceof Error ? e : new Error(`${e}`);
+                setImage({ image: undefined, error: error });
+            }
+        })();
     }, [isHybridObject(source) ? source : JSON.stringify(source)]);
 
-    return isHybridImage(source) ? source : image;
+    return image;
 }

@@ -15,25 +15,24 @@ import java.nio.ByteBuffer
 @DoNotStrip
 @Keep
 class HybridImageFactory: HybridImageFactorySpec() {
-    private val context: ReactApplicationContext
-        get() = NitroModules.applicationContext ?: throw Error("No context - NitroModules.applicationContext was null!")
-
     @SuppressLint("DiscouragedApi")
     override fun loadFromResources(name: String): HybridImageSpec {
         val context = NitroModules.applicationContext ?: throw Error("No context!")
         // Look up ID via it's name
         val rawResourceId: Int = context.resources
-            .getIdentifier(name, "raw", context.packageName)
+            .getIdentifier(name, "drawable", context.packageName)
         if (rawResourceId == 0) {
             // It's bundled into the Android resources/assets
-            val stream = context.assets.open(name)
-            val bitmap = BitmapFactory.decodeStream(stream)
-            return HybridImage(bitmap)
+            context.assets.open(name).use { stream ->
+                val bitmap = BitmapFactory.decodeStream(stream)
+                return HybridImage(bitmap)
+            }
         } else {
             // For assets bundled with 'require' instead of linked, they are bundled into `res/raw` in release mode
-            val stream = context.resources.openRawResource(rawResourceId)
-            val bitmap = BitmapFactory.decodeStream(stream)
-            return HybridImage(bitmap)
+            context.resources.openRawResource(rawResourceId).use { stream ->
+                val bitmap = BitmapFactory.decodeStream(stream)
+                return HybridImage(bitmap)
+            }
         }
     }
     override fun loadFromResourcesAsync(name: String): Promise<HybridImageSpec> {
