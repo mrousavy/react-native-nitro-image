@@ -11,8 +11,12 @@ import SDWebImage
 import NitroImage
 
 class HybridWebImageFactory: HybridWebImageFactorySpec {
-  func loadFromURLAsync(url: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
-    throw RuntimeError.error(withMessage: "Not yet implemented!")
+  func loadFromURLAsync(url urlString: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
+    guard let url = URL(string: urlString) else {
+      throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
+    }
+    
+    return HybridWebImageLoader.loadImage(url: url, options: options)
   }
 
   private let queue = DispatchQueue(label: "image-loader",
@@ -28,5 +32,12 @@ class HybridWebImageFactory: HybridWebImageFactorySpec {
     }
 
     return HybridWebImageLoader(url: url, options: options)
+  }
+  
+  func preload(url urlString: String) throws {
+    guard let url = URL(string: urlString) else {
+      throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")
+    }
+    SDWebImagePrefetcher.shared.prefetchURLs([url])
   }
 }

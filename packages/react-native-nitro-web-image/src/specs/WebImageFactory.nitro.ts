@@ -65,12 +65,29 @@ export interface AsyncImageLoadOptions {
 
 export interface WebImageFactory
     extends HybridObject<{ ios: "swift"; android: "kotlin" }> {
+    /**
+     * Create a deferred {@linkcode ImageLoader} that loads the {@linkcode Image}
+     * from the given {@linkcode url}.
+     */
     createWebImageLoader(
         url: string,
         options?: AsyncImageLoadOptions,
     ): ImageLoader;
+    /**
+     * Fetches data from the given {@linkcode url} and decode it into an {@linkcode Image}.
+     * This is async and can throw.
+     */
     loadFromURLAsync(
         url: string,
         options?: AsyncImageLoadOptions,
     ): Promise<Image>;
+
+    /**
+     * Pre-loads the {@linkcode Image} at the given {@linkcode url}
+     * and store it in cache.
+     *
+     * If the preload succeeds, the next call to
+     * {@linkcode loadFromURLAsync} will be a cache hit.
+     */
+    preload(url: string): void;
 }

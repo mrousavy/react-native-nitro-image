@@ -10,9 +10,12 @@ import SDWebImage
 import NitroModules
 
 extension SDWebImageManager {
-  func loadImage(with url: URL, options: SDWebImageOptions) async throws -> UIImage {
+  func loadImage(with url: URL, options: AsyncImageLoadOptions?) async throws -> UIImage {
+    let webImageOptions = options?.toSDWebImageOptions() ?? []
+    let webImageContext = options?.toSDWebImageContext() ?? [:]
+    
     return try await withUnsafeThrowingContinuation { continuation in
-      self.loadImage(with: url, options: options) { current, total, url in
+      self.loadImage(with: url, options: webImageOptions, context: webImageContext) { current, total, url in
         print("\(url): Loaded \(current)/\(total) bytes")
       } completed: { image, data, error, cacheType, finished, url in
         if let image {
