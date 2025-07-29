@@ -26,14 +26,16 @@ class HybridImageFactory: HybridImageFactorySpec() {
             .getIdentifier(name, "raw", context.packageName)
         if (rawResourceId == 0) {
             // It's bundled into the Android resources/assets
-            val stream = context.assets.open(name)
-            val bitmap = BitmapFactory.decodeStream(stream)
-            return HybridImage(bitmap)
+            context.assets.open(name).use { stream ->
+                val bitmap = BitmapFactory.decodeStream(stream)
+                return HybridImage(bitmap)
+            }
         } else {
             // For assets bundled with 'require' instead of linked, they are bundled into `res/raw` in release mode
-            val stream = context.resources.openRawResource(rawResourceId)
-            val bitmap = BitmapFactory.decodeStream(stream)
-            return HybridImage(bitmap)
+            context.resources.openRawResource(rawResourceId).use { stream ->
+                val bitmap = BitmapFactory.decodeStream(stream)
+                return HybridImage(bitmap)
+            }
         }
     }
     override fun loadFromResourcesAsync(name: String): Promise<HybridImageSpec> {
