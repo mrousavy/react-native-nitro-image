@@ -49,15 +49,23 @@ fileprivate extension HybridImageLoader {
       let promise = try loadFunc()
       promise.then { image in
         guard let image = image as? NativeImage else { return }
-        view.imageView.image = image.uiImage
+        Task { @MainActor in
+          view.imageView.image = image.uiImage
+        }
       }
-      promise.catch { _ in view.imageView.image = nil }
+      promise.catch { _ in
+        Task { @MainActor in
+          view.imageView.image = nil
+        }
+      }
     }
   }
   static func defaultDropFunc() -> DropFunc {
     return { view in
       guard let view = view as? NativeImageView else { return }
-      view.imageView.image = nil
+      Task { @MainActor in
+        view.imageView.image = nil
+      }
     }
   }
 }
