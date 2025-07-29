@@ -51,7 +51,7 @@
       "skipChecks": true
     },
     "hooks": {
-      "before:release": "bun run build && bun example pods && git add example/ios/Podfile.lock"
+      "before:release": "bun i && bun run build && bun example pods && git add example/ios/Podfile.lock"
     },
     "plugins": {
       "@release-it/bumper": {
