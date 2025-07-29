@@ -14,14 +14,14 @@ function createLoader(
     source: AsyncImageSource,
 ): (() => Promise<Image>) | undefined {
     if (typeof source === "number") {
-        // It's a require(...)
+        // It's a require(...) - a `number` which we need to resolve first
+        const resolvedSource = RNImage.resolveAssetSource(source);
         if (__DEV__) {
             // In debug, assets are streamed over the network
-            const resolvedSource = RNImage.resolveAssetSource(source);
             return createLoader({ url: resolvedSource.uri });
         } else {
             // In release, assets are resource IDs
-            return createLoader({ resource: `${source}` });
+            return createLoader({ resource: resolvedSource.uri });
         }
     } else if (isHybridImage(source)) {
         // don't do anything if this already is a HybridImage

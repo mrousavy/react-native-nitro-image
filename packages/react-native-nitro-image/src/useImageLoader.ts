@@ -17,16 +17,18 @@ export function useImageLoader(
     // biome-ignore lint: The dependencies array is a bit hacky.
     return useMemo<Image | ImageLoader | undefined>(() => {
         if (typeof source === "number") {
-            // It's a require(...)
+            // It's a require(...) - a `number` which we need to resolve first
+            const resolvedSource = RNImage.resolveAssetSource(source);
             if (__DEV__) {
                 // In debug, assets are streamed over the network
-                const resolvedSource = RNImage.resolveAssetSource(source);
                 return OptionalWebImages.createWebImageLoader(
                     resolvedSource.uri,
                 );
             } else {
                 // In release, assets are resource IDs
-                return ImageLoaders.createResourceImageLoader(`${source}`);
+                return ImageLoaders.createResourceImageLoader(
+                    resolvedSource.uri,
+                );
             }
         } else if (isHybridImage(source)) {
             return source;
