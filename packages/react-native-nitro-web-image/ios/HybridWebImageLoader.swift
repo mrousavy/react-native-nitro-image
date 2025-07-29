@@ -28,14 +28,7 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
   }
 
   func loadImage() throws -> Promise<(any HybridImageSpec)> {
-    return Promise.async {
-      let webImageOptions = self.options?.toSDWebImageOptions() ?? []
-      let webImageContext = self.options?.toSDWebImageContext() ?? [:]
-      let uiImage = try await SDWebImageManager.shared.loadImage(with: self.url,
-                                                                 options: webImageOptions,
-                                                                 context: webImageContext)
-      return HybridImage(uiImage: uiImage)
-    }
+    return Self.loadImage(url: self.url, options: self.options)
   }
 
   func requestImage(forView view: (any HybridNitroImageViewSpec)) throws {
@@ -50,5 +43,13 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
 
   func dropImage(forView view: (any HybridNitroImageViewSpec)) throws {
     // TODO: Do we need to reset the image here or not?
+  }
+  
+  public static func loadImage(url: URL, options: AsyncImageLoadOptions?) -> Promise<any HybridImageSpec> {
+    return Promise.async {
+      let uiImage = try await SDWebImageManager.shared.loadImage(with: url,
+                                                                 options: options)
+      return HybridImage(uiImage: uiImage)
+    }
   }
 }

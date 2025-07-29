@@ -87,6 +87,12 @@ namespace margelo::nitro::web::image {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline void preload(const std::string& url) override {
+      auto __result = _swiftPart.preload(url);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
 
   private:
     NitroWebImage::HybridWebImageFactorySpec_cxx _swiftPart;

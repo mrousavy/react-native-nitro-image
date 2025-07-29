@@ -78,5 +78,9 @@ namespace margelo::nitro::web::image {
       return __promise;
     }();
   }
+  void JHybridWebImageFactorySpec::preload(const std::string& url) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* url */)>("preload");
+    method(_javaPart, jni::make_jstring(url));
+  }
 
 } // namespace margelo::nitro::web::image
