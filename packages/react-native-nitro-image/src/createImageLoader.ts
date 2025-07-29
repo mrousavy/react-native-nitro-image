@@ -15,12 +15,15 @@ export function createImageLoader(
     if (typeof source === "number") {
         // It's a require(...) - a `number` which we need to resolve first
         const resolvedSource = RNImage.resolveAssetSource(source);
-        if (__DEV__) {
+        if (resolvedSource.uri.startsWith('http')) {
             // In debug, assets are streamed over the network
-            return OptionalWebImages.createWebImageLoader(resolvedSource.uri);
+            return createImageLoader({ url: resolvedSource.uri });
+        } else if (resolvedSource.uri.startsWith('file')) {
+            // In release, assets are embedded files...
+            return createImageLoader({ filePath: resolvedSource.uri });
         } else {
-            // In release, assets are resource IDs
-            return ImageLoaders.createResourceImageLoader(resolvedSource.uri);
+            // ...or resource IDs
+            return createImageLoader({ resource: resolvedSource.uri });
         }
     } else if (isHybridImage(source)) {
         return source;

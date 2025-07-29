@@ -65,7 +65,17 @@ target '…' do
 
 ### Creating `Image`s
 
-There are numerous ways to create an `Image` through the `Images` factory:
+The simplest way to load an Image is to use the exported `loadImage(…)` method:
+
+```ts
+const webImage      = await loadImage({ url: 'https://picsum.photos/seed/123/400' })
+const fileImage     = await loadImage({ filePath: 'file://my-image.jpg' })
+const resourceImage = await loadImage({ resource: 'my-image.jpg' })
+const symbolImage   = await loadImage({ symbol: 'star' })
+const requireImage  = await loadImage(require('./my-image.jpg'))
+```
+
+Under the hood, this uses the native methods from `Images` or `WebImages`:
 
 ```ts
 const webImage      = await WebImages.loadFromURLAsync('https://picsum.photos/seed/123/400')

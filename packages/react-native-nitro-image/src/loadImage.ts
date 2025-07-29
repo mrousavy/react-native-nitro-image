@@ -12,11 +12,14 @@ export function loadImage(source: AsyncImageSource): Promise<Image> | Image {
     if (typeof source === "number") {
         // It's a require(...) - a `number` which we need to resolve first
         const resolvedSource = RNImage.resolveAssetSource(source);
-        if (__DEV__) {
+        if (resolvedSource.uri.startsWith('http')) {
             // In debug, assets are streamed over the network
             return loadImage({ url: resolvedSource.uri });
+        } else if (resolvedSource.uri.startsWith('file')) {
+            // In release, assets are embedded files...
+            return loadImage({ filePath: resolvedSource.uri });
         } else {
-            // In release, assets are resource IDs
+            // ...or resource IDs
             return loadImage({ resource: resolvedSource.uri });
         }
     } else if (isHybridImage(source)) {
