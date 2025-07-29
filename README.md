@@ -83,6 +83,14 @@ const image1 = await WebImages.loadFromURLAsync(URL1, { priority: 'low' })
 const image2 = await WebImages.loadFromURLAsync(URL2, { priority: 'high' })
 ```
 
+#### Preloading
+
+If you know what Images are going to be rendered soon, you can pre-load them using the `preload(...)` API:
+
+```ts
+WebImages.preload(profilePictureLargeUrl)
+```
+
 #### `ArrayBuffer`
 
 The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in ARGB format:
