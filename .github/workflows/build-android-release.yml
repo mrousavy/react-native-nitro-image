@@ -3,6 +3,16 @@ name: Build Android (Release)
 on:
   release:
     types: [published]
+  pull_request:
+    paths:
+      - '.github/workflows/build-android.yml'
+      - 'example/android/**'
+      - '**/nitrogen/generated/shared/**'
+      - '**/nitrogen/generated/android/**'
+      - 'android/**'
+      - '**/bun.lock'
+      - '**/react-native.config.js'
+      - '**/nitro.json'
 
 jobs:
   build_release:
