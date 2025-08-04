@@ -9,18 +9,7 @@ export function useImageLoader(
 ): Image | ImageLoader | undefined {
     // biome-ignore lint: The dependencies array is a bit hacky.
     return useMemo<Image | ImageLoader | undefined>(
-        () => {
-            // 1. Create the Image/ImageLoader instance
-            const loader = createImageLoader(source)
-            // 2. Add `__source` as a property on the JS side so React diffs properly
-            Object.defineProperty(loader, '__source', {
-                enumerable: true,
-                configurable: true,
-                value: source
-            })
-            // 3. Return it
-            return loader
-        },
+        () => createImageLoader(source),
         [isHybridObject(source) ? source : JSON.stringify(source)],
     );
 }
