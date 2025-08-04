@@ -38,7 +38,14 @@ export function useImage(source: AsyncImageSource): Result {
     useEffect(() => {
         (async () => {
             try {
+                // 1. Create the Image/ImageLoader instance
                 const result = await loadImage(source);
+                // 2. Add `__source` as a property on the JS side so React diffs properly
+                Object.defineProperty(result, "__source", {
+                    enumerable: true,
+                    configurable: true,
+                    value: source,
+                });
                 setImage({ image: result, error: undefined });
             } catch (e) {
                 const error = e instanceof Error ? e : new Error(`${e}`);
