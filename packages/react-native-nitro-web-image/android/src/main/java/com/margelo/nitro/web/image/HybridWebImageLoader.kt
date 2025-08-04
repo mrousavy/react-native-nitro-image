@@ -23,7 +23,6 @@ class HybridWebImageLoader(private val imageLoader: ImageLoader,
         imageView.load(url, imageLoader) {
             this.applyOptions(options)
         }
-        imageView.load(url)
     }
 
     override fun dropImage(forView: HybridNitroImageViewSpec) {
