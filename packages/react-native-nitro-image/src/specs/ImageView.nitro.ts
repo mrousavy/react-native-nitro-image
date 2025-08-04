@@ -54,7 +54,7 @@ export interface NativeNitroImageViewProps extends HybridViewProps {
      * <NitroImage recyclingKey={url} />
      * ```
      */
-    recyclingKey?: string
+    recyclingKey?: string;
 }
 
 export interface NativeNitroImageViewMethods extends HybridViewMethods {
