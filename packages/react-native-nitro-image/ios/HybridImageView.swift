@@ -20,14 +20,14 @@ class CustomImageView: UIImageView {
       onVisibilityChanged(isVisible: superview != nil)
     }
   }
-  
+
   init() {
     super.init(image: nil)
   }
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func willMove(toSuperview newSuperview: UIView?) {
     super.willMove(toSuperview: newSuperview)
     onVisibilityChanged(isVisible: newSuperview != nil)
@@ -51,7 +51,7 @@ class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
   let imageView: UIImageView
   let view: UIView
   private var resetImageBeforeLoad = false
-  
+
   override init() {
     let imageView = CustomImageView()
     self.imageView = imageView
@@ -59,7 +59,7 @@ class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
     super.init()
     imageView.delegate = self
   }
-  
+
   var resizeMode: ResizeMode? {
     didSet {
       Task { @MainActor in
@@ -79,7 +79,7 @@ class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
       resetImageBeforeLoad = recyclingKey != oldValue
     }
   }
-  
+
   private func updateResizeMode() {
     let mode = resizeMode ?? .cover
     switch mode {
@@ -93,7 +93,7 @@ class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
       imageView.contentMode = .center
     }
   }
-  
+
   private func updateImage() {
     switch image {
     case .first(let hybridImageSpec):
@@ -110,7 +110,7 @@ class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
       imageView.image = nil
     }
   }
-  
+
   private func didSetImageLoader() {
     // An ImageLoader was set - trigger an update (load or drop)
     if imageView.isVisible {
@@ -127,7 +127,7 @@ extension HybridImageView: ViewLifecycleDelegate {
     guard case let .second(hybridImageLoaderSpec) = image else { return nil }
     return hybridImageLoaderSpec
   }
-  
+
   func willShow() {
     guard let imageLoader else { return }
     if resetImageBeforeLoad {
@@ -136,7 +136,7 @@ extension HybridImageView: ViewLifecycleDelegate {
     }
     try? imageLoader.requestImage(forView: self)
   }
-  
+
   func willHide() {
     guard let imageLoader else { return }
     try? imageLoader.dropImage(forView: self)
