@@ -36,7 +36,7 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
 
     let webImageOptions = options?.toSDWebImageOptions() ?? []
     view.imageView.sd_setImage(with: url,
-                               placeholderImage: nil,
+                               placeholderImage: view.imageView.image,
                                options: webImageOptions,
                                context: nil)
   }
