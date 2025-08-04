@@ -52,6 +52,7 @@ fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageReq
 
     if (options.cacheKey != null) {
         result = result.diskCacheKey(options.cacheKey)
+        result = result.memoryCacheKey(options.cacheKey)
     }
 
     return result
