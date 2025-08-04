@@ -25,6 +25,7 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 #include "JHybridImageLoaderSpec.hpp"
 #include "ResizeMode.hpp"
 #include "JResizeMode.hpp"
+#include <string>
 
 namespace margelo::nitro::image {
 
@@ -66,6 +67,15 @@ namespace margelo::nitro::image {
   void JHybridNitroImageViewSpec::setResizeMode(std::optional<ResizeMode> resizeMode) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JResizeMode> /* resizeMode */)>("setResizeMode");
     method(_javaPart, resizeMode.has_value() ? JResizeMode::fromCpp(resizeMode.value()) : nullptr);
+  }
+  std::optional<std::string> JHybridNitroImageViewSpec::getRecyclingKey() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getRecyclingKey");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt;
+  }
+  void JHybridNitroImageViewSpec::setRecyclingKey(const std::optional<std::string>& recyclingKey) {
+    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* recyclingKey */)>("setRecyclingKey");
+    method(_javaPart, recyclingKey.has_value() ? jni::make_jstring(recyclingKey.value()) : nullptr);
   }
 
   // Methods

@@ -25,6 +25,7 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 #include <variant>
 #include <optional>
 #include "ResizeMode.hpp"
+#include <string>
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -76,6 +77,13 @@ namespace margelo::nitro::image {
     }
     inline void setResizeMode(std::optional<ResizeMode> resizeMode) noexcept override {
       _swiftPart.setResizeMode(resizeMode);
+    }
+    inline std::optional<std::string> getRecyclingKey() noexcept override {
+      auto __result = _swiftPart.getRecyclingKey();
+      return __result;
+    }
+    inline void setRecyclingKey(const std::optional<std::string>& recyclingKey) noexcept override {
+      _swiftPart.setRecyclingKey(recyclingKey);
     }
 
   public:

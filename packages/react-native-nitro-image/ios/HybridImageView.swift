@@ -50,6 +50,7 @@ fileprivate extension UIView {
 class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
   let imageView: UIImageView
   let view: UIView
+  private var resetImageBeforeLoad = false
   
   override init() {
     let imageView = CustomImageView()
@@ -59,38 +60,63 @@ class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
     imageView.delegate = self
   }
   
-  var image: (Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_)? = nil {
+  var resizeMode: ResizeMode? {
     didSet {
-      switch image {
-      case .first(let hybridImageSpec):
-        // Specific image
-        guard let image = hybridImageSpec as? NativeImage else {
-          fatalError("Can't set `image` to a type that doesn't conform to `NativeImage`!")
-        }
-        imageView.image = image.uiImage
-      case .second:
-        // Image Loader - trigger a load or drop
-        didSetImageLoader()
-      case nil:
-        // No Image
-        imageView.image = nil
+      Task { @MainActor in
+        self.updateResizeMode()
       }
     }
   }
-
-  var resizeMode: ResizeMode? {
+  var image: (Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_)? = nil {
     didSet {
-      let mode = resizeMode ?? .cover
-      switch mode {
-        case .cover:
-          imageView.contentMode = .scaleAspectFill
-        case .contain:
-          imageView.contentMode = .scaleAspectFit
-        case .stretch:
-          imageView.contentMode = .scaleToFill
-        case .center:
-          imageView.contentMode = .center
+      Task { @MainActor in
+        self.updateImage()
       }
+    }
+  }
+  var recyclingKey: String? {
+    didSet {
+      resetImageBeforeLoad = recyclingKey != oldValue
+    }
+  }
+  
+  private func updateResizeMode() {
+    let mode = resizeMode ?? .cover
+    switch mode {
+    case .cover:
+      imageView.contentMode = .scaleAspectFill
+    case .contain:
+      imageView.contentMode = .scaleAspectFit
+    case .stretch:
+      imageView.contentMode = .scaleToFill
+    case .center:
+      imageView.contentMode = .center
+    }
+  }
+  
+  private func updateImage() {
+    switch image {
+    case .first(let hybridImageSpec):
+      // Specific image
+      guard let image = hybridImageSpec as? NativeImage else {
+        fatalError("Can't set `image` to a type that doesn't conform to `NativeImage`!")
+      }
+      imageView.image = image.uiImage
+    case .second:
+      // Image Loader - trigger a load or drop
+      didSetImageLoader()
+    case nil:
+      // No Image
+      imageView.image = nil
+    }
+  }
+  
+  private func didSetImageLoader() {
+    // An ImageLoader was set - trigger an update (load or drop)
+    if imageView.isVisible {
+      willShow()
+    } else {
+      willHide()
     }
   }
 }
@@ -102,17 +128,12 @@ extension HybridImageView: ViewLifecycleDelegate {
     return hybridImageLoaderSpec
   }
   
-  private func didSetImageLoader() {
-    // An ImageLoader was set - trigger an update (load or drop)
-    if imageView.isVisible {
-      willShow()
-    } else {
-      willHide()
-    }
-  }
-  
   func willShow() {
     guard let imageLoader else { return }
+    if resetImageBeforeLoad {
+      imageView.image = nil
+      resetImageBeforeLoad = false
+    }
     try? imageLoader.requestImage(forView: self)
   }
   

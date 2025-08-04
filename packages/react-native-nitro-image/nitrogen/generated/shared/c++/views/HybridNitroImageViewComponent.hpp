@@ -24,6 +24,8 @@
 #include <optional>
 #include "ResizeMode.hpp"
 #include <optional>
+#include <string>
+#include <optional>
 #include <memory>
 #include "HybridNitroImageViewSpec.hpp"
 #include <functional>
@@ -52,6 +54,7 @@ namespace margelo::nitro::image::views {
   public:
     CachedProp<std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>> image;
     CachedProp<std::optional<ResizeMode>> resizeMode;
+    CachedProp<std::optional<std::string>> recyclingKey;
     CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
 
   private:
