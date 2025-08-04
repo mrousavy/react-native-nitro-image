@@ -2,9 +2,11 @@ package com.margelo.nitro.web.image
 
 import androidx.annotation.Keep
 import coil3.ImageLoader
+import coil3.network.okhttp.OkHttpNetworkFetcherFactory
 import coil3.request.ImageRequest
 import com.facebook.common.internal.DoNotStrip
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.modules.network.OkHttpClientProvider
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.HybridImageLoaderSpec
@@ -15,7 +17,15 @@ import com.margelo.nitro.image.HybridImageSpec
 class HybridWebImageFactory: HybridWebImageFactorySpec() {
     private val context: ReactApplicationContext
         get() = NitroModules.applicationContext ?: throw Error("No context - NitroModules.applicationContext was null!")
-    private val imageLoader = ImageLoader(context)
+    private val imageLoader = ImageLoader.Builder(context)
+        .components {
+            add(
+                OkHttpNetworkFetcherFactory(callFactory = {
+                    OkHttpClientProvider.getOkHttpClient()
+                })
+            )
+        }
+        .build()
 
     override fun createWebImageLoader(
         url: String,
