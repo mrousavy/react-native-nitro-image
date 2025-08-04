@@ -26,6 +26,7 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 #include <variant>
 #include <optional>
 #include "ResizeMode.hpp"
+#include <string>
 
 namespace margelo::nitro::image {
 
@@ -58,6 +59,8 @@ namespace margelo::nitro::image {
       virtual void setImage(const std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>& image) = 0;
       virtual std::optional<ResizeMode> getResizeMode() = 0;
       virtual void setResizeMode(std::optional<ResizeMode> resizeMode) = 0;
+      virtual std::optional<std::string> getRecyclingKey() = 0;
+      virtual void setRecyclingKey(const std::optional<std::string>& recyclingKey) = 0;
 
     public:
       // Methods

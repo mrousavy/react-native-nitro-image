@@ -178,6 +178,29 @@ open class HybridNitroImageViewSpec_cxx {
       self.__implementation.resizeMode = newValue.value
     }
   }
+  
+  public final var recyclingKey: bridge.std__optional_std__string_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__string_ in
+        if let __unwrappedValue = self.__implementation.recyclingKey {
+          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.recyclingKey = { () -> String? in
+        if let __unwrapped = newValue.value {
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
 
   // Methods
   public final func getView() -> UnsafeMutableRawPointer {

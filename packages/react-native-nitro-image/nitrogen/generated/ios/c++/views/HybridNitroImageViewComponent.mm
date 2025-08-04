@@ -81,6 +81,11 @@ using namespace margelo::nitro::image::views;
     swiftPart.setResizeMode(newViewProps.resizeMode.value);
     newViewProps.resizeMode.isDirty = false;
   }
+  // recyclingKey: optional
+  if (newViewProps.recyclingKey.isDirty) {
+    swiftPart.setRecyclingKey(newViewProps.recyclingKey.value);
+    newViewProps.recyclingKey.isDirty = false;
+  }
 
   swiftPart.afterUpdate();
 

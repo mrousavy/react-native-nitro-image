@@ -6,6 +6,7 @@
   "validAttributes": {
     "image": true,
     "resizeMode": true,
+    "recyclingKey": true,
     "hybridRef": true
   }
 }

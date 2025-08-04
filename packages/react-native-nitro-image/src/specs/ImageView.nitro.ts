@@ -38,6 +38,23 @@ export interface NativeNitroImageViewProps extends HybridViewProps {
      * @default 'cover'
      */
     resizeMode?: ResizeMode;
+    /**
+     * A key that uniquely identifies an Image that should be displayed.
+     *
+     * If the {@linkcode recyclingKey} changes, the displayed {@linkcode Image}
+     * will be cleared to display _nothing_, until the next {@linkcode Image}
+     * has been loaded.
+     *
+     * It is recommended to set this to the {@linkcode Image}'s URL in
+     * large lists to prevent the recycled views from displaying
+     * stale {@linkcode Image} instances.
+     * @default undefined
+     * @example
+     * ```tsx
+     * <NitroImage recyclingKey={url} />
+     * ```
+     */
+    recyclingKey?: string
 }
 
 export interface NativeNitroImageViewMethods extends HybridViewMethods {

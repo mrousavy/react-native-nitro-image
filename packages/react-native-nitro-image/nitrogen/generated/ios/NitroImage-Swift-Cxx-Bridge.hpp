@@ -424,5 +424,14 @@ namespace margelo::nitro::image::bridge::swift {
   inline std::optional<ResizeMode> create_std__optional_ResizeMode_(const ResizeMode& value) {
     return std::optional<ResizeMode>(value);
   }
+  
+  // pragma MARK: std::optional<std::string>
+  /**
+   * Specialized version of `std::optional<std::string>`.
+   */
+  using std__optional_std__string_ = std::optional<std::string>;
+  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) {
+    return std::optional<std::string>(value);
+  }
 
 } // namespace margelo::nitro::image::bridge::swift
