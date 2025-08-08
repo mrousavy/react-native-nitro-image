@@ -42,8 +42,9 @@ class HybridImage: HybridImageSpec {
             bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, false)
         }
 
-        val buffer = ByteBuffer.allocate(bitmap.byteCount)
+        val buffer = ByteBuffer.allocateDirect(bitmap.byteCount)
         bitmap.copyPixelsToBuffer(buffer)
+        buffer.rewind()
         return buffer
     }
 
