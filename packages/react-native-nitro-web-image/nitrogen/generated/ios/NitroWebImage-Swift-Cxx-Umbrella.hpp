@@ -18,11 +18,14 @@ namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridWebImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridWebImageFactorySpec; }
+// Forward declaration of `StringHolder` to properly resolve imports.
+namespace margelo::nitro::web::image { struct StringHolder; }
 
 // Include C++ defined types
 #include "AsyncImageLoadOptions.hpp"
 #include "AsyncImagePriority.hpp"
 #include "HybridWebImageFactorySpec.hpp"
+#include "StringHolder.hpp"
 #include <NitroImage/HybridImageLoaderSpec.hpp>
 #include <NitroImage/HybridImageSpec.hpp>
 #include <NitroModules/Promise.hpp>

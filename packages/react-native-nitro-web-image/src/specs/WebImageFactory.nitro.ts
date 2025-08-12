@@ -3,6 +3,10 @@ import type { HybridObject } from "react-native-nitro-modules";
 
 export type AsyncImagePriority = "low" | "default" | "high";
 
+export type StringHolder = {
+    value: string;
+}
+
 export interface AsyncImageLoadOptions {
     /**
      * Specifies the priority of the image download.
@@ -22,7 +26,7 @@ export interface AsyncImageLoadOptions {
      * For customized access control/caching, provide a custom cache key.
      * @default The URL of the image.
      */
-    cacheKey?: string;
+    cacheKey?: StringHolder;
 
     /**
      * Allows the Image download to continue even when the app is backgrounded.
