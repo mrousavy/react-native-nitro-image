@@ -1,9 +1,9 @@
+import type { Image, ImageLoader } from "react-native-nitro-image";
 import { NitroModules } from "react-native-nitro-modules";
 import type {
     AsyncImageLoadOptions as NativeAsyncImageLoadOptions,
     WebImageFactory,
 } from "./specs/WebImageFactory.nitro";
-import type { Image, ImageLoader } from "react-native-nitro-image";
 
 const WebImagesNative =
     NitroModules.createHybridObject<WebImageFactory>("WebImageFactory");

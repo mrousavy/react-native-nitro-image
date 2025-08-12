@@ -5,7 +5,7 @@ export type AsyncImagePriority = "low" | "default" | "high";
 
 export type StringHolder = {
     value: string;
-}
+};
 
 export interface AsyncImageLoadOptions {
     /**
