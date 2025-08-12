@@ -23,7 +23,7 @@ data class AsyncImageLoadOptions
   constructor(
     val priority: AsyncImagePriority?,
     val forceRefresh: Boolean?,
-    val cacheKey: String?,
+    val cacheKey: StringHolder?,
     val continueInBackground: Boolean?,
     val allowInvalidSSLCertificates: Boolean?,
     val scaleDownLargeImages: Boolean?,

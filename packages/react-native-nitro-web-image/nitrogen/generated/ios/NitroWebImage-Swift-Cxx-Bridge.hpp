@@ -18,6 +18,8 @@ namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridWebImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::web::image { class HybridWebImageFactorySpec; }
+// Forward declaration of `StringHolder` to properly resolve imports.
+namespace margelo::nitro::web::image { struct StringHolder; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridImageLoaderSpec_cxx` to properly resolve imports.
@@ -31,6 +33,7 @@ namespace NitroWebImage { class HybridWebImageFactorySpec_cxx; }
 #include "AsyncImageLoadOptions.hpp"
 #include "AsyncImagePriority.hpp"
 #include "HybridWebImageFactorySpec.hpp"
+#include "StringHolder.hpp"
 #include <NitroImage/HybridImageLoaderSpec.hpp>
 #include <NitroImage/HybridImageSpec.hpp>
 #include <NitroModules/Promise.hpp>
@@ -78,13 +81,13 @@ namespace margelo::nitro::web::image::bridge::swift {
     return std::optional<bool>(value);
   }
   
-  // pragma MARK: std::optional<std::string>
+  // pragma MARK: std::optional<StringHolder>
   /**
-   * Specialized version of `std::optional<std::string>`.
+   * Specialized version of `std::optional<StringHolder>`.
    */
-  using std__optional_std__string_ = std::optional<std::string>;
-  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) {
-    return std::optional<std::string>(value);
+  using std__optional_StringHolder_ = std::optional<StringHolder>;
+  inline std::optional<StringHolder> create_std__optional_StringHolder_(const StringHolder& value) {
+    return std::optional<StringHolder>(value);
   }
   
   // pragma MARK: std::optional<AsyncImageLoadOptions>

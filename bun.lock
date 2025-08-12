@@ -49,7 +49,7 @@
     },
     "packages/react-native-nitro-image": {
       "name": "react-native-nitro-image",
-      "version": "0.5.2",
+      "version": "0.5.3",
       "devDependencies": {
         "@biomejs/biome": "2.1.1",
         "@types/react": "^19.0.6",
@@ -67,7 +67,7 @@
     },
     "packages/react-native-nitro-web-image": {
       "name": "react-native-nitro-web-image",
-      "version": "0.5.2",
+      "version": "0.5.3",
       "devDependencies": {
         "@biomejs/biome": "2.1.1",
         "@types/react": "^19.0.6",

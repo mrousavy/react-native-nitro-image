@@ -57,7 +57,7 @@ extension AsyncImageLoadOptions {
 
     if let cacheKey {
       context[.cacheKeyFilter] = SDWebImageCacheKeyFilter { _ in
-        return cacheKey
+        return cacheKey.value
       }
     }
 
