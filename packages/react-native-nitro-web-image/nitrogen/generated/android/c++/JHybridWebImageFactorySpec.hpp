@@ -29,6 +29,7 @@ namespace margelo::nitro::web::image {
     // C++ constructor (called from Java via `initHybrid()`)
     explicit JHybridWebImageFactorySpec(jni::alias_ref<jhybridobject> jThis) :
       HybridObject(HybridWebImageFactorySpec::TAG),
+      HybridBase(jThis),
       _javaPart(jni::make_global(jThis)) {}
 
   public:

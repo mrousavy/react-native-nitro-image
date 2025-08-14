@@ -15,7 +15,6 @@ namespace NitroModules { class ArrayBuffer; }
 #include <memory>
 #include "HybridImageLoaderSpec.hpp"
 #include "JHybridImageLoaderSpec.hpp"
-#include <NitroModules/JNISharedPtr.hpp>
 #include <string>
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/JArrayBuffer.hpp>
@@ -47,25 +46,25 @@ namespace margelo::nitro::image {
   
 
   // Methods
-  std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createFileImageLoader(const std::string& filePath) {
+  std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createFileImageLoader(const std::string& filePath) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* filePath */)>("createFileImageLoader");
     auto __result = method(_javaPart, jni::make_jstring(filePath));
-    return JNISharedPtr::make_shared_from_jni<JHybridImageLoaderSpec>(jni::make_global(__result));
+    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
   }
-  std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createResourceImageLoader(const std::string& name) {
+  std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createResourceImageLoader(const std::string& name) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* name */)>("createResourceImageLoader");
     auto __result = method(_javaPart, jni::make_jstring(name));
-    return JNISharedPtr::make_shared_from_jni<JHybridImageLoaderSpec>(jni::make_global(__result));
+    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
   }
-  std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createSymbolImageLoader(const std::string& symbolName) {
+  std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createSymbolImageLoader(const std::string& symbolName) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* symbolName */)>("createSymbolImageLoader");
     auto __result = method(_javaPart, jni::make_jstring(symbolName));
-    return JNISharedPtr::make_shared_from_jni<JHybridImageLoaderSpec>(jni::make_global(__result));
+    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
   }
-  std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) {
+  std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("createArrayBufferImageLoader");
     auto __result = method(_javaPart, JArrayBuffer::wrap(buffer));
-    return JNISharedPtr::make_shared_from_jni<JHybridImageLoaderSpec>(jni::make_global(__result));
+    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
   }
 
 } // namespace margelo::nitro::image

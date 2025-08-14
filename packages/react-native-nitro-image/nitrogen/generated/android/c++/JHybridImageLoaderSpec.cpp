@@ -17,7 +17,6 @@ namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
 #include "JHybridImageSpec.hpp"
-#include <NitroModules/JNISharedPtr.hpp>
 #include "HybridNitroImageViewSpec.hpp"
 #include "JHybridNitroImageViewSpec.hpp"
 
@@ -47,14 +46,14 @@ namespace margelo::nitro::image {
   
 
   // Methods
-  std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridImageLoaderSpec::loadImage() {
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageLoaderSpec::loadImage() {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("loadImage");
     auto __result = method(_javaPart);
     return [&]() {
-      auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
+      auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
         auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(__result)));
+        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -63,11 +62,11 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
-  void JHybridImageLoaderSpec::requestImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) {
+  void JHybridImageLoaderSpec::requestImage(const std::shared_ptr<HybridNitroImageViewSpec>& forView) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JHybridNitroImageViewSpec::javaobject> /* forView */)>("requestImage");
     method(_javaPart, std::dynamic_pointer_cast<JHybridNitroImageViewSpec>(forView)->getJavaPart());
   }
-  void JHybridImageLoaderSpec::dropImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) {
+  void JHybridImageLoaderSpec::dropImage(const std::shared_ptr<HybridNitroImageViewSpec>& forView) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JHybridNitroImageViewSpec::javaobject> /* forView */)>("dropImage");
     method(_javaPart, std::dynamic_pointer_cast<JHybridNitroImageViewSpec>(forView)->getJavaPart());
   }

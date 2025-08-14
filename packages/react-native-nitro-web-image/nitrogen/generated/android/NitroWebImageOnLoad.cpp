@@ -16,7 +16,6 @@
 #include <NitroModules/HybridObjectRegistry.hpp>
 
 #include "JHybridWebImageFactorySpec.hpp"
-#include <NitroModules/JNISharedPtr.hpp>
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::web::image {
@@ -37,7 +36,7 @@ int initialize(JavaVM* vm) {
         static DefaultConstructableObject<JHybridWebImageFactorySpec::javaobject> object("com/margelo/nitro/web/image/HybridWebImageFactory");
         auto instance = object.create();
         auto globalRef = jni::make_global(instance);
-        return JNISharedPtr::make_shared_from_jni<JHybridWebImageFactorySpec>(globalRef);
+        return globalRef->cthis()->shared();
       }
     );
   });

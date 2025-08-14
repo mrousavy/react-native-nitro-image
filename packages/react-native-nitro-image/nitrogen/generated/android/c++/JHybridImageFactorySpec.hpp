@@ -29,6 +29,7 @@ namespace margelo::nitro::image {
     // C++ constructor (called from Java via `initHybrid()`)
     explicit JHybridImageFactorySpec(jni::alias_ref<jhybridobject> jThis) :
       HybridObject(HybridImageFactorySpec::TAG),
+      HybridBase(jThis),
       _javaPart(jni::make_global(jThis)) {}
 
   public:
@@ -52,15 +53,15 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromFile(const std::string& filePath) override;
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) override;
-    std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) override;
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromResourcesAsync(const std::string& name) override;
-    std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromSymbol(const std::string& symbolName) override;
-    std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) override;
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) override;
-    std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
+    std::shared_ptr<HybridImageSpec> loadFromFile(const std::string& filePath) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) override;
+    std::shared_ptr<HybridImageSpec> loadFromResources(const std::string& name) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromResourcesAsync(const std::string& name) override;
+    std::shared_ptr<HybridImageSpec> loadFromSymbol(const std::string& symbolName) override;
+    std::shared_ptr<HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) override;
+    std::shared_ptr<HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
 
   private:
     friend HybridBase;

@@ -164,17 +164,17 @@ namespace margelo::nitro::web::image::bridge::swift {
     return Func_void_std__exception_ptr_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::shared_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec>
+  // pragma MARK: std::shared_ptr<HybridWebImageFactorySpec>
   /**
-   * Specialized version of `std::shared_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec>`.
+   * Specialized version of `std::shared_ptr<HybridWebImageFactorySpec>`.
    */
-  using std__shared_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_ = std::shared_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec>;
-  std::shared_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec> create_std__shared_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_(void* _Nonnull swiftUnsafePointer);
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_(std__shared_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_ cppType);
+  using std__shared_ptr_HybridWebImageFactorySpec_ = std::shared_ptr<HybridWebImageFactorySpec>;
+  std::shared_ptr<HybridWebImageFactorySpec> create_std__shared_ptr_HybridWebImageFactorySpec_(void* _Nonnull swiftUnsafePointer);
+  void* _Nonnull get_std__shared_ptr_HybridWebImageFactorySpec_(std__shared_ptr_HybridWebImageFactorySpec_ cppType);
   
-  // pragma MARK: std::weak_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec>
-  using std__weak_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_ = std::weak_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec>;
-  inline std__weak_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_ weakify_std__shared_ptr_margelo__nitro__web__image__HybridWebImageFactorySpec_(const std::shared_ptr<margelo::nitro::web::image::HybridWebImageFactorySpec>& strong) { return strong; }
+  // pragma MARK: std::weak_ptr<HybridWebImageFactorySpec>
+  using std__weak_ptr_HybridWebImageFactorySpec_ = std::weak_ptr<HybridWebImageFactorySpec>;
+  inline std__weak_ptr_HybridWebImageFactorySpec_ weakify_std__shared_ptr_HybridWebImageFactorySpec_(const std::shared_ptr<HybridWebImageFactorySpec>& strong) { return strong; }
   
   // pragma MARK: Result<std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>
   using Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ = Result<std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>;

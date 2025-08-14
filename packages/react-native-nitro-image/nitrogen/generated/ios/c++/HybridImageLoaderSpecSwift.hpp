@@ -63,7 +63,7 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImage() override {
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadImage() override {
       auto __result = _swiftPart.loadImage();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
@@ -71,13 +71,13 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline void requestImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) override {
+    inline void requestImage(const std::shared_ptr<HybridNitroImageViewSpec>& forView) override {
       auto __result = _swiftPart.requestImage(forView);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
     }
-    inline void dropImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) override {
+    inline void dropImage(const std::shared_ptr<HybridNitroImageViewSpec>& forView) override {
       auto __result = _swiftPart.dropImage(forView);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());

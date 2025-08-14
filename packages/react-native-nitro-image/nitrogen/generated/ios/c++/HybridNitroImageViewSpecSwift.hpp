@@ -64,11 +64,11 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
-    inline std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>> getImage() noexcept override {
+    inline std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> getImage() noexcept override {
       auto __result = _swiftPart.getImage();
       return __result;
     }
-    inline void setImage(const std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>& image) noexcept override {
+    inline void setImage(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& image) noexcept override {
       _swiftPart.setImage(image);
     }
     inline std::optional<ResizeMode> getResizeMode() noexcept override {

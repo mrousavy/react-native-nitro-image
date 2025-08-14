@@ -66,7 +66,7 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createFileImageLoader(const std::string& filePath) override {
+    inline std::shared_ptr<HybridImageLoaderSpec> createFileImageLoader(const std::string& filePath) override {
       auto __result = _swiftPart.createFileImageLoader(filePath);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
@@ -74,7 +74,7 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createResourceImageLoader(const std::string& name) override {
+    inline std::shared_ptr<HybridImageLoaderSpec> createResourceImageLoader(const std::string& name) override {
       auto __result = _swiftPart.createResourceImageLoader(name);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
@@ -82,7 +82,7 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createSymbolImageLoader(const std::string& symbolName) override {
+    inline std::shared_ptr<HybridImageLoaderSpec> createSymbolImageLoader(const std::string& symbolName) override {
       auto __result = _swiftPart.createSymbolImageLoader(symbolName);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
@@ -90,7 +90,7 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) override {
+    inline std::shared_ptr<HybridImageLoaderSpec> createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) override {
       auto __result = _swiftPart.createArrayBufferImageLoader(ArrayBufferHolder(buffer));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());

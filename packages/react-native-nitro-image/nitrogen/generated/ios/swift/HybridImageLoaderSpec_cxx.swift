@@ -33,7 +33,7 @@ open class HybridImageLoaderSpec_cxx {
   /**
    * Holds a weak pointer to the C++ class that wraps the Swift class.
    */
-  private var __cxxPart: bridge.std__weak_ptr_margelo__nitro__image__HybridImageLoaderSpec_
+  private var __cxxPart: bridge.std__weak_ptr_HybridImageLoaderSpec_
 
   /**
    * Create a new `HybridImageLoaderSpec_cxx` that wraps the given `HybridImageLoaderSpec`.
@@ -72,15 +72,15 @@ open class HybridImageLoaderSpec_cxx {
 
   /**
    * Gets (or creates) the C++ part of this Hybrid Object.
-   * The C++ part is a `std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>`.
+   * The C++ part is a `std::shared_ptr<HybridImageLoaderSpec>`.
    */
-  public func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ {
+  public func getCxxPart() -> bridge.std__shared_ptr_HybridImageLoaderSpec_ {
     let cachedCxxPart = self.__cxxPart.lock()
     if cachedCxxPart.__convertToBool() {
       return cachedCxxPart
     } else {
-      let newCxxPart = bridge.create_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(self.toUnsafe())
-      __cxxPart = bridge.weakify_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(newCxxPart)
+      let newCxxPart = bridge.create_std__shared_ptr_HybridImageLoaderSpec_(self.toUnsafe())
+      __cxxPart = bridge.weakify_std__shared_ptr_HybridImageLoaderSpec_(newCxxPart)
       return newCxxPart
     }
   }
@@ -110,32 +110,32 @@ open class HybridImageLoaderSpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func loadImage() -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
+  public final func loadImage() -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____ {
     do {
       let __result = try self.__implementation.loadImage()
-      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in
-        let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___()
-        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___(__promise)
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___ in
+        let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___(__promise)
         __result
-          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
+          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__shared_ptr_HybridImageSpec_ in
               let __cxxWrapped = __result.getCxxWrapper()
               return __cxxWrapped.getCxxPart()
             }()) })
           .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
         return __promise
       }()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func requestImage(forView: bridge.std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_) -> bridge.Result_void_ {
+  public final func requestImage(forView: bridge.std__shared_ptr_HybridNitroImageViewSpec_) -> bridge.Result_void_ {
     do {
       try self.__implementation.requestImage(forView: { () -> HybridNitroImageViewSpec in
-        let __unsafePointer = bridge.get_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(forView)
+        let __unsafePointer = bridge.get_std__shared_ptr_HybridNitroImageViewSpec_(forView)
         let __instance = HybridNitroImageViewSpec_cxx.fromUnsafe(__unsafePointer)
         return __instance.getHybridNitroImageViewSpec()
       }())
@@ -147,10 +147,10 @@ open class HybridImageLoaderSpec_cxx {
   }
   
   @inline(__always)
-  public final func dropImage(forView: bridge.std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_) -> bridge.Result_void_ {
+  public final func dropImage(forView: bridge.std__shared_ptr_HybridNitroImageViewSpec_) -> bridge.Result_void_ {
     do {
       try self.__implementation.dropImage(forView: { () -> HybridNitroImageViewSpec in
-        let __unsafePointer = bridge.get_std__shared_ptr_margelo__nitro__image__HybridNitroImageViewSpec_(forView)
+        let __unsafePointer = bridge.get_std__shared_ptr_HybridNitroImageViewSpec_(forView)
         let __instance = HybridNitroImageViewSpec_cxx.fromUnsafe(__unsafePointer)
         return __instance.getHybridNitroImageViewSpec()
       }())

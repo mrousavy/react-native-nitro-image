@@ -55,15 +55,15 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromFile(const std::string& filePath) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) = 0;
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromResources(const std::string& name) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromResourcesAsync(const std::string& name) = 0;
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromSymbol(const std::string& symbolName) = 0;
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromFile(const std::string& filePath) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromResources(const std::string& name) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromResourcesAsync(const std::string& name) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromSymbol(const std::string& symbolName) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
 
     protected:
       // Hybrid Setup

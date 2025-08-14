@@ -51,15 +51,13 @@ namespace margelo::nitro::web::image {
 
 namespace margelo::nitro {
 
-  using namespace margelo::nitro::web::image;
-
   // C++ AsyncImageLoadOptions <> JS AsyncImageLoadOptions (object)
   template <>
-  struct JSIConverter<AsyncImageLoadOptions> final {
-    static inline AsyncImageLoadOptions fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::web::image::AsyncImageLoadOptions> final {
+    static inline margelo::nitro::web::image::AsyncImageLoadOptions fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
-      return AsyncImageLoadOptions(
-        JSIConverter<std::optional<AsyncImagePriority>>::fromJSI(runtime, obj.getProperty(runtime, "priority")),
+      return margelo::nitro::web::image::AsyncImageLoadOptions(
+        JSIConverter<std::optional<margelo::nitro::web::image::AsyncImagePriority>>::fromJSI(runtime, obj.getProperty(runtime, "priority")),
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, "forceRefresh")),
         JSIConverter<std::optional<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "cacheKey")),
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, "continueInBackground")),
@@ -70,9 +68,9 @@ namespace margelo::nitro {
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, "decodeImage"))
       );
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, const AsyncImageLoadOptions& arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::web::image::AsyncImageLoadOptions& arg) {
       jsi::Object obj(runtime);
-      obj.setProperty(runtime, "priority", JSIConverter<std::optional<AsyncImagePriority>>::toJSI(runtime, arg.priority));
+      obj.setProperty(runtime, "priority", JSIConverter<std::optional<margelo::nitro::web::image::AsyncImagePriority>>::toJSI(runtime, arg.priority));
       obj.setProperty(runtime, "forceRefresh", JSIConverter<std::optional<bool>>::toJSI(runtime, arg.forceRefresh));
       obj.setProperty(runtime, "cacheKey", JSIConverter<std::optional<std::string>>::toJSI(runtime, arg.cacheKey));
       obj.setProperty(runtime, "continueInBackground", JSIConverter<std::optional<bool>>::toJSI(runtime, arg.continueInBackground));
@@ -88,7 +86,7 @@ namespace margelo::nitro {
         return false;
       }
       jsi::Object obj = value.getObject(runtime);
-      if (!JSIConverter<std::optional<AsyncImagePriority>>::canConvert(runtime, obj.getProperty(runtime, "priority"))) return false;
+      if (!JSIConverter<std::optional<margelo::nitro::web::image::AsyncImagePriority>>::canConvert(runtime, obj.getProperty(runtime, "priority"))) return false;
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, "forceRefresh"))) return false;
       if (!JSIConverter<std::optional<std::string>>::canConvert(runtime, obj.getProperty(runtime, "cacheKey"))) return false;
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, "continueInBackground"))) return false;

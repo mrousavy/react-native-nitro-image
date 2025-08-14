@@ -22,7 +22,6 @@
 #include "JHybridImageUtilsSpec.hpp"
 #include "JHybridNitroImageViewSpec.hpp"
 #include "views/JHybridNitroImageViewStateUpdater.hpp"
-#include <NitroModules/JNISharedPtr.hpp>
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::image {
@@ -49,7 +48,7 @@ int initialize(JavaVM* vm) {
         static DefaultConstructableObject<JHybridImageFactorySpec::javaobject> object("com/margelo/nitro/image/HybridImageFactory");
         auto instance = object.create();
         auto globalRef = jni::make_global(instance);
-        return JNISharedPtr::make_shared_from_jni<JHybridImageFactorySpec>(globalRef);
+        return globalRef->cthis()->shared();
       }
     );
     HybridObjectRegistry::registerHybridObjectConstructor(
@@ -58,7 +57,7 @@ int initialize(JavaVM* vm) {
         static DefaultConstructableObject<JHybridImageLoaderFactorySpec::javaobject> object("com/margelo/nitro/image/HybridImageLoaderFactory");
         auto instance = object.create();
         auto globalRef = jni::make_global(instance);
-        return JNISharedPtr::make_shared_from_jni<JHybridImageLoaderFactorySpec>(globalRef);
+        return globalRef->cthis()->shared();
       }
     );
     HybridObjectRegistry::registerHybridObjectConstructor(
@@ -67,7 +66,7 @@ int initialize(JavaVM* vm) {
         static DefaultConstructableObject<JHybridImageUtilsSpec::javaobject> object("com/margelo/nitro/image/HybridImageUtils");
         auto instance = object.create();
         auto globalRef = jni::make_global(instance);
-        return JNISharedPtr::make_shared_from_jni<JHybridImageUtilsSpec>(globalRef);
+        return globalRef->cthis()->shared();
       }
     );
     HybridObjectRegistry::registerHybridObjectConstructor(
@@ -76,7 +75,7 @@ int initialize(JavaVM* vm) {
         static DefaultConstructableObject<JHybridNitroImageViewSpec::javaobject> object("com/margelo/nitro/image/HybridImageView");
         auto instance = object.create();
         auto globalRef = jni::make_global(instance);
-        return JNISharedPtr::make_shared_from_jni<JHybridNitroImageViewSpec>(globalRef);
+        return globalRef->cthis()->shared();
       }
     );
   });

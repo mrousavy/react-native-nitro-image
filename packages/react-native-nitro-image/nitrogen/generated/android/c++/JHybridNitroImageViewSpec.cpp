@@ -21,7 +21,6 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 #include <optional>
 #include "JVariant_HybridImageSpec_HybridImageLoaderSpec.hpp"
 #include "JHybridImageSpec.hpp"
-#include <NitroModules/JNISharedPtr.hpp>
 #include "JHybridImageLoaderSpec.hpp"
 #include "ResizeMode.hpp"
 #include "JResizeMode.hpp"
@@ -50,12 +49,12 @@ namespace margelo::nitro::image {
   }
 
   // Properties
-  std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>> JHybridNitroImageViewSpec::getImage() {
+  std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> JHybridNitroImageViewSpec::getImage() {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec>()>("getImage");
     auto __result = method(_javaPart);
     return __result != nullptr ? std::make_optional(__result->toCpp()) : std::nullopt;
   }
-  void JHybridNitroImageViewSpec::setImage(const std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>& image) {
+  void JHybridNitroImageViewSpec::setImage(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& image) {
     static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> /* image */)>("setImage");
     method(_javaPart, image.has_value() ? JVariant_HybridImageSpec_HybridImageLoaderSpec::fromCpp(image.value()) : nullptr);
   }

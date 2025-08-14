@@ -39,28 +39,26 @@ namespace margelo::nitro::image {
 
 namespace margelo::nitro {
 
-  using namespace margelo::nitro::image;
-
   // C++ ResizeMode <> JS ResizeMode (union)
   template <>
-  struct JSIConverter<ResizeMode> final {
-    static inline ResizeMode fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::image::ResizeMode> final {
+    static inline margelo::nitro::image::ResizeMode fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("cover"): return ResizeMode::COVER;
-        case hashString("contain"): return ResizeMode::CONTAIN;
-        case hashString("center"): return ResizeMode::CENTER;
-        case hashString("stretch"): return ResizeMode::STRETCH;
+        case hashString("cover"): return margelo::nitro::image::ResizeMode::COVER;
+        case hashString("contain"): return margelo::nitro::image::ResizeMode::CONTAIN;
+        case hashString("center"): return margelo::nitro::image::ResizeMode::CENTER;
+        case hashString("stretch"): return margelo::nitro::image::ResizeMode::STRETCH;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum ResizeMode - invalid value!");
       }
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, ResizeMode arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::image::ResizeMode arg) {
       switch (arg) {
-        case ResizeMode::COVER: return JSIConverter<std::string>::toJSI(runtime, "cover");
-        case ResizeMode::CONTAIN: return JSIConverter<std::string>::toJSI(runtime, "contain");
-        case ResizeMode::CENTER: return JSIConverter<std::string>::toJSI(runtime, "center");
-        case ResizeMode::STRETCH: return JSIConverter<std::string>::toJSI(runtime, "stretch");
+        case margelo::nitro::image::ResizeMode::COVER: return JSIConverter<std::string>::toJSI(runtime, "cover");
+        case margelo::nitro::image::ResizeMode::CONTAIN: return JSIConverter<std::string>::toJSI(runtime, "contain");
+        case margelo::nitro::image::ResizeMode::CENTER: return JSIConverter<std::string>::toJSI(runtime, "center");
+        case margelo::nitro::image::ResizeMode::STRETCH: return JSIConverter<std::string>::toJSI(runtime, "stretch");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert ResizeMode to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");

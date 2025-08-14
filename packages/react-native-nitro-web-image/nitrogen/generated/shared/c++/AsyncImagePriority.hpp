@@ -38,26 +38,24 @@ namespace margelo::nitro::web::image {
 
 namespace margelo::nitro {
 
-  using namespace margelo::nitro::web::image;
-
   // C++ AsyncImagePriority <> JS AsyncImagePriority (union)
   template <>
-  struct JSIConverter<AsyncImagePriority> final {
-    static inline AsyncImagePriority fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::web::image::AsyncImagePriority> final {
+    static inline margelo::nitro::web::image::AsyncImagePriority fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("low"): return AsyncImagePriority::LOW;
-        case hashString("default"): return AsyncImagePriority::DEFAULT;
-        case hashString("high"): return AsyncImagePriority::HIGH;
+        case hashString("low"): return margelo::nitro::web::image::AsyncImagePriority::LOW;
+        case hashString("default"): return margelo::nitro::web::image::AsyncImagePriority::DEFAULT;
+        case hashString("high"): return margelo::nitro::web::image::AsyncImagePriority::HIGH;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum AsyncImagePriority - invalid value!");
       }
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, AsyncImagePriority arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::web::image::AsyncImagePriority arg) {
       switch (arg) {
-        case AsyncImagePriority::LOW: return JSIConverter<std::string>::toJSI(runtime, "low");
-        case AsyncImagePriority::DEFAULT: return JSIConverter<std::string>::toJSI(runtime, "default");
-        case AsyncImagePriority::HIGH: return JSIConverter<std::string>::toJSI(runtime, "high");
+        case margelo::nitro::web::image::AsyncImagePriority::LOW: return JSIConverter<std::string>::toJSI(runtime, "low");
+        case margelo::nitro::web::image::AsyncImagePriority::DEFAULT: return JSIConverter<std::string>::toJSI(runtime, "default");
+        case margelo::nitro::web::image::AsyncImagePriority::HIGH: return JSIConverter<std::string>::toJSI(runtime, "high");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert AsyncImagePriority to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");

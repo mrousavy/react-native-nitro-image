@@ -29,6 +29,7 @@ namespace margelo::nitro::image {
     // C++ constructor (called from Java via `initHybrid()`)
     explicit JHybridNitroImageViewSpec(jni::alias_ref<jhybridobject> jThis) :
       HybridObject(HybridNitroImageViewSpec::TAG),
+      HybridBase(jThis),
       _javaPart(jni::make_global(jThis)) {}
 
   public:
@@ -48,8 +49,8 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
-    std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>> getImage() override;
-    void setImage(const std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>& image) override;
+    std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> getImage() override;
+    void setImage(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& image) override;
     std::optional<ResizeMode> getResizeMode() override;
     void setResizeMode(std::optional<ResizeMode> resizeMode) override;
     std::optional<std::string> getRecyclingKey() override;

@@ -29,6 +29,7 @@ namespace margelo::nitro::image {
     // C++ constructor (called from Java via `initHybrid()`)
     explicit JHybridImageLoaderSpec(jni::alias_ref<jhybridobject> jThis) :
       HybridObject(HybridImageLoaderSpec::TAG),
+      HybridBase(jThis),
       _javaPart(jni::make_global(jThis)) {}
 
   public:
@@ -52,9 +53,9 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImage() override;
-    void requestImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) override;
-    void dropImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadImage() override;
+    void requestImage(const std::shared_ptr<HybridNitroImageViewSpec>& forView) override;
+    void dropImage(const std::shared_ptr<HybridNitroImageViewSpec>& forView) override;
 
   private:
     friend HybridBase;
