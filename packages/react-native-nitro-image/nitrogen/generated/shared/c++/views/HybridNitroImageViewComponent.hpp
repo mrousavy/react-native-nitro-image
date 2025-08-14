@@ -52,10 +52,10 @@ namespace margelo::nitro::image::views {
                               const react::RawProps& rawProps);
 
   public:
-    CachedProp<std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>> image;
+    CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> image;
     CachedProp<std::optional<ResizeMode>> resizeMode;
     CachedProp<std::optional<std::string>> recyclingKey;
-    CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
+    CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
 
   private:
     static bool filterObjectKeys(const std::string& propName);
@@ -106,9 +106,9 @@ namespace margelo::nitro::image::views {
     /**
      * A faster path for cloning props - reuses the caching logic from `HybridNitroImageViewProps`.
      */
-    react::Props::Shared cloneProps(const react::PropsParserContext& context,
-                                    const react::Props::Shared& props,
-                                    react::RawProps rawProps) const override;
+    std::shared_ptr<const react::Props> cloneProps(const react::PropsParserContext& context,
+                                                   const std::shared_ptr<const react::Props>& props,
+                                                   react::RawProps rawProps) const override;
 #ifdef ANDROID
     void adopt(react::ShadowNode& shadowNode) const override;
 #endif

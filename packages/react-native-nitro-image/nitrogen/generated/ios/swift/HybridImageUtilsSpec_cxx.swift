@@ -33,7 +33,7 @@ open class HybridImageUtilsSpec_cxx {
   /**
    * Holds a weak pointer to the C++ class that wraps the Swift class.
    */
-  private var __cxxPart: bridge.std__weak_ptr_margelo__nitro__image__HybridImageUtilsSpec_
+  private var __cxxPart: bridge.std__weak_ptr_HybridImageUtilsSpec_
 
   /**
    * Create a new `HybridImageUtilsSpec_cxx` that wraps the given `HybridImageUtilsSpec`.
@@ -72,15 +72,15 @@ open class HybridImageUtilsSpec_cxx {
 
   /**
    * Gets (or creates) the C++ part of this Hybrid Object.
-   * The C++ part is a `std::shared_ptr<margelo::nitro::image::HybridImageUtilsSpec>`.
+   * The C++ part is a `std::shared_ptr<HybridImageUtilsSpec>`.
    */
-  public func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageUtilsSpec_ {
+  public func getCxxPart() -> bridge.std__shared_ptr_HybridImageUtilsSpec_ {
     let cachedCxxPart = self.__cxxPart.lock()
     if cachedCxxPart.__convertToBool() {
       return cachedCxxPart
     } else {
-      let newCxxPart = bridge.create_std__shared_ptr_margelo__nitro__image__HybridImageUtilsSpec_(self.toUnsafe())
-      __cxxPart = bridge.weakify_std__shared_ptr_margelo__nitro__image__HybridImageUtilsSpec_(newCxxPart)
+      let newCxxPart = bridge.create_std__shared_ptr_HybridImageUtilsSpec_(self.toUnsafe())
+      __cxxPart = bridge.weakify_std__shared_ptr_HybridImageUtilsSpec_(newCxxPart)
       return newCxxPart
     }
   }

@@ -21,14 +21,32 @@ data class AsyncImageLoadOptions
   @DoNotStrip
   @Keep
   constructor(
+    @DoNotStrip
+    @Keep
     val priority: AsyncImagePriority?,
+    @DoNotStrip
+    @Keep
     val forceRefresh: Boolean?,
+    @DoNotStrip
+    @Keep
     val cacheKey: String?,
+    @DoNotStrip
+    @Keep
     val continueInBackground: Boolean?,
+    @DoNotStrip
+    @Keep
     val allowInvalidSSLCertificates: Boolean?,
+    @DoNotStrip
+    @Keep
     val scaleDownLargeImages: Boolean?,
+    @DoNotStrip
+    @Keep
     val queryMemoryDataSync: Boolean?,
+    @DoNotStrip
+    @Keep
     val queryDiskDataSync: Boolean?,
+    @DoNotStrip
+    @Keep
     val decodeImage: Boolean?
   ) {
   /* main constructor */

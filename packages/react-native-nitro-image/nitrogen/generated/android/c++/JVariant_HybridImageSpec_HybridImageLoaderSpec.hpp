@@ -15,7 +15,6 @@
 #include "HybridImageLoaderSpec.hpp"
 #include <variant>
 #include "JHybridImageSpec.hpp"
-#include <NitroModules/JNISharedPtr.hpp>
 #include "JHybridImageLoaderSpec.hpp"
 
 namespace margelo::nitro::image {
@@ -38,7 +37,7 @@ namespace margelo::nitro::image {
       return method(javaClassStatic(), value);
     }
 
-    static jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> fromCpp(const std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>& variant) {
+    static jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> fromCpp(const std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>& variant) {
       switch (variant.index()) {
         case 0: return create_0(std::dynamic_pointer_cast<JHybridImageSpec>(std::get<0>(variant))->getJavaPart());
         case 1: return create_1(std::dynamic_pointer_cast<JHybridImageLoaderSpec>(std::get<1>(variant))->getJavaPart());
@@ -46,7 +45,7 @@ namespace margelo::nitro::image {
       }
     }
 
-    [[nodiscard]] std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>> toCpp() const;
+    [[nodiscard]] std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>> toCpp() const;
   };
 
   namespace JVariant_HybridImageSpec_HybridImageLoaderSpec_impl {
@@ -71,13 +70,13 @@ namespace margelo::nitro::image {
     };
   } // namespace JVariant_HybridImageSpec_HybridImageLoaderSpec_impl
 
-  std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>> JVariant_HybridImageSpec_HybridImageLoaderSpec::toCpp() const {
+  std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>> JVariant_HybridImageSpec_HybridImageLoaderSpec::toCpp() const {
     if (isInstanceOf(JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::First::javaClassStatic())) {
       auto jniValue = static_cast<const JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::First*>(this)->getValue();
-      return JNISharedPtr::make_shared_from_jni<JHybridImageSpec>(jni::make_global(jniValue));
+      return jniValue->cthis()->shared_cast<JHybridImageSpec>();
     } else if (isInstanceOf(JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::Second::javaClassStatic())) {
       auto jniValue = static_cast<const JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::Second*>(this)->getValue();
-      return JNISharedPtr::make_shared_from_jni<JHybridImageLoaderSpec>(jni::make_global(jniValue));
+      return jniValue->cthis()->shared_cast<JHybridImageLoaderSpec>();
     }
     throw std::invalid_argument("Variant is unknown Kotlin instance!");
   }

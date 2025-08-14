@@ -19,7 +19,6 @@ namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 #include <memory>
 #include <NitroImage/HybridImageLoaderSpec.hpp>
 #include <NitroImage/JHybridImageLoaderSpec.hpp>
-#include <NitroModules/JNISharedPtr.hpp>
 #include <NitroImage/HybridImageSpec.hpp>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
@@ -60,7 +59,7 @@ namespace margelo::nitro::web::image {
   std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> JHybridWebImageFactorySpec::createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<margelo::nitro::image::JHybridImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("createWebImageLoader");
     auto __result = method(_javaPart, jni::make_jstring(url), options.has_value() ? JAsyncImageLoadOptions::fromCpp(options.value()) : nullptr);
-    return JNISharedPtr::make_shared_from_jni<margelo::nitro::image::JHybridImageLoaderSpec>(jni::make_global(__result));
+    return __result->cthis()->shared_cast<margelo::nitro::image::JHybridImageLoaderSpec>();
   }
   std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridWebImageFactorySpec::loadFromURLAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("loadFromURLAsync");
@@ -69,7 +68,7 @@ namespace margelo::nitro::web::image {
       auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
         auto __result = jni::static_ref_cast<margelo::nitro::image::JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(JNISharedPtr::make_shared_from_jni<margelo::nitro::image::JHybridImageSpec>(jni::make_global(__result)));
+        __promise->resolve(__result->cthis()->shared_cast<margelo::nitro::image::JHybridImageSpec>());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);

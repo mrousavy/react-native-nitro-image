@@ -29,6 +29,7 @@ namespace margelo::nitro::image {
     // C++ constructor (called from Java via `initHybrid()`)
     explicit JHybridImageLoaderFactorySpec(jni::alias_ref<jhybridobject> jThis) :
       HybridObject(HybridImageLoaderFactorySpec::TAG),
+      HybridBase(jThis),
       _javaPart(jni::make_global(jThis)) {}
 
   public:
@@ -52,10 +53,10 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createFileImageLoader(const std::string& filePath) override;
-    std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createResourceImageLoader(const std::string& name) override;
-    std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createSymbolImageLoader(const std::string& symbolName) override;
-    std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) override;
+    std::shared_ptr<HybridImageLoaderSpec> createFileImageLoader(const std::string& filePath) override;
+    std::shared_ptr<HybridImageLoaderSpec> createResourceImageLoader(const std::string& name) override;
+    std::shared_ptr<HybridImageLoaderSpec> createSymbolImageLoader(const std::string& symbolName) override;
+    std::shared_ptr<HybridImageLoaderSpec> createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) override;
 
   private:
     friend HybridBase;

@@ -15,11 +15,7 @@ import com.facebook.proguard.annotations.DoNotStrip
  */
 @DoNotStrip
 @Keep
-enum class ImageFormat {
-  JPG,
-  PNG;
-
-  @DoNotStrip
-  @Keep
-  private val _ordinal = ordinal
+enum class ImageFormat(@DoNotStrip @Keep val value: Int) {
+  JPG(0),
+  PNG(1);
 }

@@ -33,7 +33,7 @@ open class HybridImageLoaderFactorySpec_cxx {
   /**
    * Holds a weak pointer to the C++ class that wraps the Swift class.
    */
-  private var __cxxPart: bridge.std__weak_ptr_margelo__nitro__image__HybridImageLoaderFactorySpec_
+  private var __cxxPart: bridge.std__weak_ptr_HybridImageLoaderFactorySpec_
 
   /**
    * Create a new `HybridImageLoaderFactorySpec_cxx` that wraps the given `HybridImageLoaderFactorySpec`.
@@ -72,15 +72,15 @@ open class HybridImageLoaderFactorySpec_cxx {
 
   /**
    * Gets (or creates) the C++ part of this Hybrid Object.
-   * The C++ part is a `std::shared_ptr<margelo::nitro::image::HybridImageLoaderFactorySpec>`.
+   * The C++ part is a `std::shared_ptr<HybridImageLoaderFactorySpec>`.
    */
-  public func getCxxPart() -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderFactorySpec_ {
+  public func getCxxPart() -> bridge.std__shared_ptr_HybridImageLoaderFactorySpec_ {
     let cachedCxxPart = self.__cxxPart.lock()
     if cachedCxxPart.__convertToBool() {
       return cachedCxxPart
     } else {
-      let newCxxPart = bridge.create_std__shared_ptr_margelo__nitro__image__HybridImageLoaderFactorySpec_(self.toUnsafe())
-      __cxxPart = bridge.weakify_std__shared_ptr_margelo__nitro__image__HybridImageLoaderFactorySpec_(newCxxPart)
+      let newCxxPart = bridge.create_std__shared_ptr_HybridImageLoaderFactorySpec_(self.toUnsafe())
+      __cxxPart = bridge.weakify_std__shared_ptr_HybridImageLoaderFactorySpec_(newCxxPart)
       return newCxxPart
     }
   }
@@ -110,62 +110,62 @@ open class HybridImageLoaderFactorySpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func createFileImageLoader(filePath: std.string) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
+  public final func createFileImageLoader(filePath: std.string) -> bridge.Result_std__shared_ptr_HybridImageLoaderSpec__ {
     do {
       let __result = try self.__implementation.createFileImageLoader(filePath: String(filePath))
-      let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ in
+      let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageLoaderSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
       }()
-      return bridge.create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_HybridImageLoaderSpec__(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_HybridImageLoaderSpec__(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func createResourceImageLoader(name: std.string) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
+  public final func createResourceImageLoader(name: std.string) -> bridge.Result_std__shared_ptr_HybridImageLoaderSpec__ {
     do {
       let __result = try self.__implementation.createResourceImageLoader(name: String(name))
-      let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ in
+      let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageLoaderSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
       }()
-      return bridge.create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_HybridImageLoaderSpec__(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_HybridImageLoaderSpec__(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func createSymbolImageLoader(symbolName: std.string) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
+  public final func createSymbolImageLoader(symbolName: std.string) -> bridge.Result_std__shared_ptr_HybridImageLoaderSpec__ {
     do {
       let __result = try self.__implementation.createSymbolImageLoader(symbolName: String(symbolName))
-      let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ in
+      let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageLoaderSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
       }()
-      return bridge.create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_HybridImageLoaderSpec__(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_HybridImageLoaderSpec__(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func createArrayBufferImageLoader(buffer: ArrayBuffer) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
+  public final func createArrayBufferImageLoader(buffer: ArrayBuffer) -> bridge.Result_std__shared_ptr_HybridImageLoaderSpec__ {
     do {
       let __result = try self.__implementation.createArrayBufferImageLoader(buffer: buffer)
-      let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ in
+      let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageLoaderSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
       }()
-      return bridge.create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_HybridImageLoaderSpec__(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_HybridImageLoaderSpec__(__exceptionPtr)
     }
   }
 }

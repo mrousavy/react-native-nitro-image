@@ -37,24 +37,22 @@ namespace margelo::nitro::image {
 
 namespace margelo::nitro {
 
-  using namespace margelo::nitro::image;
-
   // C++ ImageFormat <> JS ImageFormat (union)
   template <>
-  struct JSIConverter<ImageFormat> final {
-    static inline ImageFormat fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
+  struct JSIConverter<margelo::nitro::image::ImageFormat> final {
+    static inline margelo::nitro::image::ImageFormat fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("jpg"): return ImageFormat::JPG;
-        case hashString("png"): return ImageFormat::PNG;
+        case hashString("jpg"): return margelo::nitro::image::ImageFormat::JPG;
+        case hashString("png"): return margelo::nitro::image::ImageFormat::PNG;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum ImageFormat - invalid value!");
       }
     }
-    static inline jsi::Value toJSI(jsi::Runtime& runtime, ImageFormat arg) {
+    static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::image::ImageFormat arg) {
       switch (arg) {
-        case ImageFormat::JPG: return JSIConverter<std::string>::toJSI(runtime, "jpg");
-        case ImageFormat::PNG: return JSIConverter<std::string>::toJSI(runtime, "png");
+        case margelo::nitro::image::ImageFormat::JPG: return JSIConverter<std::string>::toJSI(runtime, "jpg");
+        case margelo::nitro::image::ImageFormat::PNG: return JSIConverter<std::string>::toJSI(runtime, "png");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert ImageFormat to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");

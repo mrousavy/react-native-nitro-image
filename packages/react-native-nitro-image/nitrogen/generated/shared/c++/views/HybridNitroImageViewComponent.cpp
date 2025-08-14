@@ -25,12 +25,12 @@ namespace margelo::nitro::image::views {
                                                        const HybridNitroImageViewProps& sourceProps,
                                                        const react::RawProps& rawProps):
     react::ViewProps(context, sourceProps, rawProps, filterObjectKeys),
-    image([&]() -> CachedProp<std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>> {
+    image([&]() -> CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("image", nullptr, nullptr);
         if (rawValue == nullptr) return sourceProps.image;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>>::fromRawValue(*runtime, value, sourceProps.image);
+        return CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>>::fromRawValue(*runtime, value, sourceProps.image);
       } catch (const std::exception& exc) {
         throw std::runtime_error(std::string("NitroImageView.image: ") + exc.what());
       }
@@ -55,12 +55,12 @@ namespace margelo::nitro::image::views {
         throw std::runtime_error(std::string("NitroImageView.recyclingKey: ") + exc.what());
       }
     }()),
-    hybridRef([&]() -> CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>> {
+    hybridRef([&]() -> CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("hybridRef", nullptr, nullptr);
         if (rawValue == nullptr) return sourceProps.hybridRef;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<std::function<void(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue(*runtime, value.asObject(*runtime).getProperty(*runtime, "f"), sourceProps.hybridRef);
+        return CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue(*runtime, value.asObject(*runtime).getProperty(*runtime, "f"), sourceProps.hybridRef);
       } catch (const std::exception& exc) {
         throw std::runtime_error(std::string("NitroImageView.hybridRef: ") + exc.what());
       }
@@ -87,9 +87,9 @@ namespace margelo::nitro::image::views {
     : ConcreteComponentDescriptor(parameters,
                                   react::RawPropsParser(/* enableJsiParser */ true)) {}
 
-  react::Props::Shared HybridNitroImageViewComponentDescriptor::cloneProps(const react::PropsParserContext& context,
-                                                                           const react::Props::Shared& props,
-                                                                           react::RawProps rawProps) const {
+  std::shared_ptr<const react::Props> HybridNitroImageViewComponentDescriptor::cloneProps(const react::PropsParserContext& context,
+                                                                                          const std::shared_ptr<const react::Props>& props,
+                                                                                          react::RawProps rawProps) const {
     // 1. Prepare raw props parser
     rawProps.parse(rawPropsParser_);
     // 2. Copy props with Nitro's cached copy constructor

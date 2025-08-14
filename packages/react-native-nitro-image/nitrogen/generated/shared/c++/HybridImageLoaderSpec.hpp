@@ -54,9 +54,9 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> loadImage() = 0;
-      virtual void requestImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) = 0;
-      virtual void dropImage(const std::shared_ptr<margelo::nitro::image::HybridNitroImageViewSpec>& forView) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadImage() = 0;
+      virtual void requestImage(const std::shared_ptr<HybridNitroImageViewSpec>& forView) = 0;
+      virtual void dropImage(const std::shared_ptr<HybridNitroImageViewSpec>& forView) = 0;
 
     protected:
       // Hybrid Setup

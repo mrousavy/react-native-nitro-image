@@ -54,10 +54,10 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createFileImageLoader(const std::string& filePath) = 0;
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createResourceImageLoader(const std::string& name) = 0;
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createSymbolImageLoader(const std::string& symbolName) = 0;
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
+      virtual std::shared_ptr<HybridImageLoaderSpec> createFileImageLoader(const std::string& filePath) = 0;
+      virtual std::shared_ptr<HybridImageLoaderSpec> createResourceImageLoader(const std::string& name) = 0;
+      virtual std::shared_ptr<HybridImageLoaderSpec> createSymbolImageLoader(const std::string& symbolName) = 0;
+      virtual std::shared_ptr<HybridImageLoaderSpec> createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
 
     protected:
       // Hybrid Setup

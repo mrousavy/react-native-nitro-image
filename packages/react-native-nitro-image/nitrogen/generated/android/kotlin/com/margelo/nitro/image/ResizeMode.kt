@@ -15,13 +15,9 @@ import com.facebook.proguard.annotations.DoNotStrip
  */
 @DoNotStrip
 @Keep
-enum class ResizeMode {
-  COVER,
-  CONTAIN,
-  CENTER,
-  STRETCH;
-
-  @DoNotStrip
-  @Keep
-  private val _ordinal = ordinal
+enum class ResizeMode(@DoNotStrip @Keep val value: Int) {
+  COVER(0),
+  CONTAIN(1),
+  CENTER(2),
+  STRETCH(3);
 }

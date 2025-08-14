@@ -29,6 +29,7 @@ namespace margelo::nitro::image {
     // C++ constructor (called from Java via `initHybrid()`)
     explicit JHybridImageSpec(jni::alias_ref<jhybridobject> jThis) :
       HybridObject(HybridImageSpec::TAG),
+      HybridBase(jThis),
       _javaPart(jni::make_global(jThis)) {}
 
   public:
@@ -55,10 +56,10 @@ namespace margelo::nitro::image {
     // Methods
     std::shared_ptr<ArrayBuffer> toArrayBuffer() override;
     std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() override;
-    std::shared_ptr<margelo::nitro::image::HybridImageSpec> resize(double width, double height) override;
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> resizeAsync(double width, double height) override;
-    std::shared_ptr<margelo::nitro::image::HybridImageSpec> crop(double startX, double startY, double endX, double endY) override;
-    std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> cropAsync(double startX, double startY, double endX, double endY) override;
+    std::shared_ptr<HybridImageSpec> resize(double width, double height) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> resizeAsync(double width, double height) override;
+    std::shared_ptr<HybridImageSpec> crop(double startX, double startY, double endX, double endY) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> cropAsync(double startX, double startY, double endX, double endY) override;
     std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, double quality) override;
     std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, double quality) override;
     std::shared_ptr<ArrayBuffer> toThumbHash() override;

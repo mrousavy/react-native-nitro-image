@@ -55,8 +55,8 @@ namespace margelo::nitro::image {
 
     public:
       // Properties
-      virtual std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>> getImage() = 0;
-      virtual void setImage(const std::optional<std::variant<std::shared_ptr<margelo::nitro::image::HybridImageSpec>, std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>>>& image) = 0;
+      virtual std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> getImage() = 0;
+      virtual void setImage(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& image) = 0;
       virtual std::optional<ResizeMode> getResizeMode() = 0;
       virtual void setResizeMode(std::optional<ResizeMode> resizeMode) = 0;
       virtual std::optional<std::string> getRecyclingKey() = 0;

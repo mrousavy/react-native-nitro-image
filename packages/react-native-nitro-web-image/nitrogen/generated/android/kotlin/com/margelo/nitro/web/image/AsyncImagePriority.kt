@@ -15,12 +15,8 @@ import com.facebook.proguard.annotations.DoNotStrip
  */
 @DoNotStrip
 @Keep
-enum class AsyncImagePriority {
-  LOW,
-  DEFAULT,
-  HIGH;
-
-  @DoNotStrip
-  @Keep
-  private val _ordinal = ordinal
+enum class AsyncImagePriority(@DoNotStrip @Keep val value: Int) {
+  LOW(0),
+  DEFAULT(1),
+  HIGH(2);
 }

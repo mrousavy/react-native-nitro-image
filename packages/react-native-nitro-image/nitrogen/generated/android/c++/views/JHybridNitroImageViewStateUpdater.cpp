@@ -8,7 +8,6 @@
 #include "JHybridNitroImageViewStateUpdater.hpp"
 #include "views/HybridNitroImageViewComponent.hpp"
 #include <NitroModules/NitroDefines.hpp>
-#include <NitroModules/JNISharedPtr.hpp>
 
 namespace margelo::nitro::image::views {
 
@@ -55,7 +54,7 @@ void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCla
     // hybridRef changed - call it with new this
     const auto& maybeFunc = props.hybridRef.value;
     if (maybeFunc.has_value()) {
-      auto shared = JNISharedPtr::make_shared_from_jni<JHybridNitroImageViewSpec>(jni::make_global(javaView));
+      std::shared_ptr<JHybridNitroImageViewSpec> shared = javaView->cthis()->shared_cast<JHybridNitroImageViewSpec>();
       maybeFunc.value()(shared);
     }
     // TODO: Set isDirty = false
