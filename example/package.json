@@ -18,7 +18,7 @@
         "react-native-fast-image": "^8.6.3",
         "react-native-nitro-image": "../packages/react-native-nitro-image",
         "react-native-nitro-web-image": "../packages/react-native-nitro-web-image",
-        "react-native-nitro-modules": "^0.27.2",
+        "react-native-nitro-modules": "^0.28.0",
         "react-native-safe-area-context": "^5.5.2",
         "react-native-screens": "^4.13.1"
     },
