@@ -114,7 +114,8 @@ public extension AsyncImageLoadOptions {
     @inline(__always)
     get {
       return { () -> String? in
-        if let __unwrapped = self.__cacheKey.value {
+        if bridge.has_value_std__optional_std__string_(self.__cacheKey) {
+          let __unwrapped = bridge.get_std__optional_std__string_(self.__cacheKey)
           return String(__unwrapped)
         } else {
           return nil

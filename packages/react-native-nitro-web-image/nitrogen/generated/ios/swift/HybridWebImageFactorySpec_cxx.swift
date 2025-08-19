@@ -114,7 +114,8 @@ open class HybridWebImageFactorySpec_cxx {
   public final func createWebImageLoader(url: std.string, options: bridge.std__optional_AsyncImageLoadOptions_) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
     do {
       let __result = try self.__implementation.createWebImageLoader(url: String(url), options: { () -> AsyncImageLoadOptions? in
-        if let __unwrapped = options.value {
+        if bridge.has_value_std__optional_AsyncImageLoadOptions_(options) {
+          let __unwrapped = bridge.get_std__optional_AsyncImageLoadOptions_(options)
           return __unwrapped
         } else {
           return nil
@@ -135,7 +136,8 @@ open class HybridWebImageFactorySpec_cxx {
   public final func loadFromURLAsync(url: std.string, options: bridge.std__optional_AsyncImageLoadOptions_) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
     do {
       let __result = try self.__implementation.loadFromURLAsync(url: String(url), options: { () -> AsyncImageLoadOptions? in
-        if let __unwrapped = options.value {
+        if bridge.has_value_std__optional_AsyncImageLoadOptions_(options) {
+          let __unwrapped = bridge.get_std__optional_AsyncImageLoadOptions_(options)
           return __unwrapped
         } else {
           return nil
