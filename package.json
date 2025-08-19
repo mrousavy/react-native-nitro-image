@@ -2,7 +2,7 @@
   "name": "react-native-nitro-image-monorepo",
   "packageManager": "bun@1.1.42",
   "private": true,
-  "version": "0.5.2",
+  "version": "0.6.1",
   "repository": "https://github.com/mrousavy/react-native-nitro-image.git",
   "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
   "workspaces": [
@@ -24,9 +24,9 @@
     "example": "bun --cwd example"
   },
   "devDependencies": {
-    "@release-it-plugins/workspaces": "^4.2.1",
-    "@release-it/bumper": "^6.0.1",
-    "@release-it/conventional-changelog": "^8.0.2",
+    "@release-it-plugins/workspaces": "^5.0.3",
+    "@release-it/bumper": "^7.0.5",
+    "@release-it/conventional-changelog": "^10.0.1",
     "@tsconfig/react-native": "^2.0.3",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.1.8",
@@ -34,7 +34,7 @@
     "react": "19.1.0",
     "react-native": "0.81.0",
     "react-native-builder-bob": "^0.37.0",
-    "release-it": "^17.11.0",
+    "release-it": "^19.0.4",
     "typescript": "5.8.3"
   },
   "release-it": {
