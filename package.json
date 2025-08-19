@@ -34,7 +34,7 @@
     "react": "19.1.0",
     "react-native": "0.81.0",
     "react-native-builder-bob": "^0.37.0",
-    "release-it": "^17.11.0",
+    "release-it": "^19.0.4",
     "typescript": "5.8.3"
   },
   "release-it": {
