@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { type AsyncImageSource, isHybridObject } from "./AsyncImageSource";
 import { loadImage } from "./loadImage";
+import { markHybridObject } from "./markHybridObject";
 import type { Image } from "./specs/Image.nitro";
 
 type Result =
@@ -41,11 +42,8 @@ export function useImage(source: AsyncImageSource): Result {
                 // 1. Create the Image/ImageLoader instance
                 const result = await loadImage(source);
                 // 2. Add `__source` as a property on the JS side so React diffs properly
-                Object.defineProperty(result, "__source", {
-                    enumerable: true,
-                    configurable: true,
-                    value: source,
-                });
+                markHybridObject(result, source);
+                // 3. Update the state
                 setImage({ image: result, error: undefined });
             } catch (e) {
                 const error = e instanceof Error ? e : new Error(`${e}`);
