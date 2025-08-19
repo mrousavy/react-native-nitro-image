@@ -15,27 +15,27 @@
 namespace margelo::nitro::web::image::bridge::swift {
 
   // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>
-  std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> create_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(void* _Nonnull swiftUnsafePointer) {
+  std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> create_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(void* _Nonnull swiftUnsafePointer) noexcept {
     // Implemented in NitroImage
     return margelo::nitro::image::bridge::swift::create_std__shared_ptr_HybridImageLoaderSpec_(swiftUnsafePointer);
   }
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ cppType) {
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ cppType) noexcept {
     // Implemented in NitroImage
     return margelo::nitro::image::bridge::swift::get_std__shared_ptr_HybridImageLoaderSpec_(cppType);
   }
   
   // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridImageSpec>
-  std::shared_ptr<margelo::nitro::image::HybridImageSpec> create_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(void* _Nonnull swiftUnsafePointer) {
+  std::shared_ptr<margelo::nitro::image::HybridImageSpec> create_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(void* _Nonnull swiftUnsafePointer) noexcept {
     // Implemented in NitroImage
     return margelo::nitro::image::bridge::swift::create_std__shared_ptr_HybridImageSpec_(swiftUnsafePointer);
   }
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(std__shared_ptr_margelo__nitro__image__HybridImageSpec_ cppType) {
+  void* _Nonnull get_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(std__shared_ptr_margelo__nitro__image__HybridImageSpec_ cppType) noexcept {
     // Implemented in NitroImage
     return margelo::nitro::image::bridge::swift::get_std__shared_ptr_HybridImageSpec_(cppType);
   }
   
   // pragma MARK: std::function<void(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& /* result */)>
-  Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_ create_Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(void* _Nonnull swiftClosureWrapper) {
+  Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_ create_Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(void* _Nonnull swiftClosureWrapper) noexcept {
     auto swiftClosure = NitroWebImage::Func_void_std__shared_ptr_margelo__nitro__image__HybridImageSpec_::fromUnsafe(swiftClosureWrapper);
     return [swiftClosure = std::move(swiftClosure)](const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& result) mutable -> void {
       swiftClosure.call(result);
@@ -43,7 +43,7 @@ namespace margelo::nitro::web::image::bridge::swift {
   }
   
   // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
-  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* _Nonnull swiftClosureWrapper) {
+  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* _Nonnull swiftClosureWrapper) noexcept {
     auto swiftClosure = NitroWebImage::Func_void_std__exception_ptr::fromUnsafe(swiftClosureWrapper);
     return [swiftClosure = std::move(swiftClosure)](const std::exception_ptr& error) mutable -> void {
       swiftClosure.call(error);
@@ -51,11 +51,11 @@ namespace margelo::nitro::web::image::bridge::swift {
   }
   
   // pragma MARK: std::shared_ptr<HybridWebImageFactorySpec>
-  std::shared_ptr<HybridWebImageFactorySpec> create_std__shared_ptr_HybridWebImageFactorySpec_(void* _Nonnull swiftUnsafePointer) {
+  std::shared_ptr<HybridWebImageFactorySpec> create_std__shared_ptr_HybridWebImageFactorySpec_(void* _Nonnull swiftUnsafePointer) noexcept {
     NitroWebImage::HybridWebImageFactorySpec_cxx swiftPart = NitroWebImage::HybridWebImageFactorySpec_cxx::fromUnsafe(swiftUnsafePointer);
     return std::make_shared<margelo::nitro::web::image::HybridWebImageFactorySpecSwift>(swiftPart);
   }
-  void* _Nonnull get_std__shared_ptr_HybridWebImageFactorySpec_(std__shared_ptr_HybridWebImageFactorySpec_ cppType) {
+  void* _Nonnull get_std__shared_ptr_HybridWebImageFactorySpec_(std__shared_ptr_HybridWebImageFactorySpec_ cppType) noexcept {
     std::shared_ptr<margelo::nitro::web::image::HybridWebImageFactorySpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::web::image::HybridWebImageFactorySpecSwift>(cppType);
     #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {

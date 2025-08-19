@@ -133,7 +133,8 @@ open class HybridNitroImageViewSpec_cxx {
     @inline(__always)
     set {
       self.__implementation.image = { () -> Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_? in
-        if let __unwrapped = newValue.value {
+        if bridge.has_value_std__optional_std__variant_std__shared_ptr_HybridImageSpec___std__shared_ptr_HybridImageLoaderSpec___(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__variant_std__shared_ptr_HybridImageSpec___std__shared_ptr_HybridImageLoaderSpec___(newValue)
           return { () -> Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_ in
             let __variant = bridge.std__variant_std__shared_ptr_HybridImageSpec___std__shared_ptr_HybridImageLoaderSpec__(__unwrapped)
             switch __variant.index() {
@@ -193,7 +194,8 @@ open class HybridNitroImageViewSpec_cxx {
     @inline(__always)
     set {
       self.__implementation.recyclingKey = { () -> String? in
-        if let __unwrapped = newValue.value {
+        if bridge.has_value_std__optional_std__string_(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__string_(newValue)
           return String(__unwrapped)
         } else {
           return nil
