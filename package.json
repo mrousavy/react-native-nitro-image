@@ -2,7 +2,7 @@
   "name": "react-native-nitro-image-monorepo",
   "packageManager": "bun@1.1.42",
   "private": true,
-  "version": "0.5.2",
+  "version": "0.6.1",
   "repository": "https://github.com/mrousavy/react-native-nitro-image.git",
   "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
   "workspaces": [
