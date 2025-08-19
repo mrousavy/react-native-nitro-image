@@ -37,6 +37,11 @@ export function useImage(source: AsyncImageSource): Result {
 
     // biome-ignore lint: The dependencies array is a bit hacky.
     useEffect(() => {
+        // clear state each time we will load a new image
+        if (image.image || image.error) {
+            setImage({ image: undefined, error: undefined });
+        }
+
         (async () => {
             try {
                 // 1. Create the Image/ImageLoader instance
