@@ -30,10 +30,10 @@ jobs:
       - name: Build the typescript types
         run: bun run build
 
-      - name: Run nitro-codegen for NitroImage
+      - name: Run nitrogen for NitroImage
         run: bun image specs
 
-      - name: Run nitro-codegen for NitroWebImage
+      - name: Run nitrogen for NitroWebImage
         run: bun web-image specs
 
       - name: Verify no files have changed after nitrogen

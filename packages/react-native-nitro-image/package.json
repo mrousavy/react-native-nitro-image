@@ -39,7 +39,7 @@
         "lint-ci": "biome check .",
         "release": "release-it",
         "typescript": "tsc",
-        "specs": "tsc && nitro-codegen --logLevel=\"debug\""
+        "specs": "tsc && nitrogen --logLevel=\"debug\""
     },
     "keywords": [
         "react-native",
@@ -61,10 +61,10 @@
     "devDependencies": {
         "@biomejs/biome": "2.1.1",
         "@types/react": "^19.0.6",
-        "nitro-codegen": "^0.28.1",
+        "nitrogen": "^0.29.4",
         "react": "19.1.0",
         "react-native": "0.81.0",
-        "react-native-nitro-modules": "^0.28.1",
+        "react-native-nitro-modules": "^0.29.4",
         "typescript": "5.8.3"
     },
     "peerDependencies": {
