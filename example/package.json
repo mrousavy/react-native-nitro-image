@@ -1,6 +1,6 @@
 {
     "name": "NitroImageExample",
-    "version": "0.5.2",
+    "version": "0.7.0",
     "private": true,
     "scripts": {
         "android": "react-native run-android",
