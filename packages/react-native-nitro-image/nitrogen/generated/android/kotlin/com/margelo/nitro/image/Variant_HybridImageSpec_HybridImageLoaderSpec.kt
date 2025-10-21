@@ -11,7 +11,7 @@ import com.facebook.proguard.annotations.DoNotStrip
 
 
 /**
- * Represents the TypeScript variant "HybridImageSpec|HybridImageLoaderSpec".
+ * Represents the TypeScript variant "HybridImageSpec | HybridImageLoaderSpec".
  */
 @Suppress("ClassName")
 @DoNotStrip
@@ -21,6 +21,7 @@ sealed class Variant_HybridImageSpec_HybridImageLoaderSpec {
   @DoNotStrip
   data class Second(@DoNotStrip val value: HybridImageLoaderSpec): Variant_HybridImageSpec_HybridImageLoaderSpec()
 
+  @Deprecated("getAs() is not type-safe. Use fold/asFirstOrNull/asSecondOrNull instead.", level = DeprecationLevel.ERROR)
   inline fun <reified T> getAs(): T? = when (this) {
     is First -> value as? T
     is Second -> value as? T
@@ -30,6 +31,22 @@ sealed class Variant_HybridImageSpec_HybridImageLoaderSpec {
     get() = this is First
   val isSecond: Boolean
     get() = this is Second
+
+  fun asFirstOrNull(): HybridImageSpec? {
+    val value = (this as? First)?.value ?: return null
+    return value
+  }
+  fun asSecondOrNull(): HybridImageLoaderSpec? {
+    val value = (this as? Second)?.value ?: return null
+    return value
+  }
+
+  inline fun <R> match(first: (HybridImageSpec) -> R, second: (HybridImageLoaderSpec) -> R): R {
+    return when (this) {
+      is First -> first(value)
+      is Second -> second(value)
+    }
+  }
 
   companion object {
     @JvmStatic

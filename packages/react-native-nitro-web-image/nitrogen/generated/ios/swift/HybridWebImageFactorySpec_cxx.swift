@@ -8,6 +8,7 @@
 import Foundation
 import NitroModules
 import NitroImage
+import NitroModules
 
 /**
  * A class implementation that bridges HybridWebImageFactorySpec over to C++.
@@ -113,14 +114,7 @@ open class HybridWebImageFactorySpec_cxx {
   @inline(__always)
   public final func createWebImageLoader(url: std.string, options: bridge.std__optional_AsyncImageLoadOptions_) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec__ {
     do {
-      let __result = try self.__implementation.createWebImageLoader(url: String(url), options: { () -> AsyncImageLoadOptions? in
-        if bridge.has_value_std__optional_AsyncImageLoadOptions_(options) {
-          let __unwrapped = bridge.get_std__optional_AsyncImageLoadOptions_(options)
-          return __unwrapped
-        } else {
-          return nil
-        }
-      }())
+      let __result = try self.__implementation.createWebImageLoader(url: String(url), options: options.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
@@ -135,14 +129,7 @@ open class HybridWebImageFactorySpec_cxx {
   @inline(__always)
   public final func loadFromURLAsync(url: std.string, options: bridge.std__optional_AsyncImageLoadOptions_) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec____ {
     do {
-      let __result = try self.__implementation.loadFromURLAsync(url: String(url), options: { () -> AsyncImageLoadOptions? in
-        if bridge.has_value_std__optional_AsyncImageLoadOptions_(options) {
-          let __unwrapped = bridge.get_std__optional_AsyncImageLoadOptions_(options)
-          return __unwrapped
-        } else {
-          return nil
-        }
-      }())
+      let __result = try self.__implementation.loadFromURLAsync(url: String(url), options: options.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___ in
         let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_margelo__nitro__image__HybridImageSpec___(__promise)

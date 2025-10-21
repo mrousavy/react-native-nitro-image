@@ -9,7 +9,6 @@ package com.margelo.nitro.web.image
 
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.*
 
 
 /**
@@ -17,37 +16,45 @@ import com.margelo.nitro.core.*
  */
 @DoNotStrip
 @Keep
-data class AsyncImageLoadOptions
+data class AsyncImageLoadOptions(
   @DoNotStrip
   @Keep
-  constructor(
+  val priority: AsyncImagePriority?,
+  @DoNotStrip
+  @Keep
+  val forceRefresh: Boolean?,
+  @DoNotStrip
+  @Keep
+  val cacheKey: String?,
+  @DoNotStrip
+  @Keep
+  val continueInBackground: Boolean?,
+  @DoNotStrip
+  @Keep
+  val allowInvalidSSLCertificates: Boolean?,
+  @DoNotStrip
+  @Keep
+  val scaleDownLargeImages: Boolean?,
+  @DoNotStrip
+  @Keep
+  val queryMemoryDataSync: Boolean?,
+  @DoNotStrip
+  @Keep
+  val queryDiskDataSync: Boolean?,
+  @DoNotStrip
+  @Keep
+  val decodeImage: Boolean?
+) {
+  private companion object {
+    /**
+     * Constructor called from C++
+     */
     @DoNotStrip
     @Keep
-    val priority: AsyncImagePriority?,
-    @DoNotStrip
-    @Keep
-    val forceRefresh: Boolean?,
-    @DoNotStrip
-    @Keep
-    val cacheKey: String?,
-    @DoNotStrip
-    @Keep
-    val continueInBackground: Boolean?,
-    @DoNotStrip
-    @Keep
-    val allowInvalidSSLCertificates: Boolean?,
-    @DoNotStrip
-    @Keep
-    val scaleDownLargeImages: Boolean?,
-    @DoNotStrip
-    @Keep
-    val queryMemoryDataSync: Boolean?,
-    @DoNotStrip
-    @Keep
-    val queryDiskDataSync: Boolean?,
-    @DoNotStrip
-    @Keep
-    val decodeImage: Boolean?
-  ) {
-  /* main constructor */
+    @Suppress("unused")
+    @JvmStatic
+    private fun fromCpp(priority: AsyncImagePriority?, forceRefresh: Boolean?, cacheKey: String?, continueInBackground: Boolean?, allowInvalidSSLCertificates: Boolean?, scaleDownLargeImages: Boolean?, queryMemoryDataSync: Boolean?, queryDiskDataSync: Boolean?, decodeImage: Boolean?): AsyncImageLoadOptions {
+      return AsyncImageLoadOptions(priority, forceRefresh, cacheKey, continueInBackground, allowInvalidSSLCertificates, scaleDownLargeImages, queryMemoryDataSync, queryDiskDataSync, decodeImage)
+    }
+  }
 }

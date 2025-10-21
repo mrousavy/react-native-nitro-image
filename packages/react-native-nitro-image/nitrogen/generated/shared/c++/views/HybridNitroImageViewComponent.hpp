@@ -18,18 +18,13 @@
 
 #include <memory>
 #include "HybridImageSpec.hpp"
-#include <memory>
 #include "HybridImageLoaderSpec.hpp"
 #include <variant>
 #include <optional>
 #include "ResizeMode.hpp"
-#include <optional>
 #include <string>
-#include <optional>
-#include <memory>
 #include "HybridNitroImageViewSpec.hpp"
 #include <functional>
-#include <optional>
 
 namespace margelo::nitro::image::views {
 

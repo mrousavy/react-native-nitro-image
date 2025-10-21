@@ -96,7 +96,14 @@ public extension AsyncImageLoadOptions {
   var forceRefresh: Bool? {
     @inline(__always)
     get {
-      return self.__forceRefresh.value
+      return { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(self.__forceRefresh) {
+          let __unwrapped = bridge.get_std__optional_bool_(self.__forceRefresh)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {
@@ -137,7 +144,14 @@ public extension AsyncImageLoadOptions {
   var continueInBackground: Bool? {
     @inline(__always)
     get {
-      return self.__continueInBackground.value
+      return { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(self.__continueInBackground) {
+          let __unwrapped = bridge.get_std__optional_bool_(self.__continueInBackground)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {
@@ -154,7 +168,14 @@ public extension AsyncImageLoadOptions {
   var allowInvalidSSLCertificates: Bool? {
     @inline(__always)
     get {
-      return self.__allowInvalidSSLCertificates.value
+      return { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(self.__allowInvalidSSLCertificates) {
+          let __unwrapped = bridge.get_std__optional_bool_(self.__allowInvalidSSLCertificates)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {
@@ -171,7 +192,14 @@ public extension AsyncImageLoadOptions {
   var scaleDownLargeImages: Bool? {
     @inline(__always)
     get {
-      return self.__scaleDownLargeImages.value
+      return { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(self.__scaleDownLargeImages) {
+          let __unwrapped = bridge.get_std__optional_bool_(self.__scaleDownLargeImages)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {
@@ -188,7 +216,14 @@ public extension AsyncImageLoadOptions {
   var queryMemoryDataSync: Bool? {
     @inline(__always)
     get {
-      return self.__queryMemoryDataSync.value
+      return { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(self.__queryMemoryDataSync) {
+          let __unwrapped = bridge.get_std__optional_bool_(self.__queryMemoryDataSync)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {
@@ -205,7 +240,14 @@ public extension AsyncImageLoadOptions {
   var queryDiskDataSync: Bool? {
     @inline(__always)
     get {
-      return self.__queryDiskDataSync.value
+      return { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(self.__queryDiskDataSync) {
+          let __unwrapped = bridge.get_std__optional_bool_(self.__queryDiskDataSync)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {
@@ -222,7 +264,14 @@ public extension AsyncImageLoadOptions {
   var decodeImage: Bool? {
     @inline(__always)
     get {
-      return self.__decodeImage.value
+      return { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(self.__decodeImage) {
+          let __unwrapped = bridge.get_std__optional_bool_(self.__decodeImage)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
     @inline(__always)
     set {

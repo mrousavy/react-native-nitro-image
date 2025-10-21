@@ -71,7 +71,11 @@ namespace margelo::nitro::web::image {
      */
     [[maybe_unused]]
     static jni::local_ref<JAsyncImageLoadOptions::javaobject> fromCpp(const AsyncImageLoadOptions& value) {
-      return newInstance(
+      using JSignature = JAsyncImageLoadOptions(jni::alias_ref<JAsyncImagePriority>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JString>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>);
+      static const auto clazz = javaClassStatic();
+      static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
+      return create(
+        clazz,
         value.priority.has_value() ? JAsyncImagePriority::fromCpp(value.priority.value()) : nullptr,
         value.forceRefresh.has_value() ? jni::JBoolean::valueOf(value.forceRefresh.value()) : nullptr,
         value.cacheKey.has_value() ? jni::make_jstring(value.cacheKey.value()) : nullptr,
