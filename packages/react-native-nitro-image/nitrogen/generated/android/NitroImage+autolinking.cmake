@@ -41,6 +41,7 @@ target_sources(
   ../nitrogen/generated/android/c++/JHybridImageLoaderFactorySpec.cpp
   ../nitrogen/generated/android/c++/JHybridImageUtilsSpec.cpp
   ../nitrogen/generated/android/c++/JHybridNitroImageViewSpec.cpp
+  ../nitrogen/generated/android/c++/JVariant_HybridImageSpec_HybridImageLoaderSpec.cpp
   ../nitrogen/generated/android/c++/views/JHybridNitroImageViewStateUpdater.cpp
 )
 

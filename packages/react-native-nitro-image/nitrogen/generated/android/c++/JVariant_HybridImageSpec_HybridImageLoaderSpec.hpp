@@ -69,16 +69,4 @@ namespace margelo::nitro::image {
       }
     };
   } // namespace JVariant_HybridImageSpec_HybridImageLoaderSpec_impl
-
-  std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>> JVariant_HybridImageSpec_HybridImageLoaderSpec::toCpp() const {
-    if (isInstanceOf(JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::First::javaClassStatic())) {
-      auto jniValue = static_cast<const JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::First*>(this)->getValue();
-      return jniValue->cthis()->shared_cast<JHybridImageSpec>();
-    } else if (isInstanceOf(JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::Second::javaClassStatic())) {
-      auto jniValue = static_cast<const JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::Second*>(this)->getValue();
-      return jniValue->cthis()->shared_cast<JHybridImageLoaderSpec>();
-    }
-    throw std::invalid_argument("Variant is unknown Kotlin instance!");
-  }
-
 } // namespace margelo::nitro::image
