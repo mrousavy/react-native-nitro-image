@@ -60,8 +60,18 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
 
     private fun updateImage() {
         image?.match(
-            { actualImage -> imageView.setImageBitmap(actualImage.bitmap) },
-            { imageLoader -> onAppear() }
+            { actualImage ->
+                // Image
+                if (actualImage is HybridImage) {
+                    imageView.setImageBitmap(actualImage.bitmap)
+                } else {
+                    throw Error("Image is a different type than HybridImage!")
+                }
+            },
+            { imageLoader ->
+                // ImageLoader
+                onAppear()
+            }
         )
     }
 
