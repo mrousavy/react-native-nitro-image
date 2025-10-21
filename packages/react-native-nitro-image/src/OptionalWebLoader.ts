@@ -1,4 +1,3 @@
-// @ts-expect-error The import doesn't work if built separately.
 type WebImagesType = typeof import("react-native-nitro-web-image")["WebImages"];
 
 let createWebImageLoader: WebImagesType["createWebImageLoader"] = () => {
