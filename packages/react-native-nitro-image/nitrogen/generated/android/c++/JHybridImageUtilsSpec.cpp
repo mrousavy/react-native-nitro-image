@@ -7,8 +7,7 @@
 
 #include "JHybridImageUtilsSpec.hpp"
 
-// Forward declaration of `ArrayBuffer` to properly resolve imports.
-namespace NitroModules { class ArrayBuffer; }
+
 
 #include <string>
 #include <NitroModules/ArrayBuffer.hpp>

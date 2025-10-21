@@ -10,9 +10,10 @@ package com.margelo.nitro.web.image
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.*
 import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridImageSpec
+import com.margelo.nitro.core.Promise
+import com.margelo.nitro.core.HybridObject
 
 /**
  * A Kotlin class representing the WebImageFactory HybridObject.
@@ -57,6 +58,6 @@ abstract class HybridWebImageFactorySpec: HybridObject() {
   private external fun initHybrid(): HybridData
 
   companion object {
-    private const val TAG = "HybridWebImageFactorySpec"
+    protected const val TAG = "HybridWebImageFactorySpec"
   }
 }

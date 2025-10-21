@@ -9,8 +9,6 @@
 
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageLoaderSpec; }
-// Forward declaration of `ArrayBuffer` to properly resolve imports.
-namespace NitroModules { class ArrayBuffer; }
 
 #include <memory>
 #include "HybridImageLoaderSpec.hpp"

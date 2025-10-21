@@ -8,6 +8,7 @@
 import Foundation
 import NitroModules
 import NitroImage
+import NitroModules
 
 /// See ``HybridWebImageFactorySpec``
 public protocol HybridWebImageFactorySpec_protocol: HybridObject {

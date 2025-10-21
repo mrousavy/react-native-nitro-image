@@ -8,8 +8,6 @@
 #pragma once
 
 // Forward declarations of C++ defined types
-// Forward declaration of `ArrayBuffer` to properly resolve imports.
-namespace NitroModules { class ArrayBuffer; }
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageLoaderFactorySpec` to properly resolve imports.

@@ -58,12 +58,12 @@
         "registry": "https://registry.npmjs.org/"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.1.1",
+        "@biomejs/biome": "2.2.6",
         "@types/react": "^19.0.6",
-        "nitrogen": "^0.29.4",
+        "nitrogen": "0.31.0",
         "react": "19.1.0",
         "react-native": "0.81.0",
-        "react-native-nitro-modules": "^0.29.4",
+        "react-native-nitro-modules": "0.31.0",
         "react-native-nitro-image": "../react-native-nitro-image",
         "typescript": "5.8.3"
     },

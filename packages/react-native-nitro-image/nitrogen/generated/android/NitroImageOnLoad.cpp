@@ -47,8 +47,7 @@ int initialize(JavaVM* vm) {
       []() -> std::shared_ptr<HybridObject> {
         static DefaultConstructableObject<JHybridImageFactorySpec::javaobject> object("com/margelo/nitro/image/HybridImageFactory");
         auto instance = object.create();
-        auto globalRef = jni::make_global(instance);
-        return globalRef->cthis()->shared();
+        return instance->cthis()->shared();
       }
     );
     HybridObjectRegistry::registerHybridObjectConstructor(
@@ -56,8 +55,7 @@ int initialize(JavaVM* vm) {
       []() -> std::shared_ptr<HybridObject> {
         static DefaultConstructableObject<JHybridImageLoaderFactorySpec::javaobject> object("com/margelo/nitro/image/HybridImageLoaderFactory");
         auto instance = object.create();
-        auto globalRef = jni::make_global(instance);
-        return globalRef->cthis()->shared();
+        return instance->cthis()->shared();
       }
     );
     HybridObjectRegistry::registerHybridObjectConstructor(
@@ -65,8 +63,7 @@ int initialize(JavaVM* vm) {
       []() -> std::shared_ptr<HybridObject> {
         static DefaultConstructableObject<JHybridImageUtilsSpec::javaobject> object("com/margelo/nitro/image/HybridImageUtils");
         auto instance = object.create();
-        auto globalRef = jni::make_global(instance);
-        return globalRef->cthis()->shared();
+        return instance->cthis()->shared();
       }
     );
     HybridObjectRegistry::registerHybridObjectConstructor(
@@ -74,8 +71,7 @@ int initialize(JavaVM* vm) {
       []() -> std::shared_ptr<HybridObject> {
         static DefaultConstructableObject<JHybridNitroImageViewSpec::javaobject> object("com/margelo/nitro/image/HybridImageView");
         auto instance = object.create();
-        auto globalRef = jni::make_global(instance);
-        return globalRef->cthis()->shared();
+        return instance->cthis()->shared();
       }
     );
   });

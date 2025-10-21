@@ -10,8 +10,6 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
 namespace NitroModules { class ArrayBufferHolder; }
-// Forward declaration of `ArrayBuffer` to properly resolve imports.
-namespace NitroModules { class ArrayBuffer; }
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageLoaderFactorySpec` to properly resolve imports.
@@ -96,7 +94,7 @@ namespace margelo::nitro::image::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const std::shared_ptr<ArrayBuffer>& /* result */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_std__shared_ptr_ArrayBuffer_ create_Func_void_std__shared_ptr_ArrayBuffer_(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_std__shared_ptr_ArrayBuffer_ create_Func_void_std__shared_ptr_ArrayBuffer_(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_std__shared_ptr_ArrayBuffer__Wrapper wrap_Func_void_std__shared_ptr_ArrayBuffer_(Func_void_std__shared_ptr_ArrayBuffer_ value) noexcept {
     return Func_void_std__shared_ptr_ArrayBuffer__Wrapper(std::move(value));
   }
@@ -118,7 +116,7 @@ namespace margelo::nitro::image::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const std::exception_ptr& /* error */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_std__exception_ptr_Wrapper wrap_Func_void_std__exception_ptr(Func_void_std__exception_ptr value) noexcept {
     return Func_void_std__exception_ptr_Wrapper(std::move(value));
   }
@@ -128,8 +126,8 @@ namespace margelo::nitro::image::bridge::swift {
    * Specialized version of `std::shared_ptr<HybridImageSpec>`.
    */
   using std__shared_ptr_HybridImageSpec_ = std::shared_ptr<HybridImageSpec>;
-  std::shared_ptr<HybridImageSpec> create_std__shared_ptr_HybridImageSpec_(void* _Nonnull swiftUnsafePointer) noexcept;
-  void* _Nonnull get_std__shared_ptr_HybridImageSpec_(std__shared_ptr_HybridImageSpec_ cppType) noexcept;
+  std::shared_ptr<HybridImageSpec> create_std__shared_ptr_HybridImageSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridImageSpec_(std__shared_ptr_HybridImageSpec_ cppType);
   
   // pragma MARK: std::weak_ptr<HybridImageSpec>
   using std__weak_ptr_HybridImageSpec_ = std::weak_ptr<HybridImageSpec>;
@@ -164,7 +162,7 @@ namespace margelo::nitro::image::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const std::shared_ptr<HybridImageSpec>& /* result */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_std__shared_ptr_HybridImageSpec_ create_Func_void_std__shared_ptr_HybridImageSpec_(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_std__shared_ptr_HybridImageSpec_ create_Func_void_std__shared_ptr_HybridImageSpec_(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_std__shared_ptr_HybridImageSpec__Wrapper wrap_Func_void_std__shared_ptr_HybridImageSpec_(Func_void_std__shared_ptr_HybridImageSpec_ value) noexcept {
     return Func_void_std__shared_ptr_HybridImageSpec__Wrapper(std::move(value));
   }
@@ -198,7 +196,7 @@ namespace margelo::nitro::image::bridge::swift {
   private:
     std::unique_ptr<std::function<void()>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void create_Func_void(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_Wrapper wrap_Func_void(Func_void value) noexcept {
     return Func_void_Wrapper(std::move(value));
   }
@@ -232,7 +230,7 @@ namespace margelo::nitro::image::bridge::swift {
   private:
     std::unique_ptr<std::function<void(const std::string& /* result */)>> _function;
   } SWIFT_NONCOPYABLE;
-  Func_void_std__string create_Func_void_std__string(void* _Nonnull swiftClosureWrapper) noexcept;
+  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_std__string_Wrapper wrap_Func_void_std__string(Func_void_std__string value) noexcept {
     return Func_void_std__string_Wrapper(std::move(value));
   }
@@ -296,8 +294,8 @@ namespace margelo::nitro::image::bridge::swift {
    * Specialized version of `std::shared_ptr<HybridImageFactorySpec>`.
    */
   using std__shared_ptr_HybridImageFactorySpec_ = std::shared_ptr<HybridImageFactorySpec>;
-  std::shared_ptr<HybridImageFactorySpec> create_std__shared_ptr_HybridImageFactorySpec_(void* _Nonnull swiftUnsafePointer) noexcept;
-  void* _Nonnull get_std__shared_ptr_HybridImageFactorySpec_(std__shared_ptr_HybridImageFactorySpec_ cppType) noexcept;
+  std::shared_ptr<HybridImageFactorySpec> create_std__shared_ptr_HybridImageFactorySpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridImageFactorySpec_(std__shared_ptr_HybridImageFactorySpec_ cppType);
   
   // pragma MARK: std::weak_ptr<HybridImageFactorySpec>
   using std__weak_ptr_HybridImageFactorySpec_ = std::weak_ptr<HybridImageFactorySpec>;
@@ -308,8 +306,8 @@ namespace margelo::nitro::image::bridge::swift {
    * Specialized version of `std::shared_ptr<HybridNitroImageViewSpec>`.
    */
   using std__shared_ptr_HybridNitroImageViewSpec_ = std::shared_ptr<HybridNitroImageViewSpec>;
-  std::shared_ptr<HybridNitroImageViewSpec> create_std__shared_ptr_HybridNitroImageViewSpec_(void* _Nonnull swiftUnsafePointer) noexcept;
-  void* _Nonnull get_std__shared_ptr_HybridNitroImageViewSpec_(std__shared_ptr_HybridNitroImageViewSpec_ cppType) noexcept;
+  std::shared_ptr<HybridNitroImageViewSpec> create_std__shared_ptr_HybridNitroImageViewSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridNitroImageViewSpec_(std__shared_ptr_HybridNitroImageViewSpec_ cppType);
   
   // pragma MARK: std::weak_ptr<HybridNitroImageViewSpec>
   using std__weak_ptr_HybridNitroImageViewSpec_ = std::weak_ptr<HybridNitroImageViewSpec>;
@@ -320,8 +318,8 @@ namespace margelo::nitro::image::bridge::swift {
    * Specialized version of `std::shared_ptr<HybridImageLoaderSpec>`.
    */
   using std__shared_ptr_HybridImageLoaderSpec_ = std::shared_ptr<HybridImageLoaderSpec>;
-  std::shared_ptr<HybridImageLoaderSpec> create_std__shared_ptr_HybridImageLoaderSpec_(void* _Nonnull swiftUnsafePointer) noexcept;
-  void* _Nonnull get_std__shared_ptr_HybridImageLoaderSpec_(std__shared_ptr_HybridImageLoaderSpec_ cppType) noexcept;
+  std::shared_ptr<HybridImageLoaderSpec> create_std__shared_ptr_HybridImageLoaderSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridImageLoaderSpec_(std__shared_ptr_HybridImageLoaderSpec_ cppType);
   
   // pragma MARK: std::weak_ptr<HybridImageLoaderSpec>
   using std__weak_ptr_HybridImageLoaderSpec_ = std::weak_ptr<HybridImageLoaderSpec>;
@@ -341,8 +339,8 @@ namespace margelo::nitro::image::bridge::swift {
    * Specialized version of `std::shared_ptr<HybridImageLoaderFactorySpec>`.
    */
   using std__shared_ptr_HybridImageLoaderFactorySpec_ = std::shared_ptr<HybridImageLoaderFactorySpec>;
-  std::shared_ptr<HybridImageLoaderFactorySpec> create_std__shared_ptr_HybridImageLoaderFactorySpec_(void* _Nonnull swiftUnsafePointer) noexcept;
-  void* _Nonnull get_std__shared_ptr_HybridImageLoaderFactorySpec_(std__shared_ptr_HybridImageLoaderFactorySpec_ cppType) noexcept;
+  std::shared_ptr<HybridImageLoaderFactorySpec> create_std__shared_ptr_HybridImageLoaderFactorySpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridImageLoaderFactorySpec_(std__shared_ptr_HybridImageLoaderFactorySpec_ cppType);
   
   // pragma MARK: std::weak_ptr<HybridImageLoaderFactorySpec>
   using std__weak_ptr_HybridImageLoaderFactorySpec_ = std::weak_ptr<HybridImageLoaderFactorySpec>;
@@ -362,8 +360,8 @@ namespace margelo::nitro::image::bridge::swift {
    * Specialized version of `std::shared_ptr<HybridImageUtilsSpec>`.
    */
   using std__shared_ptr_HybridImageUtilsSpec_ = std::shared_ptr<HybridImageUtilsSpec>;
-  std::shared_ptr<HybridImageUtilsSpec> create_std__shared_ptr_HybridImageUtilsSpec_(void* _Nonnull swiftUnsafePointer) noexcept;
-  void* _Nonnull get_std__shared_ptr_HybridImageUtilsSpec_(std__shared_ptr_HybridImageUtilsSpec_ cppType) noexcept;
+  std::shared_ptr<HybridImageUtilsSpec> create_std__shared_ptr_HybridImageUtilsSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridImageUtilsSpec_(std__shared_ptr_HybridImageUtilsSpec_ cppType);
   
   // pragma MARK: std::weak_ptr<HybridImageUtilsSpec>
   using std__weak_ptr_HybridImageUtilsSpec_ = std::weak_ptr<HybridImageUtilsSpec>;

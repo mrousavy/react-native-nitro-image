@@ -10,7 +10,9 @@ package com.margelo.nitro.image
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.*
+import com.margelo.nitro.core.ArrayBuffer
+import com.margelo.nitro.core.Promise
+import com.margelo.nitro.core.HybridObject
 
 /**
  * A Kotlin class representing the Image HybridObject.
@@ -89,6 +91,6 @@ abstract class HybridImageSpec: HybridObject() {
   private external fun initHybrid(): HybridData
 
   companion object {
-    private const val TAG = "HybridImageSpec"
+    protected const val TAG = "HybridImageSpec"
   }
 }

@@ -59,26 +59,24 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
     }
 
     private fun updateImage() {
-        val image = image ?: return
-        if (image.isFirst) {
-            val actualImage = image.getAs<HybridImageSpec>() ?: throw Error("Types got messed up!")
-            if (actualImage is HybridImage) {
-                imageView.setImageBitmap(actualImage.bitmap)
-            } else {
-                throw Error("Image is a different type than HybridImage!")
-            }
-        } else if (image.isSecond) {
-            if (imageView.isVisible) {
+        image?.match(
+            { actualImage ->
+                // Image
+                if (actualImage is HybridImage) {
+                    imageView.setImageBitmap(actualImage.bitmap)
+                } else {
+                    throw Error("Image is a different type than HybridImage!")
+                }
+            },
+            { imageLoader ->
+                // ImageLoader
                 onAppear()
             }
-        } else {
-            throw Error("Image is neither an Image nor an ImageLoader!")
-        }
+        )
     }
 
     private fun onAppear() {
-        val image = image ?: return
-        val imageLoader = image.getAs<HybridImageLoaderSpec>() ?: return
+        val imageLoader = image?.asSecondOrNull() ?: return
         try {
             if (resetImageBeforeLoad) {
                 imageView.setImageDrawable(null)
@@ -91,8 +89,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
     }
 
     private fun onDisappear() {
-        val image = image ?: return
-        val imageLoader = image.getAs<HybridImageLoaderSpec>() ?: return
+        val imageLoader = image?.asSecondOrNull() ?: return
         try {
             imageLoader.dropImage(this)
         } catch (e: Throwable) {

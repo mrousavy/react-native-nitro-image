@@ -17,7 +17,7 @@ import com.margelo.nitro.image.*
 /**
  * Represents the React Native `ViewManager` for the "NitroImageView" Nitro HybridView.
  */
-class HybridNitroImageViewManager: SimpleViewManager<View>() {
+open class HybridNitroImageViewManager: SimpleViewManager<View>() {
   private val views = hashMapOf<View, HybridImageView>()
 
   override fun getName(): String {
