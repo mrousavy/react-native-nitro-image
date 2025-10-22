@@ -56,7 +56,7 @@ namespace margelo::nitro::image {
 
     public:
       // Properties
-      
+      virtual bool getSupportsHEIC() = 0;
 
     public:
       // Methods

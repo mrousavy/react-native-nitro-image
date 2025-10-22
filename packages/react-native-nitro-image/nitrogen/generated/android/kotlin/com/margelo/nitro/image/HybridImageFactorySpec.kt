@@ -39,7 +39,9 @@ abstract class HybridImageFactorySpec: HybridObject() {
   }
 
   // Properties
-  
+  @get:DoNotStrip
+  @get:Keep
+  abstract val supportsHEIC: Boolean
 
   // Methods
   @DoNotStrip

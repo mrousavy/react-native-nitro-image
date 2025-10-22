@@ -1,7 +1,7 @@
 import type { HybridObject } from "react-native-nitro-modules";
 
 /**
- * Represents the pixel ordering format.
+ * Represents the pixel ordering format of the literal bytes in memory.
  * - `ARGB`: `[alpha, red, green, blue]`
  * - `BGRA`: `[blue, green, red, alpha]`
  * - `ABGR`: `[alpha, blue, green, red]`
@@ -15,6 +15,12 @@ import type { HybridObject } from "react-native-nitro-modules";
  * - `unknown`: Unknown pixel format.
  *
  * `A` means alpha, `X` means placeholder - skip alpha.
+ *
+ * @note On some platforms (such as Android) Pixel Formats are specified as the order of pixels inside an `Int`.
+ * For example, [`Bitmap.Config.ARGB_888`](https://developer.android.com/reference/android/graphics/Bitmap.Config)
+ * means "`0xAARRGGBB`" when read as an `Int`, but when read as bytes, it depends on the OS' endianess. On most
+ * modern OS (ARM64), the byte order is little-endian, which would flip the `ARGB_8888` format to be read as
+ * `[B, G, R, A]` instead. This is why a `Bitmap` that is in `ARGB_8888` config will return `BGRA` here in Nitro Image.
  */
 export type PixelFormat =
     | "ARGB"
@@ -32,7 +38,7 @@ export type PixelFormat =
 /**
  * Describes the format of an encoded Image.
  */
-export type ImageFormat = "jpg" | "png";
+export type ImageFormat = "jpg" | "png" | "heic";
 
 /**
  * Describes raw pixel data (`buffer`) with `width`, `height` and `pixelFormat`.

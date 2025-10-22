@@ -27,7 +27,7 @@ export function isHybridObject<T>(obj: T): obj is HybridObject {
 // @ts-expect-error i know what I'm doing
 export function isHybridImage<T>(obj: T): obj is Image {
     // @ts-expect-error
-    return typeof obj === "object" && obj != null && obj.toArrayBuffer != null;
+    return typeof obj === "object" && obj != null && obj.toRawPixelData != null;
 }
 export function isHybridImageLoader<T>(
     obj: T,

@@ -7,8 +7,19 @@
 
 import Foundation
 import NitroModules
+import UniformTypeIdentifiers
 
 class HybridImageFactory: HybridImageFactorySpec {
+  var supportsHEIC: Bool {
+    if #unavailable(iOS 17.0) {
+      // HEIC .heicData() is only available on iOS 17
+      return false
+    }
+    // Check if the type is supported by the OS
+    let types = CGImageDestinationCopyTypeIdentifiers() as! [String]
+    return types.contains(UTType.heic.identifier)
+  }
+  
   /**
    * Load Image from file path
    */

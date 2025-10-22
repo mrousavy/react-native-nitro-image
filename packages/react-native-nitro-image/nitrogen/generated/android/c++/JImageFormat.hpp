@@ -43,12 +43,15 @@ namespace margelo::nitro::image {
       static const auto clazz = javaClassStatic();
       static const auto fieldJPG = clazz->getStaticField<JImageFormat>("JPG");
       static const auto fieldPNG = clazz->getStaticField<JImageFormat>("PNG");
+      static const auto fieldHEIC = clazz->getStaticField<JImageFormat>("HEIC");
       
       switch (value) {
         case ImageFormat::JPG:
           return clazz->getStaticFieldValue(fieldJPG);
         case ImageFormat::PNG:
           return clazz->getStaticFieldValue(fieldPNG);
+        case ImageFormat::HEIC:
+          return clazz->getStaticFieldValue(fieldHEIC);
         default:
           std::string stringValue = std::to_string(static_cast<int>(value));
           throw std::invalid_argument("Invalid enum value (" + stringValue + "!");

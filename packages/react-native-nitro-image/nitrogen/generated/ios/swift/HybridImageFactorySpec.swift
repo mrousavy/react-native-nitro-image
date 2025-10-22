@@ -12,7 +12,7 @@ import NitroModules
 /// See ``HybridImageFactorySpec``
 public protocol HybridImageFactorySpec_protocol: HybridObject {
   // Properties
-  
+  var supportsHEIC: Bool { get }
 
   // Methods
   func loadFromFile(filePath: String) throws -> (any HybridImageSpec)

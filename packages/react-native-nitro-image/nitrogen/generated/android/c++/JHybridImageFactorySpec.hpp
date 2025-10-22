@@ -49,7 +49,7 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
-    
+    bool getSupportsHEIC() override;
 
   public:
     // Methods

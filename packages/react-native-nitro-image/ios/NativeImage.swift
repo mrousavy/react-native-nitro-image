@@ -95,9 +95,7 @@ public extension NativeImage {
   }
 
   private func saveImage(to path: String, format: ImageFormat, quality: Double) throws {
-    guard let data = uiImage.getData(in: format, quality: quality) else {
-      throw RuntimeError.error(withMessage: "Failed to get Image data in format \(format.stringValue) with quality \(quality)!")
-    }
+    let data = try uiImage.getData(in: format, quality: quality)
     guard let url = URL(string: path) else {
       throw RuntimeError.error(withMessage: "The given path \"\(path)\" is not a valid URL!")
     }

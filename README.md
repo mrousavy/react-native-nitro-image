@@ -112,12 +112,22 @@ const image = useImage(require('./image.png'))
 
 #### `ArrayBuffer`
 
-The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in ARGB format:
+The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in an RGB format:
 
 ```ts
 const image           = // ...
-const arrayBuffer     = await image.toArrayBufferAsync()
-const sameImageCopied = await Images.loadFromArrayBufferAsync(arrayBuffer)
+const pixelData       = await image.toRawPixelData()
+const sameImageCopied = await Images.loadFromRawPixelData(pixelData)
+```
+
+#### `EncodedImageData`
+
+The `Image` type can be encoded to- and decoded from- an `ArrayBuffer` using a container format like `jpg`, `png` or `heic`:
+
+```ts
+const image           = // ...
+const imageData       = await image.toEncodedImageData('jpg', 90)
+const sameImageCopied = await Images.loadFromEncodedImageData(imageData)
 ```
 
 #### Resizing
@@ -143,8 +153,18 @@ const smaller  = await webImage.cropAsync(100, 100, 50, 50)
 An in-memory `Image` object can also be written/saved to a file:
 
 ```ts
-const smaller  = ...
-const path     = await smaller.saveToTemporaryFileAsync('jpg', 90)
+const image  = ...
+const path   = await image.saveToTemporaryFileAsync('jpg', 90)
+```
+
+#### Compressing
+
+Images can be compressed using the `jpg` container format - either in-memory or when writing to a file:
+
+```ts
+const image      = ...
+const path       = await image.saveToTemporaryFileAsync('jpg', 50) // 50% compression
+const compressed = await image.toEncodedImageData('jpg', 50)       // 50% compression
 ```
 
 ### Hooks

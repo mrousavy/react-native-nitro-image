@@ -107,7 +107,12 @@ open class HybridImageFactorySpec_cxx {
   }
 
   // Properties
-  
+  public final var supportsHEIC: Bool {
+    @inline(__always)
+    get {
+      return self.__implementation.supportsHEIC
+    }
+  }
 
   // Methods
   @inline(__always)

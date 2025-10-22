@@ -60,7 +60,11 @@ namespace margelo::nitro::image {
   }
 
   // Properties
-  
+  bool JHybridImageFactorySpec::getSupportsHEIC() {
+    static const auto method = javaClassStatic()->getMethod<jboolean()>("getSupportsHEIC");
+    auto __result = method(_javaPart);
+    return static_cast<bool>(__result);
+  }
 
   // Methods
   std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromFile(const std::string& filePath) {
