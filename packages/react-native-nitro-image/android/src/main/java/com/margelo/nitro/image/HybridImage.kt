@@ -57,18 +57,8 @@ class HybridImage: HybridImageSpec {
 
     override fun toEncodedImageData(format: ImageFormat, quality: Double?): EncodedImageData {
         val quality = quality ?: 100.0
-        val estimatedByteSize = when (format) {
-            ImageFormat.JPG -> (width * height) / 2
-            ImageFormat.PNG -> width * height
-        }
-        val outputStream = FastByteArrayOutputStream(estimatedByteSize.toInt())
-        val successful = bitmap.compress(format.toBitmapFormat(), quality.toInt(), outputStream)
-        if (!successful) {
-            throw Error("Failed to compress the Bitmap into EncodedImageData! (Format: ${format.name}, " +
-                    "Quality: ${quality}, Written Bytes: ${outputStream.count})")
-        }
-        val byteBuffer = outputStream.toByteBuffer()
-        val arrayBuffer = ArrayBuffer.wrap(byteBuffer)
+        val byteBuffer = bitmap.compressInMemory(format, quality.toInt())
+        val arrayBuffer = ArrayBuffer.copy(byteBuffer)
         return EncodedImageData(arrayBuffer, width, height, format)
     }
     override fun toEncodedImageDataAsync(
