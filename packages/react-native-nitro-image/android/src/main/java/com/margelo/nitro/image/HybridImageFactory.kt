@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.annotation.Keep
 import com.facebook.common.internal.DoNotStrip
-import com.facebook.react.bridge.ReactApplicationContext
 import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer

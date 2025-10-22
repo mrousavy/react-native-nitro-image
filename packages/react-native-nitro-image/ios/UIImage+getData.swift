@@ -23,8 +23,8 @@ extension UIImage {
       return data
     case .heic:
       guard #available(iOS 17.0, *) else {
-        throw RuntimeError.error(withMessage: "HEIC is only available on iOS 17.0 or higher! " +
-                                 "Check ImageFactory.supportsHEIC before calling this method.")
+        throw RuntimeError.error(withMessage: "HEIC writing is only available on iOS 17.0 or higher! " +
+                                 "Check ImageUtils.supportsHeicWriting before calling this method.")
       }
       guard let data = self.heicData() else {
         throw RuntimeError.error(withMessage: "Failed to convert \(size.width)x\(size.height) Image to HEIC!")

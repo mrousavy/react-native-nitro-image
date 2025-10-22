@@ -167,6 +167,15 @@ const path       = await image.saveToTemporaryFileAsync('jpg', 50) // 50% compre
 const compressed = await image.toEncodedImageData('jpg', 50)       // 50% compression
 ```
 
+#### HEIC/HEIF
+
+NitroImage supports `HEIC`/`HEIF` format if the host OS natively supports it.
+
+|              | iOS            | Android        |
+|--------------|----------------|----------------|
+| Loading HEIC | ✅             | ✅ (>= SDK 28) |
+| Writing HEIC | ✅ (>= iOS 17) | ❌             |
+
 ### Hooks
 
 #### The `useImage()` hook

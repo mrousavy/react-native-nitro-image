@@ -74,9 +74,7 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
-    inline bool getSupportsHEIC() noexcept override {
-      return _swiftPart.getSupportsHEIC();
-    }
+    
 
   public:
     // Methods

@@ -37,7 +37,16 @@ namespace margelo::nitro::image {
   }
 
   // Properties
-  
+  bool JHybridImageUtilsSpec::getSupportsHeicLoading() {
+    static const auto method = javaClassStatic()->getMethod<jboolean()>("getSupportsHeicLoading");
+    auto __result = method(_javaPart);
+    return static_cast<bool>(__result);
+  }
+  bool JHybridImageUtilsSpec::getSupportsHeicWriting() {
+    static const auto method = javaClassStatic()->getMethod<jboolean()>("getSupportsHeicWriting");
+    auto __result = method(_javaPart);
+    return static_cast<bool>(__result);
+  }
 
   // Methods
   std::string JHybridImageUtilsSpec::thumbHashToBase64String(const std::shared_ptr<ArrayBuffer>& thumbhash) {
