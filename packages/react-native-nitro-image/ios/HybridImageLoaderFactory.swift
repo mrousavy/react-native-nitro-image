@@ -31,7 +31,7 @@ class HybridImageLoaderFactory: HybridImageLoaderFactorySpec {
   
   func createRawPixelDataImageLoader(data: RawPixelData) throws -> any HybridImageLoaderSpec {
     return HybridImageLoader(load: {
-      try self.imageFactory.loadFromRawPixelDataAsync(data: data)
+      try self.imageFactory.loadFromRawPixelDataAsync(data: data, allowGpu: false)
     })
   }
   
