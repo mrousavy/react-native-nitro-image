@@ -59,7 +59,10 @@ export interface ImageFactory
      * @throws If the given {@linkcode RawPixelData} is not a valid RGB buffer representing an {@linkcode Image}.
      * @note The given pixel data has to have pre-multiplied alpha, and be some kind of RGB format with 4-bytes-per-pixel.
      */
-    loadFromRawPixelDataAsync(data: RawPixelData, allowGpu?: boolean): Promise<Image>;
+    loadFromRawPixelDataAsync(
+        data: RawPixelData,
+        allowGpu?: boolean,
+    ): Promise<Image>;
 
     /**
      * Synchronously loads an {@linkcode Image} from the given {@linkcode EncodedImageData}'s {@linkcode ArrayBuffer}.

@@ -16,7 +16,18 @@ import type { HybridObject } from "react-native-nitro-modules";
  *
  * `A` means alpha, `X` means placeholder - skip alpha.
  */
-export type PixelFormat = "ARGB" | "BGRA" | "ABGR" | "RGBA" | "XRGB" | "BGRX" | "XBGR" | "RGBX" | "RGB" | "BGR" | "unknown";
+export type PixelFormat =
+    | "ARGB"
+    | "BGRA"
+    | "ABGR"
+    | "RGBA"
+    | "XRGB"
+    | "BGRX"
+    | "XBGR"
+    | "RGBX"
+    | "RGB"
+    | "BGR"
+    | "unknown";
 
 /**
  * Describes the format of an encoded Image.
