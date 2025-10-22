@@ -15,6 +15,8 @@
 
 // Forward declaration of `RawPixelData` to properly resolve imports.
 namespace margelo::nitro::image { struct RawPixelData; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
 // Forward declaration of `ImageFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class ImageFormat; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
@@ -22,12 +24,13 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include "RawPixelData.hpp"
 #include <NitroModules/Promise.hpp>
-#include <NitroModules/ArrayBuffer.hpp>
+#include "EncodedImageData.hpp"
 #include "ImageFormat.hpp"
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
 #include <optional>
+#include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::image {
 
@@ -61,10 +64,10 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual RawPixelData toRawArrayBuffer() = 0;
-      virtual std::shared_ptr<Promise<RawPixelData>> toRawArrayBufferAsync() = 0;
-      virtual std::shared_ptr<ArrayBuffer> toEncodedArrayBuffer(ImageFormat format, double quality) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toEncodedArrayBufferAsync(ImageFormat format, double quality) = 0;
+      virtual RawPixelData toRawPixelData() = 0;
+      virtual std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync() = 0;
+      virtual EncodedImageData toEncodedImageData(ImageFormat format, double quality) = 0;
+      virtual std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, double quality) = 0;
       virtual std::shared_ptr<HybridImageSpec> resize(double width, double height) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> resizeAsync(double width, double height) = 0;
       virtual std::shared_ptr<HybridImageSpec> crop(double startX, double startY, double endX, double endY) = 0;

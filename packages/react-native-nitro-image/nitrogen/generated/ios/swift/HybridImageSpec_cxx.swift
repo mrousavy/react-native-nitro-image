@@ -123,9 +123,9 @@ open class HybridImageSpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func toRawArrayBuffer() -> bridge.Result_RawPixelData_ {
+  public final func toRawPixelData() -> bridge.Result_RawPixelData_ {
     do {
-      let __result = try self.__implementation.toRawArrayBuffer()
+      let __result = try self.__implementation.toRawPixelData()
       let __resultCpp = __result
       return bridge.create_Result_RawPixelData_(__resultCpp)
     } catch (let __error) {
@@ -135,9 +135,9 @@ open class HybridImageSpec_cxx {
   }
   
   @inline(__always)
-  public final func toRawArrayBufferAsync() -> bridge.Result_std__shared_ptr_Promise_RawPixelData___ {
+  public final func toRawPixelDataAsync() -> bridge.Result_std__shared_ptr_Promise_RawPixelData___ {
     do {
-      let __result = try self.__implementation.toRawArrayBufferAsync()
+      let __result = try self.__implementation.toRawPixelDataAsync()
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_RawPixelData__ in
         let __promise = bridge.create_std__shared_ptr_Promise_RawPixelData__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_RawPixelData__(__promise)
@@ -154,33 +154,33 @@ open class HybridImageSpec_cxx {
   }
   
   @inline(__always)
-  public final func toEncodedArrayBuffer(format: Int32, quality: Double) -> bridge.Result_std__shared_ptr_ArrayBuffer__ {
+  public final func toEncodedImageData(format: Int32, quality: Double) -> bridge.Result_EncodedImageData_ {
     do {
-      let __result = try self.__implementation.toEncodedArrayBuffer(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality)
-      let __resultCpp = __result.getArrayBuffer()
-      return bridge.create_Result_std__shared_ptr_ArrayBuffer__(__resultCpp)
+      let __result = try self.__implementation.toEncodedImageData(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality)
+      let __resultCpp = __result
+      return bridge.create_Result_EncodedImageData_(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_ArrayBuffer__(__exceptionPtr)
+      return bridge.create_Result_EncodedImageData_(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func toEncodedArrayBufferAsync(format: Int32, quality: Double) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____ {
+  public final func toEncodedImageDataAsync(format: Int32, quality: Double) -> bridge.Result_std__shared_ptr_Promise_EncodedImageData___ {
     do {
-      let __result = try self.__implementation.toEncodedArrayBufferAsync(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality)
-      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___ in
-        let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___()
-        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___(__promise)
+      let __result = try self.__implementation.toEncodedImageDataAsync(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality)
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_EncodedImageData__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_EncodedImageData__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_EncodedImageData__(__promise)
         __result
-          .then({ __result in __promiseHolder.resolve(__result.getArrayBuffer()) })
+          .then({ __result in __promiseHolder.resolve(__result) })
           .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
         return __promise
       }()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_Promise_EncodedImageData___(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_EncodedImageData___(__exceptionPtr)
     }
   }
   

@@ -17,8 +17,8 @@ namespace margelo::nitro::image {
       prototype.registerHybridMethod("createFileImageLoader", &HybridImageLoaderFactorySpec::createFileImageLoader);
       prototype.registerHybridMethod("createResourceImageLoader", &HybridImageLoaderFactorySpec::createResourceImageLoader);
       prototype.registerHybridMethod("createSymbolImageLoader", &HybridImageLoaderFactorySpec::createSymbolImageLoader);
-      prototype.registerHybridMethod("createRawArrayBufferImageLoader", &HybridImageLoaderFactorySpec::createRawArrayBufferImageLoader);
-      prototype.registerHybridMethod("createEncodedArrayBufferImageLoader", &HybridImageLoaderFactorySpec::createEncodedArrayBufferImageLoader);
+      prototype.registerHybridMethod("createRawPixelDataImageLoader", &HybridImageLoaderFactorySpec::createRawPixelDataImageLoader);
+      prototype.registerHybridMethod("createEncodedImageDataImageLoader", &HybridImageLoaderFactorySpec::createEncodedImageDataImageLoader);
     });
   }
 

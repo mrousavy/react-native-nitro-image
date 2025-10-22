@@ -18,6 +18,8 @@ namespace margelo::nitro::image { struct RawPixelData; }
 namespace NitroModules { class ArrayBufferHolder; }
 // Forward declaration of `PixelFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class PixelFormat; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
 // Forward declaration of `ImageFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class ImageFormat; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
@@ -28,6 +30,7 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 #include <NitroModules/ArrayBufferHolder.hpp>
 #include "PixelFormat.hpp"
 #include <NitroModules/Promise.hpp>
+#include "EncodedImageData.hpp"
 #include "ImageFormat.hpp"
 #include <memory>
 #include "HybridImageSpec.hpp"
@@ -80,32 +83,32 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline RawPixelData toRawArrayBuffer() override {
-      auto __result = _swiftPart.toRawArrayBuffer();
+    inline RawPixelData toRawPixelData() override {
+      auto __result = _swiftPart.toRawPixelData();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<RawPixelData>> toRawArrayBufferAsync() override {
-      auto __result = _swiftPart.toRawArrayBufferAsync();
+    inline std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync() override {
+      auto __result = _swiftPart.toRawPixelDataAsync();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<ArrayBuffer> toEncodedArrayBuffer(ImageFormat format, double quality) override {
-      auto __result = _swiftPart.toEncodedArrayBuffer(static_cast<int>(format), std::forward<decltype(quality)>(quality));
+    inline EncodedImageData toEncodedImageData(ImageFormat format, double quality) override {
+      auto __result = _swiftPart.toEncodedImageData(static_cast<int>(format), std::forward<decltype(quality)>(quality));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toEncodedArrayBufferAsync(ImageFormat format, double quality) override {
-      auto __result = _swiftPart.toEncodedArrayBufferAsync(static_cast<int>(format), std::forward<decltype(quality)>(quality));
+    inline std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, double quality) override {
+      auto __result = _swiftPart.toEncodedImageDataAsync(static_cast<int>(format), std::forward<decltype(quality)>(quality));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

@@ -50,19 +50,19 @@ abstract class HybridImageSpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun toRawArrayBuffer(): RawPixelData
+  abstract fun toRawPixelData(): RawPixelData
   
   @DoNotStrip
   @Keep
-  abstract fun toRawArrayBufferAsync(): Promise<RawPixelData>
+  abstract fun toRawPixelDataAsync(): Promise<RawPixelData>
   
   @DoNotStrip
   @Keep
-  abstract fun toEncodedArrayBuffer(format: ImageFormat, quality: Double): ArrayBuffer
+  abstract fun toEncodedImageData(format: ImageFormat, quality: Double): EncodedImageData
   
   @DoNotStrip
   @Keep
-  abstract fun toEncodedArrayBufferAsync(format: ImageFormat, quality: Double): Promise<ArrayBuffer>
+  abstract fun toEncodedImageDataAsync(format: ImageFormat, quality: Double): Promise<EncodedImageData>
   
   @DoNotStrip
   @Keep

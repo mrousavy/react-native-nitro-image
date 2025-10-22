@@ -1,9 +1,19 @@
 import type { HybridObject } from "react-native-nitro-modules";
 
-export type ImageFormat = "jpg" | "png";
-
+/**
+ * Represents the pixel ordering format.
+ * On iOS, this is often `BGRA`, while on Android it is `RGBA`.
+ */
 export type PixelFormat = 'RGBA' | 'BGRA'
 
+/**
+ * Describes the format of an encoded Image.
+ */
+export type ImageFormat = "jpg" | "png";
+
+/**
+ * Describes raw pixel data (`buffer`) with `width`, `height` and `pixelFormat`.
+ */
 export interface RawPixelData {
     buffer: ArrayBuffer
     width: number
@@ -11,20 +21,26 @@ export interface RawPixelData {
     pixelFormat: PixelFormat
 }
 
-export interface EncodedPixelData {
+/**
+ * Describes encoded image data (`buffer`) with `width`, `height` and `imageFormat`.
+ */
+export interface EncodedImageData {
     buffer: ArrayBuffer
     width: number
     height: number
-    containerFormat: ImageFormat
+    imageFormat: ImageFormat
 }
 
+/**
+ * A native Image instance.
+ */
 export interface Image
     extends HybridObject<{ ios: "swift"; android: "kotlin" }> {
     readonly width: number;
     readonly height: number;
 
     /**
-     * Returns a raw {@linkcode ArrayBuffer} containing the raw pixel data of the Image.
+     * Returns an {@linkcode ArrayBuffer} containing the raw pixel data of the Image.
      * @note Raw pixel data is either in {@linkcode PixelFormat | 'ARGB'} or
      * {@linkcode PixelFormat | 'BGRA'} format, depending on the OS' endianess.
      * @example
@@ -43,11 +59,11 @@ export interface Image
      * }
      * ```
      */
-    toRawArrayBuffer(): RawPixelData;
-    toRawArrayBufferAsync(): Promise<RawPixelData>;
+    toRawPixelData(): RawPixelData;
+    toRawPixelDataAsync(): Promise<RawPixelData>;
 
     /**
-     * Returns an encoded {@linkcode ArrayBuffer} containing the data of an Image in
+     * Returns an {@linkcode ArrayBuffer} containing the encoded data of an Image in
      * the requested container {@linkcode format}.
      * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
      * {@linkcode quality} to compress the image. In {@linkcode ImageFormat | 'png'}, the
@@ -57,8 +73,8 @@ export interface Image
      * const compressed = image.toEncodedArrayBuffer('jpg', 0.7)
      * ```
      */
-    toEncodedArrayBuffer(format: ImageFormat, quality: number): ArrayBuffer;
-    toEncodedArrayBufferAsync(format: ImageFormat, quality: number): Promise<ArrayBuffer>;
+    toEncodedImageData(format: ImageFormat, quality: number): EncodedImageData;
+    toEncodedImageDataAsync(format: ImageFormat, quality: number): Promise<EncodedImageData>;
 
     /**
      * Resizes this Image into a new image with the new given {@linkcode width} and {@linkcode height}.

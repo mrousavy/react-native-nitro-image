@@ -10,7 +10,6 @@ package com.margelo.nitro.image
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.HybridObject
 
 /**
@@ -55,11 +54,11 @@ abstract class HybridImageLoaderFactorySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun createRawArrayBufferImageLoader(data: RawPixelData): HybridImageLoaderSpec
+  abstract fun createRawPixelDataImageLoader(data: RawPixelData): HybridImageLoaderSpec
   
   @DoNotStrip
   @Keep
-  abstract fun createEncodedArrayBufferImageLoader(buffer: ArrayBuffer): HybridImageLoaderSpec
+  abstract fun createEncodedImageDataImageLoader(data: EncodedImageData): HybridImageLoaderSpec
 
   private external fun initHybrid(): HybridData
 

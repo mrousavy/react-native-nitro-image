@@ -16,10 +16,10 @@ namespace margelo::nitro::image {
     registerHybrids(this, [](Prototype& prototype) {
       prototype.registerHybridGetter("width", &HybridImageSpec::getWidth);
       prototype.registerHybridGetter("height", &HybridImageSpec::getHeight);
-      prototype.registerHybridMethod("toRawArrayBuffer", &HybridImageSpec::toRawArrayBuffer);
-      prototype.registerHybridMethod("toRawArrayBufferAsync", &HybridImageSpec::toRawArrayBufferAsync);
-      prototype.registerHybridMethod("toEncodedArrayBuffer", &HybridImageSpec::toEncodedArrayBuffer);
-      prototype.registerHybridMethod("toEncodedArrayBufferAsync", &HybridImageSpec::toEncodedArrayBufferAsync);
+      prototype.registerHybridMethod("toRawPixelData", &HybridImageSpec::toRawPixelData);
+      prototype.registerHybridMethod("toRawPixelDataAsync", &HybridImageSpec::toRawPixelDataAsync);
+      prototype.registerHybridMethod("toEncodedImageData", &HybridImageSpec::toEncodedImageData);
+      prototype.registerHybridMethod("toEncodedImageDataAsync", &HybridImageSpec::toEncodedImageDataAsync);
       prototype.registerHybridMethod("resize", &HybridImageSpec::resize);
       prototype.registerHybridMethod("resizeAsync", &HybridImageSpec::resizeAsync);
       prototype.registerHybridMethod("crop", &HybridImageSpec::crop);

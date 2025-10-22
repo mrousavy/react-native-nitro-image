@@ -48,16 +48,18 @@ class HybridImage: HybridImageSpec {
         return buffer
     }
 
-    override fun toArrayBuffer(): ArrayBuffer {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && isGPU) {
-            return ArrayBuffer.wrap(bitmap.hardwareBuffer)
+    override fun toRawArrayBuffer(): RawPixelData {
+        val arrayBuffer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && isGPU) {
+            ArrayBuffer.wrap(bitmap.hardwareBuffer)
         } else {
             val buffer = toByteBuffer()
-            return ArrayBuffer.wrap(buffer)
+            ArrayBuffer.wrap(buffer)
         }
+        bitmap.copyPixelsToBuffer()
+        return RawPixelData(arrayBuffer, width, height, )
     }
 
-    override fun toArrayBufferAsync(): Promise<ArrayBuffer> {
+    override fun toRawArrayBufferAsync(): Promise<RawPixelData> {
         return Promise.async { toArrayBuffer() }
     }
 

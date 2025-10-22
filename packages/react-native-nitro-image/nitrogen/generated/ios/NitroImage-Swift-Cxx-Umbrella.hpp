@@ -8,6 +8,8 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageLoaderFactorySpec` to properly resolve imports.
@@ -30,6 +32,7 @@ namespace margelo::nitro::image { struct RawPixelData; }
 namespace margelo::nitro::image { enum class ResizeMode; }
 
 // Include C++ defined types
+#include "EncodedImageData.hpp"
 #include "HybridImageFactorySpec.hpp"
 #include "HybridImageLoaderFactorySpec.hpp"
 #include "HybridImageLoaderSpec.hpp"

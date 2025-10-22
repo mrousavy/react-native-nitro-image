@@ -19,10 +19,10 @@ namespace margelo::nitro::image {
       prototype.registerHybridMethod("loadFromResources", &HybridImageFactorySpec::loadFromResources);
       prototype.registerHybridMethod("loadFromResourcesAsync", &HybridImageFactorySpec::loadFromResourcesAsync);
       prototype.registerHybridMethod("loadFromSymbol", &HybridImageFactorySpec::loadFromSymbol);
-      prototype.registerHybridMethod("loadFromRawArrayBuffer", &HybridImageFactorySpec::loadFromRawArrayBuffer);
-      prototype.registerHybridMethod("loadFromRawArrayBufferAsync", &HybridImageFactorySpec::loadFromRawArrayBufferAsync);
-      prototype.registerHybridMethod("loadFromEncodedArrayBuffer", &HybridImageFactorySpec::loadFromEncodedArrayBuffer);
-      prototype.registerHybridMethod("loadFromEncodedArrayBufferAsync", &HybridImageFactorySpec::loadFromEncodedArrayBufferAsync);
+      prototype.registerHybridMethod("loadFromRawPixelData", &HybridImageFactorySpec::loadFromRawPixelData);
+      prototype.registerHybridMethod("loadFromRawPixelDataAsync", &HybridImageFactorySpec::loadFromRawPixelDataAsync);
+      prototype.registerHybridMethod("loadFromEncodedImageData", &HybridImageFactorySpec::loadFromEncodedImageData);
+      prototype.registerHybridMethod("loadFromEncodedImageDataAsync", &HybridImageFactorySpec::loadFromEncodedImageDataAsync);
       prototype.registerHybridMethod("loadFromThumbHash", &HybridImageFactorySpec::loadFromThumbHash);
       prototype.registerHybridMethod("loadFromThumbHashAsync", &HybridImageFactorySpec::loadFromThumbHashAsync);
     });

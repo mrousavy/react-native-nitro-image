@@ -56,8 +56,8 @@ namespace margelo::nitro::image {
     std::shared_ptr<HybridImageLoaderSpec> createFileImageLoader(const std::string& filePath) override;
     std::shared_ptr<HybridImageLoaderSpec> createResourceImageLoader(const std::string& name) override;
     std::shared_ptr<HybridImageLoaderSpec> createSymbolImageLoader(const std::string& symbolName) override;
-    std::shared_ptr<HybridImageLoaderSpec> createRawArrayBufferImageLoader(const RawPixelData& data) override;
-    std::shared_ptr<HybridImageLoaderSpec> createEncodedArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) override;
+    std::shared_ptr<HybridImageLoaderSpec> createRawPixelDataImageLoader(const RawPixelData& data) override;
+    std::shared_ptr<HybridImageLoaderSpec> createEncodedImageDataImageLoader(const EncodedImageData& data) override;
 
   private:
     friend HybridBase;

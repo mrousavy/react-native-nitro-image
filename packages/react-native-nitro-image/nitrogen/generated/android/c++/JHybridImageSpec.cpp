@@ -11,10 +11,12 @@
 namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `PixelFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class PixelFormat; }
-// Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
 // Forward declaration of `ImageFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class ImageFormat; }
+// Forward declaration of `HybridImageSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageSpec; }
 
 #include "RawPixelData.hpp"
 #include "JRawPixelData.hpp"
@@ -25,12 +27,14 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 #include "JPixelFormat.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
+#include "EncodedImageData.hpp"
+#include "JEncodedImageData.hpp"
+#include "ImageFormat.hpp"
+#include "JImageFormat.hpp"
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include "JHybridImageSpec.hpp"
 #include <string>
-#include "ImageFormat.hpp"
-#include "JImageFormat.hpp"
 #include <optional>
 
 namespace margelo::nitro::image {
@@ -68,13 +72,13 @@ namespace margelo::nitro::image {
   }
 
   // Methods
-  RawPixelData JHybridImageSpec::toRawArrayBuffer() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JRawPixelData>()>("toRawArrayBuffer");
+  RawPixelData JHybridImageSpec::toRawPixelData() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JRawPixelData>()>("toRawPixelData");
     auto __result = method(_javaPart);
     return __result->toCpp();
   }
-  std::shared_ptr<Promise<RawPixelData>> JHybridImageSpec::toRawArrayBufferAsync() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("toRawArrayBufferAsync");
+  std::shared_ptr<Promise<RawPixelData>> JHybridImageSpec::toRawPixelDataAsync() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("toRawPixelDataAsync");
     auto __result = method(_javaPart);
     return [&]() {
       auto __promise = Promise<RawPixelData>::create();
@@ -89,19 +93,19 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
-  std::shared_ptr<ArrayBuffer> JHybridImageSpec::toEncodedArrayBuffer(ImageFormat format, double quality) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JArrayBuffer::javaobject>(jni::alias_ref<JImageFormat> /* format */, double /* quality */)>("toEncodedArrayBuffer");
+  EncodedImageData JHybridImageSpec::toEncodedImageData(ImageFormat format, double quality) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JEncodedImageData>(jni::alias_ref<JImageFormat> /* format */, double /* quality */)>("toEncodedImageData");
     auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality);
-    return __result->cthis()->getArrayBuffer();
+    return __result->toCpp();
   }
-  std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> JHybridImageSpec::toEncodedArrayBufferAsync(ImageFormat format, double quality) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JImageFormat> /* format */, double /* quality */)>("toEncodedArrayBufferAsync");
+  std::shared_ptr<Promise<EncodedImageData>> JHybridImageSpec::toEncodedImageDataAsync(ImageFormat format, double quality) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JImageFormat> /* format */, double /* quality */)>("toEncodedImageDataAsync");
     auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality);
     return [&]() {
-      auto __promise = Promise<std::shared_ptr<ArrayBuffer>>::create();
+      auto __promise = Promise<EncodedImageData>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JArrayBuffer::javaobject>(__boxedResult);
-        __promise->resolve(__result->cthis()->getArrayBuffer());
+        auto __result = jni::static_ref_cast<JEncodedImageData>(__boxedResult);
+        __promise->resolve(__result->toCpp());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);

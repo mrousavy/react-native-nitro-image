@@ -7,7 +7,6 @@
 
 import Foundation
 import NitroModules
-import NitroModules
 
 /**
  * A class implementation that bridges HybridImageLoaderFactorySpec over to C++.
@@ -156,9 +155,9 @@ open class HybridImageLoaderFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func createRawArrayBufferImageLoader(data: RawPixelData) -> bridge.Result_std__shared_ptr_HybridImageLoaderSpec__ {
+  public final func createRawPixelDataImageLoader(data: RawPixelData) -> bridge.Result_std__shared_ptr_HybridImageLoaderSpec__ {
     do {
-      let __result = try self.__implementation.createRawArrayBufferImageLoader(data: data)
+      let __result = try self.__implementation.createRawPixelDataImageLoader(data: data)
       let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageLoaderSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
@@ -171,9 +170,9 @@ open class HybridImageLoaderFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func createEncodedArrayBufferImageLoader(buffer: ArrayBuffer) -> bridge.Result_std__shared_ptr_HybridImageLoaderSpec__ {
+  public final func createEncodedImageDataImageLoader(data: EncodedImageData) -> bridge.Result_std__shared_ptr_HybridImageLoaderSpec__ {
     do {
-      let __result = try self.__implementation.createEncodedArrayBufferImageLoader(buffer: buffer)
+      let __result = try self.__implementation.createEncodedImageDataImageLoader(data: data)
       let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageLoaderSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
