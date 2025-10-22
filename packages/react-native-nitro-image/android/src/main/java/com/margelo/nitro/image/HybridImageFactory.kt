@@ -43,14 +43,15 @@ class HybridImageFactory: HybridImageFactorySpec() {
         throw Error("ImageFactory.loadFromSymbol(symbolName:) is not supported on Android!")
     }
 
-    override fun loadFromRawPixelData(data: RawPixelData): HybridImageSpec {
-        val bitmap = bitmapFromRawPixelData(data)
+    override fun loadFromRawPixelData(data: RawPixelData, allowGpu: Boolean?): HybridImageSpec {
+        val allowGpu = allowGpu ?: false
+        val bitmap = bitmapFromRawPixelData(data, allowGpu)
         return HybridImage(bitmap)
     }
-    override fun loadFromRawPixelDataAsync(data: RawPixelData): Promise<HybridImageSpec> {
+    override fun loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Boolean?): Promise<HybridImageSpec> {
         val bufferCopy = data.buffer.copyIfNotOwner()
         val dataCopy = RawPixelData(bufferCopy, data.width, data.height, data.pixelFormat)
-        return Promise.async { loadFromRawPixelData(dataCopy) }
+        return Promise.async { loadFromRawPixelData(dataCopy, allowGpu) }
     }
 
     private fun loadFromEncodedBytes(bytes: ByteArray): HybridImageSpec {

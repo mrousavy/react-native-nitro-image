@@ -51,7 +51,8 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun toRawPixelData(allowGpu: Boolean?): RawPixelData {
-        val arrayBuffer = if (allowGpu == true && isGPU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val allowGpu = allowGpu ?: false
+        val arrayBuffer = if (allowGpu && isGPU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             // Wrap the existing GPU buffer (HardwareBuffer)
             ArrayBuffer.wrap(bitmap.hardwareBuffer)
         } else {

@@ -33,6 +33,7 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
 #include "PixelFormat.hpp"
+#include <optional>
 #include "EncodedImageData.hpp"
 #include "ImageFormat.hpp"
 
@@ -117,16 +118,16 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<HybridImageSpec> loadFromRawPixelData(const RawPixelData& data) override {
-      auto __result = _swiftPart.loadFromRawPixelData(std::forward<decltype(data)>(data));
+    inline std::shared_ptr<HybridImageSpec> loadFromRawPixelData(const RawPixelData& data, std::optional<bool> allowGpu) override {
+      auto __result = _swiftPart.loadFromRawPixelData(std::forward<decltype(data)>(data), allowGpu);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data) override {
-      auto __result = _swiftPart.loadFromRawPixelDataAsync(std::forward<decltype(data)>(data));
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data, std::optional<bool> allowGpu) override {
+      auto __result = _swiftPart.loadFromRawPixelDataAsync(std::forward<decltype(data)>(data), allowGpu);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

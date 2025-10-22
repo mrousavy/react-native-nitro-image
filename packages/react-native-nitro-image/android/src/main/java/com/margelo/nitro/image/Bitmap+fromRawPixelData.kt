@@ -1,6 +1,8 @@
 package com.margelo.nitro.image
 
 import android.graphics.Bitmap
+import android.graphics.ColorSpace
+import android.os.Build
 import androidx.core.graphics.createBitmap
 import java.io.File
 import java.io.FileOutputStream
@@ -21,10 +23,22 @@ private val SW = mapOf(
     PixelFormat.BGR  to Swizzle(2,1,0,-1,3) // B G R
 )
 
-fun bitmapFromRawPixelData(data: RawPixelData): Bitmap {
+fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
+    if (allowGpu) {
+        // FAST PATH: Try using GPU Buffer (HardwareBuffer) if it is one. This is zero-copy!
+        if (data.buffer.isHardwareBuffer && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val bitmap = Bitmap.wrapHardwareBuffer(data.buffer.getHardwareBuffer(), ColorSpace.get(ColorSpace.Named.SRGB))
+            if (bitmap != null) {
+                return bitmap
+            }
+        }
+    }
+
+    // SLOW PATH: Perform a CPU copy of the Buffer and read byte by byte into a Bitmap
     val w = data.width.toInt()
     val h = data.height.toInt()
-    val sw = SW[data.pixelFormat] ?: throw Error("Unsupported Pixel Format: ${data.pixelFormat}")
+    val sw =
+        SW[data.pixelFormat] ?: throw Error("Unsupported Pixel Format: ${data.pixelFormat}")
     val stride = w * sw.bpp
     val buffer = data.buffer.getBuffer(false)
     buffer.rewind()
@@ -53,7 +67,9 @@ fun bitmapFromRawPixelData(data: RawPixelData): Bitmap {
                 val b2 = buffer.get(p + 2).toInt() and 0xFF
                 val b3 = buffer.get(p + 3).toInt() and 0xFF
                 val ch = intArrayOf(b0, b1, b2, b3)
-                val r = ch[sw.r]; val g = ch[sw.g]; val bl = ch[sw.b]
+                val r = ch[sw.r];
+                val g = ch[sw.g];
+                val bl = ch[sw.b]
                 val a = if (sw.a >= 0) ch[sw.a] else 255
                 out[di++] = packPremul(r, g, bl, a)
             }
@@ -67,7 +83,9 @@ fun bitmapFromRawPixelData(data: RawPixelData): Bitmap {
                 val b1 = buffer.get(p + 1).toInt() and 0xFF
                 val b2 = buffer.get(p + 2).toInt() and 0xFF
                 val ch = intArrayOf(b0, b1, b2)
-                val r = ch[sw.r]; val g = ch[sw.g]; val bl = ch[sw.b]
+                val r = ch[sw.r];
+                val g = ch[sw.g];
+                val bl = ch[sw.b]
                 out[di++] = packPremul(r, g, bl, 255)
             }
         }

@@ -64,11 +64,11 @@ abstract class HybridImageFactorySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun loadFromRawPixelData(data: RawPixelData): HybridImageSpec
+  abstract fun loadFromRawPixelData(data: RawPixelData, allowGpu: Boolean?): HybridImageSpec
   
   @DoNotStrip
   @Keep
-  abstract fun loadFromRawPixelDataAsync(data: RawPixelData): Promise<HybridImageSpec>
+  abstract fun loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Boolean?): Promise<HybridImageSpec>
   
   @DoNotStrip
   @Keep

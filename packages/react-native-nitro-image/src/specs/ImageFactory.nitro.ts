@@ -45,15 +45,19 @@ export interface ImageFactory
     /**
      * Synchronously loads an {@linkcode Image} from the given {@linkcode RawPixelData}'s {@linkcode ArrayBuffer}.
      * @param data The {@linkcode RawPixelData} object carrying the **raw** RGB image data and describing it's format.
+     * @param allowGpu If `allowGpu` is set to `true` and the given {@linkcode data} is a GPU-buffer, the {@linkcode Image}
+     * might be wrapping the given GPU-buffer without performing a copy. By default, `allowGpu` is `false`
      * @throws If the given {@linkcode RawPixelData} is not a valid RGB buffer representing an {@linkcode Image}.
      */
-    loadFromRawPixelData(data: RawPixelData): Image;
+    loadFromRawPixelData(data: RawPixelData, allowGpu?: boolean): Image;
     /**
      * Asynchronously loads an {@linkcode Image} from the given {@linkcode RawPixelData}'s {@linkcode ArrayBuffer}.
      * @param data The {@linkcode RawPixelData} object carrying the **raw** RGB image data and describing it's format.
+     * @param allowGpu If `allowGpu` is set to `true` and the given {@linkcode data} is a GPU-buffer, the {@linkcode Image}
+     * might be wrapping the given GPU-buffer without performing a copy. By default, `allowGpu` is `false`
      * @throws If the given {@linkcode RawPixelData} is not a valid RGB buffer representing an {@linkcode Image}.
      */
-    loadFromRawPixelDataAsync(data: RawPixelData): Promise<Image>;
+    loadFromRawPixelDataAsync(data: RawPixelData, allowGpu?: boolean): Promise<Image>;
 
     /**
      * Synchronously loads an {@linkcode Image} from the given {@linkcode EncodedImageData}'s {@linkcode ArrayBuffer}.

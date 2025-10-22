@@ -31,6 +31,7 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 #include <NitroModules/JUnit.hpp>
 #include "PixelFormat.hpp"
 #include "JPixelFormat.hpp"
+#include <optional>
 #include "EncodedImageData.hpp"
 #include "JEncodedImageData.hpp"
 #include "ImageFormat.hpp"
@@ -109,14 +110,14 @@ namespace margelo::nitro::image {
     auto __result = method(_javaPart, jni::make_jstring(symbolName));
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromRawPixelData(const RawPixelData& data) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JRawPixelData> /* data */)>("loadFromRawPixelData");
-    auto __result = method(_javaPart, JRawPixelData::fromCpp(data));
+  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromRawPixelData(const RawPixelData& data, std::optional<bool> allowGpu) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JRawPixelData> /* data */, jni::alias_ref<jni::JBoolean> /* allowGpu */)>("loadFromRawPixelData");
+    auto __result = method(_javaPart, JRawPixelData::fromCpp(data), allowGpu.has_value() ? jni::JBoolean::valueOf(allowGpu.value()) : nullptr);
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromRawPixelDataAsync(const RawPixelData& data) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JRawPixelData> /* data */)>("loadFromRawPixelDataAsync");
-    auto __result = method(_javaPart, JRawPixelData::fromCpp(data));
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromRawPixelDataAsync(const RawPixelData& data, std::optional<bool> allowGpu) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JRawPixelData> /* data */, jni::alias_ref<jni::JBoolean> /* allowGpu */)>("loadFromRawPixelDataAsync");
+    auto __result = method(_javaPart, JRawPixelData::fromCpp(data), allowGpu.has_value() ? jni::JBoolean::valueOf(allowGpu.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

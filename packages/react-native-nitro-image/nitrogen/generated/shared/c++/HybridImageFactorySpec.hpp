@@ -25,6 +25,7 @@ namespace margelo::nitro::image { struct EncodedImageData; }
 #include <string>
 #include <NitroModules/Promise.hpp>
 #include "RawPixelData.hpp"
+#include <optional>
 #include "EncodedImageData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 
@@ -64,8 +65,8 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<HybridImageSpec> loadFromResources(const std::string& name) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromResourcesAsync(const std::string& name) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromSymbol(const std::string& symbolName) = 0;
-      virtual std::shared_ptr<HybridImageSpec> loadFromRawPixelData(const RawPixelData& data) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromRawPixelData(const RawPixelData& data, std::optional<bool> allowGpu) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data, std::optional<bool> allowGpu) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& data) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& data) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;

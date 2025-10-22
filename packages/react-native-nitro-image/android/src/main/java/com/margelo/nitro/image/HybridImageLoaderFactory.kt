@@ -23,7 +23,7 @@ class HybridImageLoaderFactory: HybridImageLoaderFactorySpec() {
     }
 
     override fun createRawPixelDataImageLoader(data: RawPixelData): HybridImageLoaderSpec {
-        return HybridImageLoader { factory.loadFromRawPixelDataAsync(data) }
+        return HybridImageLoader { factory.loadFromRawPixelDataAsync(data, false) }
     }
 
     override fun createEncodedImageDataImageLoader(data: EncodedImageData): HybridImageLoaderSpec {
