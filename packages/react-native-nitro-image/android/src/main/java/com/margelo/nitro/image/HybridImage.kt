@@ -56,19 +56,9 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun toEncodedImageData(format: ImageFormat, quality: Double?): EncodedImageData {
-        val quality = quality ?: 1.0
-        val estimatedByteSize = when (format) {
-            ImageFormat.JPG -> (width * height) / 2
-            ImageFormat.PNG -> width * height
-        }
-        val outputStream = FastByteArrayOutputStream(estimatedByteSize.toInt())
-        val successful = bitmap.compress(format.toBitmapFormat(), quality.toInt(), outputStream)
-        if (!successful) {
-            throw Error("Failed to compress the Bitmap into EncodedImageData! (Format: ${format.name}, " +
-                    "Quality: ${quality}, Written Bytes: ${outputStream.count})")
-        }
-        val byteBuffer = outputStream.toByteBuffer()
-        val arrayBuffer = ArrayBuffer.wrap(byteBuffer)
+        val quality = quality ?: 100.0
+        val byteBuffer = bitmap.compressInMemory(format, quality.toInt())
+        val arrayBuffer = ArrayBuffer.copy(byteBuffer)
         return EncodedImageData(arrayBuffer, width, height, format)
     }
     override fun toEncodedImageDataAsync(
@@ -125,16 +115,17 @@ class HybridImage: HybridImageSpec {
         format: ImageFormat,
         quality: Double?
     ): Promise<Unit> {
-        val quality = quality ?: 1.0
+        val quality = quality ?: 100.0
         return Promise.async {
             bitmap.saveToFile(path, format, quality.toInt())
         }
     }
 
     override fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double?): Promise<String> {
+        val quality = quality ?: 100.0
         return Promise.async {
             val tempFile = File.createTempFile("nitro_image_", format.name)
-            this.saveToFileAsync(tempFile.path, format, quality)
+            bitmap.saveToFile(tempFile.path, format, quality.toInt())
             return@async tempFile.path
         }
     }

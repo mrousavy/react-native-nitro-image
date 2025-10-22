@@ -107,7 +107,19 @@ open class HybridImageUtilsSpec_cxx {
   }
 
   // Properties
+  public final var supportsHeicLoading: Bool {
+    @inline(__always)
+    get {
+      return self.__implementation.supportsHeicLoading
+    }
+  }
   
+  public final var supportsHeicWriting: Bool {
+    @inline(__always)
+    get {
+      return self.__implementation.supportsHeicWriting
+    }
+  }
 
   // Methods
   @inline(__always)

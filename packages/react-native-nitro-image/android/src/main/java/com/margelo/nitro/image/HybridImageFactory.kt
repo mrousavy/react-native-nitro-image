@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.annotation.Keep
+import androidx.core.graphics.createBitmap
 import com.facebook.common.internal.DoNotStrip
-import com.facebook.react.bridge.ReactApplicationContext
 import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer
@@ -56,6 +56,9 @@ class HybridImageFactory: HybridImageFactorySpec() {
 
     private fun loadFromEncodedBytes(bytes: ByteArray): HybridImageSpec {
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        if (bitmap == null) {
+            throw Error("Failed to decode EncodedImageData to an Image! (Bytes: ${bytes.size})")
+        }
         return HybridImage(bitmap)
     }
     override fun loadFromEncodedImageData(data: EncodedImageData): HybridImageSpec {
@@ -69,6 +72,9 @@ class HybridImageFactory: HybridImageFactorySpec() {
 
     override fun loadFromFile(filePath: String): HybridImageSpec {
         val bitmap = BitmapFactory.decodeFile(filePath)
+        if (bitmap == null) {
+            throw Error("Failed to load Image from file! (Path: $filePath)")
+        }
         return HybridImage(bitmap)
     }
 
@@ -79,7 +85,7 @@ class HybridImageFactory: HybridImageFactorySpec() {
     private fun loadFromThumbHash(thumbHashBytes: ByteArray): HybridImage {
         val rgba = ThumbHash.thumbHashToRGBA(thumbHashBytes)
 
-        val bitmap = Bitmap.createBitmap(rgba.width, rgba.height, Bitmap.Config.ARGB_8888)
+        val bitmap = createBitmap(rgba.width, rgba.height, Bitmap.Config.ARGB_8888)
         val buffer = ByteBuffer.wrap(rgba.rgba)
         bitmap.copyPixelsFromBuffer(buffer)
         return HybridImage(bitmap)

@@ -12,7 +12,8 @@ import NitroModules
 /// See ``HybridImageUtilsSpec``
 public protocol HybridImageUtilsSpec_protocol: HybridObject {
   // Properties
-  
+  var supportsHeicLoading: Bool { get }
+  var supportsHeicWriting: Bool { get }
 
   // Methods
   func thumbHashToBase64String(thumbhash: ArrayBuffer) throws -> String

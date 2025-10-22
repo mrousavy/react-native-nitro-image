@@ -49,7 +49,8 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
-    
+    bool getSupportsHeicLoading() override;
+    bool getSupportsHeicWriting() override;
 
   public:
     // Methods

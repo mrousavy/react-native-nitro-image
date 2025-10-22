@@ -56,7 +56,12 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
-    
+    inline bool getSupportsHeicLoading() noexcept override {
+      return _swiftPart.getSupportsHeicLoading();
+    }
+    inline bool getSupportsHeicWriting() noexcept override {
+      return _swiftPart.getSupportsHeicWriting();
+    }
 
   public:
     // Methods

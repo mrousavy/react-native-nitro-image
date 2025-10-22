@@ -21,6 +21,8 @@ public extension ImageFormat {
         self = .jpg
       case "png":
         self = .png
+      case "heic":
+        self = .heic
       default:
         return nil
     }
@@ -35,6 +37,8 @@ public extension ImageFormat {
         return "jpg"
       case .png:
         return "png"
+      case .heic:
+        return "heic"
     }
   }
 }

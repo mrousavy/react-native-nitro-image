@@ -38,7 +38,13 @@ abstract class HybridImageUtilsSpec: HybridObject() {
   }
 
   // Properties
+  @get:DoNotStrip
+  @get:Keep
+  abstract val supportsHeicLoading: Boolean
   
+  @get:DoNotStrip
+  @get:Keep
+  abstract val supportsHeicWriting: Boolean
 
   // Methods
   @DoNotStrip

@@ -1,7 +1,7 @@
 import type { HybridObject } from "react-native-nitro-modules";
 
 /**
- * Represents the pixel ordering format.
+ * Represents the pixel ordering format of the literal bytes in memory.
  * - `ARGB`: `[alpha, red, green, blue]`
  * - `BGRA`: `[blue, green, red, alpha]`
  * - `ABGR`: `[alpha, blue, green, red]`
@@ -15,6 +15,12 @@ import type { HybridObject } from "react-native-nitro-modules";
  * - `unknown`: Unknown pixel format.
  *
  * `A` means alpha, `X` means placeholder - skip alpha.
+ *
+ * @note On some platforms (such as Android) Pixel Formats are specified as the order of pixels inside an `Int`.
+ * For example, [`Bitmap.Config.ARGB_888`](https://developer.android.com/reference/android/graphics/Bitmap.Config)
+ * means "`0xAARRGGBB`" when read as an `Int`, but when read as bytes, it depends on the OS' endianess. On most
+ * modern OS (ARM64), the byte order is little-endian, which would flip the `ARGB_8888` format to be read as
+ * `[B, G, R, A]` instead. This is why a `Bitmap` that is in `ARGB_8888` config will return `BGRA` here in Nitro Image.
  */
 export type PixelFormat =
     | "ARGB"
@@ -32,7 +38,7 @@ export type PixelFormat =
 /**
  * Describes the format of an encoded Image.
  */
-export type ImageFormat = "jpg" | "png";
+export type ImageFormat = "jpg" | "png" | "heic";
 
 /**
  * Describes raw pixel data (`buffer`) with `width`, `height` and `pixelFormat`.
@@ -91,7 +97,7 @@ export interface Image
      * Returns an {@linkcode ArrayBuffer} containing the encoded data of an Image in
      * the requested container {@linkcode format}.
      * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
-     * {@linkcode quality} to compress the image. In {@linkcode ImageFormat | 'png'}, the
+     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
      * {@linkcode quality} flag is ignored.
      * @example
      * ```ts
@@ -137,9 +143,12 @@ export interface Image
 
     /**
      * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
+     * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
+     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
+     * {@linkcode quality} flag is ignored.
      * @example
      * ```ts
-     * await image.saveToFileAsync(path, 'jpg', 0.8)
+     * await image.saveToFileAsync(path, 'jpg', 80)
      * ```
      */
     saveToFileAsync(
@@ -149,9 +158,12 @@ export interface Image
     ): Promise<void>;
     /**
      * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and return it's path.
+     * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
+     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
+     * {@linkcode quality} flag is ignored.
      * @example
      * ```ts
-     * const path = await image.saveToTemporaryFileAsync('jpg', 0.8)
+     * const path = await image.saveToTemporaryFileAsync('jpg', 80)
      * ```
      */
     saveToTemporaryFileAsync(

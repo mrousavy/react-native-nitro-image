@@ -15,6 +15,8 @@ extension ImageFormat {
       return .jpeg
     case .png:
       return .png
+    case .heic:
+      return .heic
     }
   }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import NitroModules
+import UniformTypeIdentifiers
 
 class HybridImageFactory: HybridImageFactorySpec {
   /**
@@ -55,19 +56,19 @@ class HybridImageFactory: HybridImageFactorySpec {
   /**
    * Load Image from the given raw ArrayBuffer data
    */
-  func loadFromRawPixelData(data: RawPixelData) throws -> any HybridImageSpec {
+  func loadFromRawPixelData(data: RawPixelData, allowGpu _ : Bool?) throws -> any HybridImageSpec {
     let uiImage = try UIImage(fromRawPixelData: data)
     return HybridImage(uiImage: uiImage)
   }
   
-  func loadFromRawPixelDataAsync(data: RawPixelData) throws -> Promise<any HybridImageSpec> {
+  func loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Bool?) throws -> Promise<any HybridImageSpec> {
     let dataCopy = data.buffer.isOwner ? data.buffer : ArrayBuffer.copy(of: data.buffer)
     let newData = RawPixelData(buffer: dataCopy,
                                width: data.width,
                                height: data.height,
                                pixelFormat: data.pixelFormat)
     return Promise.async {
-      return try self.loadFromRawPixelData(data: newData)
+      return try self.loadFromRawPixelData(data: newData, allowGpu: allowGpu)
     }
   }
   
