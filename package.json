@@ -50,7 +50,7 @@
       "release": true
     },
     "hooks": {
-      "before:release": "bun i && bun run build && bun example pods && git add example/ios/Podfile.lock"
+      "before:release": "bun i"
     },
     "plugins": {
       "@release-it/bumper": {
