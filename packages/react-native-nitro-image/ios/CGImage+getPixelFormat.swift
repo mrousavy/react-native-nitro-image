@@ -26,13 +26,27 @@ extension CGImage {
   }
   
   var pixelFormat: PixelFormat {
-    let alpha = self.alphaInfo
-
-    if alpha == .premultipliedFirst || alpha == .first {
-      return isLittleEndian ? .bgra : .argb
-    } else if alpha == .premultipliedLast || alpha == .last {
-      return isLittleEndian ? .abgr : .rgba
+    guard self.bitsPerComponent == 8, self.bitsPerPixel == 32 else {
+      return .unknown
     }
-    return .unknown
+    switch self.alphaInfo {
+    case .premultipliedFirst, .first:
+      // A___
+      return self.isLittleEndian ? .bgra : .argb
+    case .premultipliedLast, .last:
+      // ___A
+      return self.isLittleEndian ? .abgr : .rgba
+    case .noneSkipFirst:
+      // X___
+      return self.isLittleEndian ? .bgra : .argb
+    case .noneSkipLast:
+      // ___X
+      return self.isLittleEndian ? .abgr : .rgba
+    case .none:
+      // ___
+      return self.isLittleEndian ? .bgr : .rgb
+    default:
+      return .unknown
+    }
   }
 }

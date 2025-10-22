@@ -2,9 +2,21 @@ import type { HybridObject } from "react-native-nitro-modules";
 
 /**
  * Represents the pixel ordering format.
- * On iOS, this is often `BGRA`, while on Android it is `RGBA`.
+ * - `ARGB`: `[alpha, red, green, blue]`
+ * - `BGRA`: `[blue, green, red, alpha]`
+ * - `ABGR`: `[alpha, blue, green, red]`
+ * - `RGBA`: `[red, green, blue, alpha]`
+ * - `XRGB`: `[skip, red, green, blue]`
+ * - `BGRX`: `[blue, green, red, skip]`
+ * - `XBGR`: `[skip, blue, green, red]`
+ * - `RGBX`: `[red, green, blue, skip]`
+ * - `RGB`: `[red, green, blue]`
+ * - `BGR`: `[blue, green, red]`
+ * - `unknown`: Unknown pixel format.
+ *
+ * `A` means alpha, `X` means placeholder - skip alpha.
  */
-export type PixelFormat = "ARGB" | "BGRA" | "ABGR" | "RGBA" | "unknown";
+export type PixelFormat = "ARGB" | "BGRA" | "ABGR" | "RGBA" | "XRGB" | "BGRX" | "XBGR" | "RGBX" | "RGB" | "BGR" | "unknown";
 
 /**
  * Describes the format of an encoded Image.

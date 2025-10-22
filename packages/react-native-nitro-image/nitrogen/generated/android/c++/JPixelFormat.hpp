@@ -45,6 +45,12 @@ namespace margelo::nitro::image {
       static const auto fieldBGRA = clazz->getStaticField<JPixelFormat>("BGRA");
       static const auto fieldABGR = clazz->getStaticField<JPixelFormat>("ABGR");
       static const auto fieldRGBA = clazz->getStaticField<JPixelFormat>("RGBA");
+      static const auto fieldXRGB = clazz->getStaticField<JPixelFormat>("XRGB");
+      static const auto fieldBGRX = clazz->getStaticField<JPixelFormat>("BGRX");
+      static const auto fieldXBGR = clazz->getStaticField<JPixelFormat>("XBGR");
+      static const auto fieldRGBX = clazz->getStaticField<JPixelFormat>("RGBX");
+      static const auto fieldRGB = clazz->getStaticField<JPixelFormat>("RGB");
+      static const auto fieldBGR = clazz->getStaticField<JPixelFormat>("BGR");
       static const auto fieldUNKNOWN = clazz->getStaticField<JPixelFormat>("UNKNOWN");
       
       switch (value) {
@@ -56,6 +62,18 @@ namespace margelo::nitro::image {
           return clazz->getStaticFieldValue(fieldABGR);
         case PixelFormat::RGBA:
           return clazz->getStaticFieldValue(fieldRGBA);
+        case PixelFormat::XRGB:
+          return clazz->getStaticFieldValue(fieldXRGB);
+        case PixelFormat::BGRX:
+          return clazz->getStaticFieldValue(fieldBGRX);
+        case PixelFormat::XBGR:
+          return clazz->getStaticFieldValue(fieldXBGR);
+        case PixelFormat::RGBX:
+          return clazz->getStaticFieldValue(fieldRGBX);
+        case PixelFormat::RGB:
+          return clazz->getStaticFieldValue(fieldRGB);
+        case PixelFormat::BGR:
+          return clazz->getStaticFieldValue(fieldBGR);
         case PixelFormat::UNKNOWN:
           return clazz->getStaticFieldValue(fieldUNKNOWN);
         default:

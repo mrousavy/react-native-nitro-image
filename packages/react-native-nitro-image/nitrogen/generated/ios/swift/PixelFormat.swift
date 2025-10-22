@@ -25,6 +25,18 @@ public extension PixelFormat {
         self = .abgr
       case "RGBA":
         self = .rgba
+      case "XRGB":
+        self = .xrgb
+      case "BGRX":
+        self = .bgrx
+      case "XBGR":
+        self = .xbgr
+      case "RGBX":
+        self = .rgbx
+      case "RGB":
+        self = .rgb
+      case "BGR":
+        self = .bgr
       case "unknown":
         self = .unknown
       default:
@@ -45,6 +57,18 @@ public extension PixelFormat {
         return "ABGR"
       case .rgba:
         return "RGBA"
+      case .xrgb:
+        return "XRGB"
+      case .bgrx:
+        return "BGRX"
+      case .xbgr:
+        return "XBGR"
+      case .rgbx:
+        return "RGBX"
+      case .rgb:
+        return "RGB"
+      case .bgr:
+        return "BGR"
       case .unknown:
         return "unknown"
     }

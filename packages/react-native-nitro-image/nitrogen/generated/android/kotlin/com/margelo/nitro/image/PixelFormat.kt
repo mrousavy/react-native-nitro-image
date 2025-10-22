@@ -20,5 +20,11 @@ enum class PixelFormat(@DoNotStrip @Keep val value: Int) {
   BGRA(1),
   ABGR(2),
   RGBA(3),
-  UNKNOWN(4);
+  XRGB(4),
+  BGRX(5),
+  XBGR(6),
+  RGBX(7),
+  RGB(8),
+  BGR(9),
+  UNKNOWN(10);
 }

@@ -33,7 +33,13 @@ namespace margelo::nitro::image {
     BGRA      SWIFT_NAME(bgra) = 1,
     ABGR      SWIFT_NAME(abgr) = 2,
     RGBA      SWIFT_NAME(rgba) = 3,
-    UNKNOWN      SWIFT_NAME(unknown) = 4,
+    XRGB      SWIFT_NAME(xrgb) = 4,
+    BGRX      SWIFT_NAME(bgrx) = 5,
+    XBGR      SWIFT_NAME(xbgr) = 6,
+    RGBX      SWIFT_NAME(rgbx) = 7,
+    RGB      SWIFT_NAME(rgb) = 8,
+    BGR      SWIFT_NAME(bgr) = 9,
+    UNKNOWN      SWIFT_NAME(unknown) = 10,
   } CLOSED_ENUM;
 
 } // namespace margelo::nitro::image
@@ -50,6 +56,12 @@ namespace margelo::nitro {
         case hashString("BGRA"): return margelo::nitro::image::PixelFormat::BGRA;
         case hashString("ABGR"): return margelo::nitro::image::PixelFormat::ABGR;
         case hashString("RGBA"): return margelo::nitro::image::PixelFormat::RGBA;
+        case hashString("XRGB"): return margelo::nitro::image::PixelFormat::XRGB;
+        case hashString("BGRX"): return margelo::nitro::image::PixelFormat::BGRX;
+        case hashString("XBGR"): return margelo::nitro::image::PixelFormat::XBGR;
+        case hashString("RGBX"): return margelo::nitro::image::PixelFormat::RGBX;
+        case hashString("RGB"): return margelo::nitro::image::PixelFormat::RGB;
+        case hashString("BGR"): return margelo::nitro::image::PixelFormat::BGR;
         case hashString("unknown"): return margelo::nitro::image::PixelFormat::UNKNOWN;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum PixelFormat - invalid value!");
@@ -61,6 +73,12 @@ namespace margelo::nitro {
         case margelo::nitro::image::PixelFormat::BGRA: return JSIConverter<std::string>::toJSI(runtime, "BGRA");
         case margelo::nitro::image::PixelFormat::ABGR: return JSIConverter<std::string>::toJSI(runtime, "ABGR");
         case margelo::nitro::image::PixelFormat::RGBA: return JSIConverter<std::string>::toJSI(runtime, "RGBA");
+        case margelo::nitro::image::PixelFormat::XRGB: return JSIConverter<std::string>::toJSI(runtime, "XRGB");
+        case margelo::nitro::image::PixelFormat::BGRX: return JSIConverter<std::string>::toJSI(runtime, "BGRX");
+        case margelo::nitro::image::PixelFormat::XBGR: return JSIConverter<std::string>::toJSI(runtime, "XBGR");
+        case margelo::nitro::image::PixelFormat::RGBX: return JSIConverter<std::string>::toJSI(runtime, "RGBX");
+        case margelo::nitro::image::PixelFormat::RGB: return JSIConverter<std::string>::toJSI(runtime, "RGB");
+        case margelo::nitro::image::PixelFormat::BGR: return JSIConverter<std::string>::toJSI(runtime, "BGR");
         case margelo::nitro::image::PixelFormat::UNKNOWN: return JSIConverter<std::string>::toJSI(runtime, "unknown");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert PixelFormat to JS - invalid value: "
@@ -77,6 +95,12 @@ namespace margelo::nitro {
         case hashString("BGRA"):
         case hashString("ABGR"):
         case hashString("RGBA"):
+        case hashString("XRGB"):
+        case hashString("BGRX"):
+        case hashString("XBGR"):
+        case hashString("RGBX"):
+        case hashString("RGB"):
+        case hashString("BGR"):
         case hashString("unknown"):
           return true;
         default:
