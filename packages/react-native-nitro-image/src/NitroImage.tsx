@@ -16,7 +16,7 @@ export interface NitroImageProps extends Omit<NativeImageProps, "image"> {
  * The renderable asynchronous `<NitroImage />` view.
  *
  * This is a JS-based abstraction on-top of the
- * {@linkcode NitroImage | <NitroImage />} view to simplify
+ * {@linkcode NativeNitroImage | <NativeNitroImage />} view to simplify
  * image loading.
  * @example
  * ```tsx

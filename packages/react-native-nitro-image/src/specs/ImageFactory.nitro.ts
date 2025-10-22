@@ -44,17 +44,23 @@ export interface ImageFactory
 
     /**
      * Synchronously convert the given given {@linkcode ArrayBuffer} to an {@linkcode Image}.
-     * @param buffer
+     * @param buffer The ArrayBuffer carrying the data in any supported image format
      * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
      */
     loadFromArrayBuffer(buffer: ArrayBuffer): Image;
     /**
      * Asynchronously convert the given given {@linkcode ArrayBuffer} to an {@linkcode Image}.
-     * @param buffer
+     * @param buffer The ArrayBuffer carrying the data in any supported image format
      * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
      */
     loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<Image>;
 
+    /**
+     * Synchronously decodes the given {@linkcode thumbhash} (and {@linkcode ArrayBuffer})
+     * into an {@linkcode Image}.
+     * @param buffer The ArrayBuffer carrying the ThumbHash's data
+     * @throws If the given {@linkcode thumbhash} is not a valid ThumbHash.
+     */
     loadFromThumbHash(thumbhash: ArrayBuffer): Image;
     loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<Image>;
 }
