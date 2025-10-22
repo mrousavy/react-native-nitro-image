@@ -15,7 +15,6 @@ export function EmptyTab() {
             console.log('2', image.width, image.height)
             const rawData = await image.toRawPixelDataAsync()
             console.log('3', rawData.buffer.byteLength)
-            rawData.pixelFormat = 'BGRA'
             setX(rawData)
             const newImage = await Images.loadFromRawPixelDataAsync(rawData)
             console.log('4', newImage.width, newImage.height)

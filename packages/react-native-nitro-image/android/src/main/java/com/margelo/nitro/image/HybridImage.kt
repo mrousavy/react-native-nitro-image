@@ -35,15 +35,21 @@ class HybridImage: HybridImageSpec {
 
     override fun toRawPixelData(allowGpu: Boolean?): RawPixelData {
         val allowGpu = allowGpu ?: false
-        val arrayBuffer = if (allowGpu && bitmap.isGPU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (allowGpu && bitmap.isGPU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             // Wrap the existing GPU buffer (HardwareBuffer)
-            ArrayBuffer.wrap(bitmap.hardwareBuffer)
+            val arrayBuffer = ArrayBuffer.wrap(bitmap.hardwareBuffer)
+            return RawPixelData(arrayBuffer, width, height, bitmap.pixelFormat)
         } else {
             // Copy the data into a CPU buffer (ByteBuffer)
+            var bitmap = bitmap
+            if (bitmap.isGPU) {
+                // If this is a GPU-based bitmap (but we cannot use GPU), copy it to a CPU Bitmap first
+                bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, false)
+            }
             val buffer = bitmap.toByteBuffer()
-            ArrayBuffer.wrap(buffer)
+            val arrayBuffer = ArrayBuffer.wrap(buffer)
+            return RawPixelData(arrayBuffer, width, height, bitmap.pixelFormat)
         }
-        return RawPixelData(arrayBuffer, width, height, PixelFormat.ARGB)
     }
     override fun toRawPixelDataAsync(allowGpu: Boolean?): Promise<RawPixelData> {
         return Promise.async { toRawPixelData(allowGpu) }
