@@ -29,10 +29,10 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
 #include "PixelFormat.hpp"
+#include <optional>
 #include <NitroModules/Promise.hpp>
 #include "EncodedImageData.hpp"
 #include "ImageFormat.hpp"
-#include <optional>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
@@ -83,16 +83,16 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline RawPixelData toRawPixelData() override {
-      auto __result = _swiftPart.toRawPixelData();
+    inline RawPixelData toRawPixelData(std::optional<bool> allowGpu) override {
+      auto __result = _swiftPart.toRawPixelData(allowGpu);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync() override {
-      auto __result = _swiftPart.toRawPixelDataAsync();
+    inline std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync(std::optional<bool> allowGpu) override {
+      auto __result = _swiftPart.toRawPixelDataAsync(allowGpu);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

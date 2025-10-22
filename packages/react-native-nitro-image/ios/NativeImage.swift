@@ -23,20 +23,20 @@ public protocol NativeImage {
 public extension NativeImage {
   var width: Double { uiImage.size.width }
   var height: Double { uiImage.size.height }
-  
-  func toRawPixelData() throws -> RawPixelData {
+
+  func toRawPixelData(allowGpu _: Bool?) throws -> RawPixelData {
     return try uiImage.toRawPixelData()
   }
-  func toRawPixelDataAsync() throws -> Promise<RawPixelData> {
+  func toRawPixelDataAsync(allowGpu: Bool?) throws -> Promise<RawPixelData> {
     return Promise.async {
-      return try self.toRawPixelData()
+      return try self.toRawPixelData(allowGpu: allowGpu)
     }
   }
-  
+
   func toEncodedImageData(format: ImageFormat, quality: Double?) throws -> EncodedImageData {
     return try uiImage.toEncodedImageData(format: format, quality: quality ?? 1.0)
   }
-  
+
   func toEncodedImageDataAsync(format: ImageFormat, quality: Double?) throws -> Promise<EncodedImageData> {
     return Promise.async {
       return try self.toEncodedImageData(format: format, quality: quality)

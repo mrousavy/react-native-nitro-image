@@ -50,11 +50,11 @@ abstract class HybridImageSpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun toRawPixelData(): RawPixelData
+  abstract fun toRawPixelData(allowGpu: Boolean?): RawPixelData
   
   @DoNotStrip
   @Keep
-  abstract fun toRawPixelDataAsync(): Promise<RawPixelData>
+  abstract fun toRawPixelDataAsync(allowGpu: Boolean?): Promise<RawPixelData>
   
   @DoNotStrip
   @Keep

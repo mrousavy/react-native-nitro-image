@@ -22,7 +22,11 @@ class HybridImageLoaderFactory: HybridImageLoaderFactorySpec() {
         return HybridImageLoader { Promise.resolved(factory.loadFromSymbol(symbolName)) }
     }
 
-    override fun createArrayBufferImageLoader(buffer: ArrayBuffer): HybridImageLoaderSpec {
-        return HybridImageLoader { factory.loadFromArrayBufferAsync(buffer) }
+    override fun createRawPixelDataImageLoader(data: RawPixelData): HybridImageLoaderSpec {
+        return HybridImageLoader { factory.loadFromRawPixelDataAsync(data) }
+    }
+
+    override fun createEncodedImageDataImageLoader(data: EncodedImageData): HybridImageLoaderSpec {
+        return HybridImageLoader { factory.loadFromEncodedImageDataAsync(data) }
     }
 }

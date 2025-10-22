@@ -16,8 +16,8 @@ public protocol HybridImageSpec_protocol: HybridObject {
   var height: Double { get }
 
   // Methods
-  func toRawPixelData() throws -> RawPixelData
-  func toRawPixelDataAsync() throws -> Promise<RawPixelData>
+  func toRawPixelData(allowGpu: Bool?) throws -> RawPixelData
+  func toRawPixelDataAsync(allowGpu: Bool?) throws -> Promise<RawPixelData>
   func toEncodedImageData(format: ImageFormat, quality: Double?) throws -> EncodedImageData
   func toEncodedImageDataAsync(format: ImageFormat, quality: Double?) throws -> Promise<EncodedImageData>
   func resize(width: Double, height: Double) throws -> (any HybridImageSpec)

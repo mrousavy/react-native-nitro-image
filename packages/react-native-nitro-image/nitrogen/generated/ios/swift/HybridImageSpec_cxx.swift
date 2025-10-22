@@ -123,9 +123,16 @@ open class HybridImageSpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func toRawPixelData() -> bridge.Result_RawPixelData_ {
+  public final func toRawPixelData(allowGpu: bridge.std__optional_bool_) -> bridge.Result_RawPixelData_ {
     do {
-      let __result = try self.__implementation.toRawPixelData()
+      let __result = try self.__implementation.toRawPixelData(allowGpu: { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(allowGpu) {
+          let __unwrapped = bridge.get_std__optional_bool_(allowGpu)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }())
       let __resultCpp = __result
       return bridge.create_Result_RawPixelData_(__resultCpp)
     } catch (let __error) {
@@ -135,9 +142,16 @@ open class HybridImageSpec_cxx {
   }
   
   @inline(__always)
-  public final func toRawPixelDataAsync() -> bridge.Result_std__shared_ptr_Promise_RawPixelData___ {
+  public final func toRawPixelDataAsync(allowGpu: bridge.std__optional_bool_) -> bridge.Result_std__shared_ptr_Promise_RawPixelData___ {
     do {
-      let __result = try self.__implementation.toRawPixelDataAsync()
+      let __result = try self.__implementation.toRawPixelDataAsync(allowGpu: { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(allowGpu) {
+          let __unwrapped = bridge.get_std__optional_bool_(allowGpu)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }())
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_RawPixelData__ in
         let __promise = bridge.create_std__shared_ptr_Promise_RawPixelData__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_RawPixelData__(__promise)

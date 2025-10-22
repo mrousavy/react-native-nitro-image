@@ -55,6 +55,8 @@ export interface Image
      * Returns an {@linkcode ArrayBuffer} containing the raw pixel data of the Image.
      * @note Raw pixel data is either in {@linkcode PixelFormat | 'ARGB'} or
      * {@linkcode PixelFormat | 'BGRA'} format, depending on the OS' endianess.
+     * @param allowGpu If `allowGpu` is set to `true`, the returned buffer might
+     * be a `HardwareBuffer` (a GPU-buffer) on Android. By default, it is `false`.
      * @example
      * ```ts
      * const rawData = image.toRawArrayBuffer()
@@ -71,8 +73,8 @@ export interface Image
      * }
      * ```
      */
-    toRawPixelData(): RawPixelData;
-    toRawPixelDataAsync(): Promise<RawPixelData>;
+    toRawPixelData(allowGpu?: boolean): RawPixelData;
+    toRawPixelDataAsync(allowGpu?: boolean): Promise<RawPixelData>;
 
     /**
      * Returns an {@linkcode ArrayBuffer} containing the encoded data of an Image in

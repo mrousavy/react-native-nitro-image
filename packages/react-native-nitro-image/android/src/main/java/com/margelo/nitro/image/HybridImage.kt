@@ -3,10 +3,12 @@ package com.margelo.nitro.image
 import android.graphics.Bitmap
 import android.os.Build
 import androidx.annotation.Keep
+import com.facebook.common.memory.PooledByteBufferOutputStream
 import com.facebook.proguard.annotations.DoNotStrip
 import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -48,19 +50,43 @@ class HybridImage: HybridImageSpec {
         return buffer
     }
 
-    override fun toRawArrayBuffer(): RawPixelData {
-        val arrayBuffer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && isGPU) {
+    override fun toRawPixelData(allowGpu: Boolean?): RawPixelData {
+        val arrayBuffer = if (allowGpu == true && isGPU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // Wrap the existing GPU buffer (HardwareBuffer)
             ArrayBuffer.wrap(bitmap.hardwareBuffer)
         } else {
+            // Copy the data into a CPU buffer (ByteBuffer)
             val buffer = toByteBuffer()
             ArrayBuffer.wrap(buffer)
         }
-        bitmap.copyPixelsToBuffer()
-        return RawPixelData(arrayBuffer, width, height, )
+        // TODO: Figure out PixelFormat on GPU buffers
+        return RawPixelData(arrayBuffer, width, height, PixelFormat.ARGB)
+    }
+    override fun toRawPixelDataAsync(allowGpu: Boolean?): Promise<RawPixelData> {
+        return Promise.async { toRawPixelData(allowGpu) }
     }
 
-    override fun toRawArrayBufferAsync(): Promise<RawPixelData> {
-        return Promise.async { toArrayBuffer() }
+    override fun toEncodedImageData(format: ImageFormat, quality: Double?): EncodedImageData {
+        val quality = quality ?: 1.0
+        val estimatedByteSize = when (format) {
+            ImageFormat.JPG -> (width * height) / 2
+            ImageFormat.PNG -> width * height
+        }
+        val outputStream = FastByteArrayOutputStream(estimatedByteSize.toInt())
+        val successful = bitmap.compress(format.toBitmapFormat(), quality.toInt(), outputStream)
+        if (!successful) {
+            throw Error("Failed to compress the Bitmap into EncodedImageData! (Format: ${format.name}, " +
+                    "Quality: ${quality}, Written Bytes: ${outputStream.count})")
+        }
+        val byteBuffer = outputStream.toByteBuffer()
+        val arrayBuffer = ArrayBuffer.wrap(byteBuffer)
+        return EncodedImageData(arrayBuffer, width, height, format)
+    }
+    override fun toEncodedImageDataAsync(
+        format: ImageFormat,
+        quality: Double?
+    ): Promise<EncodedImageData> {
+        return Promise.async { toEncodedImageData(format, quality) }
     }
 
     override fun resize(width: Double, height: Double): HybridImageSpec {
@@ -102,14 +128,15 @@ class HybridImage: HybridImageSpec {
     override fun saveToFileAsync(
         path: String,
         format: ImageFormat,
-        quality: Double
+        quality: Double?
     ): Promise<Unit> {
+        val quality = quality ?: 1.0
         return Promise.async {
             bitmap.saveToFile(path, format, quality.toInt())
         }
     }
 
-    override fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double): Promise<String> {
+    override fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double?): Promise<String> {
         return Promise.async {
             val tempFile = File.createTempFile("nitro_image_", format.name)
             this.saveToFileAsync(tempFile.path, format, quality)

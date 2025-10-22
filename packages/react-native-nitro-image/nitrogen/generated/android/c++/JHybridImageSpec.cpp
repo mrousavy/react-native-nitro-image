@@ -72,14 +72,14 @@ namespace margelo::nitro::image {
   }
 
   // Methods
-  RawPixelData JHybridImageSpec::toRawPixelData() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JRawPixelData>()>("toRawPixelData");
-    auto __result = method(_javaPart);
+  RawPixelData JHybridImageSpec::toRawPixelData(std::optional<bool> allowGpu) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JRawPixelData>(jni::alias_ref<jni::JBoolean> /* allowGpu */)>("toRawPixelData");
+    auto __result = method(_javaPart, allowGpu.has_value() ? jni::JBoolean::valueOf(allowGpu.value()) : nullptr);
     return __result->toCpp();
   }
-  std::shared_ptr<Promise<RawPixelData>> JHybridImageSpec::toRawPixelDataAsync() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("toRawPixelDataAsync");
-    auto __result = method(_javaPart);
+  std::shared_ptr<Promise<RawPixelData>> JHybridImageSpec::toRawPixelDataAsync(std::optional<bool> allowGpu) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JBoolean> /* allowGpu */)>("toRawPixelDataAsync");
+    auto __result = method(_javaPart, allowGpu.has_value() ? jni::JBoolean::valueOf(allowGpu.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<RawPixelData>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

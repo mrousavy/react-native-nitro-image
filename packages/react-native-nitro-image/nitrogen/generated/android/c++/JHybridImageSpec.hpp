@@ -54,8 +54,8 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    RawPixelData toRawPixelData() override;
-    std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync() override;
+    RawPixelData toRawPixelData(std::optional<bool> allowGpu) override;
+    std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync(std::optional<bool> allowGpu) override;
     EncodedImageData toEncodedImageData(ImageFormat format, std::optional<double> quality) override;
     std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, std::optional<double> quality) override;
     std::shared_ptr<HybridImageSpec> resize(double width, double height) override;

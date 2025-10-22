@@ -77,6 +77,21 @@ namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
  */
 namespace margelo::nitro::image::bridge::swift {
 
+  // pragma MARK: std::optional<bool>
+  /**
+   * Specialized version of `std::optional<bool>`.
+   */
+  using std__optional_bool_ = std::optional<bool>;
+  inline std::optional<bool> create_std__optional_bool_(const bool& value) noexcept {
+    return std::optional<bool>(value);
+  }
+  inline bool has_value_std__optional_bool_(const std::optional<bool>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline bool get_std__optional_bool_(const std::optional<bool>& optional) noexcept {
+    return *optional;
+  }
+  
   // pragma MARK: std::shared_ptr<Promise<RawPixelData>>
   /**
    * Specialized version of `std::shared_ptr<Promise<RawPixelData>>`.
