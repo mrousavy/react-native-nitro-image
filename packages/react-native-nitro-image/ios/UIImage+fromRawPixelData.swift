@@ -38,6 +38,35 @@ extension CGBitmapInfo {
   }
 }
 
+extension CGDataProvider {
+  static func fromArrayBuffer(_ arrayBuffer: ArrayBuffer) throws -> CGDataProvider {
+    guard arrayBuffer.isOwner else {
+      throw RuntimeError.error(withMessage: "Cannot create CGDataProvider from a non-owning ArrayBuffer! Copy the buffer first to make it owning.")
+    }
+    
+    class ArrayBufferHolder {
+      let arrayBuffer: ArrayBuffer
+      init(arrayBuffer: ArrayBuffer) {
+        self.arrayBuffer = arrayBuffer
+      }
+    }
+    let holder = ArrayBufferHolder(arrayBuffer: arrayBuffer)
+    let provider = CGDataProvider(dataInfo: Unmanaged.passRetained(holder).toOpaque(),
+                                  data: arrayBuffer.data,
+                                  size: arrayBuffer.size) { info, _, _ in
+      guard let info else {
+        fatalError("CGDataProvider releaseFunc called without a pointer to our ArrayBufferHolder!")
+      }
+      // Releases the value of ArrayBufferHolder by taking one retained count in ARC
+      let _ = Unmanaged<ArrayBufferHolder>.fromOpaque(info).takeRetainedValue()
+    }
+    guard let provider else {
+      throw RuntimeError.error(withMessage: "Failed to create CGDataProvider from ArrayBuffer! (Size: \(arrayBuffer.size))")
+    }
+    return provider
+  }
+}
+
 extension UIImage {
   convenience init(fromRawPixelData data: RawPixelData) throws {
     let width = Int(data.width)
@@ -46,10 +75,7 @@ extension UIImage {
     let bytesPerRow = width * bytesPerPixel
     let bitsPerComponent = 8
 
-    let buffer = data.buffer
-    guard let provider = CGDataProvider(dataInfo: nil, data: buffer.data, size: buffer.size, releaseData: { _,_,_  in }) else {
-      throw RuntimeError.error(withMessage: "Failed to create CGDataProvider from the given ArrayBuffer! (Size: \(buffer.size))")
-    }
+    let dataProvider = try CGDataProvider.fromArrayBuffer(data.buffer)
 
     let colorSpace = CGColorSpaceCreateDeviceRGB()
     let bitmapInfo = try CGBitmapInfo(rawPixelData: data)
@@ -62,12 +88,12 @@ extension UIImage {
       bytesPerRow: bytesPerRow,
       space: colorSpace,
       bitmapInfo: bitmapInfo,
-      provider: provider,
+      provider: dataProvider,
       decode: nil,
       shouldInterpolate: false,
       intent: .defaultIntent
     ) else {
-      throw RuntimeError.error(withMessage: "Failed to create CGImage from the given RawPixelData! (Size: \(buffer.size), Format: \(data.pixelFormat))")
+      throw RuntimeError.error(withMessage: "Failed to create CGImage from the given RawPixelData! (Size: \(data.buffer.size), Format: \(data.pixelFormat))")
     }
 
     self.init(cgImage: cg, scale: 1.0, orientation: .up)
