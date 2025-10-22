@@ -17,10 +17,16 @@ public extension PixelFormat {
    */
   init?(fromString string: String) {
     switch string {
-      case "RGBA":
-        self = .rgba
+      case "ARGB":
+        self = .argb
       case "BGRA":
         self = .bgra
+      case "ABGR":
+        self = .abgr
+      case "RGBA":
+        self = .rgba
+      case "unknown":
+        self = .unknown
       default:
         return nil
     }
@@ -31,10 +37,16 @@ public extension PixelFormat {
    */
   var stringValue: String {
     switch self {
-      case .rgba:
-        return "RGBA"
+      case .argb:
+        return "ARGB"
       case .bgra:
         return "BGRA"
+      case .abgr:
+        return "ABGR"
+      case .rgba:
+        return "RGBA"
+      case .unknown:
+        return "unknown"
     }
   }
 }

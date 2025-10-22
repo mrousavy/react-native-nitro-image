@@ -41,14 +41,23 @@ namespace margelo::nitro::image {
     [[maybe_unused]]
     static jni::alias_ref<JPixelFormat> fromCpp(PixelFormat value) {
       static const auto clazz = javaClassStatic();
-      static const auto fieldRGBA = clazz->getStaticField<JPixelFormat>("RGBA");
+      static const auto fieldARGB = clazz->getStaticField<JPixelFormat>("ARGB");
       static const auto fieldBGRA = clazz->getStaticField<JPixelFormat>("BGRA");
+      static const auto fieldABGR = clazz->getStaticField<JPixelFormat>("ABGR");
+      static const auto fieldRGBA = clazz->getStaticField<JPixelFormat>("RGBA");
+      static const auto fieldUNKNOWN = clazz->getStaticField<JPixelFormat>("UNKNOWN");
       
       switch (value) {
-        case PixelFormat::RGBA:
-          return clazz->getStaticFieldValue(fieldRGBA);
+        case PixelFormat::ARGB:
+          return clazz->getStaticFieldValue(fieldARGB);
         case PixelFormat::BGRA:
           return clazz->getStaticFieldValue(fieldBGRA);
+        case PixelFormat::ABGR:
+          return clazz->getStaticFieldValue(fieldABGR);
+        case PixelFormat::RGBA:
+          return clazz->getStaticFieldValue(fieldRGBA);
+        case PixelFormat::UNKNOWN:
+          return clazz->getStaticFieldValue(fieldUNKNOWN);
         default:
           std::string stringValue = std::to_string(static_cast<int>(value));
           throw std::invalid_argument("Invalid enum value (" + stringValue + "!");

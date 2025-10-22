@@ -130,14 +130,14 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
-  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromEncodedImageData(const EncodedImageData& buffer) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JEncodedImageData> /* buffer */)>("loadFromEncodedImageData");
-    auto __result = method(_javaPart, JEncodedImageData::fromCpp(buffer));
+  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromEncodedImageData(const EncodedImageData& data) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JEncodedImageData> /* data */)>("loadFromEncodedImageData");
+    auto __result = method(_javaPart, JEncodedImageData::fromCpp(data));
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromEncodedImageDataAsync(const EncodedImageData& buffer) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JEncodedImageData> /* buffer */)>("loadFromEncodedImageDataAsync");
-    auto __result = method(_javaPart, JEncodedImageData::fromCpp(buffer));
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromEncodedImageDataAsync(const EncodedImageData& data) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JEncodedImageData> /* data */)>("loadFromEncodedImageDataAsync");
+    auto __result = method(_javaPart, JEncodedImageData::fromCpp(data));
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

@@ -32,10 +32,10 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 #include <NitroModules/Promise.hpp>
 #include "EncodedImageData.hpp"
 #include "ImageFormat.hpp"
+#include <optional>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
-#include <optional>
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -99,16 +99,16 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline EncodedImageData toEncodedImageData(ImageFormat format, double quality) override {
-      auto __result = _swiftPart.toEncodedImageData(static_cast<int>(format), std::forward<decltype(quality)>(quality));
+    inline EncodedImageData toEncodedImageData(ImageFormat format, std::optional<double> quality) override {
+      auto __result = _swiftPart.toEncodedImageData(static_cast<int>(format), quality);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, double quality) override {
-      auto __result = _swiftPart.toEncodedImageDataAsync(static_cast<int>(format), std::forward<decltype(quality)>(quality));
+    inline std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, std::optional<double> quality) override {
+      auto __result = _swiftPart.toEncodedImageDataAsync(static_cast<int>(format), quality);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

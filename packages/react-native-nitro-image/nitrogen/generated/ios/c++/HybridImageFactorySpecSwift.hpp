@@ -133,16 +133,16 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& buffer) override {
-      auto __result = _swiftPart.loadFromEncodedImageData(std::forward<decltype(buffer)>(buffer));
+    inline std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& data) override {
+      auto __result = _swiftPart.loadFromEncodedImageData(std::forward<decltype(data)>(data));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& buffer) override {
-      auto __result = _swiftPart.loadFromEncodedImageDataAsync(std::forward<decltype(buffer)>(buffer));
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& data) override {
+      auto __result = _swiftPart.loadFromEncodedImageDataAsync(std::forward<decltype(data)>(data));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

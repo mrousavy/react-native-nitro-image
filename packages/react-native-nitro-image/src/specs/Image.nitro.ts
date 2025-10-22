@@ -4,7 +4,7 @@ import type { HybridObject } from "react-native-nitro-modules";
  * Represents the pixel ordering format.
  * On iOS, this is often `BGRA`, while on Android it is `RGBA`.
  */
-export type PixelFormat = 'RGBA' | 'BGRA'
+export type PixelFormat = 'ARGB' | 'BGRA' | 'ABGR' | 'RGBA' | 'unknown'
 
 /**
  * Describes the format of an encoded Image.
@@ -73,8 +73,8 @@ export interface Image
      * const compressed = image.toEncodedArrayBuffer('jpg', 0.7)
      * ```
      */
-    toEncodedImageData(format: ImageFormat, quality: number): EncodedImageData;
-    toEncodedImageDataAsync(format: ImageFormat, quality: number): Promise<EncodedImageData>;
+    toEncodedImageData(format: ImageFormat, quality?: number): EncodedImageData;
+    toEncodedImageDataAsync(format: ImageFormat, quality?: number): Promise<EncodedImageData>;
 
     /**
      * Resizes this Image into a new image with the new given {@linkcode width} and {@linkcode height}.

@@ -60,13 +60,13 @@ export interface ImageFactory
      * @param buffer The ArrayBuffer carrying the encoded Image data in any supported image format (JPG, PNG, ...)
      * @throws If the given {@linkcode EncodedImageData} is not a valid representation of an {@linkcode Image}.
      */
-    loadFromEncodedImageData(buffer: EncodedImageData): Image;
+    loadFromEncodedImageData(data: EncodedImageData): Image;
     /**
      * Asynchronously loads an {@linkcode Image} from the given {@linkcode EncodedImageData}'s {@linkcode ArrayBuffer}.
      * @param buffer The ArrayBuffer carrying the encoded Image data in any supported image format (JPG, PNG, ...)
      * @throws If the given {@linkcode EncodedImageData} is not a valid representation of an {@linkcode Image}.
      */
-    loadFromEncodedImageDataAsync(buffer: EncodedImageData): Promise<Image>;
+    loadFromEncodedImageDataAsync(data: EncodedImageData): Promise<Image>;
 
     /**
      * Synchronously decodes the given {@linkcode thumbhash} (and {@linkcode ArrayBuffer})

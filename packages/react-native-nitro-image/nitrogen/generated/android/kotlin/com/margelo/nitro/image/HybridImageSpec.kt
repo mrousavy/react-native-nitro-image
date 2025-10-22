@@ -58,11 +58,11 @@ abstract class HybridImageSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun toEncodedImageData(format: ImageFormat, quality: Double): EncodedImageData
+  abstract fun toEncodedImageData(format: ImageFormat, quality: Double?): EncodedImageData
   
   @DoNotStrip
   @Keep
-  abstract fun toEncodedImageDataAsync(format: ImageFormat, quality: Double): Promise<EncodedImageData>
+  abstract fun toEncodedImageDataAsync(format: ImageFormat, quality: Double?): Promise<EncodedImageData>
   
   @DoNotStrip
   @Keep

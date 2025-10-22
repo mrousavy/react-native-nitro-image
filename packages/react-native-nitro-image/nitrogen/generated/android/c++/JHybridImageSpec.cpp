@@ -93,14 +93,14 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
-  EncodedImageData JHybridImageSpec::toEncodedImageData(ImageFormat format, double quality) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JEncodedImageData>(jni::alias_ref<JImageFormat> /* format */, double /* quality */)>("toEncodedImageData");
-    auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality);
+  EncodedImageData JHybridImageSpec::toEncodedImageData(ImageFormat format, std::optional<double> quality) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JEncodedImageData>(jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("toEncodedImageData");
+    auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality.has_value() ? jni::JDouble::valueOf(quality.value()) : nullptr);
     return __result->toCpp();
   }
-  std::shared_ptr<Promise<EncodedImageData>> JHybridImageSpec::toEncodedImageDataAsync(ImageFormat format, double quality) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JImageFormat> /* format */, double /* quality */)>("toEncodedImageDataAsync");
-    auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality);
+  std::shared_ptr<Promise<EncodedImageData>> JHybridImageSpec::toEncodedImageDataAsync(ImageFormat format, std::optional<double> quality) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("toEncodedImageDataAsync");
+    auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality.has_value() ? jni::JDouble::valueOf(quality.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<EncodedImageData>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

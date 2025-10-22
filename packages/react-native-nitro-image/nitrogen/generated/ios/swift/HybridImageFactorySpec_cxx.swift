@@ -237,9 +237,9 @@ open class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromEncodedImageData(buffer: EncodedImageData) -> bridge.Result_std__shared_ptr_HybridImageSpec__ {
+  public final func loadFromEncodedImageData(data: EncodedImageData) -> bridge.Result_std__shared_ptr_HybridImageSpec__ {
     do {
-      let __result = try self.__implementation.loadFromEncodedImageData(buffer: buffer)
+      let __result = try self.__implementation.loadFromEncodedImageData(data: data)
       let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
@@ -252,9 +252,9 @@ open class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func loadFromEncodedImageDataAsync(buffer: EncodedImageData) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____ {
+  public final func loadFromEncodedImageDataAsync(data: EncodedImageData) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____ {
     do {
-      let __result = try self.__implementation.loadFromEncodedImageDataAsync(buffer: buffer)
+      let __result = try self.__implementation.loadFromEncodedImageDataAsync(data: data)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___ in
         let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___(__promise)

@@ -66,8 +66,8 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<HybridImageSpec> loadFromSymbol(const std::string& symbolName) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromRawPixelData(const RawPixelData& data) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data) = 0;
-      virtual std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& buffer) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& buffer) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& data) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& data) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
 

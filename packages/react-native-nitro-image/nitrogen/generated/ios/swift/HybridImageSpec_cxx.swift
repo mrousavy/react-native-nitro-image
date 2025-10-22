@@ -154,9 +154,9 @@ open class HybridImageSpec_cxx {
   }
   
   @inline(__always)
-  public final func toEncodedImageData(format: Int32, quality: Double) -> bridge.Result_EncodedImageData_ {
+  public final func toEncodedImageData(format: Int32, quality: bridge.std__optional_double_) -> bridge.Result_EncodedImageData_ {
     do {
-      let __result = try self.__implementation.toEncodedImageData(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality)
+      let __result = try self.__implementation.toEncodedImageData(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality.value)
       let __resultCpp = __result
       return bridge.create_Result_EncodedImageData_(__resultCpp)
     } catch (let __error) {
@@ -166,9 +166,9 @@ open class HybridImageSpec_cxx {
   }
   
   @inline(__always)
-  public final func toEncodedImageDataAsync(format: Int32, quality: Double) -> bridge.Result_std__shared_ptr_Promise_EncodedImageData___ {
+  public final func toEncodedImageDataAsync(format: Int32, quality: bridge.std__optional_double_) -> bridge.Result_std__shared_ptr_Promise_EncodedImageData___ {
     do {
-      let __result = try self.__implementation.toEncodedImageDataAsync(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality)
+      let __result = try self.__implementation.toEncodedImageDataAsync(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_EncodedImageData__ in
         let __promise = bridge.create_std__shared_ptr_Promise_EncodedImageData__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_EncodedImageData__(__promise)

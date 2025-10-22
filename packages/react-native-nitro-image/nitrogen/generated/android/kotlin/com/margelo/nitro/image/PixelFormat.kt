@@ -16,6 +16,9 @@ import com.facebook.proguard.annotations.DoNotStrip
 @DoNotStrip
 @Keep
 enum class PixelFormat(@DoNotStrip @Keep val value: Int) {
-  RGBA(0),
-  BGRA(1);
+  ARGB(0),
+  BGRA(1),
+  ABGR(2),
+  RGBA(3),
+  UNKNOWN(4);
 }

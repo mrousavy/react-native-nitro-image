@@ -29,8 +29,11 @@ namespace margelo::nitro::image {
    * An enum which can be represented as a JavaScript union (PixelFormat).
    */
   enum class PixelFormat {
-    RGBA      SWIFT_NAME(rgba) = 0,
+    ARGB      SWIFT_NAME(argb) = 0,
     BGRA      SWIFT_NAME(bgra) = 1,
+    ABGR      SWIFT_NAME(abgr) = 2,
+    RGBA      SWIFT_NAME(rgba) = 3,
+    UNKNOWN      SWIFT_NAME(unknown) = 4,
   } CLOSED_ENUM;
 
 } // namespace margelo::nitro::image
@@ -43,16 +46,22 @@ namespace margelo::nitro {
     static inline margelo::nitro::image::PixelFormat fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("RGBA"): return margelo::nitro::image::PixelFormat::RGBA;
+        case hashString("ARGB"): return margelo::nitro::image::PixelFormat::ARGB;
         case hashString("BGRA"): return margelo::nitro::image::PixelFormat::BGRA;
+        case hashString("ABGR"): return margelo::nitro::image::PixelFormat::ABGR;
+        case hashString("RGBA"): return margelo::nitro::image::PixelFormat::RGBA;
+        case hashString("unknown"): return margelo::nitro::image::PixelFormat::UNKNOWN;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum PixelFormat - invalid value!");
       }
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, margelo::nitro::image::PixelFormat arg) {
       switch (arg) {
-        case margelo::nitro::image::PixelFormat::RGBA: return JSIConverter<std::string>::toJSI(runtime, "RGBA");
+        case margelo::nitro::image::PixelFormat::ARGB: return JSIConverter<std::string>::toJSI(runtime, "ARGB");
         case margelo::nitro::image::PixelFormat::BGRA: return JSIConverter<std::string>::toJSI(runtime, "BGRA");
+        case margelo::nitro::image::PixelFormat::ABGR: return JSIConverter<std::string>::toJSI(runtime, "ABGR");
+        case margelo::nitro::image::PixelFormat::RGBA: return JSIConverter<std::string>::toJSI(runtime, "RGBA");
+        case margelo::nitro::image::PixelFormat::UNKNOWN: return JSIConverter<std::string>::toJSI(runtime, "unknown");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert PixelFormat to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");
@@ -64,8 +73,11 @@ namespace margelo::nitro {
       }
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, value);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
-        case hashString("RGBA"):
+        case hashString("ARGB"):
         case hashString("BGRA"):
+        case hashString("ABGR"):
+        case hashString("RGBA"):
+        case hashString("unknown"):
           return true;
         default:
           return false;

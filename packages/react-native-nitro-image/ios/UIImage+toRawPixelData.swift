@@ -1,3 +1,10 @@
+//
+//  UIImage+toRawPixelData.swift
+//  react-native-nitro-image
+//
+//  Created by Marc Rousavy on 22.10.25.
+//
+
 import UIKit
 import CoreGraphics
 import NitroModules
@@ -6,7 +13,7 @@ extension UIImage {
   /**
    * Returns raw RGBA data of this UIImage (on iOS, BGRA)
    */
-  func toRawRgbaArrayBuffer() throws -> ArrayBuffer {
+  func toRawPixelData() throws -> RawPixelData {
     guard let cg = self.cgImage else {
       throw RuntimeError.error(withMessage: "Failed to get Image's underlying cgImage!")
     }
@@ -16,6 +23,7 @@ extension UIImage {
     let bytesPerPixel = 4
     let bytesPerRow = bytesPerPixel * width
     let bitsPerComponent = 8
+    let pixelFormat = cg.pixelFormat
 
     // Allocate a Data buffer of the right size
     let totalSize = width * height * bytesPerPixel
@@ -41,6 +49,9 @@ extension UIImage {
     let rect = CGRect(x: 0, y: 0, width: width, height: height)
     ctx.draw(cg, in: rect)
 
-    return arrayBuffer
+    return RawPixelData(buffer: arrayBuffer,
+                        width: Double(width),
+                        height: Double(height),
+                        pixelFormat: pixelFormat)
   }
 }
