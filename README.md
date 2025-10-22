@@ -110,7 +110,7 @@ NitroImage wraps those APIs so you can just pass a `require(â€¦)` to `useImage(â
 const image = useImage(require('./image.png'))
 ```
 
-#### `ArrayBuffer`
+#### `RawPixelData` (`ArrayBuffer`)
 
 The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in an RGB format:
 
@@ -120,7 +120,7 @@ const pixelData       = await image.toRawPixelData()
 const sameImageCopied = await Images.loadFromRawPixelData(pixelData)
 ```
 
-#### `EncodedImageData`
+#### `EncodedImageData` (`ArrayBuffer`)
 
 The `Image` type can be encoded to- and decoded from- an `ArrayBuffer` using a container format like `jpg`, `png` or `heic`:
 
