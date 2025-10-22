@@ -176,6 +176,16 @@ NitroImage supports `HEIC`/`HEIF` format if the host OS natively supports it.
 | Loading HEIC | ✅             | ✅ (>= SDK 28) |
 | Writing HEIC | ✅ (>= iOS 17) | ❌             |
 
+You can check whether your OS supports `HEIC` via NitroImage:
+
+```ts
+import { supportsHeicWriting } from 'react-native-nitro-modules'
+
+const image  = ...
+const format = supportsHeicWriting ? 'heic' : 'jpg'
+const path   = await image.saveToTemporaryFileAsync(format, 100)
+```
+
 ### Hooks
 
 #### The `useImage()` hook

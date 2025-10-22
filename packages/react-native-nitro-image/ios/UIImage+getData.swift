@@ -9,10 +9,15 @@ import UIKit
 import NitroModules
 
 extension UIImage {
+  /**
+   * Convert/Compress this Image into the given `format`.
+   * `quality` specifies compression quality from 0(most)...100(least).
+   */
   func getData(in format: ImageFormat, quality: CGFloat) throws -> Data {
     switch format {
     case .jpg:
-      guard let data = self.jpegData(compressionQuality: quality) else {
+      let qualityNormalized = quality / 100.0
+      guard let data = self.jpegData(compressionQuality: qualityNormalized) else {
         throw RuntimeError.error(withMessage: "Failed to compress \(size.width)x\(size.height) Image to JPEG! (Quality: \(quality))")
       }
       return data

@@ -97,7 +97,7 @@ export interface Image
      * Returns an {@linkcode ArrayBuffer} containing the encoded data of an Image in
      * the requested container {@linkcode format}.
      * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
-     * {@linkcode quality} to compress the image. In {@linkcode ImageFormat | 'png'}, the
+     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
      * {@linkcode quality} flag is ignored.
      * @example
      * ```ts
@@ -143,9 +143,12 @@ export interface Image
 
     /**
      * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
+     * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
+     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
+     * {@linkcode quality} flag is ignored.
      * @example
      * ```ts
-     * await image.saveToFileAsync(path, 'jpg', 0.8)
+     * await image.saveToFileAsync(path, 'jpg', 80)
      * ```
      */
     saveToFileAsync(
@@ -155,9 +158,12 @@ export interface Image
     ): Promise<void>;
     /**
      * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and return it's path.
+     * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
+     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
+     * {@linkcode quality} flag is ignored.
      * @example
      * ```ts
-     * const path = await image.saveToTemporaryFileAsync('jpg', 0.8)
+     * const path = await image.saveToTemporaryFileAsync('jpg', 80)
      * ```
      */
     saveToTemporaryFileAsync(

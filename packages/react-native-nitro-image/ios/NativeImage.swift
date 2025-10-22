@@ -34,7 +34,7 @@ public extension NativeImage {
   }
 
   func toEncodedImageData(format: ImageFormat, quality: Double?) throws -> EncodedImageData {
-    return try uiImage.toEncodedImageData(format: format, quality: quality ?? 1.0)
+    return try uiImage.toEncodedImageData(format: format, quality: quality ?? 100)
   }
 
   func toEncodedImageDataAsync(format: ImageFormat, quality: Double?) throws -> Promise<EncodedImageData> {
@@ -104,7 +104,7 @@ public extension NativeImage {
 
   func saveToFileAsync(path: String, format: ImageFormat, quality: Double?) throws -> Promise<Void> {
     return Promise.async(.utility) {
-      try self.saveImage(to: path, format: format, quality: quality ?? 1.0)
+      try self.saveImage(to: path, format: format, quality: quality ?? 100.0)
     }
   }
 
@@ -115,7 +115,7 @@ public extension NativeImage {
       let file = tempDirectory.appendingPathComponent(fileName, conformingTo: format.toUTType())
       let path = file.absoluteString
 
-      try self.saveImage(to: path, format: format, quality: quality ?? 1.0)
+      try self.saveImage(to: path, format: format, quality: quality ?? 100.0)
       return path
     }
   }

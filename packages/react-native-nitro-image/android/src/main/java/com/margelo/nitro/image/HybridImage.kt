@@ -56,7 +56,7 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun toEncodedImageData(format: ImageFormat, quality: Double?): EncodedImageData {
-        val quality = quality ?: 1.0
+        val quality = quality ?: 100.0
         val estimatedByteSize = when (format) {
             ImageFormat.JPG -> (width * height) / 2
             ImageFormat.PNG -> width * height
@@ -125,16 +125,17 @@ class HybridImage: HybridImageSpec {
         format: ImageFormat,
         quality: Double?
     ): Promise<Unit> {
-        val quality = quality ?: 1.0
+        val quality = quality ?: 100.0
         return Promise.async {
             bitmap.saveToFile(path, format, quality.toInt())
         }
     }
 
     override fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double?): Promise<String> {
+        val quality = quality ?: 100.0
         return Promise.async {
             val tempFile = File.createTempFile("nitro_image_", format.name)
-            this.saveToFileAsync(tempFile.path, format, quality)
+            bitmap.saveToFile(tempFile.path, format, quality.toInt())
             return@async tempFile.path
         }
     }
