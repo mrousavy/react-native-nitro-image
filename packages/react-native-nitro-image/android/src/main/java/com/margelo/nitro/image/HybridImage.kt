@@ -3,6 +3,7 @@ package com.margelo.nitro.image
 import android.graphics.Bitmap
 import android.os.Build
 import androidx.annotation.Keep
+import androidx.core.graphics.scale
 import com.facebook.common.memory.PooledByteBufferOutputStream
 import com.facebook.proguard.annotations.DoNotStrip
 import com.madebyevan.thumbhash.ThumbHash
@@ -32,32 +33,14 @@ class HybridImage: HybridImageSpec {
         this.bitmap = bitmap
     }
 
-    private val isGPU: Boolean
-        get() {
-            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-                bitmap.config == Bitmap.Config.HARDWARE
-        }
-    private fun toByteBuffer(): ByteBuffer {
-        var bitmap = bitmap
-        if (isGPU) {
-            // It's a GPU Bitmap - we need to copy it to CPU memory first.
-            bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, false)
-        }
-
-        val buffer = ByteBuffer.allocateDirect(bitmap.byteCount)
-        bitmap.copyPixelsToBuffer(buffer)
-        buffer.rewind()
-        return buffer
-    }
-
     override fun toRawPixelData(allowGpu: Boolean?): RawPixelData {
         val allowGpu = allowGpu ?: false
-        val arrayBuffer = if (allowGpu && isGPU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val arrayBuffer = if (allowGpu && bitmap.isGPU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             // Wrap the existing GPU buffer (HardwareBuffer)
             ArrayBuffer.wrap(bitmap.hardwareBuffer)
         } else {
             // Copy the data into a CPU buffer (ByteBuffer)
-            val buffer = toByteBuffer()
+            val buffer = bitmap.toByteBuffer()
             ArrayBuffer.wrap(buffer)
         }
         // TODO: Figure out PixelFormat on GPU buffers
@@ -97,7 +80,7 @@ class HybridImage: HybridImageSpec {
         if (height < 0) {
             throw Error("Height cannot be less than 0! (height: $height)")
         }
-        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, width.toInt(), height.toInt(), true)
+        val resizedBitmap = bitmap.scale(width.toInt(), height.toInt(), true)
         return HybridImage(resizedBitmap)
     }
     override fun resizeAsync(width: Double, height: Double): Promise<HybridImageSpec> {
@@ -113,7 +96,13 @@ class HybridImage: HybridImageSpec {
         if (height < 0) {
             throw Error("Height cannot be less than 0! (startY: $startY - endY: $endY = $height)")
         }
-        val croppedBitmap = Bitmap.createBitmap(bitmap, startX.toInt(), startY.toInt(), width.toInt(), height.toInt())
+        val croppedBitmap = Bitmap.createBitmap(
+            bitmap,
+            startX.toInt(),
+            startY.toInt(),
+            width.toInt(),
+            height.toInt()
+        )
         return HybridImage(croppedBitmap)
     }
 
@@ -151,7 +140,7 @@ class HybridImage: HybridImageSpec {
                     "Resize the image to <100 pixels in width and height first, then try again!")
         }
 
-        val bitmapBuffer = toByteBuffer()
+        val bitmapBuffer = bitmap.toByteBuffer()
 
         val thumbHash = ThumbHash.rgbaToThumbHash(bitmap.width, bitmap.height, bitmapBuffer.array())
         val buffer = ByteBuffer.wrap(thumbHash)
