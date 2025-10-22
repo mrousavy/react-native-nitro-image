@@ -60,7 +60,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     return HybridImage(uiImage: uiImage)
   }
   
-  func loadFromRawPixelDataAsync(data: RawPixelData) throws -> NitroModules.Promise<any HybridImageSpec> {
+  func loadFromRawPixelDataAsync(data: RawPixelData) throws -> Promise<any HybridImageSpec> {
     let dataCopy = data.buffer.isOwner ? data.buffer : ArrayBuffer.copy(of: data.buffer)
     let newData = RawPixelData(buffer: dataCopy,
                                width: data.width,
@@ -82,7 +82,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     return HybridImage(uiImage: uiImage)
   }
   
-  func loadFromEncodedImageDataAsync(data: EncodedImageData) throws -> NitroModules.Promise<any HybridImageSpec> {
+  func loadFromEncodedImageDataAsync(data: EncodedImageData) throws -> Promise<any HybridImageSpec> {
     let copiedData = data.buffer.toData(copyIfNeeded: true)
     return Promise.async {
       guard let uiImage = UIImage(data: copiedData) else {
