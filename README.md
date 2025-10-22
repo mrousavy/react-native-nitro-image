@@ -115,7 +115,7 @@ const image = useImage(require('./image.png'))
 The `Image` type can be converted to- and from- an `ArrayBuffer`, which gives you access to the raw pixel data in an RGB format:
 
 ```ts
-const image           = // ...
+const image           = ...
 const pixelData       = await image.toRawPixelData()
 const sameImageCopied = await Images.loadFromRawPixelData(pixelData)
 ```
@@ -125,7 +125,7 @@ const sameImageCopied = await Images.loadFromRawPixelData(pixelData)
 The `Image` type can be encoded to- and decoded from- an `ArrayBuffer` using a container format like `jpg`, `png` or `heic`:
 
 ```ts
-const image           = // ...
+const image           = ...
 const imageData       = await image.toEncodedImageData('jpg', 90)
 const sameImageCopied = await Images.loadFromEncodedImageData(imageData)
 ```
@@ -292,7 +292,7 @@ NitroImage supports conversion from- and to- [ThumbHash](https://github.com/evan
 For performance reasons, a ThumbHash is represented as an `ArrayBuffer`.
 
 ```ts
-const thumbHash      = // from server
+const thumbHash      = ...from server
 const image          = Images.loadFromThumbHash(thumbHash)
 const thumbHashAgain = image.toThumbHash()
 ```
@@ -302,7 +302,7 @@ const thumbHashAgain = image.toThumbHash()
 If your ThumbHash is a `string`, convert it to an `ArrayBuffer` first, since this is more efficient:
 
 ```ts
-const thumbHashBase64      = // from server
+const thumbHashBase64      = ...from server
 const thumbHashArrayBuffer = thumbHashFromBase64String(thumbHashBase64)
 const thumbHashBase64Again = thumbHashToBase64String(thumbHashArrayBuffer)
 ```
@@ -312,7 +312,7 @@ const thumbHashBase64Again = thumbHashToBase64String(thumbHashArrayBuffer)
 Since ThumbHash decoding or encoding can be a slow process, you should consider using the async methods instead:
 
 ```ts
-const thumbHash      = // from server
+const thumbHash      = ...from server
 const image          = await Images.loadFromThumbHashAsync(thumbHash)
 const thumbHashAgain = await image.toThumbHash()
 ```
