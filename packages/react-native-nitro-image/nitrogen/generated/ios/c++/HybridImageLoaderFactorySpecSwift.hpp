@@ -14,14 +14,26 @@ namespace NitroImage { class HybridImageLoaderFactorySpec_cxx; }
 
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageLoaderSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
 namespace NitroModules { class ArrayBufferHolder; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
+// Forward declaration of `ImageFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class ImageFormat; }
 
 #include <memory>
 #include "HybridImageLoaderSpec.hpp"
 #include <string>
+#include "RawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
+#include "PixelFormat.hpp"
+#include "EncodedImageData.hpp"
+#include "ImageFormat.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -88,8 +100,16 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<HybridImageLoaderSpec> createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) override {
-      auto __result = _swiftPart.createArrayBufferImageLoader(ArrayBufferHolder(buffer));
+    inline std::shared_ptr<HybridImageLoaderSpec> createRawPixelDataImageLoader(const RawPixelData& data) override {
+      auto __result = _swiftPart.createRawPixelDataImageLoader(std::forward<decltype(data)>(data));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<HybridImageLoaderSpec> createEncodedImageDataImageLoader(const EncodedImageData& data) override {
+      auto __result = _swiftPart.createEncodedImageDataImageLoader(std::forward<decltype(data)>(data));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

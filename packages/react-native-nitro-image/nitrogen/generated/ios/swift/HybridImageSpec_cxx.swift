@@ -123,33 +123,78 @@ open class HybridImageSpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func toArrayBuffer() -> bridge.Result_std__shared_ptr_ArrayBuffer__ {
+  public final func toRawPixelData(allowGpu: bridge.std__optional_bool_) -> bridge.Result_RawPixelData_ {
     do {
-      let __result = try self.__implementation.toArrayBuffer()
-      let __resultCpp = __result.getArrayBuffer()
-      return bridge.create_Result_std__shared_ptr_ArrayBuffer__(__resultCpp)
+      let __result = try self.__implementation.toRawPixelData(allowGpu: { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(allowGpu) {
+          let __unwrapped = bridge.get_std__optional_bool_(allowGpu)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }())
+      let __resultCpp = __result
+      return bridge.create_Result_RawPixelData_(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_ArrayBuffer__(__exceptionPtr)
+      return bridge.create_Result_RawPixelData_(__exceptionPtr)
     }
   }
   
   @inline(__always)
-  public final func toArrayBufferAsync() -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____ {
+  public final func toRawPixelDataAsync(allowGpu: bridge.std__optional_bool_) -> bridge.Result_std__shared_ptr_Promise_RawPixelData___ {
     do {
-      let __result = try self.__implementation.toArrayBufferAsync()
-      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___ in
-        let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___()
-        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___(__promise)
+      let __result = try self.__implementation.toRawPixelDataAsync(allowGpu: { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(allowGpu) {
+          let __unwrapped = bridge.get_std__optional_bool_(allowGpu)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }())
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_RawPixelData__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_RawPixelData__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_RawPixelData__(__promise)
         __result
-          .then({ __result in __promiseHolder.resolve(__result.getArrayBuffer()) })
+          .then({ __result in __promiseHolder.resolve(__result) })
           .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
         return __promise
       }()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_Promise_RawPixelData___(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_RawPixelData___(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func toEncodedImageData(format: Int32, quality: bridge.std__optional_double_) -> bridge.Result_EncodedImageData_ {
+    do {
+      let __result = try self.__implementation.toEncodedImageData(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality.value)
+      let __resultCpp = __result
+      return bridge.create_Result_EncodedImageData_(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_EncodedImageData_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func toEncodedImageDataAsync(format: Int32, quality: bridge.std__optional_double_) -> bridge.Result_std__shared_ptr_Promise_EncodedImageData___ {
+    do {
+      let __result = try self.__implementation.toEncodedImageDataAsync(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality.value)
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_EncodedImageData__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_EncodedImageData__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_EncodedImageData__(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve(__result) })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_EncodedImageData___(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__shared_ptr_Promise_EncodedImageData___(__exceptionPtr)
     }
   }
   
@@ -228,9 +273,9 @@ open class HybridImageSpec_cxx {
   }
   
   @inline(__always)
-  public final func saveToFileAsync(path: std.string, format: Int32, quality: Double) -> bridge.Result_std__shared_ptr_Promise_void___ {
+  public final func saveToFileAsync(path: std.string, format: Int32, quality: bridge.std__optional_double_) -> bridge.Result_std__shared_ptr_Promise_void___ {
     do {
-      let __result = try self.__implementation.saveToFileAsync(path: String(path), format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality)
+      let __result = try self.__implementation.saveToFileAsync(path: String(path), format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
         let __promise = bridge.create_std__shared_ptr_Promise_void__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
@@ -247,9 +292,9 @@ open class HybridImageSpec_cxx {
   }
   
   @inline(__always)
-  public final func saveToTemporaryFileAsync(format: Int32, quality: Double) -> bridge.Result_std__shared_ptr_Promise_std__string___ {
+  public final func saveToTemporaryFileAsync(format: Int32, quality: bridge.std__optional_double_) -> bridge.Result_std__shared_ptr_Promise_std__string___ {
     do {
-      let __result = try self.__implementation.saveToTemporaryFileAsync(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality)
+      let __result = try self.__implementation.saveToTemporaryFileAsync(format: margelo.nitro.image.ImageFormat(rawValue: format)!, quality: quality.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__string__ in
         let __promise = bridge.create_std__shared_ptr_Promise_std__string__()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__string__(__promise)

@@ -51,26 +51,47 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
     return HybridImage(uiImage: uiImage)
   }
-
+  
   /**
-   * Load Image from the given ArrayBuffer
+   * Load Image from the given raw ArrayBuffer data
    */
-  func loadFromArrayBuffer(buffer: ArrayBuffer) throws -> (any HybridImageSpec) {
-    let data = buffer.toData(copyIfNeeded: false)
-    guard let uiImage = UIImage(data: data) else {
+  func loadFromRawPixelData(data: RawPixelData) throws -> any HybridImageSpec {
+    let uiImage = try UIImage(fromRawPixelData: data)
+    return HybridImage(uiImage: uiImage)
+  }
+  
+  func loadFromRawPixelDataAsync(data: RawPixelData) throws -> Promise<any HybridImageSpec> {
+    let dataCopy = data.buffer.isOwner ? data.buffer : ArrayBuffer.copy(of: data.buffer)
+    let newData = RawPixelData(buffer: dataCopy,
+                               width: data.width,
+                               height: data.height,
+                               pixelFormat: data.pixelFormat)
+    return Promise.async {
+      return try self.loadFromRawPixelData(data: newData)
+    }
+  }
+  
+  /**
+   * Load Image from the given encoded ArrayBuffer data
+   */
+  func loadFromEncodedImageData(data: EncodedImageData) throws -> any HybridImageSpec {
+    let copiedData = data.buffer.toData(copyIfNeeded: false)
+    guard let uiImage = UIImage(data: copiedData) else {
       throw RuntimeError.error(withMessage: "The given ArrayBuffer could not be converted to a UIImage!")
     }
     return HybridImage(uiImage: uiImage)
   }
-  func loadFromArrayBufferAsync(buffer: ArrayBuffer) throws -> Promise<any HybridImageSpec> {
-    let data = buffer.toData(copyIfNeeded: true)
+  
+  func loadFromEncodedImageDataAsync(data: EncodedImageData) throws -> Promise<any HybridImageSpec> {
+    let copiedData = data.buffer.toData(copyIfNeeded: true)
     return Promise.async {
-      guard let uiImage = UIImage(data: data) else {
+      guard let uiImage = UIImage(data: copiedData) else {
         throw RuntimeError.error(withMessage: "The given ArrayBuffer could not be converted to a UIImage!")
       }
       return HybridImage(uiImage: uiImage)
     }
   }
+  
 
   func loadFromThumbHash(thumbhash: ArrayBuffer) throws -> any HybridImageSpec {
     let data = thumbhash.toData(copyIfNeeded: false)

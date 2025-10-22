@@ -28,10 +28,16 @@ class HybridImageLoaderFactory: HybridImageLoaderFactorySpec {
       return Promise.resolved(withResult: image)
     })
   }
-
-  func createArrayBufferImageLoader(buffer: ArrayBuffer) throws -> any HybridImageLoaderSpec {
+  
+  func createRawPixelDataImageLoader(data: RawPixelData) throws -> any HybridImageLoaderSpec {
     return HybridImageLoader(load: {
-      try self.imageFactory.loadFromArrayBufferAsync(buffer: buffer)
+      try self.imageFactory.loadFromRawPixelDataAsync(data: data)
+    })
+  }
+  
+  func createEncodedImageDataImageLoader(data: EncodedImageData) throws -> any HybridImageLoaderSpec {
+    return HybridImageLoader(load: {
+      try self.imageFactory.loadFromEncodedImageDataAsync(data: data)
     })
   }
 }

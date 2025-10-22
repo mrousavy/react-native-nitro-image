@@ -16,14 +16,16 @@ public protocol HybridImageSpec_protocol: HybridObject {
   var height: Double { get }
 
   // Methods
-  func toArrayBuffer() throws -> ArrayBuffer
-  func toArrayBufferAsync() throws -> Promise<ArrayBuffer>
+  func toRawPixelData(allowGpu: Bool?) throws -> RawPixelData
+  func toRawPixelDataAsync(allowGpu: Bool?) throws -> Promise<RawPixelData>
+  func toEncodedImageData(format: ImageFormat, quality: Double?) throws -> EncodedImageData
+  func toEncodedImageDataAsync(format: ImageFormat, quality: Double?) throws -> Promise<EncodedImageData>
   func resize(width: Double, height: Double) throws -> (any HybridImageSpec)
   func resizeAsync(width: Double, height: Double) throws -> Promise<(any HybridImageSpec)>
   func crop(startX: Double, startY: Double, endX: Double, endY: Double) throws -> (any HybridImageSpec)
   func cropAsync(startX: Double, startY: Double, endX: Double, endY: Double) throws -> Promise<(any HybridImageSpec)>
-  func saveToFileAsync(path: String, format: ImageFormat, quality: Double) throws -> Promise<Void>
-  func saveToTemporaryFileAsync(format: ImageFormat, quality: Double) throws -> Promise<String>
+  func saveToFileAsync(path: String, format: ImageFormat, quality: Double?) throws -> Promise<Void>
+  func saveToTemporaryFileAsync(format: ImageFormat, quality: Double?) throws -> Promise<String>
   func toThumbHash() throws -> ArrayBuffer
   func toThumbHashAsync() throws -> Promise<ArrayBuffer>
 }

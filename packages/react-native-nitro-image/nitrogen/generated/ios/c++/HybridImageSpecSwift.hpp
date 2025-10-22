@@ -12,20 +12,30 @@
 // Forward declaration of `HybridImageSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageSpec_cxx; }
 
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
 namespace NitroModules { class ArrayBufferHolder; }
-// Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
 // Forward declaration of `ImageFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class ImageFormat; }
+// Forward declaration of `HybridImageSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageSpec; }
 
+#include "RawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
+#include "PixelFormat.hpp"
+#include <optional>
 #include <NitroModules/Promise.hpp>
+#include "EncodedImageData.hpp"
+#include "ImageFormat.hpp"
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
-#include "ImageFormat.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -73,16 +83,32 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline std::shared_ptr<ArrayBuffer> toArrayBuffer() override {
-      auto __result = _swiftPart.toArrayBuffer();
+    inline RawPixelData toRawPixelData(std::optional<bool> allowGpu) override {
+      auto __result = _swiftPart.toRawPixelData(allowGpu);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() override {
-      auto __result = _swiftPart.toArrayBufferAsync();
+    inline std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync(std::optional<bool> allowGpu) override {
+      auto __result = _swiftPart.toRawPixelDataAsync(allowGpu);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline EncodedImageData toEncodedImageData(ImageFormat format, std::optional<double> quality) override {
+      auto __result = _swiftPart.toEncodedImageData(static_cast<int>(format), quality);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, std::optional<double> quality) override {
+      auto __result = _swiftPart.toEncodedImageDataAsync(static_cast<int>(format), quality);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
@@ -121,16 +147,16 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, double quality) override {
-      auto __result = _swiftPart.saveToFileAsync(path, static_cast<int>(format), std::forward<decltype(quality)>(quality));
+    inline std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) override {
+      auto __result = _swiftPart.saveToFileAsync(path, static_cast<int>(format), quality);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, double quality) override {
-      auto __result = _swiftPart.saveToTemporaryFileAsync(static_cast<int>(format), std::forward<decltype(quality)>(quality));
+    inline std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, std::optional<double> quality) override {
+      auto __result = _swiftPart.saveToTemporaryFileAsync(static_cast<int>(format), quality);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

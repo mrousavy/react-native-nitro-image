@@ -15,11 +15,18 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
 #include <NitroModules/Promise.hpp>
+#include "RawPixelData.hpp"
+#include <optional>
+#include "EncodedImageData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::image {
@@ -58,8 +65,10 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<HybridImageSpec> loadFromResources(const std::string& name) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromResourcesAsync(const std::string& name) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromSymbol(const std::string& symbolName) = 0;
-      virtual std::shared_ptr<HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromRawPixelData(const RawPixelData& data, std::optional<bool> allowGpu) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data, std::optional<bool> allowGpu) = 0;
+      virtual std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& data) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& data) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
 

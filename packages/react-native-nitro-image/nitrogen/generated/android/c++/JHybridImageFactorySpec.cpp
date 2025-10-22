@@ -9,6 +9,14 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
+// Forward declaration of `ImageFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class ImageFormat; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
@@ -16,9 +24,18 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
 #include <string>
+#include "RawPixelData.hpp"
+#include "JRawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/JArrayBuffer.hpp>
 #include <NitroModules/JUnit.hpp>
+#include "PixelFormat.hpp"
+#include "JPixelFormat.hpp"
+#include <optional>
+#include "EncodedImageData.hpp"
+#include "JEncodedImageData.hpp"
+#include "ImageFormat.hpp"
+#include "JImageFormat.hpp"
 
 namespace margelo::nitro::image {
 
@@ -93,14 +110,35 @@ namespace margelo::nitro::image {
     auto __result = method(_javaPart, jni::make_jstring(symbolName));
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("loadFromArrayBuffer");
-    auto __result = method(_javaPart, JArrayBuffer::wrap(buffer));
+  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromRawPixelData(const RawPixelData& data, std::optional<bool> allowGpu) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JRawPixelData> /* data */, jni::alias_ref<jni::JBoolean> /* allowGpu */)>("loadFromRawPixelData");
+    auto __result = method(_javaPart, JRawPixelData::fromCpp(data), allowGpu.has_value() ? jni::JBoolean::valueOf(allowGpu.value()) : nullptr);
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("loadFromArrayBufferAsync");
-    auto __result = method(_javaPart, JArrayBuffer::wrap(buffer));
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromRawPixelDataAsync(const RawPixelData& data, std::optional<bool> allowGpu) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JRawPixelData> /* data */, jni::alias_ref<jni::JBoolean> /* allowGpu */)>("loadFromRawPixelDataAsync");
+    auto __result = method(_javaPart, JRawPixelData::fromCpp(data), allowGpu.has_value() ? jni::JBoolean::valueOf(allowGpu.value()) : nullptr);
+    return [&]() {
+      auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromEncodedImageData(const EncodedImageData& data) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JEncodedImageData> /* data */)>("loadFromEncodedImageData");
+    auto __result = method(_javaPart, JEncodedImageData::fromCpp(data));
+    return __result->cthis()->shared_cast<JHybridImageSpec>();
+  }
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromEncodedImageDataAsync(const EncodedImageData& data) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JEncodedImageData> /* data */)>("loadFromEncodedImageDataAsync");
+    auto __result = method(_javaPart, JEncodedImageData::fromCpp(data));
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

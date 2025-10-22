@@ -13,17 +13,24 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-// Forward declaration of `HybridImageSpec` to properly resolve imports.
-namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
 // Forward declaration of `ImageFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class ImageFormat; }
+// Forward declaration of `HybridImageSpec` to properly resolve imports.
+namespace margelo::nitro::image { class HybridImageSpec; }
 
-#include <NitroModules/ArrayBuffer.hpp>
+#include "RawPixelData.hpp"
+#include <optional>
 #include <NitroModules/Promise.hpp>
+#include "EncodedImageData.hpp"
+#include "ImageFormat.hpp"
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
-#include "ImageFormat.hpp"
+#include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::image {
 
@@ -57,14 +64,16 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<ArrayBuffer> toArrayBuffer() = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() = 0;
+      virtual RawPixelData toRawPixelData(std::optional<bool> allowGpu) = 0;
+      virtual std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync(std::optional<bool> allowGpu) = 0;
+      virtual EncodedImageData toEncodedImageData(ImageFormat format, std::optional<double> quality) = 0;
+      virtual std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, std::optional<double> quality) = 0;
       virtual std::shared_ptr<HybridImageSpec> resize(double width, double height) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> resizeAsync(double width, double height) = 0;
       virtual std::shared_ptr<HybridImageSpec> crop(double startX, double startY, double endX, double endY) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> cropAsync(double startX, double startY, double endX, double endY) = 0;
-      virtual std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, double quality) = 0;
-      virtual std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, double quality) = 0;
+      virtual std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) = 0;
+      virtual std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, std::optional<double> quality) = 0;
       virtual std::shared_ptr<ArrayBuffer> toThumbHash() = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toThumbHashAsync() = 0;
 

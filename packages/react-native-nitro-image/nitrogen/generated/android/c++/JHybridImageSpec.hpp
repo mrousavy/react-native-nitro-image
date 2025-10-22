@@ -54,14 +54,16 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    std::shared_ptr<ArrayBuffer> toArrayBuffer() override;
-    std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toArrayBufferAsync() override;
+    RawPixelData toRawPixelData(std::optional<bool> allowGpu) override;
+    std::shared_ptr<Promise<RawPixelData>> toRawPixelDataAsync(std::optional<bool> allowGpu) override;
+    EncodedImageData toEncodedImageData(ImageFormat format, std::optional<double> quality) override;
+    std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, std::optional<double> quality) override;
     std::shared_ptr<HybridImageSpec> resize(double width, double height) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> resizeAsync(double width, double height) override;
     std::shared_ptr<HybridImageSpec> crop(double startX, double startY, double endX, double endY) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> cropAsync(double startX, double startY, double endX, double endY) override;
-    std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, double quality) override;
-    std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, double quality) override;
+    std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) override;
+    std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, std::optional<double> quality) override;
     std::shared_ptr<ArrayBuffer> toThumbHash() override;
     std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toThumbHashAsync() override;
 

@@ -1,6 +1,10 @@
 import type { HybridObject } from "react-native-nitro-modules";
 import type { OptionalAsyncOptions } from "./OptionalWebLoader";
-import type { Image } from "./specs/Image.nitro";
+import type {
+    EncodedImageData,
+    Image,
+    RawPixelData,
+} from "./specs/Image.nitro";
 import type { ImageLoader } from "./specs/ImageLoader.nitro";
 
 export type RequireType = number;
@@ -8,7 +12,8 @@ export type AsyncImageSource =
     | Image
     | ImageLoader
     | { filePath: string }
-    | { arrayBuffer: ArrayBuffer }
+    | { rawPixelData: RawPixelData }
+    | { encodedImageData: EncodedImageData }
     | { resource: string }
     | { symbolName: string }
     | { url: string; options?: OptionalAsyncOptions }

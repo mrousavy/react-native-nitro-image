@@ -43,14 +43,28 @@ class HybridImageFactory: HybridImageFactorySpec() {
         throw Error("ImageFactory.loadFromSymbol(symbolName:) is not supported on Android!")
     }
 
-    override fun loadFromArrayBuffer(buffer: ArrayBuffer): HybridImageSpec {
-        val array = buffer.toByteArray()
-        val bitmap = BitmapFactory.decodeByteArray(array, 0, buffer.size)
+    override fun loadFromRawPixelData(data: RawPixelData, allowGpu: Boolean?): HybridImageSpec {
+        val allowGpu = allowGpu ?: false
+        val bitmap = bitmapFromRawPixelData(data, allowGpu)
         return HybridImage(bitmap)
     }
+    override fun loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Boolean?): Promise<HybridImageSpec> {
+        val bufferCopy = data.buffer.copyIfNotOwner()
+        val dataCopy = RawPixelData(bufferCopy, data.width, data.height, data.pixelFormat)
+        return Promise.async { loadFromRawPixelData(dataCopy, allowGpu) }
+    }
 
-    override fun loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<HybridImageSpec> {
-        return Promise.async { loadFromArrayBuffer(buffer) }
+    private fun loadFromEncodedBytes(bytes: ByteArray): HybridImageSpec {
+        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        return HybridImage(bitmap)
+    }
+    override fun loadFromEncodedImageData(data: EncodedImageData): HybridImageSpec {
+        val bytes = data.buffer.toByteArray()
+        return loadFromEncodedBytes(bytes)
+    }
+    override fun loadFromEncodedImageDataAsync(data: EncodedImageData): Promise<HybridImageSpec> {
+        val bytes = data.buffer.toByteArray()
+        return Promise.async { loadFromEncodedBytes(bytes) }
     }
 
     override fun loadFromFile(filePath: String): HybridImageSpec {

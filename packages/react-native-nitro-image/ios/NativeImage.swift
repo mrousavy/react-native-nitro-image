@@ -23,13 +23,23 @@ public protocol NativeImage {
 public extension NativeImage {
   var width: Double { uiImage.size.width }
   var height: Double { uiImage.size.height }
-  
-  func toArrayBuffer() throws -> ArrayBuffer {
-    return try uiImage.toRawRgbaArrayBuffer()
+
+  func toRawPixelData(allowGpu _: Bool?) throws -> RawPixelData {
+    return try uiImage.toRawPixelData()
   }
-  func toArrayBufferAsync() throws -> Promise<ArrayBuffer> {
+  func toRawPixelDataAsync(allowGpu: Bool?) throws -> Promise<RawPixelData> {
     return Promise.async {
-      return try self.toArrayBuffer()
+      return try self.toRawPixelData(allowGpu: allowGpu)
+    }
+  }
+
+  func toEncodedImageData(format: ImageFormat, quality: Double?) throws -> EncodedImageData {
+    return try uiImage.toEncodedImageData(format: format, quality: quality ?? 1.0)
+  }
+
+  func toEncodedImageDataAsync(format: ImageFormat, quality: Double?) throws -> Promise<EncodedImageData> {
+    return Promise.async {
+      return try self.toEncodedImageData(format: format, quality: quality)
     }
   }
 
@@ -94,20 +104,20 @@ public extension NativeImage {
     try data.write(to: url)
   }
 
-  func saveToFileAsync(path: String, format: ImageFormat, quality: Double) throws -> Promise<Void> {
+  func saveToFileAsync(path: String, format: ImageFormat, quality: Double?) throws -> Promise<Void> {
     return Promise.async(.utility) {
-      try self.saveImage(to: path, format: format, quality: quality)
+      try self.saveImage(to: path, format: format, quality: quality ?? 1.0)
     }
   }
 
-  func saveToTemporaryFileAsync(format: ImageFormat, quality: Double) throws -> Promise<String> {
+  func saveToTemporaryFileAsync(format: ImageFormat, quality: Double?) throws -> Promise<String> {
     return Promise.async(.utility) {
       let tempDirectory = FileManager.default.temporaryDirectory
       let fileName = UUID().uuidString
       let file = tempDirectory.appendingPathComponent(fileName, conformingTo: format.toUTType())
       let path = file.absoluteString
 
-      try self.saveImage(to: path, format: format, quality: quality)
+      try self.saveImage(to: path, format: format, quality: quality ?? 1.0)
       return path
     }
   }

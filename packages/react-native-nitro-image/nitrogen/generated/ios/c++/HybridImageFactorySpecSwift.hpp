@@ -14,15 +14,28 @@ namespace NitroImage { class HybridImageFactorySpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
 namespace NitroModules { class ArrayBufferHolder; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
+// Forward declaration of `ImageFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class ImageFormat; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
 #include <NitroModules/Promise.hpp>
+#include "RawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
+#include "PixelFormat.hpp"
+#include <optional>
+#include "EncodedImageData.hpp"
+#include "ImageFormat.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -105,16 +118,32 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) override {
-      auto __result = _swiftPart.loadFromArrayBuffer(ArrayBufferHolder(buffer));
+    inline std::shared_ptr<HybridImageSpec> loadFromRawPixelData(const RawPixelData& data, std::optional<bool> allowGpu) override {
+      auto __result = _swiftPart.loadFromRawPixelData(std::forward<decltype(data)>(data), allowGpu);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) override {
-      auto __result = _swiftPart.loadFromArrayBufferAsync(ArrayBufferHolder(buffer));
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data, std::optional<bool> allowGpu) override {
+      auto __result = _swiftPart.loadFromRawPixelDataAsync(std::forward<decltype(data)>(data), allowGpu);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& data) override {
+      auto __result = _swiftPart.loadFromEncodedImageData(std::forward<decltype(data)>(data));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& data) override {
+      auto __result = _swiftPart.loadFromEncodedImageDataAsync(std::forward<decltype(data)>(data));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

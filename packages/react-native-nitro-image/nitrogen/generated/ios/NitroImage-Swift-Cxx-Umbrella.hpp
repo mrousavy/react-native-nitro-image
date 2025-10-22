@@ -8,6 +8,8 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `EncodedImageData` to properly resolve imports.
+namespace margelo::nitro::image { struct EncodedImageData; }
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageFactorySpec; }
 // Forward declaration of `HybridImageLoaderFactorySpec` to properly resolve imports.
@@ -22,10 +24,15 @@ namespace margelo::nitro::image { class HybridImageUtilsSpec; }
 namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
 // Forward declaration of `ImageFormat` to properly resolve imports.
 namespace margelo::nitro::image { enum class ImageFormat; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `ResizeMode` to properly resolve imports.
 namespace margelo::nitro::image { enum class ResizeMode; }
 
 // Include C++ defined types
+#include "EncodedImageData.hpp"
 #include "HybridImageFactorySpec.hpp"
 #include "HybridImageLoaderFactorySpec.hpp"
 #include "HybridImageLoaderSpec.hpp"
@@ -33,6 +40,8 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 #include "HybridImageUtilsSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
 #include "ImageFormat.hpp"
+#include "PixelFormat.hpp"
+#include "RawPixelData.hpp"
 #include "ResizeMode.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/Promise.hpp>

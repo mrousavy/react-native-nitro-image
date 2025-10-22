@@ -7,7 +7,6 @@
 
 import Foundation
 import NitroModules
-import NitroModules
 
 /// See ``HybridImageLoaderFactorySpec``
 public protocol HybridImageLoaderFactorySpec_protocol: HybridObject {
@@ -18,7 +17,8 @@ public protocol HybridImageLoaderFactorySpec_protocol: HybridObject {
   func createFileImageLoader(filePath: String) throws -> (any HybridImageLoaderSpec)
   func createResourceImageLoader(name: String) throws -> (any HybridImageLoaderSpec)
   func createSymbolImageLoader(symbolName: String) throws -> (any HybridImageLoaderSpec)
-  func createArrayBufferImageLoader(buffer: ArrayBuffer) throws -> (any HybridImageLoaderSpec)
+  func createRawPixelDataImageLoader(data: RawPixelData) throws -> (any HybridImageLoaderSpec)
+  func createEncodedImageDataImageLoader(data: EncodedImageData) throws -> (any HybridImageLoaderSpec)
 }
 
 /// See ``HybridImageLoaderFactorySpec``
