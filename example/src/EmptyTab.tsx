@@ -4,7 +4,7 @@ import { Images, NitroImage } from "react-native-nitro-image";
 import { WebImages } from "react-native-nitro-web-image";
 
 export function EmptyTab() {
-    const [value, setValue] = useState('https://picsum.photos/seed/123/400')
+    const [value, setValue] = useState('https://picsum.photos/seed/123/600')
     const [x, setX] = useState()
 
     useEffect(() => {

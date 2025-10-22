@@ -48,6 +48,7 @@ export interface ImageFactory
      * @param allowGpu If `allowGpu` is set to `true` and the given {@linkcode data} is a GPU-buffer, the {@linkcode Image}
      * might be wrapping the given GPU-buffer without performing a copy. By default, `allowGpu` is `false`
      * @throws If the given {@linkcode RawPixelData} is not a valid RGB buffer representing an {@linkcode Image}.
+     * @note The given pixel data has to have pre-multiplied alpha, and be some kind of RGB format with 4-bytes-per-pixel.
      */
     loadFromRawPixelData(data: RawPixelData, allowGpu?: boolean): Image;
     /**
@@ -56,6 +57,7 @@ export interface ImageFactory
      * @param allowGpu If `allowGpu` is set to `true` and the given {@linkcode data} is a GPU-buffer, the {@linkcode Image}
      * might be wrapping the given GPU-buffer without performing a copy. By default, `allowGpu` is `false`
      * @throws If the given {@linkcode RawPixelData} is not a valid RGB buffer representing an {@linkcode Image}.
+     * @note The given pixel data has to have pre-multiplied alpha, and be some kind of RGB format with 4-bytes-per-pixel.
      */
     loadFromRawPixelDataAsync(data: RawPixelData, allowGpu?: boolean): Promise<Image>;
 

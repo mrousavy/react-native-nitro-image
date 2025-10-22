@@ -34,9 +34,22 @@ fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
         }
     }
 
-    // SLOW PATH: Perform a CPU copy of the Buffer and read byte by byte into a Bitmap
     val w = data.width.toInt()
     val h = data.height.toInt()
+    val totalLength = data.buffer.size
+    val bytesPerRow = totalLength / h
+    val bytesPerPixel = bytesPerRow / w
+    if (data.pixelFormat == PixelFormat.BGRA && bytesPerPixel == 4) {
+        // FAST PATH: Source came from ARGB_8888 Bitmap bytes -> reinterpret as Ints with little endian
+        val buffer = data.buffer.getBuffer(false).slice().order(java.nio.ByteOrder.LITTLE_ENDIAN)
+        val source = buffer.asIntBuffer()
+        val bitmap = createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        bitmap.isPremultiplied = true
+        bitmap.copyPixelsFromBuffer(source)
+        return bitmap
+    }
+
+    // SLOW PATH: Perform a CPU copy of the Buffer and read byte by byte into a Bitmap
     val sw =
         SW[data.pixelFormat] ?: throw Error("Unsupported Pixel Format: ${data.pixelFormat}")
     val stride = w * sw.bpp

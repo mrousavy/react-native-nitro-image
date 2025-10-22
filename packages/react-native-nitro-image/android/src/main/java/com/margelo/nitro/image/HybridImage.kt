@@ -43,8 +43,7 @@ class HybridImage: HybridImageSpec {
             val buffer = bitmap.toByteBuffer()
             ArrayBuffer.wrap(buffer)
         }
-        // TODO: Figure out PixelFormat on GPU buffers
-        return RawPixelData(arrayBuffer, width, height, PixelFormat.RGBA)
+        return RawPixelData(arrayBuffer, width, height, PixelFormat.ARGB)
     }
     override fun toRawPixelDataAsync(allowGpu: Boolean?): Promise<RawPixelData> {
         return Promise.async { toRawPixelData(allowGpu) }
