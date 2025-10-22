@@ -1,6 +1,10 @@
 import type { HybridObject } from "react-native-nitro-modules";
 import type { OptionalAsyncOptions } from "./OptionalWebLoader";
-import type { EncodedImageData, Image, RawPixelData } from "./specs/Image.nitro";
+import type {
+    EncodedImageData,
+    Image,
+    RawPixelData,
+} from "./specs/Image.nitro";
 import type { ImageLoader } from "./specs/ImageLoader.nitro";
 
 export type RequireType = number;
