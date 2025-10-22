@@ -40,6 +40,7 @@ fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
     val sw =
         SW[data.pixelFormat] ?: throw Error("Unsupported Pixel Format: ${data.pixelFormat}")
     val stride = w * sw.bpp
+
     val buffer = data.buffer.getBuffer(false)
     buffer.rewind()
     if (buffer.remaining() < stride * h) {
@@ -48,12 +49,12 @@ fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
 
     val out = IntArray(w * h)
 
-    fun packPremul(r: Int, g: Int, b_: Int, a: Int): Int {
-        val a8 = if (a < 0) 0xFF else a
-        val rr = if (a8 == 255) r else (r * a8 + 127) / 255
-        val gg = if (a8 == 255) g else (g * a8 + 127) / 255
-        val bb = if (a8 == 255) b_ else (b_ * a8 + 127) / 255
-        return (a8 shl 24) or (rr shl 16) or (gg shl 8) or bb
+    fun pack(r: Int, g: Int, b_: Int, aIn: Int, srcPremul: Boolean): Int {
+        val a = if (aIn < 0) 0xFF else aIn
+        val rr = if (srcPremul || a == 255) r else (r * a + 127) / 255
+        val gg = if (srcPremul || a == 255) g else (g * a + 127) / 255
+        val bb = if (srcPremul || a == 255) b_ else (b_ * a + 127) / 255
+        return (a shl 24) or (rr shl 16) or (gg shl 8) or bb
     }
 
     var di = 0
@@ -66,15 +67,15 @@ fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
                 val b1 = buffer.get(p + 1).toInt() and 0xFF
                 val b2 = buffer.get(p + 2).toInt() and 0xFF
                 val b3 = buffer.get(p + 3).toInt() and 0xFF
-                val ch = intArrayOf(b0, b1, b2, b3)
-                val r = ch[sw.r];
-                val g = ch[sw.g];
-                val bl = ch[sw.b]
-                val a = if (sw.a >= 0) ch[sw.a] else 255
-                out[di++] = packPremul(r, g, bl, a)
+                val r = when (sw.r) {0->b0;1->b1;2->b2;else->b3}
+                val g = when (sw.g) {0->b0;1->b1;2->b2;else->b3}
+                val bl= when (sw.b) {0->b0;1->b1;2->b2;else->b3}
+                val a  = if (sw.a >= 0) when(sw.a){0->b0;1->b1;2->b2;else->b3} else 255
+                val srcPremul = sw.a >= 0
+                out[di++] = pack(r, g, bl, a, srcPremul)
             }
         }
-    } else { // 3 bpp
+    } else {
         for (y in 0 until h) {
             val row = y * stride
             for (x in 0 until w) {
@@ -82,11 +83,10 @@ fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
                 val b0 = buffer.get(p).toInt() and 0xFF
                 val b1 = buffer.get(p + 1).toInt() and 0xFF
                 val b2 = buffer.get(p + 2).toInt() and 0xFF
-                val ch = intArrayOf(b0, b1, b2)
-                val r = ch[sw.r];
-                val g = ch[sw.g];
-                val bl = ch[sw.b]
-                out[di++] = packPremul(r, g, bl, 255)
+                val r = when (sw.r) {0->b0;1->b1;else->b2}
+                val g = when (sw.g) {0->b0;1->b1;else->b2}
+                val bl= when (sw.b) {0->b0;1->b1;else->b2}
+                out[di++] = pack(r, g, bl, 255, true) // opaque => already "premultiplied"
             }
         }
     }

@@ -15,6 +15,7 @@ export function EmptyTab() {
             console.log('2', image.width, image.height)
             const rawData = await image.toRawPixelDataAsync()
             console.log('3', rawData.buffer.byteLength)
+            rawData.pixelFormat = 'BGRA'
             setX(rawData)
             const newImage = await Images.loadFromRawPixelDataAsync(rawData)
             console.log('4', newImage.width, newImage.height)
@@ -27,10 +28,9 @@ export function EmptyTab() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>
-                <TextInput placeholder="Image URL" value={value} onChangeText={setValue} style={styles.textInput} />
-                {x && (<NitroImage image={{ rawPixelData: x }} style={styles.image} />)}
-            </Text>
+            <TextInput placeholder="Image URL" value={value} onChangeText={setValue} style={styles.textInput} />
+            <NitroImage image={{ url: value }} style={styles.image} />
+            {x != null && (<NitroImage image={{ rawPixelData: x }} style={styles.image} />)}
         </View>
     );
 }
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     image: {
-        width: 400,
-        height: 400,
+        width: 350,
+        height: 350,
         borderColor: 'grey',
         borderWidth: StyleSheet.hairlineWidth
     }
