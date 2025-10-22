@@ -10,8 +10,8 @@ package com.margelo.nitro.image
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
+import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.HybridObject
 
 /**
@@ -50,11 +50,19 @@ abstract class HybridImageSpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun toArrayBuffer(): ArrayBuffer
+  abstract fun toRawArrayBuffer(): RawPixelData
   
   @DoNotStrip
   @Keep
-  abstract fun toArrayBufferAsync(): Promise<ArrayBuffer>
+  abstract fun toRawArrayBufferAsync(): Promise<RawPixelData>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun toEncodedArrayBuffer(format: ImageFormat, quality: Double): ArrayBuffer
+  
+  @DoNotStrip
+  @Keep
+  abstract fun toEncodedArrayBufferAsync(format: ImageFormat, quality: Double): Promise<ArrayBuffer>
   
   @DoNotStrip
   @Keep
@@ -74,11 +82,11 @@ abstract class HybridImageSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun saveToFileAsync(path: String, format: ImageFormat, quality: Double): Promise<Unit>
+  abstract fun saveToFileAsync(path: String, format: ImageFormat, quality: Double?): Promise<Unit>
   
   @DoNotStrip
   @Keep
-  abstract fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double): Promise<String>
+  abstract fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double?): Promise<String>
   
   @DoNotStrip
   @Keep

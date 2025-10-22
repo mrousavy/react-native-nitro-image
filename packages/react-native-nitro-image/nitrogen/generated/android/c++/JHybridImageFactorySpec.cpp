@@ -9,6 +9,10 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
@@ -16,9 +20,13 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
 #include <string>
+#include "RawPixelData.hpp"
+#include "JRawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/JArrayBuffer.hpp>
 #include <NitroModules/JUnit.hpp>
+#include "PixelFormat.hpp"
+#include "JPixelFormat.hpp"
 
 namespace margelo::nitro::image {
 
@@ -93,13 +101,34 @@ namespace margelo::nitro::image {
     auto __result = method(_javaPart, jni::make_jstring(symbolName));
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("loadFromArrayBuffer");
+  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromRawArrayBuffer(const RawPixelData& data) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JRawPixelData> /* data */)>("loadFromRawArrayBuffer");
+    auto __result = method(_javaPart, JRawPixelData::fromCpp(data));
+    return __result->cthis()->shared_cast<JHybridImageSpec>();
+  }
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromRawArrayBufferAsync(const RawPixelData& data) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JRawPixelData> /* data */)>("loadFromRawArrayBufferAsync");
+    auto __result = method(_javaPart, JRawPixelData::fromCpp(data));
+    return [&]() {
+      auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromEncodedArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("loadFromEncodedArrayBuffer");
     auto __result = method(_javaPart, JArrayBuffer::wrap(buffer));
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("loadFromArrayBufferAsync");
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromEncodedArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("loadFromEncodedArrayBufferAsync");
     auto __result = method(_javaPart, JArrayBuffer::wrap(buffer));
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();

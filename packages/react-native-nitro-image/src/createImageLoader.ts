@@ -31,8 +31,10 @@ export function createImageLoader(
         return source;
     } else if ("filePath" in source) {
         return ImageLoaders.createFileImageLoader(source.filePath);
-    } else if ("arrayBuffer" in source) {
-        return ImageLoaders.createArrayBufferImageLoader(source.arrayBuffer);
+    } else if ("encodedArrayBuffer" in source) {
+        return ImageLoaders.createEncodedArrayBufferImageLoader(source.encodedArrayBuffer);
+    } else if ("rawPixelData" in source) {
+        return ImageLoaders.createRawArrayBufferImageLoader(source.rawPixelData)
     } else if ("resource" in source) {
         return ImageLoaders.createResourceImageLoader(source.resource);
     } else if ("symbolName" in source) {

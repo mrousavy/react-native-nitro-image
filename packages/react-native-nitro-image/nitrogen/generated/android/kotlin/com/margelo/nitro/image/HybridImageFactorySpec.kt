@@ -64,11 +64,19 @@ abstract class HybridImageFactorySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun loadFromArrayBuffer(buffer: ArrayBuffer): HybridImageSpec
+  abstract fun loadFromRawArrayBuffer(data: RawPixelData): HybridImageSpec
   
   @DoNotStrip
   @Keep
-  abstract fun loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<HybridImageSpec>
+  abstract fun loadFromRawArrayBufferAsync(data: RawPixelData): Promise<HybridImageSpec>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromEncodedArrayBuffer(buffer: ArrayBuffer): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun loadFromEncodedArrayBufferAsync(buffer: ArrayBuffer): Promise<HybridImageSpec>
   
   @DoNotStrip
   @Keep

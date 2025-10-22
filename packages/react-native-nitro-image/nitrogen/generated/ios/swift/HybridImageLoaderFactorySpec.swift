@@ -18,7 +18,8 @@ public protocol HybridImageLoaderFactorySpec_protocol: HybridObject {
   func createFileImageLoader(filePath: String) throws -> (any HybridImageLoaderSpec)
   func createResourceImageLoader(name: String) throws -> (any HybridImageLoaderSpec)
   func createSymbolImageLoader(symbolName: String) throws -> (any HybridImageLoaderSpec)
-  func createArrayBufferImageLoader(buffer: ArrayBuffer) throws -> (any HybridImageLoaderSpec)
+  func createRawArrayBufferImageLoader(data: RawPixelData) throws -> (any HybridImageLoaderSpec)
+  func createEncodedArrayBufferImageLoader(buffer: ArrayBuffer) throws -> (any HybridImageLoaderSpec)
 }
 
 /// See ``HybridImageLoaderFactorySpec``

@@ -14,15 +14,21 @@ namespace NitroImage { class HybridImageFactorySpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
 namespace NitroModules { class ArrayBufferHolder; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
 #include <NitroModules/Promise.hpp>
+#include "RawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
+#include "PixelFormat.hpp"
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -105,16 +111,32 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) override {
-      auto __result = _swiftPart.loadFromArrayBuffer(ArrayBufferHolder(buffer));
+    inline std::shared_ptr<HybridImageSpec> loadFromRawArrayBuffer(const RawPixelData& data) override {
+      auto __result = _swiftPart.loadFromRawArrayBuffer(std::forward<decltype(data)>(data));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) override {
-      auto __result = _swiftPart.loadFromArrayBufferAsync(ArrayBufferHolder(buffer));
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawArrayBufferAsync(const RawPixelData& data) override {
+      auto __result = _swiftPart.loadFromRawArrayBufferAsync(std::forward<decltype(data)>(data));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<HybridImageSpec> loadFromEncodedArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) override {
+      auto __result = _swiftPart.loadFromEncodedArrayBuffer(ArrayBufferHolder(buffer));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) override {
+      auto __result = _swiftPart.loadFromEncodedArrayBufferAsync(ArrayBufferHolder(buffer));
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

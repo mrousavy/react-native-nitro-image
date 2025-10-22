@@ -15,10 +15,13 @@
 
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageLoaderSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
 
 #include <memory>
 #include "HybridImageLoaderSpec.hpp"
 #include <string>
+#include "RawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::image {
@@ -55,7 +58,8 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<HybridImageLoaderSpec> createFileImageLoader(const std::string& filePath) = 0;
       virtual std::shared_ptr<HybridImageLoaderSpec> createResourceImageLoader(const std::string& name) = 0;
       virtual std::shared_ptr<HybridImageLoaderSpec> createSymbolImageLoader(const std::string& symbolName) = 0;
-      virtual std::shared_ptr<HybridImageLoaderSpec> createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
+      virtual std::shared_ptr<HybridImageLoaderSpec> createRawArrayBufferImageLoader(const RawPixelData& data) = 0;
+      virtual std::shared_ptr<HybridImageLoaderSpec> createEncodedArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) = 0;
 
     protected:
       // Hybrid Setup

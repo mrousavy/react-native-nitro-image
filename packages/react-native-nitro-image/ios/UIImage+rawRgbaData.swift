@@ -4,7 +4,7 @@ import NitroModules
 
 extension UIImage {
   /**
-   * Returns raw RGBA data of this UIImage
+   * Returns raw RGBA data of this UIImage (on iOS, BGRA)
    */
   func toRawRgbaArrayBuffer() throws -> ArrayBuffer {
     guard let cg = self.cgImage else {
@@ -21,7 +21,7 @@ extension UIImage {
     let totalSize = width * height * bytesPerPixel
     let arrayBuffer = ArrayBuffer.allocate(size: totalSize)
 
-    // Create a RGB-premultiplied-first context (aka ARGB)
+    // Create a RGB-premultiplied-first context (aka BGRA on little-endian iOS)
     let colorSpace = CGColorSpaceCreateDeviceRGB()
     let bitmapInfo = CGImageAlphaInfo.premultipliedFirst.rawValue
 

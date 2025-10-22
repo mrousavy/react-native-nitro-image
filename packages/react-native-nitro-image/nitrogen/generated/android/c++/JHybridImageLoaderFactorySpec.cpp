@@ -9,14 +9,22 @@
 
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageLoaderSpec; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
 
 #include <memory>
 #include "HybridImageLoaderSpec.hpp"
 #include "JHybridImageLoaderSpec.hpp"
 #include <string>
+#include "RawPixelData.hpp"
+#include "JRawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/JArrayBuffer.hpp>
 #include <NitroModules/JUnit.hpp>
+#include "PixelFormat.hpp"
+#include "JPixelFormat.hpp"
 
 namespace margelo::nitro::image {
 
@@ -59,8 +67,13 @@ namespace margelo::nitro::image {
     auto __result = method(_javaPart, jni::make_jstring(symbolName));
     return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
   }
-  std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("createArrayBufferImageLoader");
+  std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createRawArrayBufferImageLoader(const RawPixelData& data) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<JRawPixelData> /* data */)>("createRawArrayBufferImageLoader");
+    auto __result = method(_javaPart, JRawPixelData::fromCpp(data));
+    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
+  }
+  std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createEncodedArrayBufferImageLoader(const std::shared_ptr<ArrayBuffer>& buffer) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* buffer */)>("createEncodedArrayBufferImageLoader");
     auto __result = method(_javaPart, JArrayBuffer::wrap(buffer));
     return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
   }

@@ -55,7 +55,11 @@ abstract class HybridImageLoaderFactorySpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun createArrayBufferImageLoader(buffer: ArrayBuffer): HybridImageLoaderSpec
+  abstract fun createRawArrayBufferImageLoader(data: RawPixelData): HybridImageLoaderSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun createEncodedArrayBufferImageLoader(buffer: ArrayBuffer): HybridImageLoaderSpec
 
   private external fun initHybrid(): HybridData
 

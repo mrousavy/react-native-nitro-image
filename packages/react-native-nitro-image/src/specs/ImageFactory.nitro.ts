@@ -1,5 +1,5 @@
 import type { HybridObject } from "react-native-nitro-modules";
-import type { Image } from "./Image.nitro";
+import type { Image, RawPixelData } from "./Image.nitro";
 
 export interface ImageFactory
     extends HybridObject<{ ios: "swift"; android: "kotlin" }> {
@@ -43,17 +43,30 @@ export interface ImageFactory
     loadFromSymbol(symbolName: string): Image;
 
     /**
-     * Synchronously convert the given given {@linkcode ArrayBuffer} to an {@linkcode Image}.
-     * @param buffer The ArrayBuffer carrying the data in any supported image format
-     * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
+     * Synchronously convert the given given **raw** {@linkcode ArrayBuffer} to an {@linkcode Image}.
+     * @param data The {@linkcode RawPixelData} object carrying the **raw** RGB image data and describing it's format.
+     * @throws If the given {@linkcode ArrayBuffer} is not a valid RGB buffer representing an {@linkcode Image}.
      */
-    loadFromArrayBuffer(buffer: ArrayBuffer): Image;
+    loadFromRawArrayBuffer(data: RawPixelData): Image;
     /**
-     * Asynchronously convert the given given {@linkcode ArrayBuffer} to an {@linkcode Image}.
-     * @param buffer The ArrayBuffer carrying the data in any supported image format
+     * Asynchronously convert the given given **raw** {@linkcode ArrayBuffer} to an {@linkcode Image}.
+     * @param data The {@linkcode RawPixelData} object carrying the **raw** RGB image data and describing it's format.
+     * @throws If the given {@linkcode ArrayBuffer} is not a valid RGB buffer representing an {@linkcode Image}.
+     */
+    loadFromRawArrayBufferAsync(data: RawPixelData): Promise<Image>;
+
+    /**
+     * Synchronously convert the given given **encoded** {@linkcode ArrayBuffer} to an {@linkcode Image}.
+     * @param buffer The ArrayBuffer carrying the encoded Image data in any supported image format (JPG, PNG, ...)
      * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
      */
-    loadFromArrayBufferAsync(buffer: ArrayBuffer): Promise<Image>;
+    loadFromEncodedArrayBuffer(buffer: ArrayBuffer): Image;
+    /**
+     * Asynchronously convert the given given **encoded** {@linkcode ArrayBuffer} to an {@linkcode Image}.
+     * @param buffer The ArrayBuffer carrying the encoded Image data in any supported image format (JPG, PNG, ...)
+     * @throws If the given {@linkcode ArrayBuffer} is not a valid representation of an {@linkcode Image}.
+     */
+    loadFromEncodedArrayBufferAsync(buffer: ArrayBuffer): Promise<Image>;
 
     /**
      * Synchronously decodes the given {@linkcode thumbhash} (and {@linkcode ArrayBuffer})

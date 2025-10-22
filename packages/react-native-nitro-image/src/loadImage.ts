@@ -31,9 +31,12 @@ export function loadImage(source: AsyncImageSource): Promise<Image> | Image {
     } else if ("filePath" in source) {
         // It's a { filePath }
         return Images.loadFromFileAsync(source.filePath);
-    } else if ("arrayBuffer" in source) {
+    } else if ("encodedArrayBuffer" in source) {
         // It's a { arrayBuffer }
-        return Images.loadFromArrayBufferAsync(source.arrayBuffer);
+        return Images.loadFromEncodedArrayBufferAsync(source.encodedArrayBuffer);
+    } else if ("rawPixelData" in source) {
+        // It's a { rawPixelData }
+        return Images.loadFromRawArrayBufferAsync(source.rawPixelData);
     } else if ("resource" in source) {
         // It's a { resource }
         return Images.loadFromResourcesAsync(source.resource);

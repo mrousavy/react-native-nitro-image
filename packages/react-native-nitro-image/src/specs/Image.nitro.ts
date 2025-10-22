@@ -2,27 +2,70 @@ import type { HybridObject } from "react-native-nitro-modules";
 
 export type ImageFormat = "jpg" | "png";
 
+export type PixelFormat = 'RGBA' | 'BGRA'
+
+export interface RawPixelData {
+    buffer: ArrayBuffer
+    width: number
+    height: number
+    pixelFormat: PixelFormat
+}
+
+export interface EncodedPixelData {
+    buffer: ArrayBuffer
+    width: number
+    height: number
+    containerFormat: ImageFormat
+}
+
 export interface Image
     extends HybridObject<{ ios: "swift"; android: "kotlin" }> {
     readonly width: number;
     readonly height: number;
 
     /**
-     * Returns an array buffer containing the raw pixel data of the Image.
-     * Raw pixel data is always in `ARGB` format;
-     * ```
-     * [
-     *   A1, R1, G1, B1,
-     *   A2, R2, G2, B2,
-     *   ...
-     * ]
+     * Returns a raw {@linkcode ArrayBuffer} containing the raw pixel data of the Image.
+     * @note Raw pixel data is either in {@linkcode PixelFormat | 'ARGB'} or
+     * {@linkcode PixelFormat | 'BGRA'} format, depending on the OS' endianess.
+     * @example
+     * ```ts
+     * const rawData = image.toRawArrayBuffer()
+     * const data = new Uint8Array(rawData.buffer)
+     * let r, g, b
+     * if (rawData.pixelFormat === 'bgra') {
+     *   r = data[2]
+     *   g = data[1]
+     *   b = data[0]
+     * } else {
+     *   r = data[0]
+     *   g = data[1]
+     *   b = data[2]
+     * }
      * ```
      */
-    toArrayBuffer(): ArrayBuffer;
-    toArrayBufferAsync(): Promise<ArrayBuffer>;
+    toRawArrayBuffer(): RawPixelData;
+    toRawArrayBufferAsync(): Promise<RawPixelData>;
+
+    /**
+     * Returns an encoded {@linkcode ArrayBuffer} containing the data of an Image in
+     * the requested container {@linkcode format}.
+     * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
+     * {@linkcode quality} to compress the image. In {@linkcode ImageFormat | 'png'}, the
+     * {@linkcode quality} flag is ignored.
+     * @example
+     * ```ts
+     * const compressed = image.toEncodedArrayBuffer('jpg', 0.7)
+     * ```
+     */
+    toEncodedArrayBuffer(format: ImageFormat, quality: number): ArrayBuffer;
+    toEncodedArrayBufferAsync(format: ImageFormat, quality: number): Promise<ArrayBuffer>;
 
     /**
      * Resizes this Image into a new image with the new given {@linkcode width} and {@linkcode height}.
+     * @example
+     * ```ts
+     * const smaller = image.resize(image.width / 2, image.height / 2)
+     * ```
      */
     resize(width: number, height: number): Image;
     resizeAsync(width: number, height: number): Promise<Image>;
@@ -30,6 +73,15 @@ export interface Image
     /**
      * Crops this Image into a new image starting from the source image's {@linkcode startX} and {@linkcode startY} coordinates,
      * up until the source image's {@linkcode endX} and {@linkcode endY} coordinates.
+     * @example
+     * ```ts
+     * const cropped = image.crop(
+     *     image.width * 0.1,
+     *     image.height * 0.1,
+     *     image.width * 0.8,
+     *     image.height * 0.8
+     * )
+     * ```
      */
     crop(startX: number, startY: number, endX: number, endY: number): Image;
     cropAsync(
@@ -41,24 +93,37 @@ export interface Image
 
     /**
      * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
+     * @example
+     * ```ts
+     * await image.saveToFileAsync(path, 'jpg', 0.8)
+     * ```
      */
     saveToFileAsync(
         path: string,
         format: ImageFormat,
-        quality: number,
+        quality?: number,
     ): Promise<void>;
     /**
      * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and return it's path.
+     * @example
+     * ```ts
+     * const path = await image.saveToTemporaryFileAsync('jpg', 0.8)
+     * ```
      */
     saveToTemporaryFileAsync(
         format: ImageFormat,
-        quality: number,
+        quality?: number,
     ): Promise<string>;
 
     /**
      * Encodes this Image into a ThumbHash.
      * To convert the returned ThumbHash to a string, use `thumbHashToBase64String(...)`.
      * @note To keep this efficient, {@linkcode resize} this image to a small size (<100x100) first.
+     * @example
+     * ```ts
+     * const small = image.resize(100, 100)
+     * const thumbHash = small.toThumbHash()
+     * ```
      */
     toThumbHash(): ArrayBuffer;
     toThumbHashAsync(): Promise<ArrayBuffer>;

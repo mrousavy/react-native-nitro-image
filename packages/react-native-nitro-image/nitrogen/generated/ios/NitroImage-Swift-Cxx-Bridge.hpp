@@ -22,6 +22,10 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 namespace margelo::nitro::image { class HybridImageUtilsSpec; }
 // Forward declaration of `HybridNitroImageViewSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridNitroImageViewSpec; }
+// Forward declaration of `PixelFormat` to properly resolve imports.
+namespace margelo::nitro::image { enum class PixelFormat; }
+// Forward declaration of `RawPixelData` to properly resolve imports.
+namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `ResizeMode` to properly resolve imports.
 namespace margelo::nitro::image { enum class ResizeMode; }
 
@@ -46,6 +50,8 @@ namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 #include "HybridImageSpec.hpp"
 #include "HybridImageUtilsSpec.hpp"
 #include "HybridNitroImageViewSpec.hpp"
+#include "PixelFormat.hpp"
+#include "RawPixelData.hpp"
 #include "ResizeMode.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
@@ -65,6 +71,62 @@ namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
  */
 namespace margelo::nitro::image::bridge::swift {
 
+  // pragma MARK: std::shared_ptr<Promise<RawPixelData>>
+  /**
+   * Specialized version of `std::shared_ptr<Promise<RawPixelData>>`.
+   */
+  using std__shared_ptr_Promise_RawPixelData__ = std::shared_ptr<Promise<RawPixelData>>;
+  inline std::shared_ptr<Promise<RawPixelData>> create_std__shared_ptr_Promise_RawPixelData__() noexcept {
+    return Promise<RawPixelData>::create();
+  }
+  inline PromiseHolder<RawPixelData> wrap_std__shared_ptr_Promise_RawPixelData__(std::shared_ptr<Promise<RawPixelData>> promise) noexcept {
+    return PromiseHolder<RawPixelData>(std::move(promise));
+  }
+  
+  // pragma MARK: std::function<void(const RawPixelData& /* result */)>
+  /**
+   * Specialized version of `std::function<void(const RawPixelData&)>`.
+   */
+  using Func_void_RawPixelData = std::function<void(const RawPixelData& /* result */)>;
+  /**
+   * Wrapper class for a `std::function<void(const RawPixelData& / * result * /)>`, this can be used from Swift.
+   */
+  class Func_void_RawPixelData_Wrapper final {
+  public:
+    explicit Func_void_RawPixelData_Wrapper(std::function<void(const RawPixelData& /* result */)>&& func): _function(std::make_unique<std::function<void(const RawPixelData& /* result */)>>(std::move(func))) {}
+    inline void call(RawPixelData result) const noexcept {
+      _function->operator()(result);
+    }
+  private:
+    std::unique_ptr<std::function<void(const RawPixelData& /* result */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_RawPixelData create_Func_void_RawPixelData(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_RawPixelData_Wrapper wrap_Func_void_RawPixelData(Func_void_RawPixelData value) noexcept {
+    return Func_void_RawPixelData_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
+  /**
+   * Specialized version of `std::function<void(const std::exception_ptr&)>`.
+   */
+  using Func_void_std__exception_ptr = std::function<void(const std::exception_ptr& /* error */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::exception_ptr& / * error * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__exception_ptr_Wrapper final {
+  public:
+    explicit Func_void_std__exception_ptr_Wrapper(std::function<void(const std::exception_ptr& /* error */)>&& func): _function(std::make_unique<std::function<void(const std::exception_ptr& /* error */)>>(std::move(func))) {}
+    inline void call(std::exception_ptr error) const noexcept {
+      _function->operator()(error);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::exception_ptr& /* error */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__exception_ptr_Wrapper wrap_Func_void_std__exception_ptr(Func_void_std__exception_ptr value) noexcept {
+    return Func_void_std__exception_ptr_Wrapper(std::move(value));
+  }
+  
   // pragma MARK: std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>
   /**
    * Specialized version of `std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>`.
@@ -97,28 +159,6 @@ namespace margelo::nitro::image::bridge::swift {
   Func_void_std__shared_ptr_ArrayBuffer_ create_Func_void_std__shared_ptr_ArrayBuffer_(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_std__shared_ptr_ArrayBuffer__Wrapper wrap_Func_void_std__shared_ptr_ArrayBuffer_(Func_void_std__shared_ptr_ArrayBuffer_ value) noexcept {
     return Func_void_std__shared_ptr_ArrayBuffer__Wrapper(std::move(value));
-  }
-  
-  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
-  /**
-   * Specialized version of `std::function<void(const std::exception_ptr&)>`.
-   */
-  using Func_void_std__exception_ptr = std::function<void(const std::exception_ptr& /* error */)>;
-  /**
-   * Wrapper class for a `std::function<void(const std::exception_ptr& / * error * /)>`, this can be used from Swift.
-   */
-  class Func_void_std__exception_ptr_Wrapper final {
-  public:
-    explicit Func_void_std__exception_ptr_Wrapper(std::function<void(const std::exception_ptr& /* error */)>&& func): _function(std::make_unique<std::function<void(const std::exception_ptr& /* error */)>>(std::move(func))) {}
-    inline void call(std::exception_ptr error) const noexcept {
-      _function->operator()(error);
-    }
-  private:
-    std::unique_ptr<std::function<void(const std::exception_ptr& /* error */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_std__exception_ptr_Wrapper wrap_Func_void_std__exception_ptr(Func_void_std__exception_ptr value) noexcept {
-    return Func_void_std__exception_ptr_Wrapper(std::move(value));
   }
   
   // pragma MARK: std::shared_ptr<HybridImageSpec>
@@ -201,6 +241,21 @@ namespace margelo::nitro::image::bridge::swift {
     return Func_void_Wrapper(std::move(value));
   }
   
+  // pragma MARK: std::optional<double>
+  /**
+   * Specialized version of `std::optional<double>`.
+   */
+  using std__optional_double_ = std::optional<double>;
+  inline std::optional<double> create_std__optional_double_(const double& value) noexcept {
+    return std::optional<double>(value);
+  }
+  inline bool has_value_std__optional_double_(const std::optional<double>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline double get_std__optional_double_(const std::optional<double>& optional) noexcept {
+    return *optional;
+  }
+  
   // pragma MARK: std::shared_ptr<Promise<std::string>>
   /**
    * Specialized version of `std::shared_ptr<Promise<std::string>>`.
@@ -233,6 +288,24 @@ namespace margelo::nitro::image::bridge::swift {
   Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept;
   inline Func_void_std__string_Wrapper wrap_Func_void_std__string(Func_void_std__string value) noexcept {
     return Func_void_std__string_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: Result<RawPixelData>
+  using Result_RawPixelData_ = Result<RawPixelData>;
+  inline Result_RawPixelData_ create_Result_RawPixelData_(const RawPixelData& value) noexcept {
+    return Result<RawPixelData>::withValue(value);
+  }
+  inline Result_RawPixelData_ create_Result_RawPixelData_(const std::exception_ptr& error) noexcept {
+    return Result<RawPixelData>::withError(error);
+  }
+  
+  // pragma MARK: Result<std::shared_ptr<Promise<RawPixelData>>>
+  using Result_std__shared_ptr_Promise_RawPixelData___ = Result<std::shared_ptr<Promise<RawPixelData>>>;
+  inline Result_std__shared_ptr_Promise_RawPixelData___ create_Result_std__shared_ptr_Promise_RawPixelData___(const std::shared_ptr<Promise<RawPixelData>>& value) noexcept {
+    return Result<std::shared_ptr<Promise<RawPixelData>>>::withValue(value);
+  }
+  inline Result_std__shared_ptr_Promise_RawPixelData___ create_Result_std__shared_ptr_Promise_RawPixelData___(const std::exception_ptr& error) noexcept {
+    return Result<std::shared_ptr<Promise<RawPixelData>>>::withError(error);
   }
   
   // pragma MARK: Result<std::shared_ptr<ArrayBuffer>>

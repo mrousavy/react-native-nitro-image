@@ -58,8 +58,10 @@ namespace margelo::nitro::image {
     std::shared_ptr<HybridImageSpec> loadFromResources(const std::string& name) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromResourcesAsync(const std::string& name) override;
     std::shared_ptr<HybridImageSpec> loadFromSymbol(const std::string& symbolName) override;
-    std::shared_ptr<HybridImageSpec> loadFromArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) override;
-    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) override;
+    std::shared_ptr<HybridImageSpec> loadFromRawArrayBuffer(const RawPixelData& data) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawArrayBufferAsync(const RawPixelData& data) override;
+    std::shared_ptr<HybridImageSpec> loadFromEncodedArrayBuffer(const std::shared_ptr<ArrayBuffer>& buffer) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedArrayBufferAsync(const std::shared_ptr<ArrayBuffer>& buffer) override;
     std::shared_ptr<HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
 

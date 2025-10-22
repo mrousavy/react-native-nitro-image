@@ -20,8 +20,10 @@ public protocol HybridImageFactorySpec_protocol: HybridObject {
   func loadFromResources(name: String) throws -> (any HybridImageSpec)
   func loadFromResourcesAsync(name: String) throws -> Promise<(any HybridImageSpec)>
   func loadFromSymbol(symbolName: String) throws -> (any HybridImageSpec)
-  func loadFromArrayBuffer(buffer: ArrayBuffer) throws -> (any HybridImageSpec)
-  func loadFromArrayBufferAsync(buffer: ArrayBuffer) throws -> Promise<(any HybridImageSpec)>
+  func loadFromRawArrayBuffer(data: RawPixelData) throws -> (any HybridImageSpec)
+  func loadFromRawArrayBufferAsync(data: RawPixelData) throws -> Promise<(any HybridImageSpec)>
+  func loadFromEncodedArrayBuffer(buffer: ArrayBuffer) throws -> (any HybridImageSpec)
+  func loadFromEncodedArrayBufferAsync(buffer: ArrayBuffer) throws -> Promise<(any HybridImageSpec)>
   func loadFromThumbHash(thumbhash: ArrayBuffer) throws -> (any HybridImageSpec)
   func loadFromThumbHashAsync(thumbhash: ArrayBuffer) throws -> Promise<(any HybridImageSpec)>
 }
