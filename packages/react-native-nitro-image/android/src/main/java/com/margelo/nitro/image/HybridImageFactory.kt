@@ -15,6 +15,15 @@ import java.nio.ByteBuffer
 @DoNotStrip
 @Keep
 class HybridImageFactory: HybridImageFactorySpec() {
+    override fun createBlankBitmap(width: Double, height: Double, enableAlpha: Boolean): HybridImageSpec {
+        val config = if (enableAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
+        val bitmap = createBitmap(width, height, config)
+        return HybridImage(bitmap)
+    }
+    override fun createBlankBitmapAsync(width: Double, height: Double, enableAlpha: Boolean): Promise<HybridImageSpec> {
+        return Promise.async { createBlankBitmap(width, height, enableAlpha) }
+    }
+
     @SuppressLint("DiscouragedApi")
     override fun loadFromResources(name: String): HybridImageSpec {
         val context = NitroModules.applicationContext ?: throw Error("No context!")

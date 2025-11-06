@@ -146,4 +146,22 @@ class HybridImage: HybridImageSpec {
     override fun toThumbHashAsync(): Promise<ArrayBuffer> {
         return Promise.async { toThumbHash() }
     }
+
+    override fun renderInto(image: HybridImageSpec, x: Double, y: Double, width: Double, height: Double): HybridImageSpec {
+        val newImage = image as? HybridImage ?: throw Error("The image ($image) is not a `HybridImage`!")
+
+        // 1. Copy this Bitmap into a new mutable Bitmap
+        val copy = bitmap.copy(bitmap.config, true)
+        // 2. Create a Canvas to start drawing
+        Canvas(copy).apply { canvas ->
+            // 3. Render the new Image into our new Bitmap
+            val rect = Rect(x, y, width, height)
+            canvas.drawBitmap(newImage.bitmap, null, rect, null)
+        }
+        // 4. Wrap the new Bitmap as a HybridImage and return
+        return HybridImage(copy)
+    }
+    override fun renderIntoAsync(image: HybridImageSpec, x: Double, y: Double, width: Double, height: Double): Promise<HybridImageSpec> {
+        return Promise.async { renderInto(image, x, y, width, height) }
+    }
 }
