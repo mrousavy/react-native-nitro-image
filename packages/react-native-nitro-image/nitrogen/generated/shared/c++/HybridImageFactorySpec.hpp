@@ -15,6 +15,8 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `Color` to properly resolve imports.
+namespace margelo::nitro::image { struct Color; }
 // Forward declaration of `RawPixelData` to properly resolve imports.
 namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `EncodedImageData` to properly resolve imports.
@@ -22,10 +24,11 @@ namespace margelo::nitro::image { struct EncodedImageData; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
+#include "Color.hpp"
+#include <optional>
 #include <NitroModules/Promise.hpp>
 #include <string>
 #include "RawPixelData.hpp"
-#include <optional>
 #include "EncodedImageData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 
@@ -60,8 +63,8 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<HybridImageSpec> createBlankImage(double width, double height, bool enableAlpha) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> createBlankImageAsync(double width, double height, bool enableAlpha) = 0;
+      virtual std::shared_ptr<HybridImageSpec> createBlankImage(double width, double height, bool enableAlpha, const std::optional<Color>& fill) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> createBlankImageAsync(double width, double height, bool enableAlpha, const std::optional<Color>& fill) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromFile(const std::string& filePath) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromResources(const std::string& name) = 0;

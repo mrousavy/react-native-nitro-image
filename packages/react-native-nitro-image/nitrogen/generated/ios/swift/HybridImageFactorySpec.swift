@@ -15,8 +15,8 @@ public protocol HybridImageFactorySpec_protocol: HybridObject {
   
 
   // Methods
-  func createBlankImage(width: Double, height: Double, enableAlpha: Bool) throws -> (any HybridImageSpec)
-  func createBlankImageAsync(width: Double, height: Double, enableAlpha: Bool) throws -> Promise<(any HybridImageSpec)>
+  func createBlankImage(width: Double, height: Double, enableAlpha: Bool, fill: Color?) throws -> (any HybridImageSpec)
+  func createBlankImageAsync(width: Double, height: Double, enableAlpha: Bool, fill: Color?) throws -> Promise<(any HybridImageSpec)>
   func loadFromFile(filePath: String) throws -> (any HybridImageSpec)
   func loadFromFileAsync(filePath: String) throws -> Promise<(any HybridImageSpec)>
   func loadFromResources(name: String) throws -> (any HybridImageSpec)

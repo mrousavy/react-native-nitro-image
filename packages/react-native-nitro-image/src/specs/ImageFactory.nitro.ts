@@ -1,6 +1,21 @@
 import type { HybridObject } from "react-native-nitro-modules";
 import type { EncodedImageData, Image, RawPixelData } from "./Image.nitro";
 
+/**
+ * Represents a Color in an {@linkcode Image}.
+ * - {@linkcode r}: The Red channel, ranging from 0.0 to 1.0.
+ * - {@linkcode g}: The Green channel, ranging from 0.0 to 1.0.
+ * - {@linkcode b}: The Blue channel, ranging from 0.0 to 1.0.
+ * - {@linkcode a}: The Alpha channel, ranging from 0.0 to 1.0.
+ * If the {@linkcode Image} has no alpha channel, this value is ignored.
+ */
+export interface Color {
+    r: number;
+    g: number;
+    b: number;
+    a?: number;
+}
+
 export interface ImageFactory
     extends HybridObject<{ ios: "swift"; android: "kotlin" }> {
     /**
@@ -8,22 +23,26 @@ export interface ImageFactory
      * @param width The width of the new Image
      * @param height The height of the new Image
      * @param enableAlpha Whether to add an alpha channel for transparency
+     * @param fill If set, fill the whole image with the given color
      */
     createBlankImage(
         width: number,
         height: number,
         enableAlpha: boolean,
+        fill?: Color,
     ): Image;
     /**
      * Asynchronously creates a new blank {@linkcode Image} of the given size.
      * @param width The width of the new Image
      * @param height The height of the new Image
      * @param enableAlpha Whether to add an alpha channel for transparency
+     * @param fill If set, fill the whole image with the given color
      */
     createBlankImageAsync(
         width: number,
         height: number,
         enableAlpha: boolean,
+        fill?: Color,
     ): Promise<Image>;
 
     /**

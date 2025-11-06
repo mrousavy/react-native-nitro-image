@@ -111,9 +111,9 @@ open class HybridImageFactorySpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func createBlankImage(width: Double, height: Double, enableAlpha: Bool) -> bridge.Result_std__shared_ptr_HybridImageSpec__ {
+  public final func createBlankImage(width: Double, height: Double, enableAlpha: Bool, fill: bridge.std__optional_Color_) -> bridge.Result_std__shared_ptr_HybridImageSpec__ {
     do {
-      let __result = try self.__implementation.createBlankImage(width: width, height: height, enableAlpha: enableAlpha)
+      let __result = try self.__implementation.createBlankImage(width: width, height: height, enableAlpha: enableAlpha, fill: fill.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()
@@ -126,9 +126,9 @@ open class HybridImageFactorySpec_cxx {
   }
   
   @inline(__always)
-  public final func createBlankImageAsync(width: Double, height: Double, enableAlpha: Bool) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____ {
+  public final func createBlankImageAsync(width: Double, height: Double, enableAlpha: Bool, fill: bridge.std__optional_Color_) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____ {
     do {
-      let __result = try self.__implementation.createBlankImageAsync(width: width, height: height, enableAlpha: enableAlpha)
+      let __result = try self.__implementation.createBlankImageAsync(width: width, height: height, enableAlpha: enableAlpha, fill: fill.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___ in
         let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___()
         let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___(__promise)

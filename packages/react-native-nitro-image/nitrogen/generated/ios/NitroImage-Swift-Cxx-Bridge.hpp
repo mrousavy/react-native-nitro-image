@@ -10,6 +10,8 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
 namespace NitroModules { class ArrayBufferHolder; }
+// Forward declaration of `Color` to properly resolve imports.
+namespace margelo::nitro::image { struct Color; }
 // Forward declaration of `EncodedImageData` to properly resolve imports.
 namespace margelo::nitro::image { struct EncodedImageData; }
 // Forward declaration of `HybridImageFactorySpec` to properly resolve imports.
@@ -48,6 +50,7 @@ namespace NitroImage { class HybridImageUtilsSpec_cxx; }
 namespace NitroImage { class HybridNitroImageViewSpec_cxx; }
 
 // Include C++ defined types
+#include "Color.hpp"
 #include "EncodedImageData.hpp"
 #include "HybridImageFactorySpec.hpp"
 #include "HybridImageLoaderFactorySpec.hpp"
@@ -433,6 +436,21 @@ namespace margelo::nitro::image::bridge::swift {
   }
   inline Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____ create_Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____(const std::exception_ptr& error) noexcept {
     return Result<std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>>::withError(error);
+  }
+  
+  // pragma MARK: std::optional<Color>
+  /**
+   * Specialized version of `std::optional<Color>`.
+   */
+  using std__optional_Color_ = std::optional<Color>;
+  inline std::optional<Color> create_std__optional_Color_(const Color& value) noexcept {
+    return std::optional<Color>(value);
+  }
+  inline bool has_value_std__optional_Color_(const std::optional<Color>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline Color get_std__optional_Color_(const std::optional<Color>& optional) noexcept {
+    return *optional;
   }
   
   // pragma MARK: std::shared_ptr<HybridImageFactorySpec>

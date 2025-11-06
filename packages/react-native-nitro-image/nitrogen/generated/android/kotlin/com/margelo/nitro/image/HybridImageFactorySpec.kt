@@ -44,11 +44,11 @@ abstract class HybridImageFactorySpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun createBlankImage(width: Double, height: Double, enableAlpha: Boolean): HybridImageSpec
+  abstract fun createBlankImage(width: Double, height: Double, enableAlpha: Boolean, fill: Color?): HybridImageSpec
   
   @DoNotStrip
   @Keep
-  abstract fun createBlankImageAsync(width: Double, height: Double, enableAlpha: Boolean): Promise<HybridImageSpec>
+  abstract fun createBlankImageAsync(width: Double, height: Double, enableAlpha: Boolean, fill: Color?): Promise<HybridImageSpec>
   
   @DoNotStrip
   @Keep

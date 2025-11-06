@@ -9,6 +9,8 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `Color` to properly resolve imports.
+namespace margelo::nitro::image { struct Color; }
 // Forward declaration of `RawPixelData` to properly resolve imports.
 namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `PixelFormat` to properly resolve imports.
@@ -23,6 +25,9 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 #include "JHybridImageSpec.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
+#include "Color.hpp"
+#include <optional>
+#include "JColor.hpp"
 #include <string>
 #include "RawPixelData.hpp"
 #include "JRawPixelData.hpp"
@@ -31,7 +36,6 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 #include <NitroModules/JUnit.hpp>
 #include "PixelFormat.hpp"
 #include "JPixelFormat.hpp"
-#include <optional>
 #include "EncodedImageData.hpp"
 #include "JEncodedImageData.hpp"
 #include "ImageFormat.hpp"
@@ -63,14 +67,14 @@ namespace margelo::nitro::image {
   
 
   // Methods
-  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::createBlankImage(double width, double height, bool enableAlpha) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* width */, double /* height */, jboolean /* enableAlpha */)>("createBlankImage");
-    auto __result = method(_javaPart, width, height, enableAlpha);
+  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::createBlankImage(double width, double height, bool enableAlpha, const std::optional<Color>& fill) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* width */, double /* height */, jboolean /* enableAlpha */, jni::alias_ref<JColor> /* fill */)>("createBlankImage");
+    auto __result = method(_javaPart, width, height, enableAlpha, fill.has_value() ? JColor::fromCpp(fill.value()) : nullptr);
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::createBlankImageAsync(double width, double height, bool enableAlpha) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* width */, double /* height */, jboolean /* enableAlpha */)>("createBlankImageAsync");
-    auto __result = method(_javaPart, width, height, enableAlpha);
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::createBlankImageAsync(double width, double height, bool enableAlpha, const std::optional<Color>& fill) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* width */, double /* height */, jboolean /* enableAlpha */, jni::alias_ref<JColor> /* fill */)>("createBlankImageAsync");
+    auto __result = method(_javaPart, width, height, enableAlpha, fill.has_value() ? JColor::fromCpp(fill.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

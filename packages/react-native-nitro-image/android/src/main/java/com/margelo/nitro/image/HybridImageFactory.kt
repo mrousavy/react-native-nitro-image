@@ -3,6 +3,7 @@ package com.margelo.nitro.image
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import androidx.annotation.Keep
 import androidx.core.graphics.createBitmap
 import com.facebook.common.internal.DoNotStrip
@@ -15,13 +16,21 @@ import java.nio.ByteBuffer
 @DoNotStrip
 @Keep
 class HybridImageFactory: HybridImageFactorySpec() {
-    override fun createBlankImage(width: Double, height: Double, enableAlpha: Boolean): HybridImageSpec {
+    override fun createBlankImage(width: Double, height: Double, enableAlpha: Boolean, fill: Color?): HybridImageSpec {
+        // 1. Create Bitmap config (either ARGB or RGB without alpha)
         val config = if (enableAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
+        // 2. Create the new Bitmap
         val bitmap = createBitmap(width.toInt(), height.toInt(), config)
+        if (fill != null) {
+            // 3. If we have a background fill, draw it!
+            val color = fill.toBitmapColor()
+            Canvas(bitmap).drawColor(color)
+        }
+        // 4. Wrap it in a HybridImage and return it
         return HybridImage(bitmap)
     }
-    override fun createBlankImageAsync(width: Double, height: Double, enableAlpha: Boolean): Promise<HybridImageSpec> {
-        return Promise.async { createBlankImage(width, height, enableAlpha) }
+    override fun createBlankImageAsync(width: Double, height: Double, enableAlpha: Boolean, fill: Color?): Promise<HybridImageSpec> {
+        return Promise.async { createBlankImage(width, height, enableAlpha, fill) }
     }
 
     @SuppressLint("DiscouragedApi")
