@@ -208,5 +208,10 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
+  std::shared_ptr<HybridImageSpec> JHybridImageSpec::renderInto(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JHybridImageSpec::javaobject> /* image */, double /* x */, double /* y */, double /* width */, double /* height */)>("renderInto");
+    auto __result = method(_javaPart, std::dynamic_pointer_cast<JHybridImageSpec>(image)->getJavaPart(), x, y, width, height);
+    return __result->cthis()->shared_cast<JHybridImageSpec>();
+  }
 
 } // namespace margelo::nitro::image

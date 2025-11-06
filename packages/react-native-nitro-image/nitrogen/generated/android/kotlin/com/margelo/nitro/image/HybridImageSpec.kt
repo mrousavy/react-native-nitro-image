@@ -95,6 +95,10 @@ abstract class HybridImageSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun toThumbHashAsync(): Promise<ArrayBuffer>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun renderInto(image: HybridImageSpec, x: Double, y: Double, width: Double, height: Double): HybridImageSpec
 
   private external fun initHybrid(): HybridData
 

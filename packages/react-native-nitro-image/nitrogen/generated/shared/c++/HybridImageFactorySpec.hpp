@@ -22,8 +22,8 @@ namespace margelo::nitro::image { struct EncodedImageData; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
-#include <string>
 #include <NitroModules/Promise.hpp>
+#include <string>
 #include "RawPixelData.hpp"
 #include <optional>
 #include "EncodedImageData.hpp"
@@ -60,6 +60,8 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
+      virtual std::shared_ptr<HybridImageSpec> createBlankImage(double width, double height, bool enableAlpha) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> createBlankImageAsync(double width, double height, bool enableAlpha) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromFile(const std::string& filePath) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromResources(const std::string& name) = 0;

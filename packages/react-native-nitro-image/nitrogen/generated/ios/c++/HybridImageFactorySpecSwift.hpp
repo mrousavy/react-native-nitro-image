@@ -27,8 +27,8 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
-#include <string>
 #include <NitroModules/Promise.hpp>
+#include <string>
 #include "RawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
@@ -78,6 +78,22 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
+    inline std::shared_ptr<HybridImageSpec> createBlankImage(double width, double height, bool enableAlpha) override {
+      auto __result = _swiftPart.createBlankImage(std::forward<decltype(width)>(width), std::forward<decltype(height)>(height), std::forward<decltype(enableAlpha)>(enableAlpha));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> createBlankImageAsync(double width, double height, bool enableAlpha) override {
+      auto __result = _swiftPart.createBlankImageAsync(std::forward<decltype(width)>(width), std::forward<decltype(height)>(height), std::forward<decltype(enableAlpha)>(enableAlpha));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
     inline std::shared_ptr<HybridImageSpec> loadFromFile(const std::string& filePath) override {
       auto __result = _swiftPart.loadFromFile(filePath);
       if (__result.hasError()) [[unlikely]] {

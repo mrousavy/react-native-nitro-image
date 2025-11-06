@@ -179,6 +179,14 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::shared_ptr<HybridImageSpec> renderInto(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) override {
+      auto __result = _swiftPart.renderInto(image, std::forward<decltype(x)>(x), std::forward<decltype(y)>(y), std::forward<decltype(width)>(width), std::forward<decltype(height)>(height));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
 
   private:
     NitroImage::HybridImageSpec_cxx _swiftPart;

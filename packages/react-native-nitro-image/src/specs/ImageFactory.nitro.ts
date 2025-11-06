@@ -4,6 +4,21 @@ import type { EncodedImageData, Image, RawPixelData } from "./Image.nitro";
 export interface ImageFactory
     extends HybridObject<{ ios: "swift"; android: "kotlin" }> {
     /**
+     * Synchronously creates a new blank {@linkcode Image} of the given size.
+     * @param width The width of the new Image
+     * @param height The height of the new Image
+     * @param enableAlpha Whether to add an alpha channel for transparency
+     */
+    createBlankImage(width: number, height: number, enableAlpha: boolean): Image
+    /**
+     * Asynchronously creates a new blank {@linkcode Image} of the given size.
+     * @param width The width of the new Image
+     * @param height The height of the new Image
+     * @param enableAlpha Whether to add an alpha channel for transparency
+     */
+    createBlankImageAsync(width: number, height: number, enableAlpha: boolean): Promise<Image>
+
+    /**
      * Synchronously loads an {@linkcode Image} from the given {@linkcode filePath}.
      * @param filePath The file path of the {@linkcode Image}. Must contain a file extension.
      * @throws If the {@linkcode filePath} is invalid.

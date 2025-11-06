@@ -340,4 +340,23 @@ open class HybridImageSpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____(__exceptionPtr)
     }
   }
+  
+  @inline(__always)
+  public final func renderInto(image: bridge.std__shared_ptr_HybridImageSpec_, x: Double, y: Double, width: Double, height: Double) -> bridge.Result_std__shared_ptr_HybridImageSpec__ {
+    do {
+      let __result = try self.__implementation.renderInto(image: { () -> HybridImageSpec in
+        let __unsafePointer = bridge.get_std__shared_ptr_HybridImageSpec_(image)
+        let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
+        return __instance.getHybridImageSpec()
+      }(), x: x, y: y, width: width, height: height)
+      let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageSpec_ in
+        let __cxxWrapped = __result.getCxxWrapper()
+        return __cxxWrapped.getCxxPart()
+      }()
+      return bridge.create_Result_std__shared_ptr_HybridImageSpec__(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__shared_ptr_HybridImageSpec__(__exceptionPtr)
+    }
+  }
 }
