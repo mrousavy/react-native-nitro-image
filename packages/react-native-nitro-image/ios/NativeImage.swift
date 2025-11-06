@@ -24,6 +24,8 @@ public extension NativeImage {
   var width: Double { uiImage.size.width }
   var height: Double { uiImage.size.height }
 
+  var memorySize: Int { uiImage.memorySize }
+
   func toRawPixelData(allowGpu _: Bool?) throws -> RawPixelData {
     return try uiImage.toRawPixelData()
   }

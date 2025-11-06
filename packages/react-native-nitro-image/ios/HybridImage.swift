@@ -12,10 +12,6 @@ import NitroModules
 class HybridImage: HybridImageSpec, NativeImage {
   let uiImage: UIImage
 
-  var memorySize: Int {
-    return uiImage.memorySize
-  }
-
   init(uiImage: UIImage) {
     self.uiImage = uiImage
   }
