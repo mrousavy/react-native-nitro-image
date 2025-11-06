@@ -196,4 +196,11 @@ export interface Image
         width: number,
         height: number,
     ): Image;
+    renderIntoAsync(
+        image: Image,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+    ): Promise<Image>;
 }

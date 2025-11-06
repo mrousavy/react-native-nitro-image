@@ -77,6 +77,7 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<ArrayBuffer> toThumbHash() = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toThumbHashAsync() = 0;
       virtual std::shared_ptr<HybridImageSpec> renderInto(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> renderIntoAsync(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) = 0;
 
     protected:
       // Hybrid Setup

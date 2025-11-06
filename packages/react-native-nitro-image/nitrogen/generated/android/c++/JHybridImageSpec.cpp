@@ -213,5 +213,21 @@ namespace margelo::nitro::image {
     auto __result = method(_javaPart, std::dynamic_pointer_cast<JHybridImageSpec>(image)->getJavaPart(), x, y, width, height);
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::renderIntoAsync(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JHybridImageSpec::javaobject> /* image */, double /* x */, double /* y */, double /* width */, double /* height */)>("renderIntoAsync");
+    auto __result = method(_javaPart, std::dynamic_pointer_cast<JHybridImageSpec>(image)->getJavaPart(), x, y, width, height);
+    return [&]() {
+      auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
 
 } // namespace margelo::nitro::image

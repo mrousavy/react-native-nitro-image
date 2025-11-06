@@ -99,6 +99,10 @@ abstract class HybridImageSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun renderInto(image: HybridImageSpec, x: Double, y: Double, width: Double, height: Double): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun renderIntoAsync(image: HybridImageSpec, x: Double, y: Double, width: Double, height: Double): Promise<HybridImageSpec>
 
   private external fun initHybrid(): HybridData
 

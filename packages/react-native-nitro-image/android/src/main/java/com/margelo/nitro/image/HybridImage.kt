@@ -1,6 +1,8 @@
 package com.margelo.nitro.image
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.os.Build
 import androidx.annotation.Keep
 import androidx.core.graphics.scale
@@ -151,11 +153,15 @@ class HybridImage: HybridImageSpec {
         val newImage = image as? HybridImage ?: throw Error("The image ($image) is not a `HybridImage`!")
 
         // 1. Copy this Bitmap into a new mutable Bitmap
-        val copy = bitmap.copy(bitmap.config, true)
+        val config = bitmap.config ?: throw Error("Failed to get Image's format! $bitmap")
+        val copy = bitmap.copy(config, true)
         // 2. Create a Canvas to start drawing
-        Canvas(copy).apply { canvas ->
+        Canvas(copy).also { canvas ->
             // 3. Render the new Image into our new Bitmap
-            val rect = Rect(x, y, width, height)
+            val rect = Rect(x.toInt(),
+                y.toInt(),
+                width.toInt(),
+                height.toInt())
             canvas.drawBitmap(newImage.bitmap, null, rect, null)
         }
         // 4. Wrap the new Bitmap as a HybridImage and return

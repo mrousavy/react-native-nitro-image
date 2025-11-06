@@ -15,13 +15,13 @@ import java.nio.ByteBuffer
 @DoNotStrip
 @Keep
 class HybridImageFactory: HybridImageFactorySpec() {
-    override fun createBlankBitmap(width: Double, height: Double, enableAlpha: Boolean): HybridImageSpec {
+    override fun createBlankImage(width: Double, height: Double, enableAlpha: Boolean): HybridImageSpec {
         val config = if (enableAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
-        val bitmap = createBitmap(width, height, config)
+        val bitmap = createBitmap(width.toInt(), height.toInt(), config)
         return HybridImage(bitmap)
     }
-    override fun createBlankBitmapAsync(width: Double, height: Double, enableAlpha: Boolean): Promise<HybridImageSpec> {
-        return Promise.async { createBlankBitmap(width, height, enableAlpha) }
+    override fun createBlankImageAsync(width: Double, height: Double, enableAlpha: Boolean): Promise<HybridImageSpec> {
+        return Promise.async { createBlankImage(width, height, enableAlpha) }
     }
 
     @SuppressLint("DiscouragedApi")

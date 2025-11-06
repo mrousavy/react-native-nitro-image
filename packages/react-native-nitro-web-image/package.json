@@ -30,7 +30,7 @@
         "README.md"
     ],
     "scripts": {
-        "build": "rm -rf lib && bun typecheck && bob build",
+        "build": "rm -rf tsconfig.tsbuildinfo && rm -rf lib && bun typecheck && bob build",
         "postinstall": "tsc || exit 0;",
         "typecheck": "tsc --noEmit",
         "clean": "rm -rf android/build node_modules/**/android/build lib",
