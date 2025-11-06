@@ -31,6 +31,10 @@ class HybridImage: HybridImageSpec {
         this.bitmap = bitmap
     }
 
+    override fun dispose() {
+        bitmap.recycle()
+    }
+
     override fun toRawPixelData(allowGpu: Boolean?): RawPixelData {
         val allowGpu = allowGpu ?: false
         if (allowGpu && bitmap.isGPU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
