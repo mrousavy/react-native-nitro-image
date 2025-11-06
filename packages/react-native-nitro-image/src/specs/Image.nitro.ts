@@ -189,5 +189,11 @@ export interface Image
      * at the given {@linkcode x} and {@linkcode y} position, scaled to the
      * given {@linkcode width} and {@linkcode height}.
      */
-    renderInto(image: Image, x: number, y: number, width: number, height: number): Image
+    renderInto(
+        image: Image,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+    ): Image;
 }

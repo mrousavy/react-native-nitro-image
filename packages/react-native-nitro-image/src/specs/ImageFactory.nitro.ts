@@ -9,14 +9,22 @@ export interface ImageFactory
      * @param height The height of the new Image
      * @param enableAlpha Whether to add an alpha channel for transparency
      */
-    createBlankImage(width: number, height: number, enableAlpha: boolean): Image
+    createBlankImage(
+        width: number,
+        height: number,
+        enableAlpha: boolean,
+    ): Image;
     /**
      * Asynchronously creates a new blank {@linkcode Image} of the given size.
      * @param width The width of the new Image
      * @param height The height of the new Image
      * @param enableAlpha Whether to add an alpha channel for transparency
      */
-    createBlankImageAsync(width: number, height: number, enableAlpha: boolean): Promise<Image>
+    createBlankImageAsync(
+        width: number,
+        height: number,
+        enableAlpha: boolean,
+    ): Promise<Image>;
 
     /**
      * Synchronously loads an {@linkcode Image} from the given {@linkcode filePath}.
