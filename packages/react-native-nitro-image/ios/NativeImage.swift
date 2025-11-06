@@ -132,4 +132,29 @@ public extension NativeImage {
       return try self.toThumbHash()
     }
   }
+  
+  func renderInto(image newImage: any HybridImageSpec, x: Double, y: Double, width: Double, height: Double) throws -> any HybridImageSpec {
+    guard let newImage = newImage as? NativeImage else {
+      throw RuntimeError.error(withMessage: "The given image (\(newImage)) is not a `NativeImage`!")
+    }
+    // 1. Prepare a UIImage rendered
+    let renderer = UIGraphicsImageRenderer(size: uiImage.size,
+                                           format: uiImage.imageRendererFormat)
+    let renderedImage = renderer.image { context in
+      // 2. Render our own image (copy)
+      self.uiImage.draw(at: .zero)
+      
+      // 3. Render the new image into our copy
+      let rect = CGRect(x: x, y: y, width: width, height: height)
+      newImage.uiImage.draw(in: rect)
+    }
+    // 4. Wrap the resulting UIImage in a HybridImage
+    return HybridImage(uiImage: renderedImage)
+  }
+  
+  func renderIntoAsync(image newImage: any HybridImageSpec, x: Double, y: Double, width: Double, height: Double) throws -> Promise<any HybridImageSpec> {
+    return Promise.async {
+      return try self.renderInto(image: newImage, x: x, y: y, width: width, height: height)
+    }
+  }
 }

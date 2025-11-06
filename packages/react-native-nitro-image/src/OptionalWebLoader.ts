@@ -1,3 +1,5 @@
+// biome-ignore lint/suspicious/noTsIgnore: Type Compilation is a race-condition
+// @ts-ignore
 type WebImagesType = typeof import("react-native-nitro-web-image")["WebImages"];
 
 let createWebImageLoader: WebImagesType["createWebImageLoader"] = () => {

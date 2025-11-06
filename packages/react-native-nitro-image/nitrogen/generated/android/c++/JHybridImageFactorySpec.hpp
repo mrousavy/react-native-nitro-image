@@ -53,6 +53,8 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
+    std::shared_ptr<HybridImageSpec> createBlankImage(double width, double height, bool enableAlpha, const std::optional<Color>& fill) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> createBlankImageAsync(double width, double height, bool enableAlpha, const std::optional<Color>& fill) override;
     std::shared_ptr<HybridImageSpec> loadFromFile(const std::string& filePath) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromFileAsync(const std::string& filePath) override;
     std::shared_ptr<HybridImageSpec> loadFromResources(const std::string& name) override;

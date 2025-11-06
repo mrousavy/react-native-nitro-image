@@ -14,6 +14,8 @@ namespace margelo::nitro::image {
     HybridObject::loadHybridMethods();
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
+      prototype.registerHybridMethod("createBlankImage", &HybridImageFactorySpec::createBlankImage);
+      prototype.registerHybridMethod("createBlankImageAsync", &HybridImageFactorySpec::createBlankImageAsync);
       prototype.registerHybridMethod("loadFromFile", &HybridImageFactorySpec::loadFromFile);
       prototype.registerHybridMethod("loadFromFileAsync", &HybridImageFactorySpec::loadFromFileAsync);
       prototype.registerHybridMethod("loadFromResources", &HybridImageFactorySpec::loadFromResources);

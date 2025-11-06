@@ -14,6 +14,8 @@ namespace NitroImage { class HybridImageFactorySpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `Color` to properly resolve imports.
+namespace margelo::nitro::image { struct Color; }
 // Forward declaration of `RawPixelData` to properly resolve imports.
 namespace margelo::nitro::image { struct RawPixelData; }
 // Forward declaration of `ArrayBufferHolder` to properly resolve imports.
@@ -27,13 +29,14 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 
 #include <memory>
 #include "HybridImageSpec.hpp"
-#include <string>
+#include "Color.hpp"
+#include <optional>
 #include <NitroModules/Promise.hpp>
+#include <string>
 #include "RawPixelData.hpp"
 #include <NitroModules/ArrayBuffer.hpp>
 #include <NitroModules/ArrayBufferHolder.hpp>
 #include "PixelFormat.hpp"
-#include <optional>
 #include "EncodedImageData.hpp"
 #include "ImageFormat.hpp"
 
@@ -78,6 +81,22 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
+    inline std::shared_ptr<HybridImageSpec> createBlankImage(double width, double height, bool enableAlpha, const std::optional<Color>& fill) override {
+      auto __result = _swiftPart.createBlankImage(std::forward<decltype(width)>(width), std::forward<decltype(height)>(height), std::forward<decltype(enableAlpha)>(enableAlpha), fill);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> createBlankImageAsync(double width, double height, bool enableAlpha, const std::optional<Color>& fill) override {
+      auto __result = _swiftPart.createBlankImageAsync(std::forward<decltype(width)>(width), std::forward<decltype(height)>(height), std::forward<decltype(enableAlpha)>(enableAlpha), fill);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
     inline std::shared_ptr<HybridImageSpec> loadFromFile(const std::string& filePath) override {
       auto __result = _swiftPart.loadFromFile(filePath);
       if (__result.hasError()) [[unlikely]] {

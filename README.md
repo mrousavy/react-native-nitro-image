@@ -84,6 +84,20 @@ const resourceImage = Images.loadFromResources('my-resource.jpg')
 const symbolImage   = Images.loadFromSymbol('star')
 ```
 
+#### Creating a blank Image
+
+Additionally, you can also create a new blank Image:
+
+```ts
+const blank = Images.createBlankImage(100, 100, true)
+```
+
+If you want to fill the blank image with a specific background color, pass the color in RGB:
+
+```ts
+const blankRedImage = Images.createBlankImage(100, 100, true, { r: 1, g: 0, b: 0 })
+```
+
 #### Load with Options
 
 When loading from a remote URL, you can tweak options such as `priority`:
@@ -146,6 +160,16 @@ An `Image` can be cropped entirely in-memory, without ever writing to- or readin
 ```ts
 const webImage = await WebImages.loadFromURLAsync('https://picsum.photos/seed/123/400')
 const smaller  = await webImage.cropAsync(100, 100, 50, 50)
+```
+
+#### Render into another Image
+
+An `Image` can be rendered into another `Image` entirely in-memory. This creates a third image (the result):
+
+```ts
+const image1 = ...
+const image2 = ...
+const result = image1.renderInto(image2, 10, 10, 80, 80)
 ```
 
 #### Saving

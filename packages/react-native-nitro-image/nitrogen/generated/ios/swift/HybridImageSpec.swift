@@ -28,6 +28,8 @@ public protocol HybridImageSpec_protocol: HybridObject {
   func saveToTemporaryFileAsync(format: ImageFormat, quality: Double?) throws -> Promise<String>
   func toThumbHash() throws -> ArrayBuffer
   func toThumbHashAsync() throws -> Promise<ArrayBuffer>
+  func renderInto(image: (any HybridImageSpec), x: Double, y: Double, width: Double, height: Double) throws -> (any HybridImageSpec)
+  func renderIntoAsync(image: (any HybridImageSpec), x: Double, y: Double, width: Double, height: Double) throws -> Promise<(any HybridImageSpec)>
 }
 
 /// See ``HybridImageSpec``

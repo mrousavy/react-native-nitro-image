@@ -11,6 +11,34 @@ import UniformTypeIdentifiers
 
 class HybridImageFactory: HybridImageFactorySpec {
   /**
+   * Create new blank Image
+   */
+  func createBlankImage(width: Double, height: Double, enableAlpha: Bool, fill: Color?) throws -> any HybridImageSpec {
+    // 1. Prepare image config
+    let size = CGSize(width: width, height: height)
+    let format = UIGraphicsImageRendererFormat()
+    format.opaque = !enableAlpha
+    // 2. Create a new UIImage
+    let uiImage = UIGraphicsImageRenderer(size: size, format: format).image { canvas in
+      if let fill {
+        // 3. If we have a fill, fill the screen with that color
+        let color = fill.toUIColor()
+        color.setFill()
+        let wholeArea = CGRect(origin: .zero, size: size)
+        canvas.fill(wholeArea)
+      }
+    }
+    // 4. Wrap it in HybridImage
+    return HybridImage(uiImage: uiImage)
+  }
+  
+  func createBlankImageAsync(width: Double, height: Double, enableAlpha: Bool, fill: Color?) throws -> Promise<any HybridImageSpec> {
+    return Promise.async {
+      return try self.createBlankImage(width: width, height: height, enableAlpha: enableAlpha, fill: fill)
+    }
+  }
+  
+  /**
    * Load Image from file path
    */
   func loadFromFile(filePath rawFilePath: String) throws -> any HybridImageSpec {
