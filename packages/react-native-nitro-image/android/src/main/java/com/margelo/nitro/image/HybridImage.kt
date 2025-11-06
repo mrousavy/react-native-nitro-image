@@ -5,17 +5,12 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Build
 import androidx.annotation.Keep
-import androidx.core.graphics.createBitmap
 import androidx.core.graphics.scale
-import com.facebook.common.memory.PooledByteBufferOutputStream
 import com.facebook.proguard.annotations.DoNotStrip
 import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 import java.nio.ByteBuffer
 
 @Suppress("ConvertSecondaryConstructorToPrimary")
