@@ -43,7 +43,7 @@ extension CGDataProvider {
     guard arrayBuffer.isOwner else {
       throw RuntimeError.error(withMessage: "Cannot create CGDataProvider from a non-owning ArrayBuffer! Copy the buffer first to make it owning.")
     }
-    
+
     class ArrayBufferHolder {
       let arrayBuffer: ArrayBuffer
       init(arrayBuffer: ArrayBuffer) {
@@ -75,7 +75,8 @@ extension UIImage {
     let bytesPerRow = width * bytesPerPixel
     let bitsPerComponent = 8
 
-    let dataProvider = try CGDataProvider.fromArrayBuffer(data.buffer)
+    let buffer = data.buffer.asOwning()
+    let dataProvider = try CGDataProvider.fromArrayBuffer(buffer)
 
     let colorSpace = CGColorSpaceCreateDeviceRGB()
     let bitmapInfo = try CGBitmapInfo(rawPixelData: data)
