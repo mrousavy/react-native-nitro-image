@@ -60,8 +60,8 @@ namespace margelo::nitro::image {
     std::shared_ptr<Promise<EncodedImageData>> toEncodedImageDataAsync(ImageFormat format, std::optional<double> quality) override;
     std::shared_ptr<HybridImageSpec> resize(double width, double height) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> resizeAsync(double width, double height) override;
-    std::shared_ptr<HybridImageSpec> rotate(double degrees) override;
-    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> rotateAsync(double degrees) override;
+    std::shared_ptr<HybridImageSpec> rotate(double degrees, std::optional<bool> allowFastFlagRotation) override;
+    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> rotateAsync(double degrees, std::optional<bool> allowFastFlagRotation) override;
     std::shared_ptr<HybridImageSpec> crop(double startX, double startY, double endX, double endY) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> cropAsync(double startX, double startY, double endX, double endY) override;
     std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) override;

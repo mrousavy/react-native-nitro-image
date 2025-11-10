@@ -74,11 +74,11 @@ abstract class HybridImageSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun rotate(degrees: Double): HybridImageSpec
+  abstract fun rotate(degrees: Double, allowFastFlagRotation: Boolean?): HybridImageSpec
   
   @DoNotStrip
   @Keep
-  abstract fun rotateAsync(degrees: Double): Promise<HybridImageSpec>
+  abstract fun rotateAsync(degrees: Double, allowFastFlagRotation: Boolean?): Promise<HybridImageSpec>
   
   @DoNotStrip
   @Keep

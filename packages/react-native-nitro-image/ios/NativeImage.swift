@@ -52,8 +52,9 @@ public extension NativeImage {
     }
   }
   
-  func rotate(degrees: Double) -> any HybridImageSpec {
-    if degrees.truncatingRemainder(dividingBy: 90) == 0,
+  func rotate(degrees: Double, allowFastFlagRotation: Bool?) -> any HybridImageSpec {
+    if allowFastFlagRotation == true,
+       degrees.truncatingRemainder(dividingBy: 90) == 0,
        let cgImage = uiImage.cgImage {
       // Fast path: we can apply `orientation` instead
       let steps = Int(degrees / 90.0) // can be negative
@@ -81,9 +82,9 @@ public extension NativeImage {
       return HybridImage(uiImage: rotatedImage)
     }
   }
-  func rotateAsync(degrees: Double) -> Promise<any HybridImageSpec> {
+  func rotateAsync(degrees: Double, allowFastFlagRotation: Bool?) -> Promise<any HybridImageSpec> {
     return Promise.async {
-      return self.rotate(degrees: degrees)
+      return self.rotate(degrees: degrees, allowFastFlagRotation: allowFastFlagRotation)
     }
   }
 

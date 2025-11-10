@@ -135,14 +135,14 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
-  std::shared_ptr<HybridImageSpec> JHybridImageSpec::rotate(double degrees) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* degrees */)>("rotate");
-    auto __result = method(_javaPart, degrees);
+  std::shared_ptr<HybridImageSpec> JHybridImageSpec::rotate(double degrees, std::optional<bool> allowFastFlagRotation) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* degrees */, jni::alias_ref<jni::JBoolean> /* allowFastFlagRotation */)>("rotate");
+    auto __result = method(_javaPart, degrees, allowFastFlagRotation.has_value() ? jni::JBoolean::valueOf(allowFastFlagRotation.value()) : nullptr);
     return __result->cthis()->shared_cast<JHybridImageSpec>();
   }
-  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::rotateAsync(double degrees) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* degrees */)>("rotateAsync");
-    auto __result = method(_javaPart, degrees);
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::rotateAsync(double degrees, std::optional<bool> allowFastFlagRotation) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* degrees */, jni::alias_ref<jni::JBoolean> /* allowFastFlagRotation */)>("rotateAsync");
+    auto __result = method(_javaPart, degrees, allowFastFlagRotation.has_value() ? jni::JBoolean::valueOf(allowFastFlagRotation.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
