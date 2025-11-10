@@ -31,13 +31,13 @@ class HybridImageFactory: HybridImageFactorySpec {
     // 4. Wrap it in HybridImage
     return HybridImage(uiImage: uiImage)
   }
-  
+
   func createBlankImageAsync(width: Double, height: Double, enableAlpha: Bool, fill: Color?) throws -> Promise<any HybridImageSpec> {
     return Promise.async {
       return try self.createBlankImage(width: width, height: height, enableAlpha: enableAlpha, fill: fill)
     }
   }
-  
+
   /**
    * Load Image from file path
    */
@@ -80,7 +80,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
     return HybridImage(uiImage: uiImage)
   }
-  
+
   /**
    * Load Image from the given raw ArrayBuffer data
    */
@@ -88,10 +88,10 @@ class HybridImageFactory: HybridImageFactorySpec {
     let uiImage = try UIImage(fromRawPixelData: data)
     return HybridImage(uiImage: uiImage)
   }
-  
+
   func loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Bool?) throws -> Promise<any HybridImageSpec> {
-    let dataCopy = data.buffer.isOwner ? data.buffer : ArrayBuffer.copy(of: data.buffer)
-    let newData = RawPixelData(buffer: dataCopy,
+    let maybeBufferCopy = data.buffer.asOwning()
+    let newData = RawPixelData(buffer: maybeBufferCopy,
                                width: data.width,
                                height: data.height,
                                pixelFormat: data.pixelFormat)
@@ -99,7 +99,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return try self.loadFromRawPixelData(data: newData, allowGpu: allowGpu)
     }
   }
-  
+
   /**
    * Load Image from the given encoded ArrayBuffer data
    */
@@ -110,7 +110,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     }
     return HybridImage(uiImage: uiImage)
   }
-  
+
   func loadFromEncodedImageDataAsync(data: EncodedImageData) throws -> Promise<any HybridImageSpec> {
     let copiedData = data.buffer.toData(copyIfNeeded: true)
     return Promise.async {
@@ -120,7 +120,7 @@ class HybridImageFactory: HybridImageFactorySpec {
       return HybridImage(uiImage: uiImage)
     }
   }
-  
+
 
   func loadFromThumbHash(thumbhash: ArrayBuffer) throws -> any HybridImageSpec {
     let data = thumbhash.toData(copyIfNeeded: false)
