@@ -89,7 +89,7 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun rotateAsync(degrees: Double, allowFastFlagRotation: Boolean?): Promise<HybridImageSpec> {
-        return Promise.async { rotate(degrees) }
+        return Promise.async { rotate(degrees, allowFastFlagRotation) }
     }
 
     override fun resize(width: Double, height: Double): HybridImageSpec {
