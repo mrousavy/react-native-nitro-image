@@ -51,6 +51,42 @@ public extension NativeImage {
       return try self.toEncodedImageData(format: format, quality: quality)
     }
   }
+  
+  func rotate(degrees: Double, allowFastFlagRotation: Bool?) -> any HybridImageSpec {
+    if allowFastFlagRotation == true,
+       degrees.truncatingRemainder(dividingBy: 90) == 0,
+       let cgImage = uiImage.cgImage {
+      // Fast path: we can apply `orientation` instead
+      let steps = Int(degrees / 90.0) // can be negative
+      let newOrientation = uiImage.imageOrientation.rotated(byRightAngles: steps)
+      let rotated = UIImage(cgImage: cgImage, scale: uiImage.scale, orientation: newOrientation)
+      return HybridImage(uiImage: rotated)
+    } else {
+      // Slow path: we actually rotate using UIGraphicsImageRenderer
+      let renderer = UIGraphicsImageRenderer(size: uiImage.size)
+      let rotatedImage = renderer.image { context in
+        let width = uiImage.size.width
+        let height = uiImage.size.height
+        // 1. Move to the center of the image so our origin is the center
+        context.cgContext.translateBy(x: width / 2, y: height / 2)
+        // 2. Rotate by the given radians
+        let radians = degrees * .pi / 180
+        context.cgContext.rotate(by: radians)
+        // 3. Draw the Image offset by half the frame so we counter our center origin from step 1.
+        let rect = CGRect(x: -(width / 2),
+                          y: -(height / 2),
+                          width: width,
+                          height: height)
+        uiImage.draw(in: rect)
+      }
+      return HybridImage(uiImage: rotatedImage)
+    }
+  }
+  func rotateAsync(degrees: Double, allowFastFlagRotation: Bool?) -> Promise<any HybridImageSpec> {
+    return Promise.async {
+      return self.rotate(degrees: degrees, allowFastFlagRotation: allowFastFlagRotation)
+    }
+  }
 
   func resize(width: Double, height: Double) throws -> any HybridImageSpec {
     guard width > 0 else {

@@ -121,6 +121,23 @@ export interface Image
     resizeAsync(width: number, height: number): Promise<Image>;
 
     /**
+     * Rotates this Image by the given {@linkcode degrees} and returns
+     * the newly created {@linkcode Image}.
+     *
+     * @param degrees The degrees to rotate the Image. May be any arbitrary number, and can be negative.
+     * @param allowFastFlagRotation When {@linkcode allowFastFlagRotation} is set to `true`, the implementation may choose to only change the orientation flag on the underying image instead of physicaly rotating the buffers. This may only work when {@linkcode degrees} is a multiple of `90`, and will only apply rotation when displaying the Image (via view transforms) or exporting it to a file (via EXIF flags). The actual buffer (e.g. obtained via {@linkcode toRawPixelData | toRawPixelData()}) may remain untouched.
+     * @example
+     * ```ts
+     * const upsideDown = image.rotate(180)
+     * ```
+     */
+    rotate(degrees: number, allowFastFlagRotation?: boolean): Image;
+    rotateAsync(
+        degrees: number,
+        allowFastFlagRotation?: boolean,
+    ): Promise<Image>;
+
+    /**
      * Crops this Image into a new image starting from the source image's {@linkcode startX} and {@linkcode startY} coordinates,
      * up until the source image's {@linkcode endX} and {@linkcode endY} coordinates.
      * @example

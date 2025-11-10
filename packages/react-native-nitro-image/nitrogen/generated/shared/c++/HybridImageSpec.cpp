@@ -22,6 +22,8 @@ namespace margelo::nitro::image {
       prototype.registerHybridMethod("toEncodedImageDataAsync", &HybridImageSpec::toEncodedImageDataAsync);
       prototype.registerHybridMethod("resize", &HybridImageSpec::resize);
       prototype.registerHybridMethod("resizeAsync", &HybridImageSpec::resizeAsync);
+      prototype.registerHybridMethod("rotate", &HybridImageSpec::rotate);
+      prototype.registerHybridMethod("rotateAsync", &HybridImageSpec::rotateAsync);
       prototype.registerHybridMethod("crop", &HybridImageSpec::crop);
       prototype.registerHybridMethod("cropAsync", &HybridImageSpec::cropAsync);
       prototype.registerHybridMethod("saveToFileAsync", &HybridImageSpec::saveToFileAsync);

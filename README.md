@@ -162,6 +162,15 @@ const webImage = await WebImages.loadFromURLAsync('https://picsum.photos/seed/12
 const smaller  = await webImage.cropAsync(100, 100, 50, 50)
 ```
 
+#### Rotating
+
+An `Image` can be rotated entirely in-memory, without ever writing to- or reading from- a file:
+
+```ts
+const webImage   = await WebImages.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const upsideDown = await webImage.rotateAsync(180)
+```
+
 #### Render into another Image
 
 An `Image` can be rendered into another `Image` entirely in-memory. This creates a third image (the result):

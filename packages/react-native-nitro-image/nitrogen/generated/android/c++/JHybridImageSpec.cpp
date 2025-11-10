@@ -135,6 +135,27 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
+  std::shared_ptr<HybridImageSpec> JHybridImageSpec::rotate(double degrees, std::optional<bool> allowFastFlagRotation) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* degrees */, jni::alias_ref<jni::JBoolean> /* allowFastFlagRotation */)>("rotate");
+    auto __result = method(_javaPart, degrees, allowFastFlagRotation.has_value() ? jni::JBoolean::valueOf(allowFastFlagRotation.value()) : nullptr);
+    return __result->cthis()->shared_cast<JHybridImageSpec>();
+  }
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::rotateAsync(double degrees, std::optional<bool> allowFastFlagRotation) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* degrees */, jni::alias_ref<jni::JBoolean> /* allowFastFlagRotation */)>("rotateAsync");
+    auto __result = method(_javaPart, degrees, allowFastFlagRotation.has_value() ? jni::JBoolean::valueOf(allowFastFlagRotation.value()) : nullptr);
+    return [&]() {
+      auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
   std::shared_ptr<HybridImageSpec> JHybridImageSpec::crop(double startX, double startY, double endX, double endY) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* startX */, double /* startY */, double /* endX */, double /* endY */)>("crop");
     auto __result = method(_javaPart, startX, startY, endX, endY);
