@@ -6,6 +6,7 @@ import android.graphics.Matrix
 import android.graphics.Rect
 import android.os.Build
 import androidx.annotation.Keep
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.scale
 import com.facebook.proguard.annotations.DoNotStrip
 import com.madebyevan.thumbhash.ThumbHash
@@ -72,19 +73,19 @@ class HybridImage: HybridImageSpec {
     }
 
     override fun rotate(degrees: Double): HybridImageSpec {
-        // 1. Copy this Bitmap into a new Bitmap (output)
-        val copy = bitmap.toMutable(true)
-        // 2. Make sure the Bitmap we want to draw is drawable (HARDWARE isn't)
+        // 1. Make sure the Bitmap we want to draw is drawable (HARDWARE isn't)
         val source = bitmap.toCpuAccessible()
-        // 3. Create a rotation Matrix
+        // 2. Create a rotation Matrix
         val matrix = Matrix()
         matrix.setRotate(degrees.toFloat(), source.width / 2f, source.height / 2f)
-        // 4. Draw the Bitmap to our Copy
-        Canvas(copy).apply {
+        // 3. Create a new blank Bitmap as our output
+        val destination = createBitmap(bitmap.width, bitmap.height)
+        // 4. Draw the Bitmap to our destination
+        Canvas(destination).apply {
             drawBitmap(source, matrix, null)
         }
         // 5. Return it!
-        return HybridImage(copy)
+        return HybridImage(destination)
     }
 
     override fun rotateAsync(degrees: Double): Promise<HybridImageSpec> {
@@ -184,7 +185,7 @@ class HybridImage: HybridImageSpec {
                 height.toInt())
 
             // 4. Make sure we can draw the Bitmap (HARDWARE isn't CPU accessible)
-            val drawable = bitmap.toCpuAccessible()
+            val drawable = newImage.bitmap.toCpuAccessible()
             // 5. Now draw!
             canvas.drawBitmap(drawable, null, rect, null)
         }
