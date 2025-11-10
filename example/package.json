@@ -8,6 +8,7 @@
         "lint": "biome check .",
         "start": "react-native start --client-logs",
         "pods": "bundle install && cd ios && bundle exec pod install",
+        "bundle-install": "bundle install",
         "build:android-release": "cd android && ./gradlew assembleRelease --no-daemon"
     },
     "dependencies": {

@@ -50,7 +50,8 @@
       "release": true
     },
     "hooks": {
-      "before:release": "bun i"
+      "before:release": "bun i",
+      "after:bump": "scripts/try-install-lockfiles.sh"
     },
     "plugins": {
       "@release-it/bumper": {
