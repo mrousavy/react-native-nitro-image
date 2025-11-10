@@ -132,7 +132,10 @@ export interface Image
      * ```
      */
     rotate(degrees: number, allowFastFlagRotation?: boolean): Image;
-    rotateAsync(degrees: number, allowFastFlagRotation?: boolean): Promise<Image>;
+    rotateAsync(
+        degrees: number,
+        allowFastFlagRotation?: boolean,
+    ): Promise<Image>;
 
     /**
      * Crops this Image into a new image starting from the source image's {@linkcode startX} and {@linkcode startY} coordinates,
