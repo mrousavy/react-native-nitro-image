@@ -101,7 +101,7 @@ export interface Image
      * {@linkcode quality} flag is ignored.
      * @example
      * ```ts
-     * const compressed = image.toEncodedArrayBuffer('jpg', 0.7)
+     * const compressed = image.toEncodedImageData('jpg', 70)
      * ```
      */
     toEncodedImageData(format: ImageFormat, quality?: number): EncodedImageData;
