@@ -22,6 +22,8 @@ public protocol HybridImageSpec_protocol: HybridObject {
   func toEncodedImageDataAsync(format: ImageFormat, quality: Double?) throws -> Promise<EncodedImageData>
   func resize(width: Double, height: Double) throws -> (any HybridImageSpec)
   func resizeAsync(width: Double, height: Double) throws -> Promise<(any HybridImageSpec)>
+  func rotate(degrees: Double) throws -> (any HybridImageSpec)
+  func rotateAsync(degrees: Double) throws -> Promise<(any HybridImageSpec)>
   func crop(startX: Double, startY: Double, endX: Double, endY: Double) throws -> (any HybridImageSpec)
   func cropAsync(startX: Double, startY: Double, endX: Double, endY: Double) throws -> Promise<(any HybridImageSpec)>
   func saveToFileAsync(path: String, format: ImageFormat, quality: Double?) throws -> Promise<Void>

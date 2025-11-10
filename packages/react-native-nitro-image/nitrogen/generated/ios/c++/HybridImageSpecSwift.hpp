@@ -131,6 +131,22 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::shared_ptr<HybridImageSpec> rotate(double degrees) override {
+      auto __result = _swiftPart.rotate(std::forward<decltype(degrees)>(degrees));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> rotateAsync(double degrees) override {
+      auto __result = _swiftPart.rotateAsync(std::forward<decltype(degrees)>(degrees));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
     inline std::shared_ptr<HybridImageSpec> crop(double startX, double startY, double endX, double endY) override {
       auto __result = _swiftPart.crop(std::forward<decltype(startX)>(startX), std::forward<decltype(startY)>(startY), std::forward<decltype(endX)>(endX), std::forward<decltype(endY)>(endY));
       if (__result.hasError()) [[unlikely]] {

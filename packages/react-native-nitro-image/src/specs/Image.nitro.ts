@@ -121,6 +121,20 @@ export interface Image
     resizeAsync(width: number, height: number): Promise<Image>;
 
     /**
+     * Rotates this Image by the given {@linkcode degrees} and returns
+     * the newly created {@linkcode Image}.
+     *
+     * If the {@linkcode degrees} is a multiple of `90`, the implementation
+     * may choose a fast-path that doesn't involve pixel copy.
+     * @example
+     * ```ts
+     * const upsideDown = image.rotate(180)
+     * ```
+     */
+    rotate(degrees: number): Image;
+    rotateAsync(degrees: number): Promise<Image>;
+
+    /**
      * Crops this Image into a new image starting from the source image's {@linkcode startX} and {@linkcode startY} coordinates,
      * up until the source image's {@linkcode endX} and {@linkcode endY} coordinates.
      * @example

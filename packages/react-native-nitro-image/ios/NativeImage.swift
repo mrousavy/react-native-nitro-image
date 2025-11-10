@@ -51,6 +51,31 @@ public extension NativeImage {
       return try self.toEncodedImageData(format: format, quality: quality)
     }
   }
+  
+  func rotate(degrees: Double) -> any HybridImageSpec {
+    let renderer = UIGraphicsImageRenderer(size: uiImage.size)
+    let rotatedImage = renderer.image { context in
+      let width = uiImage.size.width
+      let height = uiImage.size.height
+      // 1. Move to the center of the image so our origin is the center
+      context.cgContext.translateBy(x: width / 2, y: height / 2)
+      // 2. Rotate by the given radians
+      let radians = degrees * .pi / 180
+      context.cgContext.rotate(by: radians)
+      // 3. Draw the Image offset by half the frame so we counter our center origin from step 1.
+      let rect = CGRect(x: -(width / 2),
+                        y: -(height / 2),
+                        width: width,
+                        height: height)
+      uiImage.draw(in: rect)
+    }
+    return HybridImage(uiImage: rotatedImage)
+  }
+  func rotateAsync(degrees: Double) -> Promise<any HybridImageSpec> {
+    return Promise.async {
+      return self.rotate(degrees: degrees)
+    }
+  }
 
   func resize(width: Double, height: Double) throws -> any HybridImageSpec {
     guard width > 0 else {

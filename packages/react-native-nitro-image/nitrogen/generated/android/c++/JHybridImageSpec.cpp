@@ -135,6 +135,27 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
+  std::shared_ptr<HybridImageSpec> JHybridImageSpec::rotate(double degrees) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* degrees */)>("rotate");
+    auto __result = method(_javaPart, degrees);
+    return __result->cthis()->shared_cast<JHybridImageSpec>();
+  }
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::rotateAsync(double degrees) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* degrees */)>("rotateAsync");
+    auto __result = method(_javaPart, degrees);
+    return [&]() {
+      auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
   std::shared_ptr<HybridImageSpec> JHybridImageSpec::crop(double startX, double startY, double endX, double endY) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* startX */, double /* startY */, double /* endX */, double /* endY */)>("crop");
     auto __result = method(_javaPart, startX, startY, endX, endY);

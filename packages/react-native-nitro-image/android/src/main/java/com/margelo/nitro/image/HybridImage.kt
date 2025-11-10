@@ -2,6 +2,7 @@ package com.margelo.nitro.image
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.Rect
 import android.os.Build
 import androidx.annotation.Keep
@@ -68,6 +69,26 @@ class HybridImage: HybridImageSpec {
         quality: Double?
     ): Promise<EncodedImageData> {
         return Promise.async { toEncodedImageData(format, quality) }
+    }
+
+    override fun rotate(degrees: Double): HybridImageSpec {
+        // 1. Copy this Bitmap into a new Bitmap (output)
+        val copy = bitmap.toMutable(true)
+        // 2. Make sure the Bitmap we want to draw is drawable (HARDWARE isn't)
+        val source = bitmap.toCpuAccessible()
+        // 3. Create a rotation Matrix
+        val matrix = Matrix()
+        matrix.setRotate(degrees.toFloat(), source.width / 2f, source.height / 2f)
+        // 4. Draw the Bitmap to our Copy
+        Canvas(copy).apply {
+            drawBitmap(source, matrix, null)
+        }
+        // 5. Return it!
+        return HybridImage(copy)
+    }
+
+    override fun rotateAsync(degrees: Double): Promise<HybridImageSpec> {
+        return Promise.async { rotate(degrees) }
     }
 
     override fun resize(width: Double, height: Double): HybridImageSpec {
@@ -153,12 +174,7 @@ class HybridImage: HybridImageSpec {
         val newImage = image as? HybridImage ?: throw Error("The image ($image) is not a `HybridImage`!")
 
         // 1. Copy this Bitmap into a new Bitmap
-        var config = bitmap.config ?: throw Error("Failed to get Image's format! $bitmap")
-        if (config == Bitmap.Config.HARDWARE) {
-            // 1.1. A HARDWARE (GPU) Bitmap is not modifyable, so we need to fall back to ARGB
-            config = Bitmap.Config.ARGB_8888
-        }
-        val copy = bitmap.copy(config, true)
+        val copy = bitmap.toMutable(true)
         // 2. Create a Canvas to start drawing
         Canvas(copy).also { canvas ->
             // 3. Prepare the Bitmap we want to draw into our Canvas
@@ -167,16 +183,12 @@ class HybridImage: HybridImageSpec {
                 width.toInt(),
                 height.toInt())
 
-            var newBitmap = newImage.bitmap
-            if (newBitmap.config == Bitmap.Config.HARDWARE) {
-                // 3.3. If the Image we want to draw is a HARDWARE (GPU) Image,
-                //      we need to copy it to a software image first.
-                newBitmap = newBitmap.copy(config, false)
-            }
-            // 4. Now draw!
-            canvas.drawBitmap(newBitmap, null, rect, null)
+            // 4. Make sure we can draw the Bitmap (HARDWARE isn't CPU accessible)
+            val drawable = bitmap.toCpuAccessible()
+            // 5. Now draw!
+            canvas.drawBitmap(drawable, null, rect, null)
         }
-        // 5. Wrap the new Bitmap as a HybridImage and return
+        // 6. Wrap the new Bitmap as a HybridImage and return
         return HybridImage(copy)
     }
     override fun renderIntoAsync(image: HybridImageSpec, x: Double, y: Double, width: Double, height: Double): Promise<HybridImageSpec> {
