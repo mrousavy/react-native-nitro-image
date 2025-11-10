@@ -20,11 +20,18 @@ public protocol NativeImage {
   var uiImage: UIImage { get }
 }
 
+/**
+ * Extension for `HybridObject`s that are `NativeImage`: we can bind `memorySize` to the `uiImage`'s memory size*
+ */
+extension HybridObject where Self: NativeImage {
+  var memorySize: Int {
+    return uiImage.memorySize
+  }
+}
+
 public extension NativeImage {
   var width: Double { uiImage.size.width }
   var height: Double { uiImage.size.height }
-
-  var memorySize: Int { uiImage.memorySize }
 
   func toRawPixelData(allowGpu _: Bool?) throws -> RawPixelData {
     return try uiImage.toRawPixelData()

@@ -15,6 +15,4 @@ class HybridImage: HybridImageSpec, NativeImage {
   init(uiImage: UIImage) {
     self.uiImage = uiImage
   }
-
-  var memorySize: Int { uiImage.memorySize }
 }
