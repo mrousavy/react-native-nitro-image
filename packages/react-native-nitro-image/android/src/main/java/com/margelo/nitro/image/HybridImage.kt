@@ -72,7 +72,7 @@ class HybridImage: HybridImageSpec {
         return Promise.async { toEncodedImageData(format, quality) }
     }
 
-    override fun rotate(degrees: Double): HybridImageSpec {
+    override fun rotate(degrees: Double, allowFastFlagRotation: Boolean?): HybridImageSpec {
         // 1. Make sure the Bitmap we want to draw is drawable (HARDWARE isn't)
         val source = bitmap.toCpuAccessible()
         // 2. Create a rotation Matrix
@@ -88,7 +88,7 @@ class HybridImage: HybridImageSpec {
         return HybridImage(destination)
     }
 
-    override fun rotateAsync(degrees: Double): Promise<HybridImageSpec> {
+    override fun rotateAsync(degrees: Double, allowFastFlagRotation: Boolean?): Promise<HybridImageSpec> {
         return Promise.async { rotate(degrees) }
     }
 
