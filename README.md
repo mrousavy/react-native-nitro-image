@@ -178,7 +178,7 @@ An `Image` can be rendered into another `Image` entirely in-memory. This creates
 ```ts
 const image1 = ...
 const image2 = ...
-const result = image1.renderInto(image2, 10, 10, 80, 80)
+const result = await image1.renderIntoAsync(image2, 10, 10, 80, 80)
 ```
 
 #### Saving
