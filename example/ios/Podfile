@@ -17,6 +17,8 @@ end
 target 'NitroImageExample' do
   config = use_native_modules!
   pod 'SDWebImage', :modular_headers => true
+  pod 'SVGKit', :modular_headers => true
+  pod 'CocoaLumberjack', :modular_headers => true
 
   use_react_native!(
     :path => config[:reactNativePath],

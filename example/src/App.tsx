@@ -10,6 +10,7 @@ import { createStaticNavigation } from "@react-navigation/native";
 import { EmptyTab } from "./EmptyTab";
 import { FastImageTab } from "./FastImageTab";
 import { NitroImageTab } from "./NitroImageTab";
+import { SVGImageTab } from "./SVGImageTab";
 
 const Tabs = createBottomTabNavigator({
     detachInactiveScreens: false,
@@ -17,6 +18,7 @@ const Tabs = createBottomTabNavigator({
         Empty: EmptyTab,
         FastImage: FastImageTab,
         NitroImage: NitroImageTab,
+        SVGImage: SVGImageTab,
     },
 });
 const Navigation = createStaticNavigation(Tabs);

@@ -1,0 +1,18 @@
+{
+    "$schema": "https://nitro.margelo.com/nitro.schema.json",
+    "cxxNamespace": ["svg", "image"],
+    "ios": {
+        "iosModuleName": "NitroSVGImage"
+    },
+    "android": {
+        "androidNamespace": ["svg", "image"],
+        "androidCxxLibName": "NitroSVGImage"
+    },
+    "autolinking": {
+        "SVGImageFactory": {
+            "swift": "HybridSVGImageFactory",
+            "kotlin": "HybridSVGImageFactory"
+        }
+    },
+    "ignorePaths": ["**/node_modules"]
+}

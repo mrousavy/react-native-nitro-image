@@ -1,5 +1,8 @@
 PODS:
   - boost (1.84.0)
+  - CocoaLumberjack (3.9.0):
+    - CocoaLumberjack/Core (= 3.9.0)
+  - CocoaLumberjack/Core (3.9.0)
   - DoubleConversion (1.1.6)
   - fast_float (8.0.0)
   - FBLazyVector (0.81.0)
@@ -78,6 +81,39 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - SocketRocket
+    - Yoga
+  - NitroSVGImage (0.9.0):
+    - boost
+    - CocoaLumberjack
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - NitroImage
+    - NitroModules
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-callinvoker
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - SVGKit
     - Yoga
   - NitroWebImage (0.9.0):
     - boost
@@ -2483,10 +2519,13 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
   - SocketRocket (0.7.1)
+  - SVGKit (3.0.0):
+    - CocoaLumberjack (~> 3.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
   - boost (from `../../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - CocoaLumberjack
   - DoubleConversion (from `../../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - fast_float (from `../../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
   - FBLazyVector (from `../../node_modules/react-native/Libraries/FBLazyVector`)
@@ -2495,6 +2534,7 @@ DEPENDENCIES:
   - hermes-engine (from `../../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - NitroImage (from `../../node_modules/react-native-nitro-image`)
   - NitroModules (from `../../node_modules/react-native-nitro-modules`)
+  - NitroSVGImage (from `../../node_modules/react-native-nitro-svg-image`)
   - NitroWebImage (from `../../node_modules/react-native-nitro-web-image`)
   - RCT-Folly (from `../../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -2565,14 +2605,17 @@ DEPENDENCIES:
   - RNScreens (from `../../node_modules/react-native-screens`)
   - SDWebImage
   - SocketRocket (~> 0.7.1)
+  - SVGKit
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - CocoaLumberjack
     - libwebp
     - SDWebImage
     - SDWebImageWebPCoder
     - SocketRocket
+    - SVGKit
 
 EXTERNAL SOURCES:
   boost:
@@ -2594,6 +2637,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/react-native-nitro-image"
   NitroModules:
     :path: "../../node_modules/react-native-nitro-modules"
+  NitroSVGImage:
+    :path: "../../node_modules/react-native-nitro-svg-image"
   NitroWebImage:
     :path: "../../node_modules/react-native-nitro-web-image"
   RCT-Folly:
@@ -2733,6 +2778,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
+  CocoaLumberjack: 5644158777912b7de7469fa881f8a3f259c2512a
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
   FBLazyVector: a867936a67af0d09c37935a1b900a1a3c795b6d1
@@ -2742,6 +2788,7 @@ SPEC CHECKSUMS:
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   NitroImage: 7f9b52b16f6e1e3e64d68719d058619e4d0d80e7
   NitroModules: 6f5aa593242555d54bf130802eba066a0bb87814
+  NitroSVGImage: b67efd7e005a1d2117b2a88eea553316408dabf2
   NitroWebImage: e1d52f17aae3dd8ab29ba825cebb14ed46f8aa04
   RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: 0735ab4f6b3ec93a7f98187b5da74d7916e2cf4c
@@ -2812,8 +2859,9 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  Yoga: b01392348aeea02064c21a2762a42893d82b60a7
+  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
+  Yoga: 00013dd9cde63a2d98e8002fcc4f5ddb66c10782
 
-PODFILE CHECKSUM: 8c90c25c7a6bc16ec7b3ed7968df16467ab0fc35
+PODFILE CHECKSUM: 8023c91e795b0c0af3f1477e10ff60614afb02d5
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

@@ -1,42 +1,43 @@
 {
-    "name": "NitroImageExample",
-    "version": "0.9.0",
-    "private": true,
-    "scripts": {
-        "android": "react-native run-android",
-        "ios": "react-native run-ios",
-        "lint": "biome check .",
-        "start": "react-native start --client-logs",
-        "pods": "bundle install && cd ios && bundle exec pod install",
-        "bundle-install": "bundle install",
-        "build:android-release": "cd android && ./gradlew assembleRelease --no-daemon"
-    },
-    "dependencies": {
-        "@react-navigation/bottom-tabs": "^7.4.6",
-        "@react-navigation/native": "^7.1.17",
-        "react": "19.1.0",
-        "react-native": "0.81.0",
-        "react-native-fast-image": "^8.6.3",
-        "react-native-nitro-image": "../packages/react-native-nitro-image",
-        "react-native-nitro-web-image": "../packages/react-native-nitro-web-image",
-        "react-native-nitro-modules": "0.31.5",
-        "react-native-safe-area-context": "^5.6.0",
-        "react-native-screens": "^4.14.1"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.27.4",
-        "@babel/preset-env": "^7.27.2",
-        "@babel/runtime": "^7.27.6",
-        "@react-native-community/cli": "20.0.0",
-        "@react-native-community/cli-platform-android": "20.0.0",
-        "@react-native-community/cli-platform-ios": "20.0.0",
-        "@react-native/babel-preset": "0.81.0",
-        "@react-native/metro-config": "0.81.0",
-        "@react-native/typescript-config": "0.81.0",
-        "@types/react": "^19.1.0",
-        "typescript": "5.8.3"
-    },
-    "engines": {
-        "node": ">=18"
-    }
+  "name": "NitroImageExample",
+  "version": "0.9.0",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "lint": "biome check .",
+    "start": "react-native start --client-logs",
+    "pods": "bundle install && cd ios && bundle exec pod install",
+    "bundle-install": "bundle install",
+    "build:android-release": "cd android && ./gradlew assembleRelease --no-daemon"
+  },
+  "dependencies": {
+    "@react-navigation/bottom-tabs": "^7.4.6",
+    "@react-navigation/native": "^7.1.17",
+    "react": "19.1.0",
+    "react-native": "0.81.0",
+    "react-native-fast-image": "^8.6.3",
+    "react-native-nitro-image": "../packages/react-native-nitro-image",
+    "react-native-nitro-web-image": "../packages/react-native-nitro-web-image",
+    "react-native-nitro-svg-image": "../packages/react-native-nitro-svg-image",
+    "react-native-nitro-modules": "0.31.5",
+    "react-native-safe-area-context": "^5.6.0",
+    "react-native-screens": "^4.14.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/runtime": "^7.27.6",
+    "@react-native-community/cli": "20.0.0",
+    "@react-native-community/cli-platform-android": "20.0.0",
+    "@react-native-community/cli-platform-ios": "20.0.0",
+    "@react-native/babel-preset": "0.81.0",
+    "@react-native/metro-config": "0.81.0",
+    "@react-native/typescript-config": "0.81.0",
+    "@types/react": "^19.1.0",
+    "typescript": "5.8.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }
