@@ -15,10 +15,14 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::svg::image { struct AsyncImageLoadOptions; }
 
 #include <memory>
 #include <NitroImage/HybridImageSpec.hpp>
 #include <string>
+#include "AsyncImageLoadOptions.hpp"
+#include <optional>
 
 namespace margelo::nitro::svg::image {
 
@@ -51,7 +55,7 @@ namespace margelo::nitro::svg::image {
 
     public:
       // Methods
-      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> renderSVG(const std::string& svgString, double width, double height) = 0;
+      virtual std::shared_ptr<margelo::nitro::image::HybridImageSpec> stringToImage(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) = 0;
 
     protected:
       // Hybrid Setup

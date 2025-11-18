@@ -5,199 +5,234 @@
 //  Created by Marc Rousavy on 25.07.25.
 //
 
-import UIKit
 import NitroModules
+import UIKit
 
-/**
- * A protocol that represents a native image.
- * This can be used to downcast from `HybridImageSpec`
- * which gives you a concrete `UIImage`.
- *
- * If you want to use other Images with Image Loaders or Image Views,
- * make sure your native image class conforms to this protocol.
- */
+/// A protocol that represents a native image.
+/// This can be used to downcast from `HybridImageSpec`
+/// which gives you a concrete `UIImage`.
+///
+/// If you want to use other Images with Image Loaders or Image Views,
+/// make sure your native image class conforms to this protocol.
 public protocol NativeImage {
-  var uiImage: UIImage { get }
+    var uiImage: UIImage { get }
 }
 
-/**
- * Extension for `HybridObject`s that are `NativeImage`: we can bind `memorySize` to the `uiImage`'s memory size*
- */
+/// Extension for `HybridObject`s that are `NativeImage`: we can bind `memorySize` to the `uiImage`'s memory size*
 extension HybridObject where Self: NativeImage {
-  var memorySize: Int {
-    return uiImage.memorySize
-  }
+    var memorySize: Int {
+        return uiImage.memorySize
+    }
 }
 
-public extension NativeImage {
-  var width: Double { uiImage.size.width }
-  var height: Double { uiImage.size.height }
+extension NativeImage {
+    public var width: Double { uiImage.size.width }
+    public var height: Double { uiImage.size.height }
 
-  func toRawPixelData(allowGpu _: Bool?) throws -> RawPixelData {
-    return try uiImage.toRawPixelData()
-  }
-  func toRawPixelDataAsync(allowGpu: Bool?) throws -> Promise<RawPixelData> {
-    return Promise.async {
-      return try self.toRawPixelData(allowGpu: allowGpu)
+    public func toRawPixelData(allowGpu _: Bool?) throws -> RawPixelData {
+        return try uiImage.toRawPixelData()
     }
-  }
-
-  func toEncodedImageData(format: ImageFormat, quality: Double?) throws -> EncodedImageData {
-    return try uiImage.toEncodedImageData(format: format, quality: quality ?? 100)
-  }
-
-  func toEncodedImageDataAsync(format: ImageFormat, quality: Double?) throws -> Promise<EncodedImageData> {
-    return Promise.async {
-      return try self.toEncodedImageData(format: format, quality: quality)
-    }
-  }
-  
-  func rotate(degrees: Double, allowFastFlagRotation: Bool?) -> any HybridImageSpec {
-    if allowFastFlagRotation == true,
-       degrees.truncatingRemainder(dividingBy: 90) == 0,
-       let cgImage = uiImage.cgImage {
-      // Fast path: we can apply `orientation` instead
-      let steps = Int(degrees / 90.0) // can be negative
-      let newOrientation = uiImage.imageOrientation.rotated(byRightAngles: steps)
-      let rotated = UIImage(cgImage: cgImage, scale: uiImage.scale, orientation: newOrientation)
-      return HybridImage(uiImage: rotated)
-    } else {
-      // Slow path: we actually rotate using UIGraphicsImageRenderer
-      let renderer = UIGraphicsImageRenderer(size: uiImage.size)
-      let rotatedImage = renderer.image { context in
-        let width = uiImage.size.width
-        let height = uiImage.size.height
-        // 1. Move to the center of the image so our origin is the center
-        context.cgContext.translateBy(x: width / 2, y: height / 2)
-        // 2. Rotate by the given radians
-        let radians = degrees * .pi / 180
-        context.cgContext.rotate(by: radians)
-        // 3. Draw the Image offset by half the frame so we counter our center origin from step 1.
-        let rect = CGRect(x: -(width / 2),
-                          y: -(height / 2),
-                          width: width,
-                          height: height)
-        uiImage.draw(in: rect)
-      }
-      return HybridImage(uiImage: rotatedImage)
-    }
-  }
-  func rotateAsync(degrees: Double, allowFastFlagRotation: Bool?) -> Promise<any HybridImageSpec> {
-    return Promise.async {
-      return self.rotate(degrees: degrees, allowFastFlagRotation: allowFastFlagRotation)
-    }
-  }
-
-  func resize(width: Double, height: Double) throws -> any HybridImageSpec {
-    guard width > 0 else {
-      throw RuntimeError.error(withMessage: "Width cannot be less than 0! (width: \(width))")
-    }
-    guard height > 0 else {
-      throw RuntimeError.error(withMessage: "Height cannot be less than 0! (height: \(height))")
-    }
-    let targetSize = CGSize(width: width, height: height)
-
-    let renderer = UIGraphicsImageRenderer(size: targetSize)
-    let resizedImage = renderer.image { context in
-      let targetRect = CGRect(origin: .zero, size: targetSize)
-      uiImage.draw(in: targetRect)
-    }
-    return HybridImage(uiImage: resizedImage)
-  }
-
-  func resizeAsync(width: Double, height: Double) throws -> Promise<any HybridImageSpec> {
-    return Promise.async {
-      return try self.resize(width: width, height: height)
-    }
-  }
-
-  func crop(startX: Double, startY: Double, endX: Double, endY: Double) throws -> any HybridImageSpec {
-    let targetWidth = endX - startX
-    let targetHeight = endY - startY
-    guard targetWidth > 0 else {
-      throw RuntimeError.error(withMessage: "Width cannot be less than 0! (startX: \(startX) - endX: \(endX) = \(targetWidth))")
-    }
-    guard targetHeight > 0 else {
-      throw RuntimeError.error(withMessage: "Height cannot be less than 0! (startY: \(startY) - endY: \(endY) = \(targetHeight))")
-    }
-    guard let cgImage = uiImage.cgImage else {
-      throw RuntimeError.error(withMessage: "This image does not have an underlying .cgImage!")
+    public func toRawPixelDataAsync(allowGpu: Bool?) throws -> Promise<RawPixelData> {
+        return Promise.async {
+            return try self.toRawPixelData(allowGpu: allowGpu)
+        }
     }
 
-    let targetRect = CGRect(origin: CGPoint(x: startX, y: startY),
-                            size: CGSize(width: uiImage.size.width, height: uiImage.size.height))
-    guard let croppedCgImage = cgImage.cropping(to: targetRect) else {
-      throw RuntimeError.error(withMessage: "Failed to crop CGImage to \(targetRect)!")
+    public func toEncodedImageData(format: ImageFormat, quality: Double?) throws -> EncodedImageData
+    {
+        return try uiImage.toEncodedImageData(format: format, quality: quality ?? 100)
     }
-    let croppedUiImage = UIImage(cgImage: croppedCgImage)
-    return HybridImage(uiImage: croppedUiImage)
-  }
 
-  func cropAsync(startX: Double, startY: Double, endX: Double, endY: Double) throws -> Promise<any HybridImageSpec> {
-    return Promise.async {
-      return try self.crop(startX: startX, startY: startY, endX: endX, endY: endY)
+    public func toEncodedImageDataAsync(format: ImageFormat, quality: Double?) throws -> Promise<
+        EncodedImageData
+    > {
+        return Promise.async {
+            return try self.toEncodedImageData(format: format, quality: quality)
+        }
     }
-  }
 
-  private func saveImage(to path: String, format: ImageFormat, quality: Double) throws {
-    let data = try uiImage.getData(in: format, quality: quality)
-    guard let url = URL(string: path) else {
-      throw RuntimeError.error(withMessage: "The given path \"\(path)\" is not a valid URL!")
+    public func rotate(degrees: Double, allowFastFlagRotation: Bool?) -> any HybridImageSpec {
+        if allowFastFlagRotation == true,
+            degrees.truncatingRemainder(dividingBy: 90) == 0,
+            let cgImage = uiImage.cgImage
+        {
+            // Fast path: we can apply `orientation` instead
+            let steps = Int(degrees / 90.0)  // can be negative
+            let newOrientation = uiImage.imageOrientation.rotated(byRightAngles: steps)
+            let rotated = UIImage(
+                cgImage: cgImage, scale: uiImage.scale, orientation: newOrientation)
+            return HybridImage(uiImage: rotated)
+        } else {
+            // Slow path: we actually rotate using UIGraphicsImageRenderer
+            let renderer = UIGraphicsImageRenderer(size: uiImage.size)
+            let rotatedImage = renderer.image { context in
+                let width = uiImage.size.width
+                let height = uiImage.size.height
+                // 1. Move to the center of the image so our origin is the center
+                context.cgContext.translateBy(x: width / 2, y: height / 2)
+                // 2. Rotate by the given radians
+                let radians = degrees * .pi / 180
+                context.cgContext.rotate(by: radians)
+                // 3. Draw the Image offset by half the frame so we counter our center origin from step 1.
+                let rect = CGRect(
+                    x: -(width / 2),
+                    y: -(height / 2),
+                    width: width,
+                    height: height)
+                uiImage.draw(in: rect)
+            }
+            return HybridImage(uiImage: rotatedImage)
+        }
     }
-    try data.write(to: url)
-  }
+    public func rotateAsync(degrees: Double, allowFastFlagRotation: Bool?) -> Promise<
+        any HybridImageSpec
+    > {
+        return Promise.async {
+            return self.rotate(degrees: degrees, allowFastFlagRotation: allowFastFlagRotation)
+        }
+    }
 
-  func saveToFileAsync(path: String, format: ImageFormat, quality: Double?) throws -> Promise<Void> {
-    return Promise.async(.utility) {
-      try self.saveImage(to: path, format: format, quality: quality ?? 100.0)
-    }
-  }
+    public func resize(width: Double, height: Double) throws -> any HybridImageSpec {
+        guard width > 0 else {
+            throw RuntimeError.error(withMessage: "Width cannot be less than 0! (width: \(width))")
+        }
+        guard height > 0 else {
+            throw RuntimeError.error(
+                withMessage: "Height cannot be less than 0! (height: \(height))")
+        }
+        let targetSize = CGSize(width: width, height: height)
 
-  func saveToTemporaryFileAsync(format: ImageFormat, quality: Double?) throws -> Promise<String> {
-    return Promise.async(.utility) {
-      let tempDirectory = FileManager.default.temporaryDirectory
-      let fileName = UUID().uuidString
-      let file = tempDirectory.appendingPathComponent(fileName, conformingTo: format.toUTType())
-      let path = file.absoluteString
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        let resizedImage = renderer.image { context in
+            let targetRect = CGRect(origin: .zero, size: targetSize)
+            uiImage.draw(in: targetRect)
+        }
+        return HybridImage(uiImage: resizedImage)
+    }
 
-      try self.saveImage(to: path, format: format, quality: quality ?? 100.0)
-      return path
+    public func resizeAsync(width: Double, height: Double) throws -> Promise<any HybridImageSpec> {
+        return Promise.async {
+            return try self.resize(width: width, height: height)
+        }
     }
-  }
 
-  func toThumbHash() throws -> ArrayBuffer {
-    let thumbHash = imageToThumbHash(image: uiImage)
-    return try ArrayBuffer.copy(data: thumbHash)
-  }
+    public func crop(startX: Double, startY: Double, endX: Double, endY: Double) throws
+        -> any HybridImageSpec
+    {
+        let targetWidth = endX - startX
+        let targetHeight = endY - startY
+        guard targetWidth > 0 else {
+            throw RuntimeError.error(
+                withMessage:
+                    "Width cannot be less than 0! (startX: \(startX) - endX: \(endX) = \(targetWidth))"
+            )
+        }
+        guard targetHeight > 0 else {
+            throw RuntimeError.error(
+                withMessage:
+                    "Height cannot be less than 0! (startY: \(startY) - endY: \(endY) = \(targetHeight))"
+            )
+        }
+        guard let cgImage = uiImage.cgImage else {
+            throw RuntimeError.error(
+                withMessage: "This image does not have an underlying .cgImage!")
+        }
 
-  func toThumbHashAsync() throws -> Promise<ArrayBuffer> {
-    return Promise.async {
-      return try self.toThumbHash()
+        let targetRect = CGRect(
+            origin: CGPoint(x: startX, y: startY),
+            size: CGSize(width: uiImage.size.width, height: uiImage.size.height))
+        guard let croppedCgImage = cgImage.cropping(to: targetRect) else {
+            throw RuntimeError.error(withMessage: "Failed to crop CGImage to \(targetRect)!")
+        }
+        let croppedUiImage = UIImage(cgImage: croppedCgImage)
+        return HybridImage(uiImage: croppedUiImage)
     }
-  }
-  
-  func renderInto(image newImage: any HybridImageSpec, x: Double, y: Double, width: Double, height: Double) throws -> any HybridImageSpec {
-    guard let newImage = newImage as? NativeImage else {
-      throw RuntimeError.error(withMessage: "The given image (\(newImage)) is not a `NativeImage`!")
+
+    public func cropAsync(startX: Double, startY: Double, endX: Double, endY: Double) throws
+        -> Promise<any HybridImageSpec>
+    {
+        return Promise.async {
+            return try self.crop(startX: startX, startY: startY, endX: endX, endY: endY)
+        }
     }
-    // 1. Prepare a UIImage rendered
-    let renderer = UIGraphicsImageRenderer(size: uiImage.size,
-                                           format: uiImage.imageRendererFormat)
-    let renderedImage = renderer.image { context in
-      // 2. Render our own image (copy)
-      self.uiImage.draw(at: .zero)
-      
-      // 3. Render the new image into our copy
-      let rect = CGRect(x: x, y: y, width: width, height: height)
-      newImage.uiImage.draw(in: rect)
+
+    private func saveImage(to path: String, format: ImageFormat, quality: Double) throws {
+        let data = try uiImage.getData(in: format, quality: quality)
+        guard let url = URL(string: path) else {
+            throw RuntimeError.error(withMessage: "The given path \"\(path)\" is not a valid URL!")
+        }
+        try data.write(to: url)
     }
-    // 4. Wrap the resulting UIImage in a HybridImage
-    return HybridImage(uiImage: renderedImage)
-  }
-  
-  func renderIntoAsync(image newImage: any HybridImageSpec, x: Double, y: Double, width: Double, height: Double) throws -> Promise<any HybridImageSpec> {
-    return Promise.async {
-      return try self.renderInto(image: newImage, x: x, y: y, width: width, height: height)
+
+    public func saveToFileAsync(path: String, format: ImageFormat, quality: Double?) throws
+        -> Promise<Void>
+    {
+        return Promise.async(.utility) {
+            try self.saveImage(to: path, format: format, quality: quality ?? 100.0)
+        }
     }
-  }
+
+    public func saveToTemporaryFileAsync(format: ImageFormat, quality: Double?) throws -> Promise<
+        String
+    > {
+        return Promise.async(.utility) {
+            let tempDirectory = FileManager.default.temporaryDirectory
+            let fileName = UUID().uuidString
+            let file = tempDirectory.appendingPathComponent(
+                fileName, conformingTo: format.toUTType())
+            let path = file.absoluteString
+
+            try self.saveImage(to: path, format: format, quality: quality ?? 100.0)
+            return path
+        }
+    }
+
+    public func toThumbHash() throws -> ArrayBuffer {
+        let thumbHash = imageToThumbHash(image: uiImage)
+        return try ArrayBuffer.copy(data: thumbHash)
+    }
+
+    public func toThumbHashAsync() throws -> Promise<ArrayBuffer> {
+        return Promise.async {
+            return try self.toThumbHash()
+        }
+    }
+
+    public func renderInto(
+        image newImage: any HybridImageSpec, x: Double, y: Double, width: Double, height: Double
+    ) throws -> any HybridImageSpec {
+        guard let newImage = newImage as? NativeImage else {
+            throw RuntimeError.error(
+                withMessage: "The given image (\(newImage)) is not a `NativeImage`!")
+        }
+        // 1. Prepare a UIImage rendered
+        let renderer = UIGraphicsImageRenderer(
+            size: uiImage.size,
+            format: uiImage.imageRendererFormat)
+        let renderedImage = renderer.image { context in
+            // 2. Render our own image (copy)
+            self.uiImage.draw(at: .zero)
+
+            // 3. Render the new image into our copy
+            let rect = CGRect(x: x, y: y, width: width, height: height)
+            newImage.uiImage.draw(in: rect)
+        }
+        // 4. Wrap the resulting UIImage in a HybridImage
+        return HybridImage(uiImage: renderedImage)
+    }
+
+    public func renderIntoAsync(
+        image newImage: any HybridImageSpec, x: Double, y: Double, width: Double, height: Double
+    ) throws -> Promise<any HybridImageSpec> {
+        return Promise.async {
+            return try self.renderInto(image: newImage, x: x, y: y, width: width, height: height)
+        }
+    }
+}
+
+/// Creates a HybridImageSpec from a UIImage.
+/// This is useful for external modules that need to create Image objects
+/// but cannot directly instantiate HybridImage due to module boundaries.
+public func createHybridImageSpec(from uiImage: UIImage) -> any HybridImageSpec {
+    return HybridImage(uiImage: uiImage)
 }

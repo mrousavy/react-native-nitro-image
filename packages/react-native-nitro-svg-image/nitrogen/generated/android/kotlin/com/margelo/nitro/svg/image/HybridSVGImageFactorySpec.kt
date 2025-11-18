@@ -43,7 +43,7 @@ abstract class HybridSVGImageFactorySpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun renderSVG(svgString: String, width: Double, height: Double): com.margelo.nitro.image.HybridImageSpec
+  abstract fun stringToImage(url: String, options: AsyncImageLoadOptions?): com.margelo.nitro.image.HybridImageSpec
 
   private external fun initHybrid(): HybridData
 

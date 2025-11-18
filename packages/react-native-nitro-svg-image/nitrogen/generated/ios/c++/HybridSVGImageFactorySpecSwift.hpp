@@ -14,10 +14,17 @@ namespace NitroSVGImage { class HybridSVGImageFactorySpec_cxx; }
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::svg::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::svg::image { enum class AsyncImagePriority; }
 
 #include <memory>
 #include <NitroImage/HybridImageSpec.hpp>
 #include <string>
+#include "AsyncImageLoadOptions.hpp"
+#include <optional>
+#include "AsyncImagePriority.hpp"
 
 #include "NitroSVGImage-Swift-Cxx-Umbrella.hpp"
 
@@ -60,8 +67,8 @@ namespace margelo::nitro::svg::image {
 
   public:
     // Methods
-    inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> renderSVG(const std::string& svgString, double width, double height) override {
-      auto __result = _swiftPart.renderSVG(svgString, std::forward<decltype(width)>(width), std::forward<decltype(height)>(height));
+    inline std::shared_ptr<margelo::nitro::image::HybridImageSpec> stringToImage(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override {
+      auto __result = _swiftPart.stringToImage(url, options);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

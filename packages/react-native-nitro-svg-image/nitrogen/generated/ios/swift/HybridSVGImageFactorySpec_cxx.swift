@@ -111,9 +111,9 @@ open class HybridSVGImageFactorySpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func renderSVG(svgString: std.string, width: Double, height: Double) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
+  public final func stringToImage(url: std.string, options: bridge.std__optional_AsyncImageLoadOptions_) -> bridge.Result_std__shared_ptr_margelo__nitro__image__HybridImageSpec__ {
     do {
-      let __result = try self.__implementation.renderSVG(svgString: String(svgString), width: width, height: height)
+      let __result = try self.__implementation.stringToImage(url: String(url), options: options.value)
       let __resultCpp = { () -> bridge.std__shared_ptr_margelo__nitro__image__HybridImageSpec_ in
         let __cxxWrapped = __result.getCxxWrapper()
         return __cxxWrapped.getCxxPart()

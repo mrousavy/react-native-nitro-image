@@ -15,7 +15,7 @@ public protocol HybridSVGImageFactorySpec_protocol: HybridObject {
   
 
   // Methods
-  func renderSVG(svgString: String, width: Double, height: Double) throws -> (any HybridImageSpec)
+  func stringToImage(url: String, options: AsyncImageLoadOptions?) throws -> (any HybridImageSpec)
 }
 
 /// See ``HybridSVGImageFactorySpec``

@@ -8,6 +8,10 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::svg::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::svg::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridSVGImageFactorySpec` to properly resolve imports.
@@ -20,11 +24,15 @@ namespace NitroImage { class HybridImageSpec_cxx; }
 namespace NitroSVGImage { class HybridSVGImageFactorySpec_cxx; }
 
 // Include C++ defined types
+#include "AsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
 #include "HybridSVGImageFactorySpec.hpp"
 #include <NitroImage/HybridImageSpec.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <memory>
+#include <optional>
+#include <string>
 
 /**
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
@@ -43,6 +51,66 @@ namespace margelo::nitro::svg::image::bridge::swift {
   // pragma MARK: std::weak_ptr<margelo::nitro::image::HybridImageSpec>
   using std__weak_ptr_margelo__nitro__image__HybridImageSpec_ = std::weak_ptr<margelo::nitro::image::HybridImageSpec>;
   inline std__weak_ptr_margelo__nitro__image__HybridImageSpec_ weakify_std__shared_ptr_margelo__nitro__image__HybridImageSpec_(const std::shared_ptr<margelo::nitro::image::HybridImageSpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: std::optional<AsyncImagePriority>
+  /**
+   * Specialized version of `std::optional<AsyncImagePriority>`.
+   */
+  using std__optional_AsyncImagePriority_ = std::optional<AsyncImagePriority>;
+  inline std::optional<AsyncImagePriority> create_std__optional_AsyncImagePriority_(const AsyncImagePriority& value) noexcept {
+    return std::optional<AsyncImagePriority>(value);
+  }
+  inline bool has_value_std__optional_AsyncImagePriority_(const std::optional<AsyncImagePriority>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline AsyncImagePriority get_std__optional_AsyncImagePriority_(const std::optional<AsyncImagePriority>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<bool>
+  /**
+   * Specialized version of `std::optional<bool>`.
+   */
+  using std__optional_bool_ = std::optional<bool>;
+  inline std::optional<bool> create_std__optional_bool_(const bool& value) noexcept {
+    return std::optional<bool>(value);
+  }
+  inline bool has_value_std__optional_bool_(const std::optional<bool>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline bool get_std__optional_bool_(const std::optional<bool>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<std::string>
+  /**
+   * Specialized version of `std::optional<std::string>`.
+   */
+  using std__optional_std__string_ = std::optional<std::string>;
+  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) noexcept {
+    return std::optional<std::string>(value);
+  }
+  inline bool has_value_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
+    return *optional;
+  }
+  
+  // pragma MARK: std::optional<AsyncImageLoadOptions>
+  /**
+   * Specialized version of `std::optional<AsyncImageLoadOptions>`.
+   */
+  using std__optional_AsyncImageLoadOptions_ = std::optional<AsyncImageLoadOptions>;
+  inline std::optional<AsyncImageLoadOptions> create_std__optional_AsyncImageLoadOptions_(const AsyncImageLoadOptions& value) noexcept {
+    return std::optional<AsyncImageLoadOptions>(value);
+  }
+  inline bool has_value_std__optional_AsyncImageLoadOptions_(const std::optional<AsyncImageLoadOptions>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline AsyncImageLoadOptions get_std__optional_AsyncImageLoadOptions_(const std::optional<AsyncImageLoadOptions>& optional) noexcept {
+    return *optional;
+  }
   
   // pragma MARK: std::shared_ptr<HybridSVGImageFactorySpec>
   /**

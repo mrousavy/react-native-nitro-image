@@ -9,11 +9,20 @@
 
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::svg::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::svg::image { enum class AsyncImagePriority; }
 
 #include <memory>
 #include <NitroImage/HybridImageSpec.hpp>
 #include <NitroImage/JHybridImageSpec.hpp>
 #include <string>
+#include "AsyncImageLoadOptions.hpp"
+#include <optional>
+#include "JAsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
+#include "JAsyncImagePriority.hpp"
 
 namespace margelo::nitro::svg::image {
 
@@ -41,9 +50,9 @@ namespace margelo::nitro::svg::image {
   
 
   // Methods
-  std::shared_ptr<margelo::nitro::image::HybridImageSpec> JHybridSVGImageFactorySpec::renderSVG(const std::string& svgString, double width, double height) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<margelo::nitro::image::JHybridImageSpec::javaobject>(jni::alias_ref<jni::JString> /* svgString */, double /* width */, double /* height */)>("renderSVG");
-    auto __result = method(_javaPart, jni::make_jstring(svgString), width, height);
+  std::shared_ptr<margelo::nitro::image::HybridImageSpec> JHybridSVGImageFactorySpec::stringToImage(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<margelo::nitro::image::JHybridImageSpec::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("stringToImage");
+    auto __result = method(_javaPart, jni::make_jstring(url), options.has_value() ? JAsyncImageLoadOptions::fromCpp(options.value()) : nullptr);
     return __result->cthis()->shared_cast<margelo::nitro::image::JHybridImageSpec>();
   }
 

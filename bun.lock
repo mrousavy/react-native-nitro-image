@@ -1,6 +1,5 @@
 {
   "lockfileVersion": 1,
-  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "react-native-nitro-image-monorepo",
@@ -30,6 +29,7 @@
         "react-native-fast-image": "^8.6.3",
         "react-native-nitro-image": "../packages/react-native-nitro-image",
         "react-native-nitro-modules": "0.31.5",
+        "react-native-nitro-svg-image": "../packages/react-native-nitro-svg-image",
         "react-native-nitro-web-image": "../packages/react-native-nitro-web-image",
         "react-native-safe-area-context": "^5.6.0",
         "react-native-screens": "^4.14.1",
@@ -66,6 +66,25 @@
         "react-native-nitro-modules": "*",
       },
     },
+    "packages/react-native-nitro-svg-image": {
+      "name": "react-native-nitro-svg-image",
+      "version": "0.9.0",
+      "devDependencies": {
+        "@biomejs/biome": "2.2.6",
+        "@types/react": "^19.0.6",
+        "nitrogen": "0.31.1",
+        "react": "19.1.0",
+        "react-native": "0.81.0",
+        "react-native-nitro-modules": "0.31.5",
+        "typescript": "5.8.3",
+      },
+      "peerDependencies": {
+        "react": "*",
+        "react-native": "*",
+        "react-native-nitro-image": "*",
+        "react-native-nitro-modules": "*",
+      },
+    },
     "packages/react-native-nitro-web-image": {
       "name": "react-native-nitro-web-image",
       "version": "0.9.0",
@@ -75,7 +94,6 @@
         "nitrogen": "0.31.1",
         "react": "19.1.0",
         "react-native": "0.81.0",
-        "react-native-nitro-image": "../react-native-nitro-image",
         "react-native-nitro-modules": "0.31.5",
         "typescript": "5.8.3",
       },
@@ -1441,6 +1459,8 @@
     "react-native-nitro-image": ["react-native-nitro-image@workspace:packages/react-native-nitro-image"],
 
     "react-native-nitro-modules": ["react-native-nitro-modules@0.31.5", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-h/IbVsK5IH7JkvseihAoz/o5dy6CafvGo7j4jTvAa+gnxZWFtXQZg8EDvu0en88LFAumKd/pcF20dzxMiNOmug=="],
+
+    "react-native-nitro-svg-image": ["react-native-nitro-svg-image@workspace:packages/react-native-nitro-svg-image"],
 
     "react-native-nitro-web-image": ["react-native-nitro-web-image@workspace:packages/react-native-nitro-web-image"],
 

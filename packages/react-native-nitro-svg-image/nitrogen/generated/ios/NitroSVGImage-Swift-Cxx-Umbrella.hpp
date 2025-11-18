@@ -8,17 +8,24 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
+namespace margelo::nitro::svg::image { struct AsyncImageLoadOptions; }
+// Forward declaration of `AsyncImagePriority` to properly resolve imports.
+namespace margelo::nitro::svg::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `HybridSVGImageFactorySpec` to properly resolve imports.
 namespace margelo::nitro::svg::image { class HybridSVGImageFactorySpec; }
 
 // Include C++ defined types
+#include "AsyncImageLoadOptions.hpp"
+#include "AsyncImagePriority.hpp"
 #include "HybridSVGImageFactorySpec.hpp"
 #include <NitroImage/HybridImageSpec.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <memory>
+#include <optional>
 #include <string>
 
 // C++ helpers for Swift

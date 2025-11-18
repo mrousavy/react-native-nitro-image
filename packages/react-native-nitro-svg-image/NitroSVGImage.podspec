@@ -1,5 +1,7 @@
 require "json"
+
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
+
 Pod::Spec.new do |s|
   s.name         = "NitroSVGImage"
   s.version      = package["version"]
@@ -7,8 +9,10 @@ Pod::Spec.new do |s|
   s.homepage     = package["homepage"]
   s.license      = package["license"]
   s.authors      = package["author"]
+
   s.platforms    = { :ios => min_ios_version_supported, :visionos => 1.0 }
   s.source       = { :git => "https://github.com/mrousavy/nitro.git", :tag => "#{s.version}" }
+
   s.source_files = [
     # Implementation (Swift)
     "ios/**/*.{swift}",
@@ -17,6 +21,9 @@ Pod::Spec.new do |s|
     # Implementation (C++ objects)
     "cpp/**/*.{hpp,cpp}",
   ]
+
+  load 'nitrogen/generated/ios/NitroSVGImage+autolinking.rb'
+  add_nitrogen_files(s)
 
   # Fix SVGKit's Node.h conflict
   s.script_phases = [
@@ -27,12 +34,11 @@ Pod::Spec.new do |s|
     }
   ]
 
-  load 'nitrogen/generated/ios/NitroSVGImage+autolinking.rb'
-  add_nitrogen_files(s)
   s.dependency 'React-jsi'
   s.dependency 'React-callinvoker'
-  s.dependency 'CocoaLumberjack'
-  s.dependency 'SVGKit'
+  s.dependency 'SDWebImage'
   s.dependency 'NitroImage'
+  s.dependency 'SVGKit'
+  s.dependency 'CocoaLumberjack'
   install_modules_dependencies(s)
 end

@@ -17,17 +17,15 @@ export function SVGImageTab() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        try {
             // Render SVG to bitmap
-            const image = SVGImages.renderSVG(SAMPLE_SVG, 400, 400);
+            // const image = SVGImages.renderSVG(SAMPLE_SVG, 400, 400);
+            const image =  SVGImages.stringToImage(SAMPLE_SVG);
 
-            // Save to temp file to display
+            // // Save to temp file to display
             image.saveToTemporaryFileAsync("png").then((path) => {
                 setImageUri(`file://${path}`);
             });
-        } catch (e) {
-            setError(String(e));
-        }
+
     }, []);
 
     return (
@@ -73,8 +71,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     image: {
-        width: 400,
-        height: 400,
+        width: 200,
+        height: 200,
         borderWidth: 1,
         borderColor: "#ccc",
     },

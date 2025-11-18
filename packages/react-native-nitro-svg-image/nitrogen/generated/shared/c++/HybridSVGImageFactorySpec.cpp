@@ -14,7 +14,7 @@ namespace margelo::nitro::svg::image {
     HybridObject::loadHybridMethods();
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
-      prototype.registerHybridMethod("renderSVG", &HybridSVGImageFactorySpec::renderSVG);
+      prototype.registerHybridMethod("stringToImage", &HybridSVGImageFactorySpec::stringToImage);
     });
   }
 

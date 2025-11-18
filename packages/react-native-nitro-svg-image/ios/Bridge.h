@@ -2,7 +2,7 @@
 //  Bridge.h
 //  NitroSVGImage
 //
-//  Created by Marc Rousavy on 17.11.25.
+//  Created by Marc Rousavy on 22.07.24.
 //
 
 #pragma once

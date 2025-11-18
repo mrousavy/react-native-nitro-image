@@ -7,8 +7,8 @@
   "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
   "workspaces": [
     "packages/react-native-nitro-image",
-    "packages/react-native-nitro-web-image",
     "packages/react-native-nitro-svg-image",
+    "packages/react-native-nitro-web-image",
     "example"
   ],
   "scripts": {

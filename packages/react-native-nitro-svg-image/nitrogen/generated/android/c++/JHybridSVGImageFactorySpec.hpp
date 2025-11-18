@@ -53,7 +53,7 @@ namespace margelo::nitro::svg::image {
 
   public:
     // Methods
-    std::shared_ptr<margelo::nitro::image::HybridImageSpec> renderSVG(const std::string& svgString, double width, double height) override;
+    std::shared_ptr<margelo::nitro::image::HybridImageSpec> stringToImage(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) override;
 
   private:
     friend HybridBase;
