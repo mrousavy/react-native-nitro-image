@@ -89,7 +89,8 @@ class HybridImageFactory: HybridImageFactorySpec() {
     }
 
     override fun loadFromFile(filePath: String): HybridImageSpec {
-        val bitmap = BitmapFactory.decodeFile(filePath)
+        val cleanPath = filePath.removePrefix("file://")
+        val bitmap = BitmapFactory.decodeFile(cleanPath)
         if (bitmap == null) {
             throw Error("Failed to load Image from file! (Path: $filePath)")
         }
