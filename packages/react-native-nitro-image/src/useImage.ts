@@ -21,6 +21,32 @@ type Result =
           error: Error;
       };
 
+const isSameSource = (a: AsyncImageSource, b: AsyncImageSource) => {
+    if (!b) return false;
+
+    if (isHybridObject(a) && isHybridObject(b)) {
+        return a.equals(b);
+    }
+
+    return JSON.stringify(a) === JSON.stringify(b);
+};
+
+const shouldClearState = (source: AsyncImageSource, result: Result) => {
+    const { image, error } = result;
+
+    // If there was an error, we need to clear the state
+    if (error) return true;
+
+    // If there is an image, we check if the source has changed
+    // if not, we don't need to clear the state
+    if (image && "__source" in image && image.__source) {
+        // @ts-expect-error - We save the source on the JS side so we can diff it
+        return !isSameSource(source, image.__source);
+    }
+
+    return false;
+};
+
 /**
  * A hook to asynchronously load an image from the
  * given {@linkcode AsyncImageSource} into memory.
@@ -37,6 +63,10 @@ export function useImage(source: AsyncImageSource): Result {
 
     // biome-ignore lint: The dependencies array is a bit hacky.
     useEffect(() => {
+        if (shouldClearState(source, image)) {
+            setImage({ image: undefined, error: undefined });
+        }
+
         (async () => {
             try {
                 // 1. Create the Image/ImageLoader instance
