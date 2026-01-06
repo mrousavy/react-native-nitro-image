@@ -1,7 +1,7 @@
 {
     "name": "react-native-nitro-web-image",
     "version": "0.9.0",
-    "description": "react-native-nitro-web-image",
+    "description": "A superfast in-memory Image type and view component for React Native Web, built with Nitro!",
     "main": "lib/commonjs/index",
     "module": "lib/module/index",
     "types": "lib/typescript/index.d.ts",
@@ -46,14 +46,15 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/mrousavy/react-native-nitro-web-image.git"
+        "url": "git+https://github.com/mrousavy/react-native-nitro-image.git",
+        "directory": "packages/react-native-nitro-web-image"
     },
     "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/mrousavy/react-native-nitro-web-image/issues"
+        "url": "https://github.com/mrousavy/react-native-nitro-image/issues"
     },
-    "homepage": "https://github.com/mrousavy/react-native-nitro-web-image#readme",
+    "homepage": "https://github.com/mrousavy/react-native-nitro-image#readme",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
