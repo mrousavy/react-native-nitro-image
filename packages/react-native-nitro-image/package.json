@@ -1,6 +1,6 @@
 {
     "name": "react-native-nitro-image",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "description": "A superfast in-memory Image type and view component for React Native, built with Nitro!",
     "main": "lib/commonjs/index",
     "module": "lib/module/index",
@@ -62,10 +62,10 @@
     "devDependencies": {
         "@biomejs/biome": "2.2.6",
         "@types/react": "^19.0.6",
-        "nitrogen": "0.31.1",
+        "nitrogen": "0.32.1",
         "react": "19.1.0",
         "react-native": "0.81.0",
-        "react-native-nitro-modules": "0.31.5",
+        "react-native-nitro-modules": "0.32.1",
         "typescript": "5.8.3"
     },
     "peerDependencies": {

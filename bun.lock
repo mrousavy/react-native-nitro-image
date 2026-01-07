@@ -21,7 +21,7 @@
     },
     "example": {
       "name": "NitroImageExample",
-      "version": "0.9.0",
+      "version": "0.9.1",
       "dependencies": {
         "@react-navigation/bottom-tabs": "^7.4.6",
         "@react-navigation/native": "^7.1.17",
@@ -29,7 +29,7 @@
         "react-native": "0.81.0",
         "react-native-fast-image": "^8.6.3",
         "react-native-nitro-image": "../packages/react-native-nitro-image",
-        "react-native-nitro-modules": "0.31.5",
+        "react-native-nitro-modules": "0.32.1",
         "react-native-nitro-web-image": "../packages/react-native-nitro-web-image",
         "react-native-safe-area-context": "^5.6.0",
         "react-native-screens": "^4.14.1",
@@ -50,14 +50,14 @@
     },
     "packages/react-native-nitro-image": {
       "name": "react-native-nitro-image",
-      "version": "0.9.0",
+      "version": "0.9.1",
       "devDependencies": {
         "@biomejs/biome": "2.2.6",
         "@types/react": "^19.0.6",
-        "nitrogen": "0.31.1",
+        "nitrogen": "0.32.1",
         "react": "19.1.0",
         "react-native": "0.81.0",
-        "react-native-nitro-modules": "0.31.5",
+        "react-native-nitro-modules": "0.32.1",
         "typescript": "5.8.3",
       },
       "peerDependencies": {
@@ -68,15 +68,15 @@
     },
     "packages/react-native-nitro-web-image": {
       "name": "react-native-nitro-web-image",
-      "version": "0.9.0",
+      "version": "0.9.1",
       "devDependencies": {
         "@biomejs/biome": "2.2.6",
         "@types/react": "^19.0.6",
-        "nitrogen": "0.31.1",
+        "nitrogen": "0.32.1",
         "react": "19.1.0",
         "react-native": "0.81.0",
         "react-native-nitro-image": "../react-native-nitro-image",
-        "react-native-nitro-modules": "0.31.5",
+        "react-native-nitro-modules": "0.32.1",
         "typescript": "5.8.3",
       },
       "peerDependencies": {
@@ -1284,7 +1284,7 @@
 
     "new-github-release-url": ["new-github-release-url@2.0.0", "", { "dependencies": { "type-fest": "^2.5.1" } }, ""],
 
-    "nitrogen": ["nitrogen@0.31.1", "", { "dependencies": { "chalk": "^5.3.0", "react-native-nitro-modules": "^0.31.1", "ts-morph": "^27.0.0", "yargs": "^18.0.0", "zod": "^4.0.5" }, "bin": { "nitrogen": "lib/index.js" } }, "sha512-zEOzoIY+4TCcRWBcw5niuMmeRib+1Dsne1ndDGel/lpSUm8CAjLzoSESBGnbfXmEzBQu3ihiknehattFVc/4aQ=="],
+    "nitrogen": ["nitrogen@0.32.1", "", { "dependencies": { "chalk": "^5.3.0", "react-native-nitro-modules": "^0.32.1", "ts-morph": "^27.0.0", "yargs": "^18.0.0", "zod": "^4.0.5" }, "bin": { "nitrogen": "lib/index.js" } }, "sha512-/bMqBXfq+ICboH34pHffyp1eftSAb+VS5QEne94gRwcNawwPI3TqpmDowpM7/BlKtwXgl3mLucQx4sWjVLYehQ=="],
 
     "nocache": ["nocache@3.0.4", "", {}, ""],
 
@@ -1440,7 +1440,7 @@
 
     "react-native-nitro-image": ["react-native-nitro-image@workspace:packages/react-native-nitro-image"],
 
-    "react-native-nitro-modules": ["react-native-nitro-modules@0.31.5", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-h/IbVsK5IH7JkvseihAoz/o5dy6CafvGo7j4jTvAa+gnxZWFtXQZg8EDvu0en88LFAumKd/pcF20dzxMiNOmug=="],
+    "react-native-nitro-modules": ["react-native-nitro-modules@0.32.1", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-V+Vy76e4fxRxgVGu5Uh3cBPvuFQW8fM1OUKk1mqEA/JawjhX+hxHtBhpfuvNjV0BnV/uXCIg8/eK+rTpB6tqFg=="],
 
     "react-native-nitro-web-image": ["react-native-nitro-web-image@workspace:packages/react-native-nitro-web-image"],
 
@@ -1911,8 +1911,6 @@
     "new-github-release-url/type-fest": ["type-fest@2.19.0", "", {}, ""],
 
     "nitrogen/chalk": ["chalk@5.4.1", "", {}, ""],
-
-    "nitrogen/react-native-nitro-modules": ["react-native-nitro-modules@0.31.1", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-ecr3bTWvLj5/Ce3BO54XRHy4uNHfFR2iVFLf9g/zDRkaD4iOg6kF9hatkIXwUPZi6apIf9P91BS+bco0lSIcVA=="],
 
     "nitrogen/yargs": ["yargs@18.0.0", "", { "dependencies": { "cliui": "^9.0.1", "escalade": "^3.1.1", "get-caller-file": "^2.0.5", "string-width": "^7.2.0", "y18n": "^5.0.5", "yargs-parser": "^22.0.0" } }, "sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg=="],
 
