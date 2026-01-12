@@ -5,10 +5,9 @@
 //  Created by Marc Rousavy on 12.01.26.
 //
 
-import Foundation
-import UniformTypeIdentifiers
+import UIKit
 
-extension ImageFormat {
+extension UIView {
   var isVisible: Bool {
     return superview != nil
   }

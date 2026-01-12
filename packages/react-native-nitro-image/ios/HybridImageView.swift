@@ -9,11 +9,6 @@ import Foundation
 import UIKit
 import NitroModules
 
-fileprivate protocol ViewLifecycleDelegate: AnyObject {
-  func willShow()
-  func willHide()
-}
-
 class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
   let imageView: UIImageView
   let view: UIView

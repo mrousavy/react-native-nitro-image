@@ -7,10 +7,14 @@
 
 import Foundation
 import UIKit
-import NitroModules
 
-class CustomImageView: UIImageView {
-  fileprivate weak var delegate: ViewLifecycleDelegate? = nil {
+internal protocol ViewLifecycleDelegate: AnyObject {
+  func willShow()
+  func willHide()
+}
+
+internal class CustomImageView: UIImageView {
+  internal weak var delegate: (any ViewLifecycleDelegate)? = nil {
     didSet {
       onVisibilityChanged(isVisible: self.isVisible)
     }
