@@ -7,13 +7,14 @@ import android.widget.ImageView
 import androidx.annotation.Keep
 import androidx.core.view.isVisible
 import com.facebook.common.internal.DoNotStrip
+import com.margelo.nitro.views.RecyclableView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @DoNotStrip
 @Keep
-class HybridImageView(context: Context): HybridNitroImageViewSpec() {
+class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableView {
     companion object {
         private const val TAG = "HybridImageView"
     }
@@ -47,6 +48,11 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec() {
             resetImageBeforeLoad = field != value
             field = value
         }
+
+    override fun prepareForRecycle() {
+        onDisappear()
+        imageView.setImageBitmap(null)
+    }
 
     private fun updateResizeMode() {
         imageView.scaleType = when (resizeMode) {

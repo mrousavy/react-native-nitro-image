@@ -110,3 +110,11 @@ extension HybridImageView: ViewLifecycleDelegate {
   }
 }
 
+// Implementation to allow view recycling
+extension HybridImageView: RecyclableView {
+  func prepareForRecycle() {
+    willHide()
+    imageView.image = nil
+  }
+}
+
