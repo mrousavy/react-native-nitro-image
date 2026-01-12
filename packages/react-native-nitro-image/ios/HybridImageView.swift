@@ -14,39 +14,6 @@ fileprivate protocol ViewLifecycleDelegate: AnyObject {
   func willHide()
 }
 
-class CustomImageView: UIImageView {
-  fileprivate weak var delegate: ViewLifecycleDelegate? = nil {
-    didSet {
-      onVisibilityChanged(isVisible: superview != nil)
-    }
-  }
-
-  init() {
-    super.init(image: nil)
-  }
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  override func willMove(toSuperview newSuperview: UIView?) {
-    super.willMove(toSuperview: newSuperview)
-    onVisibilityChanged(isVisible: newSuperview != nil)
-  }
-  private func onVisibilityChanged(isVisible: Bool) {
-    if isVisible {
-      delegate?.willShow()
-    } else {
-      delegate?.willHide()
-    }
-  }
-}
-
-fileprivate extension UIView {
-  var isVisible: Bool {
-    return superview != nil
-  }
-}
-
 class HybridImageView: HybridNitroImageViewSpec, NativeImageView {
   let imageView: UIImageView
   let view: UIView
