@@ -32,14 +32,14 @@ open class HybridNitroImageViewSpec_base {
   public init() { }
   public func getCxxWrapper() -> HybridNitroImageViewSpec_cxx {
   #if DEBUG
-    guard self is HybridNitroImageViewSpec else {
+    guard self is any HybridNitroImageViewSpec else {
       fatalError("`self` is not a `HybridNitroImageViewSpec`! Did you accidentally inherit from `HybridNitroImageViewSpec_base` instead of `HybridNitroImageViewSpec`?")
     }
   #endif
     if let cxxWrapper = self.cxxWrapper {
       return cxxWrapper
     } else {
-      let cxxWrapper = HybridNitroImageViewSpec_cxx(self as! HybridNitroImageViewSpec)
+      let cxxWrapper = HybridNitroImageViewSpec_cxx(self as! any HybridNitroImageViewSpec)
       self.cxxWrapper = cxxWrapper
       return cxxWrapper
     }
