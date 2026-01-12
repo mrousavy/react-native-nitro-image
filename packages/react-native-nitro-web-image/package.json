@@ -61,10 +61,10 @@
     "devDependencies": {
         "@biomejs/biome": "2.2.6",
         "@types/react": "^19.0.6",
-        "nitrogen": "0.32.1",
+        "nitrogen": "0.33.0",
         "react": "19.1.0",
         "react-native": "0.81.0",
-        "react-native-nitro-modules": "0.32.1",
+        "react-native-nitro-modules": "0.33.0",
         "react-native-nitro-image": "../react-native-nitro-image",
         "typescript": "5.8.3"
     },
