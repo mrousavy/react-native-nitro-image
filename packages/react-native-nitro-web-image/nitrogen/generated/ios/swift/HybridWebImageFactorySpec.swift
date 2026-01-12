@@ -33,14 +33,14 @@ open class HybridWebImageFactorySpec_base {
   public init() { }
   public func getCxxWrapper() -> HybridWebImageFactorySpec_cxx {
   #if DEBUG
-    guard self is HybridWebImageFactorySpec else {
+    guard self is any HybridWebImageFactorySpec else {
       fatalError("`self` is not a `HybridWebImageFactorySpec`! Did you accidentally inherit from `HybridWebImageFactorySpec_base` instead of `HybridWebImageFactorySpec`?")
     }
   #endif
     if let cxxWrapper = self.cxxWrapper {
       return cxxWrapper
     } else {
-      let cxxWrapper = HybridWebImageFactorySpec_cxx(self as! HybridWebImageFactorySpec)
+      let cxxWrapper = HybridWebImageFactorySpec_cxx(self as! any HybridWebImageFactorySpec)
       self.cxxWrapper = cxxWrapper
       return cxxWrapper
     }

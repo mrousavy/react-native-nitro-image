@@ -24,7 +24,7 @@
   HybridObjectRegistry::registerHybridObjectConstructor(
     "WebImageFactory",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<HybridWebImageFactorySpec> hybridObject = NitroWebImage::NitroWebImageAutolinking::createWebImageFactory();
+      std::shared_ptr<HybridWebImageFactorySpec> hybridObject = NitroWebImage::NitroWebImageAutolinking::WebImageFactory::create();
       return hybridObject;
     }
   );

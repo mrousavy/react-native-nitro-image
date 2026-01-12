@@ -12,13 +12,20 @@ import com.facebook.react.uimanager.ReactStylesDiffMap
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
+import com.margelo.nitro.R.id.associated_hybrid_view_tag
+import com.margelo.nitro.views.RecyclableView
 import com.margelo.nitro.image.*
 
 /**
  * Represents the React Native `ViewManager` for the "NitroImageView" Nitro HybridView.
  */
 open class HybridNitroImageViewManager: SimpleViewManager<View>() {
-  private val views = hashMapOf<View, HybridImageView>()
+  init {
+    if (RecyclableView::class.java.isAssignableFrom(HybridImageView::class.java)) {
+      // Enable view recycling
+      super.setupViewRecycling()
+    }
+  }
 
   override fun getName(): String {
     return "NitroImageView"
@@ -27,17 +34,13 @@ open class HybridNitroImageViewManager: SimpleViewManager<View>() {
   override fun createViewInstance(reactContext: ThemedReactContext): View {
     val hybridView = HybridImageView(reactContext)
     val view = hybridView.view
-    views[view] = hybridView
+    view.setTag(associated_hybrid_view_tag, hybridView)
     return view
   }
 
-  override fun onDropViewInstance(view: View) {
-    super.onDropViewInstance(view)
-    views.remove(view)
-  }
-
   override fun updateState(view: View, props: ReactStylesDiffMap, stateWrapper: StateWrapper): Any? {
-    val hybridView = views[view] ?: throw Error("Couldn't find view $view in local views table!")
+    val hybridView = view.getTag(associated_hybrid_view_tag) as? HybridImageView
+      ?: throw Error("Couldn't find view $view in local views table!")
 
     // 1. Update each prop individually
     hybridView.beforeUpdate()
@@ -48,9 +51,20 @@ open class HybridNitroImageViewManager: SimpleViewManager<View>() {
     return super.updateState(view, props, stateWrapper)
   }
 
-  protected override fun setupViewRecycling() {
-    // TODO: Recycling should be controllable by the user. WIP, but disabled for now.
-    // By not calling `super.setupViewRecycling()`, we effectively
-    // disable view recycling for now.
+  protected override fun prepareToRecycleView(reactContext: ThemedReactContext, view: View): View? {
+    super.prepareToRecycleView(reactContext, view)
+    val hybridView = view.getTag(associated_hybrid_view_tag) as? HybridImageView
+      ?: return null
+
+    @Suppress("USELESS_IS_CHECK")
+    if (hybridView is RecyclableView) {
+      // Recycle in it's implementation
+      hybridView.prepareForRecycle()
+
+      // Maybe update the view if it changed
+      return hybridView.view
+    } else {
+      return null
+    }
   }
 }

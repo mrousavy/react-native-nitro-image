@@ -32,14 +32,14 @@ open class HybridImageUtilsSpec_base {
   public init() { }
   public func getCxxWrapper() -> HybridImageUtilsSpec_cxx {
   #if DEBUG
-    guard self is HybridImageUtilsSpec else {
+    guard self is any HybridImageUtilsSpec else {
       fatalError("`self` is not a `HybridImageUtilsSpec`! Did you accidentally inherit from `HybridImageUtilsSpec_base` instead of `HybridImageUtilsSpec`?")
     }
   #endif
     if let cxxWrapper = self.cxxWrapper {
       return cxxWrapper
     } else {
-      let cxxWrapper = HybridImageUtilsSpec_cxx(self as! HybridImageUtilsSpec)
+      let cxxWrapper = HybridImageUtilsSpec_cxx(self as! any HybridImageUtilsSpec)
       self.cxxWrapper = cxxWrapper
       return cxxWrapper
     }

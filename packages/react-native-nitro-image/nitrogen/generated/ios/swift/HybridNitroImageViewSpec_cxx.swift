@@ -232,4 +232,9 @@ open class HybridNitroImageViewSpec_cxx {
   public final func afterUpdate() {
     __implementation.afterUpdate()
   }
+  
+  public final func maybePrepareForRecycle() {
+    guard let recyclable = __implementation as? RecyclableView else { return }
+    recyclable.prepareForRecycle()
+  }
 }

@@ -41,14 +41,9 @@ using namespace margelo::nitro::image::views;
   return react::concreteComponentDescriptorProvider<HybridNitroImageViewComponentDescriptor>();
 }
 
-+ (BOOL)shouldBeRecycled {
-  // TODO: Recycling should be controllable by the user. WIP, but disabled for now.
-  return NO;
-}
-
 - (instancetype) init {
   if (self = [super init]) {
-    std::shared_ptr<HybridNitroImageViewSpec> hybridView = NitroImage::NitroImageAutolinking::createNitroImageView();
+    std::shared_ptr<HybridNitroImageViewSpec> hybridView = NitroImage::NitroImageAutolinking::NitroImageView::create();
     _hybridView = std::dynamic_pointer_cast<HybridNitroImageViewSpecSwift>(hybridView);
     [self updateView];
   }
@@ -107,6 +102,16 @@ using namespace margelo::nitro::image::views;
 
   // 4. Continue in base class
   [super updateProps:props oldProps:oldProps];
+}
+
++ (BOOL)shouldBeRecycled {
+  return NitroImage::NitroImageAutolinking::NitroImageView::isRecyclableHybridView();
+}
+
+- (void)prepareForRecycle {
+  [super prepareForRecycle];
+  NitroImage::HybridNitroImageViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
+  swiftPart.maybePrepareForRecycle();
 }
 
 @end

@@ -27,28 +27,28 @@
   HybridObjectRegistry::registerHybridObjectConstructor(
     "ImageFactory",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<HybridImageFactorySpec> hybridObject = NitroImage::NitroImageAutolinking::createImageFactory();
+      std::shared_ptr<HybridImageFactorySpec> hybridObject = NitroImage::NitroImageAutolinking::ImageFactory::create();
       return hybridObject;
     }
   );
   HybridObjectRegistry::registerHybridObjectConstructor(
     "ImageLoaderFactory",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<HybridImageLoaderFactorySpec> hybridObject = NitroImage::NitroImageAutolinking::createImageLoaderFactory();
+      std::shared_ptr<HybridImageLoaderFactorySpec> hybridObject = NitroImage::NitroImageAutolinking::ImageLoaderFactory::create();
       return hybridObject;
     }
   );
   HybridObjectRegistry::registerHybridObjectConstructor(
     "ImageUtils",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<HybridImageUtilsSpec> hybridObject = NitroImage::NitroImageAutolinking::createImageUtils();
+      std::shared_ptr<HybridImageUtilsSpec> hybridObject = NitroImage::NitroImageAutolinking::ImageUtils::create();
       return hybridObject;
     }
   );
   HybridObjectRegistry::registerHybridObjectConstructor(
     "NitroImageView",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<HybridNitroImageViewSpec> hybridObject = NitroImage::NitroImageAutolinking::createNitroImageView();
+      std::shared_ptr<HybridNitroImageViewSpec> hybridObject = NitroImage::NitroImageAutolinking::NitroImageView::create();
       return hybridObject;
     }
   );
