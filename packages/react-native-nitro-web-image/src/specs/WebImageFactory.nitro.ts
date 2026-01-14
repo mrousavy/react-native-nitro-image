@@ -61,6 +61,16 @@ export interface AsyncImageLoadOptions {
      * @default true
      */
     decodeImage?: boolean;
+
+    /**
+     * By default, images can be rendered using hardware textures,
+     * which is more efficient compared to a software implementation.
+     *
+     * If you run into issues with the hardware renderer, disable `allowHardware`.
+     * @platform Android
+     * @default true
+     */
+    allowHardware?: boolean
 }
 
 export interface WebImageFactory

@@ -43,7 +43,10 @@ data class AsyncImageLoadOptions(
   val queryDiskDataSync: Boolean?,
   @DoNotStrip
   @Keep
-  val decodeImage: Boolean?
+  val decodeImage: Boolean?,
+  @DoNotStrip
+  @Keep
+  val allowHardware: Boolean?
 ) {
   /* primary constructor */
 
@@ -55,8 +58,8 @@ data class AsyncImageLoadOptions(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(priority: AsyncImagePriority?, forceRefresh: Boolean?, cacheKey: String?, continueInBackground: Boolean?, allowInvalidSSLCertificates: Boolean?, scaleDownLargeImages: Boolean?, queryMemoryDataSync: Boolean?, queryDiskDataSync: Boolean?, decodeImage: Boolean?): AsyncImageLoadOptions {
-      return AsyncImageLoadOptions(priority, forceRefresh, cacheKey, continueInBackground, allowInvalidSSLCertificates, scaleDownLargeImages, queryMemoryDataSync, queryDiskDataSync, decodeImage)
+    private fun fromCpp(priority: AsyncImagePriority?, forceRefresh: Boolean?, cacheKey: String?, continueInBackground: Boolean?, allowInvalidSSLCertificates: Boolean?, scaleDownLargeImages: Boolean?, queryMemoryDataSync: Boolean?, queryDiskDataSync: Boolean?, decodeImage: Boolean?, allowHardware: Boolean?): AsyncImageLoadOptions {
+      return AsyncImageLoadOptions(priority, forceRefresh, cacheKey, continueInBackground, allowInvalidSSLCertificates, scaleDownLargeImages, queryMemoryDataSync, queryDiskDataSync, decodeImage, allowHardware)
     }
   }
 }
