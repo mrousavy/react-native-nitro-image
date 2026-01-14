@@ -4,6 +4,7 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.decode.BlackholeDecoder
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
+import coil3.request.allowHardware
 import coil3.size.Precision
 
 @OptIn(ExperimentalCoilApi::class)
@@ -53,6 +54,10 @@ fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageReq
     if (options.cacheKey != null) {
         result = result.diskCacheKey(options.cacheKey)
         result = result.memoryCacheKey(options.cacheKey)
+    }
+
+    if (options.allowHardware != null) {
+        result = result.allowHardware(options.allowHardware)
     }
 
     return result
