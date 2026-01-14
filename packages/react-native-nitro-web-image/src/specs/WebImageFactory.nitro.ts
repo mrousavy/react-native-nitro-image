@@ -70,7 +70,7 @@ export interface AsyncImageLoadOptions {
      * @platform Android
      * @default true
      */
-    allowHardware?: boolean
+    allowHardware?: boolean;
 }
 
 export interface WebImageFactory
