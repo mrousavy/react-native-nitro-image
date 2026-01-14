@@ -1,6 +1,6 @@
 {
     "name": "react-native-nitro-image",
-    "version": "0.10.0",
+    "version": "0.10.1-0",
     "description": "A superfast in-memory Image type and view component for React Native, built with Nitro!",
     "main": "lib/commonjs/index",
     "module": "lib/module/index",
