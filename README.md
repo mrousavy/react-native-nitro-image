@@ -89,13 +89,16 @@ const symbolImage   = Images.loadFromSymbol('star')
 Additionally, you can also create a new blank Image:
 
 ```ts
-const blank = Images.createBlankImage(100, 100, true)
+const blank = Images.createBlankImage(100, 100, /*enableAlpha:*/ true)
 ```
 
 If you want to fill the blank image with a specific background color, pass the color in RGB:
 
 ```ts
-const blankRedImage = Images.createBlankImage(100, 100, true, { r: 1, g: 0, b: 0 })
+const blankRedImage = Images.createBlankImage(100,
+                                              100,
+                                              /*enableAlpha:*/ true,
+                                              { r: 1, g: 0, b: 0 })
 ```
 
 #### Load with Options
