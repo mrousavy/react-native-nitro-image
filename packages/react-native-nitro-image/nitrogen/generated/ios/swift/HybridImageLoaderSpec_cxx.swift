@@ -150,7 +150,7 @@ open class HybridImageLoaderSpec_cxx {
   @inline(__always)
   public final func requestImage(forView: bridge.std__shared_ptr_HybridNitroImageViewSpec_) -> bridge.Result_void_ {
     do {
-      try self.__implementation.requestImage(forView: { () -> HybridNitroImageViewSpec in
+      try self.__implementation.requestImage(forView: { () -> any HybridNitroImageViewSpec in
         let __unsafePointer = bridge.get_std__shared_ptr_HybridNitroImageViewSpec_(forView)
         let __instance = HybridNitroImageViewSpec_cxx.fromUnsafe(__unsafePointer)
         return __instance.getHybridNitroImageViewSpec()
@@ -165,7 +165,7 @@ open class HybridImageLoaderSpec_cxx {
   @inline(__always)
   public final func dropImage(forView: bridge.std__shared_ptr_HybridNitroImageViewSpec_) -> bridge.Result_void_ {
     do {
-      try self.__implementation.dropImage(forView: { () -> HybridNitroImageViewSpec in
+      try self.__implementation.dropImage(forView: { () -> any HybridNitroImageViewSpec in
         let __unsafePointer = bridge.get_std__shared_ptr_HybridNitroImageViewSpec_(forView)
         let __instance = HybridNitroImageViewSpec_cxx.fromUnsafe(__unsafePointer)
         return __instance.getHybridNitroImageViewSpec()

@@ -43,7 +43,7 @@ using namespace margelo::nitro::image::views;
 
 - (instancetype) init {
   if (self = [super init]) {
-    std::shared_ptr<HybridNitroImageViewSpec> hybridView = NitroImage::NitroImageAutolinking::NitroImageView::create();
+    std::shared_ptr<HybridNitroImageViewSpec> hybridView = NitroImage::NitroImageAutolinking::createNitroImageView();
     _hybridView = std::dynamic_pointer_cast<HybridNitroImageViewSpecSwift>(hybridView);
     [self updateView];
   }
@@ -105,7 +105,7 @@ using namespace margelo::nitro::image::views;
 }
 
 + (BOOL)shouldBeRecycled {
-  return NitroImage::NitroImageAutolinking::NitroImageView::isRecyclableHybridView();
+  return NitroImage::NitroImageAutolinking::isNitroImageViewRecyclable();
 }
 
 - (void)prepareForRecycle {

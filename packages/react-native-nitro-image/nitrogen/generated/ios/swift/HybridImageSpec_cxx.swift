@@ -410,7 +410,7 @@ open class HybridImageSpec_cxx {
   @inline(__always)
   public final func renderInto(image: bridge.std__shared_ptr_HybridImageSpec_, x: Double, y: Double, width: Double, height: Double) -> bridge.Result_std__shared_ptr_HybridImageSpec__ {
     do {
-      let __result = try self.__implementation.renderInto(image: { () -> HybridImageSpec in
+      let __result = try self.__implementation.renderInto(image: { () -> any HybridImageSpec in
         let __unsafePointer = bridge.get_std__shared_ptr_HybridImageSpec_(image)
         let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
         return __instance.getHybridImageSpec()
@@ -429,7 +429,7 @@ open class HybridImageSpec_cxx {
   @inline(__always)
   public final func renderIntoAsync(image: bridge.std__shared_ptr_HybridImageSpec_, x: Double, y: Double, width: Double, height: Double) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____ {
     do {
-      let __result = try self.__implementation.renderIntoAsync(image: { () -> HybridImageSpec in
+      let __result = try self.__implementation.renderIntoAsync(image: { () -> any HybridImageSpec in
         let __unsafePointer = bridge.get_std__shared_ptr_HybridImageSpec_(image)
         let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
         return __instance.getHybridImageSpec()
