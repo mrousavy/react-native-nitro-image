@@ -156,14 +156,14 @@ open class HybridNitroImageViewSpec_cxx {
             switch __variant.index() {
               case 0:
                 let __actual = __variant.get_0()
-                return .first({ () -> HybridImageSpec in
+                return .first({ () -> any HybridImageSpec in
                   let __unsafePointer = bridge.get_std__shared_ptr_HybridImageSpec_(__actual)
                   let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
                   return __instance.getHybridImageSpec()
                 }())
               case 1:
                 let __actual = __variant.get_1()
-                return .second({ () -> HybridImageLoaderSpec in
+                return .second({ () -> any HybridImageLoaderSpec in
                   let __unsafePointer = bridge.get_std__shared_ptr_HybridImageLoaderSpec_(__actual)
                   let __instance = HybridImageLoaderSpec_cxx.fromUnsafe(__unsafePointer)
                   return __instance.getHybridImageLoaderSpec()

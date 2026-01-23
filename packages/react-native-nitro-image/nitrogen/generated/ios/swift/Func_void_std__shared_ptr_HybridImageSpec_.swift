@@ -23,7 +23,7 @@ public final class Func_void_std__shared_ptr_HybridImageSpec_ {
 
   @inline(__always)
   public func call(value: bridge.std__shared_ptr_HybridImageSpec_) -> Void {
-    self.closure({ () -> HybridImageSpec in
+    self.closure({ () -> any HybridImageSpec in
       let __unsafePointer = bridge.get_std__shared_ptr_HybridImageSpec_(value)
       let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
       return __instance.getHybridImageSpec()
