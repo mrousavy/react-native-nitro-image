@@ -67,13 +67,6 @@ namespace margelo::nitro::image::views {
       }
     }()) { }
 
-  HybridNitroImageViewProps::HybridNitroImageViewProps(const HybridNitroImageViewProps& other):
-    react::ViewProps(),
-    image(other.image),
-    resizeMode(other.resizeMode),
-    recyclingKey(other.recyclingKey),
-    hybridRef(other.hybridRef) { }
-
   bool HybridNitroImageViewProps::filterObjectKeys(const std::string& propName) {
     switch (hashString(propName)) {
       case hashString("image"): return true;
@@ -101,10 +94,10 @@ namespace margelo::nitro::image::views {
   void HybridNitroImageViewComponentDescriptor::adopt(react::ShadowNode& shadowNode) const {
     // This is called immediately after `ShadowNode` is created, cloned or in progress.
     // On Android, we need to wrap props in our state, which gets routed through Java and later unwrapped in JNI/C++.
-    auto& concreteShadowNode = dynamic_cast<HybridNitroImageViewShadowNode&>(shadowNode);
-    const HybridNitroImageViewProps& props = concreteShadowNode.getConcreteProps();
-    HybridNitroImageViewState state;
-    state.setProps(props);
+    auto& concreteShadowNode = static_cast<HybridNitroImageViewShadowNode&>(shadowNode);
+    const std::shared_ptr<const HybridNitroImageViewProps>& constProps = concreteShadowNode.getConcreteSharedProps();
+    const std::shared_ptr<HybridNitroImageViewProps>& props = std::const_pointer_cast<HybridNitroImageViewProps>(constProps);
+    HybridNitroImageViewState state{props};
     concreteShadowNode.setStateData(std::move(state));
   }
 #endif

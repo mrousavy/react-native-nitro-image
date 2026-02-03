@@ -19,7 +19,7 @@ import com.margelo.nitro.image.*
 /**
  * Represents the React Native `ViewManager` for the "NitroImageView" Nitro HybridView.
  */
-open class HybridNitroImageViewManager: SimpleViewManager<View>() {
+public class HybridNitroImageViewManager: SimpleViewManager<View>() {
   init {
     if (RecyclableView::class.java.isAssignableFrom(HybridImageView::class.java)) {
       // Enable view recycling

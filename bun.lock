@@ -29,7 +29,7 @@
         "react-native": "0.81.0",
         "react-native-fast-image": "^8.6.3",
         "react-native-nitro-image": "../packages/react-native-nitro-image",
-        "react-native-nitro-modules": "0.33.2",
+        "react-native-nitro-modules": "0.33.4",
         "react-native-nitro-web-image": "../packages/react-native-nitro-web-image",
         "react-native-safe-area-context": "^5.6.0",
         "react-native-screens": "^4.14.1",
@@ -54,10 +54,10 @@
       "devDependencies": {
         "@biomejs/biome": "2.2.6",
         "@types/react": "^19.0.6",
-        "nitrogen": "0.33.2",
+        "nitrogen": "0.33.4",
         "react": "19.1.0",
         "react-native": "0.81.0",
-        "react-native-nitro-modules": "0.33.2",
+        "react-native-nitro-modules": "0.33.4",
         "typescript": "5.8.3",
       },
       "peerDependencies": {
@@ -72,11 +72,11 @@
       "devDependencies": {
         "@biomejs/biome": "2.2.6",
         "@types/react": "^19.0.6",
-        "nitrogen": "0.33.2",
+        "nitrogen": "0.33.4",
         "react": "19.1.0",
         "react-native": "0.81.0",
         "react-native-nitro-image": "../react-native-nitro-image",
-        "react-native-nitro-modules": "0.33.2",
+        "react-native-nitro-modules": "0.33.4",
         "typescript": "5.8.3",
       },
       "peerDependencies": {
@@ -1284,7 +1284,7 @@
 
     "new-github-release-url": ["new-github-release-url@2.0.0", "", { "dependencies": { "type-fest": "^2.5.1" } }, ""],
 
-    "nitrogen": ["nitrogen@0.33.2", "", { "dependencies": { "chalk": "^5.3.0", "react-native-nitro-modules": "^0.33.2", "ts-morph": "^27.0.0", "yargs": "^18.0.0", "zod": "^4.0.5" }, "bin": { "nitrogen": "lib/index.js" } }, "sha512-1fypSMqDU2vnRDmI8PYH0F3/ICLgRqsKCtOyNSMX7rQsG9D7G6zINvZH0Vk0unjzTude5SN8XNFO5im4LrGCvQ=="],
+    "nitrogen": ["nitrogen@0.33.4", "", { "dependencies": { "chalk": "^5.3.0", "react-native-nitro-modules": "^0.33.4", "ts-morph": "^27.0.0", "yargs": "^18.0.0", "zod": "^4.0.5" }, "bin": { "nitrogen": "lib/index.js" } }, "sha512-T1OlGYuES7DFrPVCZk2gZsWqqgLQc1uqIgFpo69Z9spZnWaWBcU9Qg/IFOOvtXQr/4z9WIX91nFc/4aDMHPhRw=="],
 
     "nocache": ["nocache@3.0.4", "", {}, ""],
 
@@ -1440,7 +1440,7 @@
 
     "react-native-nitro-image": ["react-native-nitro-image@workspace:packages/react-native-nitro-image"],
 
-    "react-native-nitro-modules": ["react-native-nitro-modules@0.33.2", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-ZlfOe6abODeHv/eZf8PxeSkrxIUhEKha6jaAAA9oXy7I6VPr7Ff4dUsAq3cyF3kX0L6qt2Dh9nzD2NdSsDwGpA=="],
+    "react-native-nitro-modules": ["react-native-nitro-modules@0.33.4", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-LiTnm22nfv/MClLxyBBnoYdqqDp3n0i6ReFbnvdR35bYxxpPjvy+UNvIz1R3s4M6V/OByljRH//y4eK+OUU/tw=="],
 
     "react-native-nitro-web-image": ["react-native-nitro-web-image@workspace:packages/react-native-nitro-web-image"],
 
