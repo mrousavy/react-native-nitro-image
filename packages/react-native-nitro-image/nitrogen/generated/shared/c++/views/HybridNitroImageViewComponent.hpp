@@ -41,7 +41,6 @@ namespace margelo::nitro::image::views {
   class HybridNitroImageViewProps final: public react::ViewProps {
   public:
     HybridNitroImageViewProps() = default;
-    HybridNitroImageViewProps(const HybridNitroImageViewProps&);
     HybridNitroImageViewProps(const react::PropsParserContext& context,
                               const HybridNitroImageViewProps& sourceProps,
                               const react::RawProps& rawProps);
@@ -62,10 +61,14 @@ namespace margelo::nitro::image::views {
   class HybridNitroImageViewState final {
   public:
     HybridNitroImageViewState() = default;
+    explicit HybridNitroImageViewState(const std::shared_ptr<HybridNitroImageViewProps>& props):
+      _props(props) {}
 
   public:
-    void setProps(const HybridNitroImageViewProps& props) { _props.emplace(props); }
-    const std::optional<HybridNitroImageViewProps>& getProps() const { return _props; }
+    [[nodiscard]]
+    const std::shared_ptr<HybridNitroImageViewProps>& getProps() const {
+      return _props;
+    }
 
   public:
 #ifdef ANDROID
@@ -79,7 +82,7 @@ namespace margelo::nitro::image::views {
 #endif
 
   private:
-    std::optional<HybridNitroImageViewProps> _props;
+    std::shared_ptr<HybridNitroImageViewProps> _props;
   };
 
   /**
@@ -95,7 +98,7 @@ namespace margelo::nitro::image::views {
    */
   class HybridNitroImageViewComponentDescriptor final: public react::ConcreteComponentDescriptor<HybridNitroImageViewShadowNode> {
   public:
-    HybridNitroImageViewComponentDescriptor(const react::ComponentDescriptorParameters& parameters);
+    explicit HybridNitroImageViewComponentDescriptor(const react::ComponentDescriptorParameters& parameters);
 
   public:
     /**
