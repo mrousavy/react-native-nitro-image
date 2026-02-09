@@ -1,4 +1,4 @@
-export * from './AsyncImageSource'
+export * from "./AsyncImageSource";
 export * from "./createImageLoader";
 export * from "./Images";
 export * from "./ImageUtils";
