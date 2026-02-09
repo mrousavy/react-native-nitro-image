@@ -1,6 +1,10 @@
 // biome-ignore lint/suspicious/noTsIgnore: Type Compilation is a race-condition
 // @ts-ignore
 type WebImagesType = typeof import("react-native-nitro-web-image")["WebImages"];
+type OptionalWebImagesType = Pick<
+    WebImagesType,
+    "createWebImageLoader" | "loadFromURLAsync"
+>;
 
 let createWebImageLoader: WebImagesType["createWebImageLoader"] = () => {
     throw new Error(
@@ -26,4 +30,7 @@ try {
     // react-native-nitro-web-image is not installed, so only local images are supported.
 }
 
-export const OptionalWebImages = { createWebImageLoader, loadFromURLAsync };
+export const OptionalWebImages: OptionalWebImagesType = {
+    createWebImageLoader,
+    loadFromURLAsync,
+};

@@ -1,11 +1,16 @@
+export * from "./AsyncImageSource";
 export * from "./createImageLoader";
 export * from "./Images";
 export * from "./ImageUtils";
 export * from "./loadImage";
-export { NativeNitroImage } from "./NativeNitroImage";
-export { NitroImage, type NitroImageProps } from "./NitroImage";
-export type { Image } from "./specs/Image.nitro";
-export type { ImageLoader } from "./specs/ImageLoader.nitro";
+export * from "./NativeNitroImage";
+export * from "./NitroImage";
+export * from "./specs/Image.nitro";
+export * from "./specs/ImageFactory.nitro";
+export * from "./specs/ImageLoader.nitro";
+export * from "./specs/ImageLoaderFactory.nitro";
+export * from "./specs/ImageUtils.nitro";
+export * from "./specs/ImageView.nitro";
 
 export * from "./useImage";
 export * from "./useImageLoader";
