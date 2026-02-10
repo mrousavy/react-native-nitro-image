@@ -1,15 +1,15 @@
 // biome-ignore lint/correctness/noUnusedImports: Needed for JSX runtime
-import React from "react";
-import type { HostComponent } from "react-native";
-import type { AsyncImageSource } from "./AsyncImageSource";
-import { NativeNitroImage } from "./NativeNitroImage";
-import { useImageLoader } from "./useImageLoader";
+import React from 'react'
+import type { HostComponent } from 'react-native'
+import type { AsyncImageSource } from './AsyncImageSource'
+import { NativeNitroImage } from './NativeNitroImage'
+import { useImageLoader } from './useImageLoader'
 
-type ReactProps<T> = T extends HostComponent<infer P> ? P : never;
-type NativeImageProps = ReactProps<typeof NativeNitroImage>;
+type ReactProps<T> = T extends HostComponent<infer P> ? P : never
+type NativeImageProps = ReactProps<typeof NativeNitroImage>
 
-export interface NitroImageProps extends Omit<NativeImageProps, "image"> {
-    image: AsyncImageSource;
+export interface NitroImageProps extends Omit<NativeImageProps, 'image'> {
+  image: AsyncImageSource
 }
 
 /**
@@ -31,6 +31,6 @@ export interface NitroImageProps extends Omit<NativeImageProps, "image"> {
  * ```
  */
 export function NitroImage({ image, ...props }: NitroImageProps) {
-    const actualImage = useImageLoader(image);
-    return <NativeNitroImage image={actualImage} {...props} />;
+  const actualImage = useImageLoader(image)
+  return <NativeNitroImage image={actualImage} {...props} />
 }
