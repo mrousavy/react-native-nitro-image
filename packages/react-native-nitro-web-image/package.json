@@ -33,8 +33,6 @@
     "build": "rm -rf tsconfig.tsbuildinfo && rm -rf lib && bun typecheck && bob build",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf android/build node_modules/**/android/build lib",
-    "lint": "biome check . --fix",
-    "lint-ci": "biome check .",
     "release": "release-it",
     "typescript": "tsc",
     "specs": "tsc && nitrogen --logLevel=\"debug\""
@@ -58,7 +56,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.6",
     "@types/react": "^19.0.6",
     "nitrogen": "0.33.4",
     "react": "19.1.0",
