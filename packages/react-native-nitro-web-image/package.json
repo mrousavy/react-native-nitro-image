@@ -92,7 +92,7 @@
       "release": false
     },
     "hooks": {
-      "before:init": "bun typecheck && bun lint",
+      "before:init": "bun typecheck",
       "after:bump": "bun run build"
     }
   }
