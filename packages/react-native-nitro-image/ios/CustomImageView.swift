@@ -22,6 +22,7 @@ internal class CustomImageView: UIImageView {
 
   init() {
     super.init(image: nil)
+    self.clipsToBounds = true
   }
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
