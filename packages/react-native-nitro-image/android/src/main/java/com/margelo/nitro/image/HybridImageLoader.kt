@@ -14,7 +14,7 @@ class HybridImageLoader(
     private val allowCaching: Boolean = true
 ): HybridImageLoaderSpec() {
     private var cachedResult: HybridImageSpec? = null
-    private val uiScope = CoroutineScope(Dispatchers.Main)
+    private val uiScope = CoroutineScope(Dispatchers.Main.immediate)
 
     override fun loadImage(): Promise<HybridImageSpec> {
         if (allowCaching) {

@@ -18,7 +18,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     companion object {
         private const val TAG = "HybridImageView"
     }
-    private val uiScope = CoroutineScope(Dispatchers.Main)
+    private val uiScope = CoroutineScope(Dispatchers.Main.immediate)
     private var resetImageBeforeLoad = false
 
     val imageView = CustomImageView(context) { visible ->
