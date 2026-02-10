@@ -15,6 +15,7 @@ export function createImageLoader(
     if (typeof source === "number") {
         // It's a require(...) - a `number` which we need to resolve first
         const resolvedSource = RNImage.resolveAssetSource(source);
+        console.log(`resolved image`, resolvedSource)
         if (resolvedSource.uri.startsWith("http")) {
             // In debug, assets are streamed over the network
             return createImageLoader({ url: resolvedSource.uri });
