@@ -18,7 +18,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     companion object {
         private const val TAG = "HybridImageView"
     }
-    private val uiScope = CoroutineScope(Dispatchers.Main.immediate)
+    private val uiScope = CoroutineScope(Dispatchers.Main)
     private var resetImageBeforeLoad = false
 
     val imageView = CustomImageView(context) { visible ->
@@ -66,7 +66,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
 
     private fun updateImage() {
         image?.match(
-            { actualImage ->
+            { actualImage: HybridImageSpec ->
                 // Image
                 if (actualImage is HybridImage) {
                     imageView.setImageBitmap(actualImage.bitmap)
@@ -74,7 +74,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
                     throw Error("Image is a different type than HybridImage!")
                 }
             },
-            { imageLoader ->
+            { _: HybridImageLoaderSpec ->
                 // ImageLoader
                 onAppear()
             }
