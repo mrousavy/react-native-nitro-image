@@ -13,11 +13,11 @@ export function NitroImageTab() {
                 numColumns={4}
                 windowSize={3}
                 data={imageURLs}
-                renderItem={() => (
+                renderItem={({ item: url }) => (
                     <NitroImage
-                    image={require('../assets/image.jpg')}
+                        image={{ url: url }}
                         style={styles.image}
-                      resizeMode="cover" />
+                        resizeMode="cover" />
                 )}
             />
         </View>
