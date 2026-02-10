@@ -20,14 +20,14 @@ class HybridImageView: HybridNitroImageViewSpec {
 
   var resizeMode: ResizeMode? {
     didSet {
-      Task { @MainActor in
+      DispatchQueue.runOnMain {
         self.updateResizeMode()
       }
     }
   }
   var image: (Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_)? = nil {
     didSet {
-      Task { @MainActor in
+      DispatchQueue.runOnMain {
         self.updateImage()
       }
     }
