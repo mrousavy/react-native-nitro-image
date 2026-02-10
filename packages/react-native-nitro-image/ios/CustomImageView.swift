@@ -27,9 +27,9 @@ internal class CustomImageView: UIImageView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func willMove(toSuperview newSuperview: UIView?) {
-    super.willMove(toSuperview: newSuperview)
-    onVisibilityChanged(isVisible: newSuperview != nil)
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+    onVisibilityChanged(isVisible: newWindow != nil)
   }
   private func onVisibilityChanged(isVisible: Bool) {
     if isVisible {

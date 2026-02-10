@@ -15,9 +15,9 @@ export function NitroImageTab() {
                 data={imageURLs}
                 renderItem={({ item: url }) => (
                     <NitroImage
-                    image={{ url: url }}
+                        image={{ url: url }}
                         style={styles.image}
-                      resizeMode="cover" />
+                        resizeMode="cover" />
                 )}
             />
         </View>
