@@ -1,110 +1,102 @@
 {
-    "name": "react-native-nitro-image",
-    "version": "0.10.2",
-    "description": "A superfast in-memory Image type and view component for React Native, built with Nitro!",
-    "main": "lib/commonjs/index",
-    "module": "lib/module/index",
-    "types": "lib/typescript/index.d.ts",
-    "react-native": "src/index",
-    "source": "src/index",
-    "workspaces": [
-        "example"
-    ],
-    "files": [
-        "src",
-        "react-native.config.js",
-        "lib",
-        "nitrogen",
-        "android/build.gradle",
-        "android/gradle.properties",
-        "android/fix-prefab.gradle",
-        "android/CMakeLists.txt",
-        "android/src",
-        "ios/**/*.h",
-        "ios/**/*.m",
-        "ios/**/*.mm",
-        "ios/**/*.cpp",
-        "ios/**/*.swift",
-        "app.plugin.js",
-        "nitro.json",
-        "*.podspec",
-        "README.md"
-    ],
-    "scripts": {
-        "build": "rm -rf tsconfig.tsbuildinfo && rm -rf lib && bun typecheck && bob build",
-        "typecheck": "tsc --noEmit",
-        "clean": "rm -rf android/build node_modules/**/android/build lib",
-        "lint": "biome check . --fix",
-        "lint-ci": "biome check .",
-        "release": "release-it",
-        "typescript": "tsc",
-        "specs": "tsc && nitrogen --logLevel=\"debug\""
-    },
-    "keywords": [
-        "react-native",
-        "nitro"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/mrousavy/react-native-nitro-image.git",
-        "directory": "packages/react-native-nitro-image"
-    },
-    "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/mrousavy/react-native-nitro-image/issues"
-    },
-    "homepage": "https://github.com/mrousavy/react-native-nitro-image#readme",
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org/"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "2.2.6",
-        "@types/react": "^19.0.6",
-        "nitrogen": "0.33.4",
-        "react": "19.1.0",
-        "react-native": "0.81.0",
-        "react-native-nitro-modules": "0.33.4",
-        "typescript": "5.8.3"
-    },
-    "peerDependencies": {
-        "react": "*",
-        "react-native": "*",
-        "react-native-nitro-modules": "*"
-    },
-    "prettier": {
-        "quoteProps": "consistent",
-        "singleQuote": true,
-        "tabWidth": 2,
-        "trailingComma": "es5",
-        "useTabs": false,
-        "semi": false
-    },
-    "react-native-builder-bob": {
-        "source": "src",
-        "output": "lib",
-        "targets": [
-            "commonjs",
-            "module",
-            [
-                "typescript",
-                {
-                    "project": "tsconfig.build.json"
-                }
-            ]
-        ]
-    },
-    "release-it": {
-        "npm": {
-            "publish": true
-        },
-        "git": false,
-        "github": {
-            "release": false
-        },
-        "hooks": {
-            "before:init": "bun typecheck && bun lint",
-            "after:bump": "bun run build"
+  "name": "react-native-nitro-image",
+  "version": "0.10.2",
+  "description": "A superfast in-memory Image type and view component for React Native, built with Nitro!",
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "workspaces": [
+    "example"
+  ],
+  "files": [
+    "src",
+    "react-native.config.js",
+    "lib",
+    "nitrogen",
+    "android/build.gradle",
+    "android/gradle.properties",
+    "android/fix-prefab.gradle",
+    "android/CMakeLists.txt",
+    "android/src",
+    "ios/**/*.h",
+    "ios/**/*.m",
+    "ios/**/*.mm",
+    "ios/**/*.cpp",
+    "ios/**/*.swift",
+    "app.plugin.js",
+    "nitro.json",
+    "*.podspec",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf tsconfig.tsbuildinfo && rm -rf lib && bun typecheck && bob build",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf android/build node_modules/**/android/build lib",
+    "lint": "biome check . --fix",
+    "lint-ci": "biome check .",
+    "release": "release-it",
+    "typescript": "tsc",
+    "specs": "tsc && nitrogen --logLevel=\"debug\""
+  },
+  "keywords": [
+    "react-native",
+    "nitro"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrousavy/react-native-nitro-image.git",
+    "directory": "packages/react-native-nitro-image"
+  },
+  "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrousavy/react-native-nitro-image/issues"
+  },
+  "homepage": "https://github.com/mrousavy/react-native-nitro-image#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.6",
+    "@types/react": "^19.0.6",
+    "nitrogen": "0.33.4",
+    "react": "19.1.0",
+    "react-native": "0.81.0",
+    "react-native-nitro-modules": "0.33.4",
+    "typescript": "5.8.3"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-nitro-modules": "*"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
         }
+      ]
+    ]
+  },
+  "release-it": {
+    "npm": {
+      "publish": true
+    },
+    "git": false,
+    "github": {
+      "release": false
+    },
+    "hooks": {
+      "before:init": "bun typecheck && bun lint",
+      "after:bump": "bun run build"
     }
+  }
 }

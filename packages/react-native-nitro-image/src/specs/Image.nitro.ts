@@ -1,4 +1,4 @@
-import type { HybridObject } from "react-native-nitro-modules";
+import type { HybridObject } from 'react-native-nitro-modules'
 
 /**
  * Represents the pixel ordering format of the literal bytes in memory.
@@ -23,201 +23,198 @@ import type { HybridObject } from "react-native-nitro-modules";
  * `[B, G, R, A]` instead. This is why a `Bitmap` that is in `ARGB_8888` config will return `BGRA` here in Nitro Image.
  */
 export type PixelFormat =
-    | "ARGB"
-    | "BGRA"
-    | "ABGR"
-    | "RGBA"
-    | "XRGB"
-    | "BGRX"
-    | "XBGR"
-    | "RGBX"
-    | "RGB"
-    | "BGR"
-    | "unknown";
+  | 'ARGB'
+  | 'BGRA'
+  | 'ABGR'
+  | 'RGBA'
+  | 'XRGB'
+  | 'BGRX'
+  | 'XBGR'
+  | 'RGBX'
+  | 'RGB'
+  | 'BGR'
+  | 'unknown'
 
 /**
  * Describes the format of an encoded Image.
  */
-export type ImageFormat = "jpg" | "png" | "heic";
+export type ImageFormat = 'jpg' | 'png' | 'heic'
 
 /**
  * Describes raw pixel data (`buffer`) with `width`, `height` and `pixelFormat`.
  */
 export interface RawPixelData {
-    buffer: ArrayBuffer;
-    width: number;
-    height: number;
-    pixelFormat: PixelFormat;
+  buffer: ArrayBuffer
+  width: number
+  height: number
+  pixelFormat: PixelFormat
 }
 
 /**
  * Describes encoded image data (`buffer`) with `width`, `height` and `imageFormat`.
  */
 export interface EncodedImageData {
-    buffer: ArrayBuffer;
-    width: number;
-    height: number;
-    imageFormat: ImageFormat;
+  buffer: ArrayBuffer
+  width: number
+  height: number
+  imageFormat: ImageFormat
 }
 
 /**
  * A native Image instance.
  */
 export interface Image
-    extends HybridObject<{ ios: "swift"; android: "kotlin" }> {
-    readonly width: number;
-    readonly height: number;
+  extends HybridObject<{ ios: 'swift'; android: 'kotlin' }> {
+  readonly width: number
+  readonly height: number
 
-    /**
-     * Returns an {@linkcode ArrayBuffer} containing the raw pixel data of the Image.
-     * @note Raw pixel data is either in {@linkcode PixelFormat | 'ARGB'} or
-     * {@linkcode PixelFormat | 'BGRA'} format, depending on the OS' endianess.
-     * @param allowGpu If `allowGpu` is set to `true`, the returned buffer might
-     * be a `HardwareBuffer` (a GPU-buffer) on Android. By default, it is `false`.
-     * @example
-     * ```ts
-     * const rawData = image.toRawArrayBuffer()
-     * const data = new Uint8Array(rawData.buffer)
-     * let r, g, b
-     * if (rawData.pixelFormat === 'bgra') {
-     *   r = data[2]
-     *   g = data[1]
-     *   b = data[0]
-     * } else {
-     *   r = data[0]
-     *   g = data[1]
-     *   b = data[2]
-     * }
-     * ```
-     */
-    toRawPixelData(allowGpu?: boolean): RawPixelData;
-    toRawPixelDataAsync(allowGpu?: boolean): Promise<RawPixelData>;
+  /**
+   * Returns an {@linkcode ArrayBuffer} containing the raw pixel data of the Image.
+   * @note Raw pixel data is either in {@linkcode PixelFormat | 'ARGB'} or
+   * {@linkcode PixelFormat | 'BGRA'} format, depending on the OS' endianess.
+   * @param allowGpu If `allowGpu` is set to `true`, the returned buffer might
+   * be a `HardwareBuffer` (a GPU-buffer) on Android. By default, it is `false`.
+   * @example
+   * ```ts
+   * const rawData = image.toRawArrayBuffer()
+   * const data = new Uint8Array(rawData.buffer)
+   * let r, g, b
+   * if (rawData.pixelFormat === 'bgra') {
+   *   r = data[2]
+   *   g = data[1]
+   *   b = data[0]
+   * } else {
+   *   r = data[0]
+   *   g = data[1]
+   *   b = data[2]
+   * }
+   * ```
+   */
+  toRawPixelData(allowGpu?: boolean): RawPixelData
+  toRawPixelDataAsync(allowGpu?: boolean): Promise<RawPixelData>
 
-    /**
-     * Returns an {@linkcode ArrayBuffer} containing the encoded data of an Image in
-     * the requested container {@linkcode format}.
-     * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
-     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
-     * {@linkcode quality} flag is ignored.
-     * @example
-     * ```ts
-     * const compressed = image.toEncodedImageData('jpg', 70)
-     * ```
-     */
-    toEncodedImageData(format: ImageFormat, quality?: number): EncodedImageData;
-    toEncodedImageDataAsync(
-        format: ImageFormat,
-        quality?: number,
-    ): Promise<EncodedImageData>;
+  /**
+   * Returns an {@linkcode ArrayBuffer} containing the encoded data of an Image in
+   * the requested container {@linkcode format}.
+   * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
+   * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
+   * {@linkcode quality} flag is ignored.
+   * @example
+   * ```ts
+   * const compressed = image.toEncodedImageData('jpg', 70)
+   * ```
+   */
+  toEncodedImageData(format: ImageFormat, quality?: number): EncodedImageData
+  toEncodedImageDataAsync(
+    format: ImageFormat,
+    quality?: number,
+  ): Promise<EncodedImageData>
 
-    /**
-     * Resizes this Image into a new image with the new given {@linkcode width} and {@linkcode height}.
-     * @example
-     * ```ts
-     * const smaller = image.resize(image.width / 2, image.height / 2)
-     * ```
-     */
-    resize(width: number, height: number): Image;
-    resizeAsync(width: number, height: number): Promise<Image>;
+  /**
+   * Resizes this Image into a new image with the new given {@linkcode width} and {@linkcode height}.
+   * @example
+   * ```ts
+   * const smaller = image.resize(image.width / 2, image.height / 2)
+   * ```
+   */
+  resize(width: number, height: number): Image
+  resizeAsync(width: number, height: number): Promise<Image>
 
-    /**
-     * Rotates this Image by the given {@linkcode degrees} and returns
-     * the newly created {@linkcode Image}.
-     *
-     * @param degrees The degrees to rotate the Image. May be any arbitrary number, and can be negative.
-     * @param allowFastFlagRotation When {@linkcode allowFastFlagRotation} is set to `true`, the implementation may choose to only change the orientation flag on the underying image instead of physicaly rotating the buffers. This may only work when {@linkcode degrees} is a multiple of `90`, and will only apply rotation when displaying the Image (via view transforms) or exporting it to a file (via EXIF flags). The actual buffer (e.g. obtained via {@linkcode toRawPixelData | toRawPixelData()}) may remain untouched.
-     * @example
-     * ```ts
-     * const upsideDown = image.rotate(180)
-     * ```
-     */
-    rotate(degrees: number, allowFastFlagRotation?: boolean): Image;
-    rotateAsync(
-        degrees: number,
-        allowFastFlagRotation?: boolean,
-    ): Promise<Image>;
+  /**
+   * Rotates this Image by the given {@linkcode degrees} and returns
+   * the newly created {@linkcode Image}.
+   *
+   * @param degrees The degrees to rotate the Image. May be any arbitrary number, and can be negative.
+   * @param allowFastFlagRotation When {@linkcode allowFastFlagRotation} is set to `true`, the implementation may choose to only change the orientation flag on the underying image instead of physicaly rotating the buffers. This may only work when {@linkcode degrees} is a multiple of `90`, and will only apply rotation when displaying the Image (via view transforms) or exporting it to a file (via EXIF flags). The actual buffer (e.g. obtained via {@linkcode toRawPixelData | toRawPixelData()}) may remain untouched.
+   * @example
+   * ```ts
+   * const upsideDown = image.rotate(180)
+   * ```
+   */
+  rotate(degrees: number, allowFastFlagRotation?: boolean): Image
+  rotateAsync(degrees: number, allowFastFlagRotation?: boolean): Promise<Image>
 
-    /**
-     * Crops this Image into a new image starting from the source image's {@linkcode startX} and {@linkcode startY} coordinates,
-     * up until the source image's {@linkcode endX} and {@linkcode endY} coordinates.
-     * @example
-     * ```ts
-     * const cropped = image.crop(
-     *     image.width * 0.1,
-     *     image.height * 0.1,
-     *     image.width * 0.8,
-     *     image.height * 0.8
-     * )
-     * ```
-     */
-    crop(startX: number, startY: number, endX: number, endY: number): Image;
-    cropAsync(
-        startX: number,
-        startY: number,
-        endX: number,
-        endY: number,
-    ): Promise<Image>;
+  /**
+   * Crops this Image into a new image starting from the source image's {@linkcode startX} and {@linkcode startY} coordinates,
+   * up until the source image's {@linkcode endX} and {@linkcode endY} coordinates.
+   * @example
+   * ```ts
+   * const cropped = image.crop(
+   *     image.width * 0.1,
+   *     image.height * 0.1,
+   *     image.width * 0.8,
+   *     image.height * 0.8
+   * )
+   * ```
+   */
+  crop(startX: number, startY: number, endX: number, endY: number): Image
+  cropAsync(
+    startX: number,
+    startY: number,
+    endX: number,
+    endY: number,
+  ): Promise<Image>
 
-    /**
-     * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
-     * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
-     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
-     * {@linkcode quality} flag is ignored.
-     * @example
-     * ```ts
-     * await image.saveToFileAsync(path, 'jpg', 80)
-     * ```
-     */
-    saveToFileAsync(
-        path: string,
-        format: ImageFormat,
-        quality?: number,
-    ): Promise<void>;
-    /**
-     * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and return it's path.
-     * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
-     * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
-     * {@linkcode quality} flag is ignored.
-     * @example
-     * ```ts
-     * const path = await image.saveToTemporaryFileAsync('jpg', 80)
-     * ```
-     */
-    saveToTemporaryFileAsync(
-        format: ImageFormat,
-        quality?: number,
-    ): Promise<string>;
+  /**
+   * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
+   * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
+   * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
+   * {@linkcode quality} flag is ignored.
+   * @example
+   * ```ts
+   * await image.saveToFileAsync(path, 'jpg', 80)
+   * ```
+   */
+  saveToFileAsync(
+    path: string,
+    format: ImageFormat,
+    quality?: number,
+  ): Promise<void>
+  /**
+   * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and return it's path.
+   * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
+   * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
+   * {@linkcode quality} flag is ignored.
+   * @example
+   * ```ts
+   * const path = await image.saveToTemporaryFileAsync('jpg', 80)
+   * ```
+   */
+  saveToTemporaryFileAsync(
+    format: ImageFormat,
+    quality?: number,
+  ): Promise<string>
 
-    /**
-     * Encodes this Image into a ThumbHash.
-     * To convert the returned ThumbHash to a string, use `thumbHashToBase64String(...)`.
-     * @note To keep this efficient, {@linkcode resize} this image to a small size (<100x100) first.
-     * @example
-     * ```ts
-     * const small = image.resize(100, 100)
-     * const thumbHash = small.toThumbHash()
-     * ```
-     */
-    toThumbHash(): ArrayBuffer;
-    toThumbHashAsync(): Promise<ArrayBuffer>;
+  /**
+   * Encodes this Image into a ThumbHash.
+   * To convert the returned ThumbHash to a string, use `thumbHashToBase64String(...)`.
+   * @note To keep this efficient, {@linkcode resize} this image to a small size (<100x100) first.
+   * @example
+   * ```ts
+   * const small = image.resize(100, 100)
+   * const thumbHash = small.toThumbHash()
+   * ```
+   */
+  toThumbHash(): ArrayBuffer
+  toThumbHashAsync(): Promise<ArrayBuffer>
 
-    /**
-     * Renders the given {@linkcode Image} into a copy of this {@linkcode Image},
-     * at the given {@linkcode x} and {@linkcode y} position, scaled to the
-     * given {@linkcode width} and {@linkcode height}.
-     */
-    renderInto(
-        image: Image,
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-    ): Image;
-    renderIntoAsync(
-        image: Image,
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-    ): Promise<Image>;
+  /**
+   * Renders the given {@linkcode Image} into a copy of this {@linkcode Image},
+   * at the given {@linkcode x} and {@linkcode y} position, scaled to the
+   * given {@linkcode width} and {@linkcode height}.
+   */
+  renderInto(
+    image: Image,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+  ): Image
+  renderIntoAsync(
+    image: Image,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+  ): Promise<Image>
 }

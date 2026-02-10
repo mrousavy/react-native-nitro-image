@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
-import { type AsyncImageSource, isHybridObject } from "./AsyncImageSource";
-import { loadImage } from "./loadImage";
-import { markHybridObject } from "./markHybridObject";
-import type { Image } from "./specs/Image.nitro";
+import { useEffect, useState } from 'react'
+import { type AsyncImageSource, isHybridObject } from './AsyncImageSource'
+import { loadImage } from './loadImage'
+import { markHybridObject } from './markHybridObject'
+import type { Image } from './specs/Image.nitro'
 
 type Result =
-    // Loading State
-    | {
-          image: undefined;
-          error: undefined;
-      }
-    // Loaded state
-    | {
-          image: Image;
-          error: undefined;
-      }
-    // Error state
-    | {
-          image: undefined;
-          error: Error;
-      };
+  // Loading State
+  | {
+      image: undefined
+      error: undefined
+    }
+  // Loaded state
+  | {
+      image: Image
+      error: undefined
+    }
+  // Error state
+  | {
+      image: undefined
+      error: Error
+    }
 
 /**
  * A hook to asynchronously load an image from the
@@ -30,27 +30,27 @@ type Result =
  * ```
  */
 export function useImage(source: AsyncImageSource): Result {
-    const [image, setImage] = useState<Result>({
-        image: undefined,
-        error: undefined,
-    });
+  const [image, setImage] = useState<Result>({
+    image: undefined,
+    error: undefined,
+  })
 
-    // biome-ignore lint: The dependencies array is a bit hacky.
-    useEffect(() => {
-        (async () => {
-            try {
-                // 1. Create the Image/ImageLoader instance
-                const result = await loadImage(source);
-                // 2. Add `__source` as a property on the JS side so React diffs properly
-                markHybridObject(result, source);
-                // 3. Update the state
-                setImage({ image: result, error: undefined });
-            } catch (e) {
-                const error = e instanceof Error ? e : new Error(`${e}`);
-                setImage({ image: undefined, error: error });
-            }
-        })();
-    }, [isHybridObject(source) ? source : JSON.stringify(source)]);
+  // biome-ignore lint: The dependencies array is a bit hacky.
+  useEffect(() => {
+    ;(async () => {
+      try {
+        // 1. Create the Image/ImageLoader instance
+        const result = await loadImage(source)
+        // 2. Add `__source` as a property on the JS side so React diffs properly
+        markHybridObject(result, source)
+        // 3. Update the state
+        setImage({ image: result, error: undefined })
+      } catch (e) {
+        const error = e instanceof Error ? e : new Error(`${e}`)
+        setImage({ image: undefined, error: error })
+      }
+    })()
+  }, [isHybridObject(source) ? source : JSON.stringify(source)])
 
-    return image;
+  return image
 }

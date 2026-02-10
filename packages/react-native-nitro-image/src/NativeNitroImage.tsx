@@ -1,9 +1,9 @@
-import { getHostComponent } from "react-native-nitro-modules";
-import ViewConfig from "../nitrogen/generated/shared/json/NitroImageViewConfig.json";
+import { getHostComponent } from 'react-native-nitro-modules'
+import ViewConfig from '../nitrogen/generated/shared/json/NitroImageViewConfig.json'
 import type {
-    NativeNitroImageViewMethods,
-    NativeNitroImageViewProps,
-} from "./specs/ImageView.nitro";
+  NativeNitroImageViewMethods,
+  NativeNitroImageViewProps,
+} from './specs/ImageView.nitro'
 
 /**
  * The native renderable `<NativeNitroImage />` view.
@@ -16,6 +16,6 @@ import type {
  * ```
  */
 export const NativeNitroImage = getHostComponent<
-    NativeNitroImageViewProps,
-    NativeNitroImageViewMethods
->("NitroImageView", () => ViewConfig);
+  NativeNitroImageViewProps,
+  NativeNitroImageViewMethods
+>('NitroImageView', () => ViewConfig)

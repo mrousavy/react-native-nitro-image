@@ -1,36 +1,36 @@
 // biome-ignore lint/suspicious/noTsIgnore: Type Compilation is a race-condition
 // @ts-ignore
-type WebImagesType = typeof import("react-native-nitro-web-image")["WebImages"];
+type WebImagesType = typeof import('react-native-nitro-web-image')['WebImages']
 type OptionalWebImagesType = Pick<
-    WebImagesType,
-    "createWebImageLoader" | "loadFromURLAsync"
->;
+  WebImagesType,
+  'createWebImageLoader' | 'loadFromURLAsync'
+>
 
-let createWebImageLoader: WebImagesType["createWebImageLoader"] = () => {
-    throw new Error(
-        `Web Images are not supported because react-native-nitro-web-image is not installed!`,
-    );
-};
-let loadFromURLAsync: WebImagesType["loadFromURLAsync"] = () => {
-    throw new Error(
-        `Web Images are not supported because react-native-nitro-web-image is not installed!`,
-    );
-};
+let createWebImageLoader: WebImagesType['createWebImageLoader'] = () => {
+  throw new Error(
+    `Web Images are not supported because react-native-nitro-web-image is not installed!`,
+  )
+}
+let loadFromURLAsync: WebImagesType['loadFromURLAsync'] = () => {
+  throw new Error(
+    `Web Images are not supported because react-native-nitro-web-image is not installed!`,
+  )
+}
 
 export type OptionalAsyncOptions = Parameters<
-    WebImagesType["loadFromURLAsync"]
->[1];
+  WebImagesType['loadFromURLAsync']
+>[1]
 
 try {
-    const WebImages = require("react-native-nitro-web-image")
-        .WebImages as WebImagesType;
-    createWebImageLoader = WebImages.createWebImageLoader.bind(WebImages);
-    loadFromURLAsync = WebImages.loadFromURLAsync.bind(WebImages);
+  const WebImages = require('react-native-nitro-web-image')
+    .WebImages as WebImagesType
+  createWebImageLoader = WebImages.createWebImageLoader.bind(WebImages)
+  loadFromURLAsync = WebImages.loadFromURLAsync.bind(WebImages)
 } catch {
-    // react-native-nitro-web-image is not installed, so only local images are supported.
+  // react-native-nitro-web-image is not installed, so only local images are supported.
 }
 
 export const OptionalWebImages: OptionalWebImagesType = {
-    createWebImageLoader,
-    loadFromURLAsync,
-};
+  createWebImageLoader,
+  loadFromURLAsync,
+}
