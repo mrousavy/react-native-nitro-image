@@ -64,7 +64,6 @@
         "react": "19.1.0",
         "react-native": "0.81.0",
         "react-native-nitro-modules": "0.33.4",
-        "react-native-nitro-image": "../react-native-nitro-image",
         "typescript": "5.8.3"
     },
     "peerDependencies": {

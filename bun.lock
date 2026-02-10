@@ -75,7 +75,6 @@
         "nitrogen": "0.33.4",
         "react": "19.1.0",
         "react-native": "0.81.0",
-        "react-native-nitro-image": "../react-native-nitro-image",
         "react-native-nitro-modules": "0.33.4",
         "typescript": "5.8.3",
       },
@@ -1776,6 +1775,10 @@
 
     "@ts-morph/common/minimatch": ["minimatch@10.1.2", "", { "dependencies": { "@isaacs/brace-expansion": "^5.0.1" } }, "sha512-fu656aJ0n2kcXwsnwnv9g24tkU5uSmOlTjd6WyyaKm2Z+h1qmY6bAjrcaIxF/BslFqbZ8UBtbJi7KgQOZD2PTw=="],
 
+    "NitroImageExample/react-native-nitro-image": ["react-native-nitro-image@file:packages/react-native-nitro-image", { "devDependencies": { "@biomejs/biome": "2.2.6", "@types/react": "^19.0.6", "nitrogen": "0.33.4", "react": "19.1.0", "react-native": "0.81.0", "react-native-nitro-modules": "0.33.4", "typescript": "5.8.3" }, "peerDependencies": { "react": "*", "react-native": "*", "react-native-nitro-modules": "*" } }],
+
+    "NitroImageExample/react-native-nitro-web-image": ["react-native-nitro-web-image@file:packages/react-native-nitro-web-image", { "devDependencies": { "@biomejs/biome": "2.2.6", "@types/react": "^19.0.6", "nitrogen": "0.33.4", "react": "19.1.0", "react-native": "0.81.0", "react-native-nitro-modules": "0.33.4", "typescript": "5.8.3" }, "peerDependencies": { "react": "*", "react-native": "*", "react-native-nitro-image": "*", "react-native-nitro-modules": "*" } }],
+
     "accepts/mime-types": ["mime-types@2.1.35", "", { "dependencies": { "mime-db": "1.52.0" } }, "sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw=="],
 
     "accepts/negotiator": ["negotiator@0.6.3", "", {}, "sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg=="],
@@ -2115,6 +2118,8 @@
     "@simple-libs/child-process-utils/@types/node/undici-types": ["undici-types@6.21.0", "", {}, "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="],
 
     "@simple-libs/stream-utils/@types/node/undici-types": ["undici-types@6.21.0", "", {}, "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="],
+
+    "NitroImageExample/react-native-nitro-web-image/react-native-nitro-image": ["react-native-nitro-image@file:packages/react-native-nitro-image", { "devDependencies": { "@biomejs/biome": "2.2.6", "@types/react": "^19.0.6", "nitrogen": "0.33.4", "react": "19.1.0", "react-native": "0.81.0", "react-native-nitro-modules": "0.33.4", "typescript": "5.8.3" }, "peerDependencies": { "react": "*", "react-native": "*", "react-native-nitro-modules": "*" } }],
 
     "accepts/mime-types/mime-db": ["mime-db@1.52.0", "", {}, "sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg=="],
 
