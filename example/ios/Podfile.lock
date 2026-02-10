@@ -20,7 +20,7 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - NitroImage (0.10.2):
+  - NitroImage (0.11.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -79,7 +79,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - NitroWebImage (0.10.2):
+  - NitroWebImage (0.11.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2740,9 +2740,9 @@ SPEC CHECKSUMS:
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: e7491a2038f2618c8cd444ed411a6deb350a3742
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  NitroImage: 6242ecab77d19a5668245da7fa7ddd2e6ce3ba31
+  NitroImage: 9aa4ff71675647473b7aa71f1f4b423f95aefd2b
   NitroModules: 058279ea60ff6dded6f47bac4b40b0eb70477ad6
-  NitroWebImage: cae973fd2f2aa0066d60c0e6baebb8dc5d961813
+  NitroWebImage: e12c0101898e8d4d56eb916e8f4aca083e3d350d
   RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: 0735ab4f6b3ec93a7f98187b5da74d7916e2cf4c
   RCTRequired: 8fcc7801bfc433072287b0f24a662e2816e89d0c
