@@ -74,6 +74,8 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> rotateAsync(double degrees, std::optional<bool> allowFastFlagRotation) = 0;
       virtual std::shared_ptr<HybridImageSpec> crop(double startX, double startY, double endX, double endY) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> cropAsync(double startX, double startY, double endX, double endY) = 0;
+      virtual std::shared_ptr<HybridImageSpec> mirrorHorizontally() = 0;
+      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> mirrorHorizontallyAsync() = 0;
       virtual std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) = 0;
       virtual std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, std::optional<double> quality) = 0;
       virtual std::shared_ptr<ArrayBuffer> toThumbHash() = 0;

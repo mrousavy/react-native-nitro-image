@@ -24,6 +24,8 @@ public protocol HybridImageSpec_protocol: HybridObject {
   func rotateAsync(degrees: Double, allowFastFlagRotation: Bool?) throws -> Promise<(any HybridImageSpec)>
   func crop(startX: Double, startY: Double, endX: Double, endY: Double) throws -> (any HybridImageSpec)
   func cropAsync(startX: Double, startY: Double, endX: Double, endY: Double) throws -> Promise<(any HybridImageSpec)>
+  func mirrorHorizontally() throws -> (any HybridImageSpec)
+  func mirrorHorizontallyAsync() throws -> Promise<(any HybridImageSpec)>
   func saveToFileAsync(path: String, format: ImageFormat, quality: Double?) throws -> Promise<Void>
   func saveToTemporaryFileAsync(format: ImageFormat, quality: Double?) throws -> Promise<String>
   func toThumbHash() throws -> ArrayBuffer

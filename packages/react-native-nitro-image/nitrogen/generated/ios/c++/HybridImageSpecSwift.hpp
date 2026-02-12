@@ -172,6 +172,22 @@ namespace margelo::nitro::image {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline std::shared_ptr<HybridImageSpec> mirrorHorizontally() override {
+      auto __result = _swiftPart.mirrorHorizontally();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> mirrorHorizontallyAsync() override {
+      auto __result = _swiftPart.mirrorHorizontallyAsync();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
     inline std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) override {
       auto __result = _swiftPart.saveToFileAsync(path, static_cast<int>(format), quality);
       if (__result.hasError()) [[unlikely]] {
