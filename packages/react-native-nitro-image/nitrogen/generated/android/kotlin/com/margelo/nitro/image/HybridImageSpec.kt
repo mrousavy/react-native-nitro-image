@@ -95,6 +95,14 @@ abstract class HybridImageSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
+  abstract fun mirrorHorizontally(): HybridImageSpec
+  
+  @DoNotStrip
+  @Keep
+  abstract fun mirrorHorizontallyAsync(): Promise<HybridImageSpec>
+  
+  @DoNotStrip
+  @Keep
   abstract fun saveToFileAsync(path: String, format: ImageFormat, quality: Double?): Promise<Unit>
   
   @DoNotStrip

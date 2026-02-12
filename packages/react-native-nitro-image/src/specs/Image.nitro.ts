@@ -156,6 +156,12 @@ export interface Image
   ): Promise<Image>
 
   /**
+   * Mirrors this Image horizontally. Left is now right, right is now left.
+   */
+  mirrorHorizontally(): Image
+  mirrorHorizontallyAsync(): Promise<Image>
+
+  /**
    * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
    * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
    * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the

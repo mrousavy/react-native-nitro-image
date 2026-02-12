@@ -174,6 +174,15 @@ const webImage   = await WebImages.loadFromURLAsync('https://picsum.photos/seed/
 const upsideDown = await webImage.rotateAsync(180)
 ```
 
+#### Mirroring
+
+An `Image` can be mirrored horizontally (left <-> right) entirely in-memory, without ever writing to- or reading from- a file:
+
+```ts
+const webImage = await WebImages.loadFromURLAsync('https://picsum.photos/seed/123/400')
+const mirrored = await webImage.mirrorHorizontallyAsync()
+```
+
 #### Render into another Image
 
 An `Image` can be rendered into another `Image` entirely in-memory. This creates a third image (the result):

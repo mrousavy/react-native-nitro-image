@@ -190,6 +190,27 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
+  std::shared_ptr<HybridImageSpec> JHybridImageSpec::mirrorHorizontally() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>()>("mirrorHorizontally");
+    auto __result = method(_javaPart);
+    return __result->cthis()->shared_cast<JHybridImageSpec>();
+  }
+  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::mirrorHorizontallyAsync() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("mirrorHorizontallyAsync");
+    auto __result = method(_javaPart);
+    return [&]() {
+      auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
+        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
   std::shared_ptr<Promise<void>> JHybridImageSpec::saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* path */, jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("saveToFileAsync");
     auto __result = method(_javaPart, jni::make_jstring(path), JImageFormat::fromCpp(format), quality.has_value() ? jni::JDouble::valueOf(quality.value()) : nullptr);

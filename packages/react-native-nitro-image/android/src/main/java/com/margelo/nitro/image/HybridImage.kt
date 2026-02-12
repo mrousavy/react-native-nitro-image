@@ -134,6 +134,18 @@ class HybridImage: HybridImageSpec {
         return Promise.async { crop(startX, startY, endX, endY) }
     }
 
+    override fun mirrorHorizontally(): HybridImageSpec {
+        val matrix = Matrix().apply {
+            preScale(-1f, 1f)
+        }
+        val mirrored = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, false)
+        return HybridImage(mirrored)
+    }
+
+    override fun mirrorHorizontallyAsync(): Promise<HybridImageSpec> {
+        return Promise.async { mirrorHorizontally() }
+    }
+
     override fun saveToFileAsync(
         path: String,
         format: ImageFormat,
