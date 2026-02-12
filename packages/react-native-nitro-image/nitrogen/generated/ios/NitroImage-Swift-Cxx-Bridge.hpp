@@ -92,7 +92,7 @@ namespace margelo::nitro::image::bridge::swift {
     return optional.has_value();
   }
   inline bool get_std__optional_bool_(const std::optional<bool>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::shared_ptr<Promise<RawPixelData>>
@@ -163,7 +163,7 @@ namespace margelo::nitro::image::bridge::swift {
     return optional.has_value();
   }
   inline double get_std__optional_double_(const std::optional<double>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::shared_ptr<Promise<EncodedImageData>>
@@ -450,7 +450,7 @@ namespace margelo::nitro::image::bridge::swift {
     return optional.has_value();
   }
   inline Color get_std__optional_Color_(const std::optional<Color>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::shared_ptr<HybridImageFactorySpec>
@@ -581,7 +581,7 @@ namespace margelo::nitro::image::bridge::swift {
     return optional.has_value();
   }
   inline std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>> get_std__optional_std__variant_std__shared_ptr_HybridImageSpec___std__shared_ptr_HybridImageLoaderSpec___(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::optional<ResizeMode>
@@ -596,7 +596,7 @@ namespace margelo::nitro::image::bridge::swift {
     return optional.has_value();
   }
   inline ResizeMode get_std__optional_ResizeMode_(const std::optional<ResizeMode>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::optional<std::string>
@@ -611,7 +611,7 @@ namespace margelo::nitro::image::bridge::swift {
     return optional.has_value();
   }
   inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
 
 } // namespace margelo::nitro::image::bridge::swift

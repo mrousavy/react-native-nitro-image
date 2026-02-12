@@ -72,7 +72,7 @@ namespace margelo::nitro::web::image::bridge::swift {
     return optional.has_value();
   }
   inline AsyncImagePriority get_std__optional_AsyncImagePriority_(const std::optional<AsyncImagePriority>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::optional<bool>
@@ -87,7 +87,7 @@ namespace margelo::nitro::web::image::bridge::swift {
     return optional.has_value();
   }
   inline bool get_std__optional_bool_(const std::optional<bool>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::optional<std::string>
@@ -102,7 +102,7 @@ namespace margelo::nitro::web::image::bridge::swift {
     return optional.has_value();
   }
   inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::optional<AsyncImageLoadOptions>
@@ -117,7 +117,7 @@ namespace margelo::nitro::web::image::bridge::swift {
     return optional.has_value();
   }
   inline AsyncImageLoadOptions get_std__optional_AsyncImageLoadOptions_(const std::optional<AsyncImageLoadOptions>& optional) noexcept {
-    return *optional;
+    return optional.value();
   }
   
   // pragma MARK: std::shared_ptr<margelo::nitro::image::HybridImageSpec>
