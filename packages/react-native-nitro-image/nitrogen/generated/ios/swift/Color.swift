@@ -45,6 +45,13 @@ public extension Color {
   
   @inline(__always)
   var a: Double? {
-    return self.__a.value
+    return { () -> Double? in
+      if bridge.has_value_std__optional_double_(self.__a) {
+        let __unwrapped = bridge.get_std__optional_double_(self.__a)
+        return __unwrapped
+      } else {
+        return nil
+      }
+    }()
   }
 }
