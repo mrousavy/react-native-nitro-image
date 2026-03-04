@@ -1,6 +1,9 @@
 #include <jni.h>
+#include <fbjni/fbjni.h>
 #include "NitroWebImageOnLoad.hpp"
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
-  return margelo::nitro::web::image::initialize(vm);
+  return facebook::jni::initialize(vm, []() {
+    margelo::nitro::image::web::registerAllNatives();
+  });
 }
