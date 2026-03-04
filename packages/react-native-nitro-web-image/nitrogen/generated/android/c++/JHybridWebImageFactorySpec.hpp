@@ -18,34 +18,33 @@ namespace margelo::nitro::web::image {
 
   using namespace facebook;
 
-  class JHybridWebImageFactorySpec: public jni::HybridClass<JHybridWebImageFactorySpec, JHybridObject>,
-                                    public virtual HybridWebImageFactorySpec {
+  class JHybridWebImageFactorySpec: public virtual HybridWebImageFactorySpec, public virtual JHybridObject {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactorySpec;";
-    static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
-    static void registerNatives();
+    struct JavaPart: public jni::JavaClass<JavaPart, JHybridObject::JavaPart> {
+      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactorySpec;";
+      std::shared_ptr<JHybridWebImageFactorySpec> getJHybridWebImageFactorySpec();
+    };
+    struct CxxPart: public jni::HybridClass<CxxPart, JHybridObject::CxxPart> {
+      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactorySpec$CxxPart;";
+      static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
+      static void registerNatives();
+      using HybridBase::HybridBase;
+    protected:
+      std::shared_ptr<JHybridObject> createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) override;
+    };
 
-  protected:
-    // C++ constructor (called from Java via `initHybrid()`)
-    explicit JHybridWebImageFactorySpec(jni::alias_ref<jhybridobject> jThis) :
+  public:
+    explicit JHybridWebImageFactorySpec(const jni::local_ref<JHybridWebImageFactorySpec::JavaPart>& javaPart):
       HybridObject(HybridWebImageFactorySpec::TAG),
-      HybridBase(jThis),
-      _javaPart(jni::make_global(jThis)) {}
-
-  public:
+      JHybridObject(javaPart),
+      _javaPart(jni::make_global(javaPart)) {}
     ~JHybridWebImageFactorySpec() override {
       // Hermes GC can destroy JS objects on a non-JNI Thread.
       jni::ThreadScope::WithClassLoader([&] { _javaPart.reset(); });
     }
 
   public:
-    size_t getExternalMemorySize() noexcept override;
-    bool equals(const std::shared_ptr<HybridObject>& other) override;
-    void dispose() noexcept override;
-    std::string toString() override;
-
-  public:
-    inline const jni::global_ref<JHybridWebImageFactorySpec::javaobject>& getJavaPart() const noexcept {
+    inline const jni::global_ref<JHybridWebImageFactorySpec::JavaPart>& getJavaPart() const noexcept {
       return _javaPart;
     }
 
@@ -60,9 +59,7 @@ namespace margelo::nitro::web::image {
     void preload(const std::string& url) override;
 
   private:
-    friend HybridBase;
-    using HybridBase::HybridBase;
-    jni::global_ref<JHybridWebImageFactorySpec::javaobject> _javaPart;
+    jni::global_ref<JHybridWebImageFactorySpec::JavaPart> _javaPart;
   };
 
 } // namespace margelo::nitro::web::image

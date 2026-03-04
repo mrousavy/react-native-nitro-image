@@ -35,37 +35,31 @@ namespace margelo::nitro::image { enum class ImageFormat; }
 
 namespace margelo::nitro::image {
 
-  jni::local_ref<JHybridImageLoaderFactorySpec::jhybriddata> JHybridImageLoaderFactorySpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
+  std::shared_ptr<JHybridImageLoaderFactorySpec> JHybridImageLoaderFactorySpec::JavaPart::getJHybridImageLoaderFactorySpec() {
+    auto hybridObject = JHybridObject::JavaPart::getJHybridObject();
+    auto castHybridObject = std::dynamic_pointer_cast<JHybridImageLoaderFactorySpec>(hybridObject);
+    if (castHybridObject == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to downcast JHybridObject to JHybridImageLoaderFactorySpec!");
+    }
+    return castHybridObject;
+  }
+
+  jni::local_ref<JHybridImageLoaderFactorySpec::CxxPart::jhybriddata> JHybridImageLoaderFactorySpec::CxxPart::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
   }
 
-  void JHybridImageLoaderFactorySpec::registerNatives() {
-    registerHybrid({
-      makeNativeMethod("initHybrid", JHybridImageLoaderFactorySpec::initHybrid),
-    });
-  }
-
-  size_t JHybridImageLoaderFactorySpec::getExternalMemorySize() noexcept {
-    static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
-    return method(_javaPart);
-  }
-
-  bool JHybridImageLoaderFactorySpec::equals(const std::shared_ptr<HybridObject>& other) {
-    if (auto otherCast = std::dynamic_pointer_cast<JHybridImageLoaderFactorySpec>(other)) {
-      return _javaPart == otherCast->_javaPart;
+  std::shared_ptr<JHybridObject> JHybridImageLoaderFactorySpec::CxxPart::createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) {
+    auto castJavaPart = jni::dynamic_ref_cast<JHybridImageLoaderFactorySpec::JavaPart>(javaPart);
+    if (castJavaPart == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to cast JHybridObject::JavaPart to JHybridImageLoaderFactorySpec::JavaPart!");
     }
-    return false;
+    return std::make_shared<JHybridImageLoaderFactorySpec>(castJavaPart);
   }
 
-  void JHybridImageLoaderFactorySpec::dispose() noexcept {
-    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
-    method(_javaPart);
-  }
-
-  std::string JHybridImageLoaderFactorySpec::toString() {
-    static const auto method = javaClassStatic()->getMethod<jni::JString()>("toString");
-    auto javaString = method(_javaPart);
-    return javaString->toStdString();
+  void JHybridImageLoaderFactorySpec::CxxPart::registerNatives() {
+    registerHybrid({
+      makeNativeMethod("initHybrid", JHybridImageLoaderFactorySpec::CxxPart::initHybrid),
+    });
   }
 
   // Properties
@@ -73,29 +67,29 @@ namespace margelo::nitro::image {
 
   // Methods
   std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createFileImageLoader(const std::string& filePath) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* filePath */)>("createFileImageLoader");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::JavaPart>(jni::alias_ref<jni::JString> /* filePath */)>("createFileImageLoader");
     auto __result = method(_javaPart, jni::make_jstring(filePath));
-    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
+    return __result->getJHybridImageLoaderSpec();
   }
   std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createResourceImageLoader(const std::string& name) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* name */)>("createResourceImageLoader");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::JavaPart>(jni::alias_ref<jni::JString> /* name */)>("createResourceImageLoader");
     auto __result = method(_javaPart, jni::make_jstring(name));
-    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
+    return __result->getJHybridImageLoaderSpec();
   }
   std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createSymbolImageLoader(const std::string& symbolName) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* symbolName */)>("createSymbolImageLoader");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::JavaPart>(jni::alias_ref<jni::JString> /* symbolName */)>("createSymbolImageLoader");
     auto __result = method(_javaPart, jni::make_jstring(symbolName));
-    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
+    return __result->getJHybridImageLoaderSpec();
   }
   std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createRawPixelDataImageLoader(const RawPixelData& data) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<JRawPixelData> /* data */)>("createRawPixelDataImageLoader");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::JavaPart>(jni::alias_ref<JRawPixelData> /* data */)>("createRawPixelDataImageLoader");
     auto __result = method(_javaPart, JRawPixelData::fromCpp(data));
-    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
+    return __result->getJHybridImageLoaderSpec();
   }
   std::shared_ptr<HybridImageLoaderSpec> JHybridImageLoaderFactorySpec::createEncodedImageDataImageLoader(const EncodedImageData& data) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::javaobject>(jni::alias_ref<JEncodedImageData> /* data */)>("createEncodedImageDataImageLoader");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageLoaderSpec::JavaPart>(jni::alias_ref<JEncodedImageData> /* data */)>("createEncodedImageDataImageLoader");
     auto __result = method(_javaPart, JEncodedImageData::fromCpp(data));
-    return __result->cthis()->shared_cast<JHybridImageLoaderSpec>();
+    return __result->getJHybridImageLoaderSpec();
   }
 
 } // namespace margelo::nitro::image

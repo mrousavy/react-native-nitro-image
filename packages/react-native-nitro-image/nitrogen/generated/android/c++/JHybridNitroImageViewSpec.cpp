@@ -28,65 +28,59 @@ namespace margelo::nitro::image { enum class ResizeMode; }
 
 namespace margelo::nitro::image {
 
-  jni::local_ref<JHybridNitroImageViewSpec::jhybriddata> JHybridNitroImageViewSpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
+  std::shared_ptr<JHybridNitroImageViewSpec> JHybridNitroImageViewSpec::JavaPart::getJHybridNitroImageViewSpec() {
+    auto hybridObject = JHybridObject::JavaPart::getJHybridObject();
+    auto castHybridObject = std::dynamic_pointer_cast<JHybridNitroImageViewSpec>(hybridObject);
+    if (castHybridObject == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to downcast JHybridObject to JHybridNitroImageViewSpec!");
+    }
+    return castHybridObject;
+  }
+
+  jni::local_ref<JHybridNitroImageViewSpec::CxxPart::jhybriddata> JHybridNitroImageViewSpec::CxxPart::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
   }
 
-  void JHybridNitroImageViewSpec::registerNatives() {
-    registerHybrid({
-      makeNativeMethod("initHybrid", JHybridNitroImageViewSpec::initHybrid),
-    });
-  }
-
-  size_t JHybridNitroImageViewSpec::getExternalMemorySize() noexcept {
-    static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
-    return method(_javaPart);
-  }
-
-  bool JHybridNitroImageViewSpec::equals(const std::shared_ptr<HybridObject>& other) {
-    if (auto otherCast = std::dynamic_pointer_cast<JHybridNitroImageViewSpec>(other)) {
-      return _javaPart == otherCast->_javaPart;
+  std::shared_ptr<JHybridObject> JHybridNitroImageViewSpec::CxxPart::createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) {
+    auto castJavaPart = jni::dynamic_ref_cast<JHybridNitroImageViewSpec::JavaPart>(javaPart);
+    if (castJavaPart == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to cast JHybridObject::JavaPart to JHybridNitroImageViewSpec::JavaPart!");
     }
-    return false;
+    return std::make_shared<JHybridNitroImageViewSpec>(castJavaPart);
   }
 
-  void JHybridNitroImageViewSpec::dispose() noexcept {
-    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
-    method(_javaPart);
-  }
-
-  std::string JHybridNitroImageViewSpec::toString() {
-    static const auto method = javaClassStatic()->getMethod<jni::JString()>("toString");
-    auto javaString = method(_javaPart);
-    return javaString->toStdString();
+  void JHybridNitroImageViewSpec::CxxPart::registerNatives() {
+    registerHybrid({
+      makeNativeMethod("initHybrid", JHybridNitroImageViewSpec::CxxPart::initHybrid),
+    });
   }
 
   // Properties
   std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> JHybridNitroImageViewSpec::getImage() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec>()>("getImage");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec>()>("getImage");
     auto __result = method(_javaPart);
     return __result != nullptr ? std::make_optional(__result->toCpp()) : std::nullopt;
   }
   void JHybridNitroImageViewSpec::setImage(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& image) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> /* image */)>("setImage");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> /* image */)>("setImage");
     method(_javaPart, image.has_value() ? JVariant_HybridImageSpec_HybridImageLoaderSpec::fromCpp(image.value()) : nullptr);
   }
   std::optional<ResizeMode> JHybridNitroImageViewSpec::getResizeMode() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JResizeMode>()>("getResizeMode");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JResizeMode>()>("getResizeMode");
     auto __result = method(_javaPart);
     return __result != nullptr ? std::make_optional(__result->toCpp()) : std::nullopt;
   }
   void JHybridNitroImageViewSpec::setResizeMode(std::optional<ResizeMode> resizeMode) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<JResizeMode> /* resizeMode */)>("setResizeMode");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JResizeMode> /* resizeMode */)>("setResizeMode");
     method(_javaPart, resizeMode.has_value() ? JResizeMode::fromCpp(resizeMode.value()) : nullptr);
   }
   std::optional<std::string> JHybridNitroImageViewSpec::getRecyclingKey() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getRecyclingKey");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getRecyclingKey");
     auto __result = method(_javaPart);
     return __result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt;
   }
   void JHybridNitroImageViewSpec::setRecyclingKey(const std::optional<std::string>& recyclingKey) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* recyclingKey */)>("setRecyclingKey");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* recyclingKey */)>("setRecyclingKey");
     method(_javaPart, recyclingKey.has_value() ? jni::make_jstring(recyclingKey.value()) : nullptr);
   }
 

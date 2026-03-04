@@ -21,24 +21,34 @@
 namespace margelo::nitro::web::image {
 
 int initialize(JavaVM* vm) {
+  return facebook::jni::initialize(vm, []() {
+    ::margelo::nitro::web::image::registerAllNatives();
+  });
+}
+
+struct JHybridWebImageFactorySpecImpl: public jni::JavaClass<JHybridWebImageFactorySpecImpl, JHybridWebImageFactorySpec::JavaPart> {
+  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactory;";
+  static std::shared_ptr<JHybridWebImageFactorySpec> create() {
+    static auto constructorFn = javaClassStatic()->getConstructor<JHybridWebImageFactorySpecImpl::javaobject()>();
+    jni::local_ref<JHybridWebImageFactorySpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridWebImageFactorySpec();
+  }
+};
+
+void registerAllNatives() {
   using namespace margelo::nitro;
   using namespace margelo::nitro::web::image;
-  using namespace facebook;
 
-  return facebook::jni::initialize(vm, [] {
-    // Register native JNI methods
-    margelo::nitro::web::image::JHybridWebImageFactorySpec::registerNatives();
+  // Register native JNI methods
+  margelo::nitro::web::image::JHybridWebImageFactorySpec::CxxPart::registerNatives();
 
-    // Register Nitro Hybrid Objects
-    HybridObjectRegistry::registerHybridObjectConstructor(
-      "WebImageFactory",
-      []() -> std::shared_ptr<HybridObject> {
-        static DefaultConstructableObject<JHybridWebImageFactorySpec::javaobject> object("com/margelo/nitro/web/image/HybridWebImageFactory");
-        auto instance = object.create();
-        return instance->cthis()->shared();
-      }
-    );
-  });
+  // Register Nitro Hybrid Objects
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "WebImageFactory",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridWebImageFactorySpecImpl::create();
+    }
+  );
 }
 
 } // namespace margelo::nitro::web::image

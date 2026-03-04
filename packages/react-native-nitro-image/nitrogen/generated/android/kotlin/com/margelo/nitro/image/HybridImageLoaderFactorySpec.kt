@@ -24,23 +24,6 @@ import com.margelo.nitro.core.HybridObject
   "LocalVariableName", "PropertyName", "PrivatePropertyName", "FunctionName"
 )
 abstract class HybridImageLoaderFactorySpec: HybridObject() {
-  @DoNotStrip
-  private var mHybridData: HybridData = initHybrid()
-
-  init {
-    super.updateNative(mHybridData)
-  }
-
-  override fun updateNative(hybridData: HybridData) {
-    mHybridData = hybridData
-    super.updateNative(hybridData)
-  }
-
-  // Default implementation of `HybridObject.toString()`
-  override fun toString(): String {
-    return "[HybridObject ImageLoaderFactory]"
-  }
-
   // Properties
   
 
@@ -65,7 +48,21 @@ abstract class HybridImageLoaderFactorySpec: HybridObject() {
   @Keep
   abstract fun createEncodedImageDataImageLoader(data: EncodedImageData): HybridImageLoaderSpec
 
-  private external fun initHybrid(): HybridData
+  // Default implementation of `HybridObject.toString()`
+  override fun toString(): String {
+    return "[HybridObject ImageLoaderFactory]"
+  }
+
+  // C++ backing class
+  @DoNotStrip
+  @Keep
+  protected open class CxxPart(javaPart: HybridImageLoaderFactorySpec): HybridObject.CxxPart(javaPart) {
+    // C++ JHybridImageLoaderFactorySpec::CxxPart::initHybrid(...)
+    external override fun initHybrid(): HybridData
+  }
+  override fun createCxxPart(): CxxPart {
+    return CxxPart(this)
+  }
 
   companion object {
     protected const val TAG = "HybridImageLoaderFactorySpec"

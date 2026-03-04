@@ -15,11 +15,11 @@ namespace margelo::nitro::image {
     if (isInstanceOf(JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::First::javaClassStatic())) {
       // It's a `std::shared_ptr<HybridImageSpec>`
       auto jniValue = static_cast<const JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::First*>(this)->getValue();
-      return jniValue->cthis()->shared_cast<JHybridImageSpec>();
+      return jniValue->getJHybridImageSpec();
     } else if (isInstanceOf(JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::Second::javaClassStatic())) {
       // It's a `std::shared_ptr<HybridImageLoaderSpec>`
       auto jniValue = static_cast<const JVariant_HybridImageSpec_HybridImageLoaderSpec_impl::Second*>(this)->getValue();
-      return jniValue->cthis()->shared_cast<JHybridImageLoaderSpec>();
+      return jniValue->getJHybridImageLoaderSpec();
     }
     throw std::invalid_argument("Variant is unknown Kotlin instance!");
   }

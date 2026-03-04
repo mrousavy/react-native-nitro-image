@@ -16,9 +16,9 @@ using namespace facebook;
 using ConcreteStateData = react::ConcreteState<HybridNitroImageViewState>;
 
 void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JClass> /* class */,
-                                           jni::alias_ref<JHybridNitroImageViewSpec::javaobject> javaView,
+                                           jni::alias_ref<JHybridNitroImageViewSpec::JavaPart> javaView,
                                            jni::alias_ref<JStateWrapper::javaobject> stateWrapperInterface) {
-  JHybridNitroImageViewSpec* view = javaView->cthis();
+  std::shared_ptr<JHybridNitroImageViewSpec> hybridView = javaView->getJHybridNitroImageViewSpec();
 
   // Get concrete StateWrapperImpl from passed StateWrapper interface object
   jobject rawStateWrapper = stateWrapperInterface.get();
@@ -38,15 +38,15 @@ void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCla
 
   // Update all props if they are dirty
   if (props->image.isDirty) {
-    view->setImage(props->image.value);
+    hybridView->setImage(props->image.value);
     props->image.isDirty = false;
   }
   if (props->resizeMode.isDirty) {
-    view->setResizeMode(props->resizeMode.value);
+    hybridView->setResizeMode(props->resizeMode.value);
     props->resizeMode.isDirty = false;
   }
   if (props->recyclingKey.isDirty) {
-    view->setRecyclingKey(props->recyclingKey.value);
+    hybridView->setRecyclingKey(props->recyclingKey.value);
     props->recyclingKey.isDirty = false;
   }
 
@@ -55,8 +55,7 @@ void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCla
     // hybridRef changed - call it with new this
     const auto& maybeFunc = props->hybridRef.value;
     if (maybeFunc.has_value()) {
-      std::shared_ptr<JHybridNitroImageViewSpec> shared = javaView->cthis()->shared_cast<JHybridNitroImageViewSpec>();
-      maybeFunc.value()(shared);
+      maybeFunc.value()(hybridView);
     }
     props->hybridRef.isDirty = false;
   }

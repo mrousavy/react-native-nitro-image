@@ -39,59 +39,53 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 
 namespace margelo::nitro::image {
 
-  jni::local_ref<JHybridImageSpec::jhybriddata> JHybridImageSpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
+  std::shared_ptr<JHybridImageSpec> JHybridImageSpec::JavaPart::getJHybridImageSpec() {
+    auto hybridObject = JHybridObject::JavaPart::getJHybridObject();
+    auto castHybridObject = std::dynamic_pointer_cast<JHybridImageSpec>(hybridObject);
+    if (castHybridObject == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to downcast JHybridObject to JHybridImageSpec!");
+    }
+    return castHybridObject;
+  }
+
+  jni::local_ref<JHybridImageSpec::CxxPart::jhybriddata> JHybridImageSpec::CxxPart::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
   }
 
-  void JHybridImageSpec::registerNatives() {
-    registerHybrid({
-      makeNativeMethod("initHybrid", JHybridImageSpec::initHybrid),
-    });
-  }
-
-  size_t JHybridImageSpec::getExternalMemorySize() noexcept {
-    static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
-    return method(_javaPart);
-  }
-
-  bool JHybridImageSpec::equals(const std::shared_ptr<HybridObject>& other) {
-    if (auto otherCast = std::dynamic_pointer_cast<JHybridImageSpec>(other)) {
-      return _javaPart == otherCast->_javaPart;
+  std::shared_ptr<JHybridObject> JHybridImageSpec::CxxPart::createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) {
+    auto castJavaPart = jni::dynamic_ref_cast<JHybridImageSpec::JavaPart>(javaPart);
+    if (castJavaPart == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to cast JHybridObject::JavaPart to JHybridImageSpec::JavaPart!");
     }
-    return false;
+    return std::make_shared<JHybridImageSpec>(castJavaPart);
   }
 
-  void JHybridImageSpec::dispose() noexcept {
-    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
-    method(_javaPart);
-  }
-
-  std::string JHybridImageSpec::toString() {
-    static const auto method = javaClassStatic()->getMethod<jni::JString()>("toString");
-    auto javaString = method(_javaPart);
-    return javaString->toStdString();
+  void JHybridImageSpec::CxxPart::registerNatives() {
+    registerHybrid({
+      makeNativeMethod("initHybrid", JHybridImageSpec::CxxPart::initHybrid),
+    });
   }
 
   // Properties
   double JHybridImageSpec::getWidth() {
-    static const auto method = javaClassStatic()->getMethod<double()>("getWidth");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<double()>("getWidth");
     auto __result = method(_javaPart);
     return __result;
   }
   double JHybridImageSpec::getHeight() {
-    static const auto method = javaClassStatic()->getMethod<double()>("getHeight");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<double()>("getHeight");
     auto __result = method(_javaPart);
     return __result;
   }
 
   // Methods
   RawPixelData JHybridImageSpec::toRawPixelData(std::optional<bool> allowGpu) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JRawPixelData>(jni::alias_ref<jni::JBoolean> /* allowGpu */)>("toRawPixelData");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JRawPixelData>(jni::alias_ref<jni::JBoolean> /* allowGpu */)>("toRawPixelData");
     auto __result = method(_javaPart, allowGpu.has_value() ? jni::JBoolean::valueOf(allowGpu.value()) : nullptr);
     return __result->toCpp();
   }
   std::shared_ptr<Promise<RawPixelData>> JHybridImageSpec::toRawPixelDataAsync(std::optional<bool> allowGpu) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JBoolean> /* allowGpu */)>("toRawPixelDataAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JBoolean> /* allowGpu */)>("toRawPixelDataAsync");
     auto __result = method(_javaPart, allowGpu.has_value() ? jni::JBoolean::valueOf(allowGpu.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<RawPixelData>::create();
@@ -107,12 +101,12 @@ namespace margelo::nitro::image {
     }();
   }
   EncodedImageData JHybridImageSpec::toEncodedImageData(ImageFormat format, std::optional<double> quality) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JEncodedImageData>(jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("toEncodedImageData");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JEncodedImageData>(jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("toEncodedImageData");
     auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality.has_value() ? jni::JDouble::valueOf(quality.value()) : nullptr);
     return __result->toCpp();
   }
   std::shared_ptr<Promise<EncodedImageData>> JHybridImageSpec::toEncodedImageDataAsync(ImageFormat format, std::optional<double> quality) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("toEncodedImageDataAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("toEncodedImageDataAsync");
     auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality.has_value() ? jni::JDouble::valueOf(quality.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<EncodedImageData>::create();
@@ -128,18 +122,18 @@ namespace margelo::nitro::image {
     }();
   }
   std::shared_ptr<HybridImageSpec> JHybridImageSpec::resize(double width, double height) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* width */, double /* height */)>("resize");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::JavaPart>(double /* width */, double /* height */)>("resize");
     auto __result = method(_javaPart, width, height);
-    return __result->cthis()->shared_cast<JHybridImageSpec>();
+    return __result->getJHybridImageSpec();
   }
   std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::resizeAsync(double width, double height) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* width */, double /* height */)>("resizeAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* width */, double /* height */)>("resizeAsync");
     auto __result = method(_javaPart, width, height);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+        auto __result = jni::static_ref_cast<JHybridImageSpec::JavaPart>(__boxedResult);
+        __promise->resolve(__result->getJHybridImageSpec());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -149,18 +143,18 @@ namespace margelo::nitro::image {
     }();
   }
   std::shared_ptr<HybridImageSpec> JHybridImageSpec::rotate(double degrees, std::optional<bool> allowFastFlagRotation) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* degrees */, jni::alias_ref<jni::JBoolean> /* allowFastFlagRotation */)>("rotate");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::JavaPart>(double /* degrees */, jni::alias_ref<jni::JBoolean> /* allowFastFlagRotation */)>("rotate");
     auto __result = method(_javaPart, degrees, allowFastFlagRotation.has_value() ? jni::JBoolean::valueOf(allowFastFlagRotation.value()) : nullptr);
-    return __result->cthis()->shared_cast<JHybridImageSpec>();
+    return __result->getJHybridImageSpec();
   }
   std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::rotateAsync(double degrees, std::optional<bool> allowFastFlagRotation) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* degrees */, jni::alias_ref<jni::JBoolean> /* allowFastFlagRotation */)>("rotateAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* degrees */, jni::alias_ref<jni::JBoolean> /* allowFastFlagRotation */)>("rotateAsync");
     auto __result = method(_javaPart, degrees, allowFastFlagRotation.has_value() ? jni::JBoolean::valueOf(allowFastFlagRotation.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+        auto __result = jni::static_ref_cast<JHybridImageSpec::JavaPart>(__boxedResult);
+        __promise->resolve(__result->getJHybridImageSpec());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -170,18 +164,18 @@ namespace margelo::nitro::image {
     }();
   }
   std::shared_ptr<HybridImageSpec> JHybridImageSpec::crop(double startX, double startY, double endX, double endY) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(double /* startX */, double /* startY */, double /* endX */, double /* endY */)>("crop");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::JavaPart>(double /* startX */, double /* startY */, double /* endX */, double /* endY */)>("crop");
     auto __result = method(_javaPart, startX, startY, endX, endY);
-    return __result->cthis()->shared_cast<JHybridImageSpec>();
+    return __result->getJHybridImageSpec();
   }
   std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::cropAsync(double startX, double startY, double endX, double endY) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* startX */, double /* startY */, double /* endX */, double /* endY */)>("cropAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(double /* startX */, double /* startY */, double /* endX */, double /* endY */)>("cropAsync");
     auto __result = method(_javaPart, startX, startY, endX, endY);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+        auto __result = jni::static_ref_cast<JHybridImageSpec::JavaPart>(__boxedResult);
+        __promise->resolve(__result->getJHybridImageSpec());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -191,18 +185,18 @@ namespace margelo::nitro::image {
     }();
   }
   std::shared_ptr<HybridImageSpec> JHybridImageSpec::mirrorHorizontally() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>()>("mirrorHorizontally");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::JavaPart>()>("mirrorHorizontally");
     auto __result = method(_javaPart);
-    return __result->cthis()->shared_cast<JHybridImageSpec>();
+    return __result->getJHybridImageSpec();
   }
   std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::mirrorHorizontallyAsync() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("mirrorHorizontallyAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("mirrorHorizontallyAsync");
     auto __result = method(_javaPart);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+        auto __result = jni::static_ref_cast<JHybridImageSpec::JavaPart>(__boxedResult);
+        __promise->resolve(__result->getJHybridImageSpec());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -212,7 +206,7 @@ namespace margelo::nitro::image {
     }();
   }
   std::shared_ptr<Promise<void>> JHybridImageSpec::saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* path */, jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("saveToFileAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* path */, jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("saveToFileAsync");
     auto __result = method(_javaPart, jni::make_jstring(path), JImageFormat::fromCpp(format), quality.has_value() ? jni::JDouble::valueOf(quality.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<void>::create();
@@ -227,7 +221,7 @@ namespace margelo::nitro::image {
     }();
   }
   std::shared_ptr<Promise<std::string>> JHybridImageSpec::saveToTemporaryFileAsync(ImageFormat format, std::optional<double> quality) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("saveToTemporaryFileAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JImageFormat> /* format */, jni::alias_ref<jni::JDouble> /* quality */)>("saveToTemporaryFileAsync");
     auto __result = method(_javaPart, JImageFormat::fromCpp(format), quality.has_value() ? jni::JDouble::valueOf(quality.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::string>::create();
@@ -243,12 +237,12 @@ namespace margelo::nitro::image {
     }();
   }
   std::shared_ptr<ArrayBuffer> JHybridImageSpec::toThumbHash() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JArrayBuffer::javaobject>()>("toThumbHash");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JArrayBuffer::javaobject>()>("toThumbHash");
     auto __result = method(_javaPart);
     return __result->cthis()->getArrayBuffer();
   }
   std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> JHybridImageSpec::toThumbHashAsync() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("toThumbHashAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("toThumbHashAsync");
     auto __result = method(_javaPart);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<ArrayBuffer>>::create();
@@ -264,18 +258,18 @@ namespace margelo::nitro::image {
     }();
   }
   std::shared_ptr<HybridImageSpec> JHybridImageSpec::renderInto(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::javaobject>(jni::alias_ref<JHybridImageSpec::javaobject> /* image */, double /* x */, double /* y */, double /* width */, double /* height */)>("renderInto");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::JavaPart>(jni::alias_ref<JHybridImageSpec::JavaPart> /* image */, double /* x */, double /* y */, double /* width */, double /* height */)>("renderInto");
     auto __result = method(_javaPart, std::dynamic_pointer_cast<JHybridImageSpec>(image)->getJavaPart(), x, y, width, height);
-    return __result->cthis()->shared_cast<JHybridImageSpec>();
+    return __result->getJHybridImageSpec();
   }
   std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageSpec::renderIntoAsync(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JHybridImageSpec::javaobject> /* image */, double /* x */, double /* y */, double /* width */, double /* height */)>("renderIntoAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JHybridImageSpec::JavaPart> /* image */, double /* x */, double /* y */, double /* width */, double /* height */)>("renderIntoAsync");
     auto __result = method(_javaPart, std::dynamic_pointer_cast<JHybridImageSpec>(image)->getJavaPart(), x, y, width, height);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(__result->cthis()->shared_cast<JHybridImageSpec>());
+        auto __result = jni::static_ref_cast<JHybridImageSpec::JavaPart>(__boxedResult);
+        __promise->resolve(__result->getJHybridImageSpec());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);

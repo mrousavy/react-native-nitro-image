@@ -25,23 +25,6 @@ import com.margelo.nitro.core.HybridObject
   "LocalVariableName", "PropertyName", "PrivatePropertyName", "FunctionName"
 )
 abstract class HybridImageUtilsSpec: HybridObject() {
-  @DoNotStrip
-  private var mHybridData: HybridData = initHybrid()
-
-  init {
-    super.updateNative(mHybridData)
-  }
-
-  override fun updateNative(hybridData: HybridData) {
-    mHybridData = hybridData
-    super.updateNative(hybridData)
-  }
-
-  // Default implementation of `HybridObject.toString()`
-  override fun toString(): String {
-    return "[HybridObject ImageUtils]"
-  }
-
   // Properties
   @get:DoNotStrip
   @get:Keep
@@ -60,7 +43,21 @@ abstract class HybridImageUtilsSpec: HybridObject() {
   @Keep
   abstract fun thumbhashFromBase64String(thumbhashBase64: String): ArrayBuffer
 
-  private external fun initHybrid(): HybridData
+  // Default implementation of `HybridObject.toString()`
+  override fun toString(): String {
+    return "[HybridObject ImageUtils]"
+  }
+
+  // C++ backing class
+  @DoNotStrip
+  @Keep
+  protected open class CxxPart(javaPart: HybridImageUtilsSpec): HybridObject.CxxPart(javaPart) {
+    // C++ JHybridImageUtilsSpec::CxxPart::initHybrid(...)
+    external override fun initHybrid(): HybridData
+  }
+  override fun createCxxPart(): CxxPart {
+    return CxxPart(this)
+  }
 
   companion object {
     protected const val TAG = "HybridImageUtilsSpec"

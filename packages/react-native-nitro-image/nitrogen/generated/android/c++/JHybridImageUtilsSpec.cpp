@@ -15,59 +15,53 @@
 
 namespace margelo::nitro::image {
 
-  jni::local_ref<JHybridImageUtilsSpec::jhybriddata> JHybridImageUtilsSpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
+  std::shared_ptr<JHybridImageUtilsSpec> JHybridImageUtilsSpec::JavaPart::getJHybridImageUtilsSpec() {
+    auto hybridObject = JHybridObject::JavaPart::getJHybridObject();
+    auto castHybridObject = std::dynamic_pointer_cast<JHybridImageUtilsSpec>(hybridObject);
+    if (castHybridObject == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to downcast JHybridObject to JHybridImageUtilsSpec!");
+    }
+    return castHybridObject;
+  }
+
+  jni::local_ref<JHybridImageUtilsSpec::CxxPart::jhybriddata> JHybridImageUtilsSpec::CxxPart::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
   }
 
-  void JHybridImageUtilsSpec::registerNatives() {
-    registerHybrid({
-      makeNativeMethod("initHybrid", JHybridImageUtilsSpec::initHybrid),
-    });
-  }
-
-  size_t JHybridImageUtilsSpec::getExternalMemorySize() noexcept {
-    static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
-    return method(_javaPart);
-  }
-
-  bool JHybridImageUtilsSpec::equals(const std::shared_ptr<HybridObject>& other) {
-    if (auto otherCast = std::dynamic_pointer_cast<JHybridImageUtilsSpec>(other)) {
-      return _javaPart == otherCast->_javaPart;
+  std::shared_ptr<JHybridObject> JHybridImageUtilsSpec::CxxPart::createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) {
+    auto castJavaPart = jni::dynamic_ref_cast<JHybridImageUtilsSpec::JavaPart>(javaPart);
+    if (castJavaPart == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to cast JHybridObject::JavaPart to JHybridImageUtilsSpec::JavaPart!");
     }
-    return false;
+    return std::make_shared<JHybridImageUtilsSpec>(castJavaPart);
   }
 
-  void JHybridImageUtilsSpec::dispose() noexcept {
-    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
-    method(_javaPart);
-  }
-
-  std::string JHybridImageUtilsSpec::toString() {
-    static const auto method = javaClassStatic()->getMethod<jni::JString()>("toString");
-    auto javaString = method(_javaPart);
-    return javaString->toStdString();
+  void JHybridImageUtilsSpec::CxxPart::registerNatives() {
+    registerHybrid({
+      makeNativeMethod("initHybrid", JHybridImageUtilsSpec::CxxPart::initHybrid),
+    });
   }
 
   // Properties
   bool JHybridImageUtilsSpec::getSupportsHeicLoading() {
-    static const auto method = javaClassStatic()->getMethod<jboolean()>("getSupportsHeicLoading");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("getSupportsHeicLoading");
     auto __result = method(_javaPart);
     return static_cast<bool>(__result);
   }
   bool JHybridImageUtilsSpec::getSupportsHeicWriting() {
-    static const auto method = javaClassStatic()->getMethod<jboolean()>("getSupportsHeicWriting");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("getSupportsHeicWriting");
     auto __result = method(_javaPart);
     return static_cast<bool>(__result);
   }
 
   // Methods
   std::string JHybridImageUtilsSpec::thumbHashToBase64String(const std::shared_ptr<ArrayBuffer>& thumbhash) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>(jni::alias_ref<JArrayBuffer::javaobject> /* thumbhash */)>("thumbHashToBase64String");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>(jni::alias_ref<JArrayBuffer::javaobject> /* thumbhash */)>("thumbHashToBase64String");
     auto __result = method(_javaPart, JArrayBuffer::wrap(thumbhash));
     return __result->toStdString();
   }
   std::shared_ptr<ArrayBuffer> JHybridImageUtilsSpec::thumbhashFromBase64String(const std::string& thumbhashBase64) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JArrayBuffer::javaobject>(jni::alias_ref<jni::JString> /* thumbhashBase64 */)>("thumbhashFromBase64String");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JArrayBuffer::javaobject>(jni::alias_ref<jni::JString> /* thumbhashBase64 */)>("thumbhashFromBase64String");
     auto __result = method(_javaPart, jni::make_jstring(thumbhashBase64));
     return __result->cthis()->getArrayBuffer();
   }

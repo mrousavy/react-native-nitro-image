@@ -18,34 +18,33 @@ namespace margelo::nitro::image {
 
   using namespace facebook;
 
-  class JHybridImageSpec: public jni::HybridClass<JHybridImageSpec, JHybridObject>,
-                          public virtual HybridImageSpec {
+  class JHybridImageSpec: public virtual HybridImageSpec, public virtual JHybridObject {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageSpec;";
-    static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
-    static void registerNatives();
+    struct JavaPart: public jni::JavaClass<JavaPart, JHybridObject::JavaPart> {
+      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageSpec;";
+      std::shared_ptr<JHybridImageSpec> getJHybridImageSpec();
+    };
+    struct CxxPart: public jni::HybridClass<CxxPart, JHybridObject::CxxPart> {
+      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageSpec$CxxPart;";
+      static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
+      static void registerNatives();
+      using HybridBase::HybridBase;
+    protected:
+      std::shared_ptr<JHybridObject> createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) override;
+    };
 
-  protected:
-    // C++ constructor (called from Java via `initHybrid()`)
-    explicit JHybridImageSpec(jni::alias_ref<jhybridobject> jThis) :
+  public:
+    explicit JHybridImageSpec(const jni::local_ref<JHybridImageSpec::JavaPart>& javaPart):
       HybridObject(HybridImageSpec::TAG),
-      HybridBase(jThis),
-      _javaPart(jni::make_global(jThis)) {}
-
-  public:
+      JHybridObject(javaPart),
+      _javaPart(jni::make_global(javaPart)) {}
     ~JHybridImageSpec() override {
       // Hermes GC can destroy JS objects on a non-JNI Thread.
       jni::ThreadScope::WithClassLoader([&] { _javaPart.reset(); });
     }
 
   public:
-    size_t getExternalMemorySize() noexcept override;
-    bool equals(const std::shared_ptr<HybridObject>& other) override;
-    void dispose() noexcept override;
-    std::string toString() override;
-
-  public:
-    inline const jni::global_ref<JHybridImageSpec::javaobject>& getJavaPart() const noexcept {
+    inline const jni::global_ref<JHybridImageSpec::JavaPart>& getJavaPart() const noexcept {
       return _javaPart;
     }
 
@@ -76,9 +75,7 @@ namespace margelo::nitro::image {
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> renderIntoAsync(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) override;
 
   private:
-    friend HybridBase;
-    using HybridBase::HybridBase;
-    jni::global_ref<JHybridImageSpec::javaobject> _javaPart;
+    jni::global_ref<JHybridImageSpec::JavaPart> _javaPart;
   };
 
 } // namespace margelo::nitro::image

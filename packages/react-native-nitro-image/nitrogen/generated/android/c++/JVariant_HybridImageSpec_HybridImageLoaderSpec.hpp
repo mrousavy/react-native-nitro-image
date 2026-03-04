@@ -28,12 +28,12 @@ namespace margelo::nitro::image {
   public:
     static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec;";
 
-    static jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> create_0(jni::alias_ref<JHybridImageSpec::javaobject> value) {
-      static const auto method = javaClassStatic()->getStaticMethod<JVariant_HybridImageSpec_HybridImageLoaderSpec(jni::alias_ref<JHybridImageSpec::javaobject>)>("create");
+    static jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> create_0(jni::alias_ref<JHybridImageSpec::JavaPart> value) {
+      static const auto method = javaClassStatic()->getStaticMethod<JVariant_HybridImageSpec_HybridImageLoaderSpec(jni::alias_ref<JHybridImageSpec::JavaPart>)>("create");
       return method(javaClassStatic(), value);
     }
-    static jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> create_1(jni::alias_ref<JHybridImageLoaderSpec::javaobject> value) {
-      static const auto method = javaClassStatic()->getStaticMethod<JVariant_HybridImageSpec_HybridImageLoaderSpec(jni::alias_ref<JHybridImageLoaderSpec::javaobject>)>("create");
+    static jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> create_1(jni::alias_ref<JHybridImageLoaderSpec::JavaPart> value) {
+      static const auto method = javaClassStatic()->getStaticMethod<JVariant_HybridImageSpec_HybridImageLoaderSpec(jni::alias_ref<JHybridImageLoaderSpec::JavaPart>)>("create");
       return method(javaClassStatic(), value);
     }
 
@@ -53,8 +53,8 @@ namespace margelo::nitro::image {
     public:
       static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec$First;";
     
-      [[nodiscard]] jni::local_ref<JHybridImageSpec::javaobject> getValue() const {
-        static const auto field = javaClassStatic()->getField<JHybridImageSpec::javaobject>("value");
+      [[nodiscard]] jni::local_ref<JHybridImageSpec::JavaPart> getValue() const {
+        static const auto field = javaClassStatic()->getField<JHybridImageSpec::JavaPart>("value");
         return getFieldValue(field);
       }
     };
@@ -63,8 +63,8 @@ namespace margelo::nitro::image {
     public:
       static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec$Second;";
     
-      [[nodiscard]] jni::local_ref<JHybridImageLoaderSpec::javaobject> getValue() const {
-        static const auto field = javaClassStatic()->getField<JHybridImageLoaderSpec::javaobject>("value");
+      [[nodiscard]] jni::local_ref<JHybridImageLoaderSpec::JavaPart> getValue() const {
+        static const auto field = javaClassStatic()->getField<JHybridImageLoaderSpec::JavaPart>("value");
         return getFieldValue(field);
       }
     };

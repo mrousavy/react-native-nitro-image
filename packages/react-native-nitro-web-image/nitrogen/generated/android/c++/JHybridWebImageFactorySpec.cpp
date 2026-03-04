@@ -32,37 +32,31 @@ namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 
 namespace margelo::nitro::web::image {
 
-  jni::local_ref<JHybridWebImageFactorySpec::jhybriddata> JHybridWebImageFactorySpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
+  std::shared_ptr<JHybridWebImageFactorySpec> JHybridWebImageFactorySpec::JavaPart::getJHybridWebImageFactorySpec() {
+    auto hybridObject = JHybridObject::JavaPart::getJHybridObject();
+    auto castHybridObject = std::dynamic_pointer_cast<JHybridWebImageFactorySpec>(hybridObject);
+    if (castHybridObject == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to downcast JHybridObject to JHybridWebImageFactorySpec!");
+    }
+    return castHybridObject;
+  }
+
+  jni::local_ref<JHybridWebImageFactorySpec::CxxPart::jhybriddata> JHybridWebImageFactorySpec::CxxPart::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
   }
 
-  void JHybridWebImageFactorySpec::registerNatives() {
-    registerHybrid({
-      makeNativeMethod("initHybrid", JHybridWebImageFactorySpec::initHybrid),
-    });
-  }
-
-  size_t JHybridWebImageFactorySpec::getExternalMemorySize() noexcept {
-    static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
-    return method(_javaPart);
-  }
-
-  bool JHybridWebImageFactorySpec::equals(const std::shared_ptr<HybridObject>& other) {
-    if (auto otherCast = std::dynamic_pointer_cast<JHybridWebImageFactorySpec>(other)) {
-      return _javaPart == otherCast->_javaPart;
+  std::shared_ptr<JHybridObject> JHybridWebImageFactorySpec::CxxPart::createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) {
+    auto castJavaPart = jni::dynamic_ref_cast<JHybridWebImageFactorySpec::JavaPart>(javaPart);
+    if (castJavaPart == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to cast JHybridObject::JavaPart to JHybridWebImageFactorySpec::JavaPart!");
     }
-    return false;
+    return std::make_shared<JHybridWebImageFactorySpec>(castJavaPart);
   }
 
-  void JHybridWebImageFactorySpec::dispose() noexcept {
-    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
-    method(_javaPart);
-  }
-
-  std::string JHybridWebImageFactorySpec::toString() {
-    static const auto method = javaClassStatic()->getMethod<jni::JString()>("toString");
-    auto javaString = method(_javaPart);
-    return javaString->toStdString();
+  void JHybridWebImageFactorySpec::CxxPart::registerNatives() {
+    registerHybrid({
+      makeNativeMethod("initHybrid", JHybridWebImageFactorySpec::CxxPart::initHybrid),
+    });
   }
 
   // Properties
@@ -70,18 +64,18 @@ namespace margelo::nitro::web::image {
 
   // Methods
   std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> JHybridWebImageFactorySpec::createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<margelo::nitro::image::JHybridImageLoaderSpec::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("createWebImageLoader");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<margelo::nitro::image::JHybridImageLoaderSpec::JavaPart>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("createWebImageLoader");
     auto __result = method(_javaPart, jni::make_jstring(url), options.has_value() ? JAsyncImageLoadOptions::fromCpp(options.value()) : nullptr);
-    return __result->cthis()->shared_cast<margelo::nitro::image::JHybridImageLoaderSpec>();
+    return __result->getJHybridImageLoaderSpec();
   }
   std::shared_ptr<Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>> JHybridWebImageFactorySpec::loadFromURLAsync(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("loadFromURLAsync");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* url */, jni::alias_ref<JAsyncImageLoadOptions> /* options */)>("loadFromURLAsync");
     auto __result = method(_javaPart, jni::make_jstring(url), options.has_value() ? JAsyncImageLoadOptions::fromCpp(options.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::shared_ptr<margelo::nitro::image::HybridImageSpec>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<margelo::nitro::image::JHybridImageSpec::javaobject>(__boxedResult);
-        __promise->resolve(__result->cthis()->shared_cast<margelo::nitro::image::JHybridImageSpec>());
+        auto __result = jni::static_ref_cast<margelo::nitro::image::JHybridImageSpec::JavaPart>(__boxedResult);
+        __promise->resolve(__result->getJHybridImageSpec());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
@@ -91,7 +85,7 @@ namespace margelo::nitro::web::image {
     }();
   }
   void JHybridWebImageFactorySpec::preload(const std::string& url) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* url */)>("preload");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* url */)>("preload");
     method(_javaPart, jni::make_jstring(url));
   }
 

@@ -27,54 +27,82 @@
 namespace margelo::nitro::image {
 
 int initialize(JavaVM* vm) {
+  return facebook::jni::initialize(vm, []() {
+    ::margelo::nitro::image::registerAllNatives();
+  });
+}
+
+struct JHybridImageFactorySpecImpl: public jni::JavaClass<JHybridImageFactorySpecImpl, JHybridImageFactorySpec::JavaPart> {
+  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageFactory;";
+  static std::shared_ptr<JHybridImageFactorySpec> create() {
+    static auto constructorFn = javaClassStatic()->getConstructor<JHybridImageFactorySpecImpl::javaobject()>();
+    jni::local_ref<JHybridImageFactorySpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridImageFactorySpec();
+  }
+};
+struct JHybridImageLoaderFactorySpecImpl: public jni::JavaClass<JHybridImageLoaderFactorySpecImpl, JHybridImageLoaderFactorySpec::JavaPart> {
+  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageLoaderFactory;";
+  static std::shared_ptr<JHybridImageLoaderFactorySpec> create() {
+    static auto constructorFn = javaClassStatic()->getConstructor<JHybridImageLoaderFactorySpecImpl::javaobject()>();
+    jni::local_ref<JHybridImageLoaderFactorySpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridImageLoaderFactorySpec();
+  }
+};
+struct JHybridImageUtilsSpecImpl: public jni::JavaClass<JHybridImageUtilsSpecImpl, JHybridImageUtilsSpec::JavaPart> {
+  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageUtils;";
+  static std::shared_ptr<JHybridImageUtilsSpec> create() {
+    static auto constructorFn = javaClassStatic()->getConstructor<JHybridImageUtilsSpecImpl::javaobject()>();
+    jni::local_ref<JHybridImageUtilsSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridImageUtilsSpec();
+  }
+};
+struct JHybridNitroImageViewSpecImpl: public jni::JavaClass<JHybridNitroImageViewSpecImpl, JHybridNitroImageViewSpec::JavaPart> {
+  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageView;";
+  static std::shared_ptr<JHybridNitroImageViewSpec> create() {
+    static auto constructorFn = javaClassStatic()->getConstructor<JHybridNitroImageViewSpecImpl::javaobject()>();
+    jni::local_ref<JHybridNitroImageViewSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridNitroImageViewSpec();
+  }
+};
+
+void registerAllNatives() {
   using namespace margelo::nitro;
   using namespace margelo::nitro::image;
-  using namespace facebook;
 
-  return facebook::jni::initialize(vm, [] {
-    // Register native JNI methods
-    margelo::nitro::image::JHybridImageSpec::registerNatives();
-    margelo::nitro::image::JHybridImageFactorySpec::registerNatives();
-    margelo::nitro::image::JHybridImageLoaderSpec::registerNatives();
-    margelo::nitro::image::JHybridImageLoaderFactorySpec::registerNatives();
-    margelo::nitro::image::JHybridImageUtilsSpec::registerNatives();
-    margelo::nitro::image::JHybridNitroImageViewSpec::registerNatives();
-    margelo::nitro::image::views::JHybridNitroImageViewStateUpdater::registerNatives();
+  // Register native JNI methods
+  margelo::nitro::image::JHybridImageSpec::CxxPart::registerNatives();
+  margelo::nitro::image::JHybridImageFactorySpec::CxxPart::registerNatives();
+  margelo::nitro::image::JHybridImageLoaderSpec::CxxPart::registerNatives();
+  margelo::nitro::image::JHybridImageLoaderFactorySpec::CxxPart::registerNatives();
+  margelo::nitro::image::JHybridImageUtilsSpec::CxxPart::registerNatives();
+  margelo::nitro::image::JHybridNitroImageViewSpec::CxxPart::registerNatives();
+  margelo::nitro::image::views::JHybridNitroImageViewStateUpdater::registerNatives();
 
-    // Register Nitro Hybrid Objects
-    HybridObjectRegistry::registerHybridObjectConstructor(
-      "ImageFactory",
-      []() -> std::shared_ptr<HybridObject> {
-        static DefaultConstructableObject<JHybridImageFactorySpec::javaobject> object("com/margelo/nitro/image/HybridImageFactory");
-        auto instance = object.create();
-        return instance->cthis()->shared();
-      }
-    );
-    HybridObjectRegistry::registerHybridObjectConstructor(
-      "ImageLoaderFactory",
-      []() -> std::shared_ptr<HybridObject> {
-        static DefaultConstructableObject<JHybridImageLoaderFactorySpec::javaobject> object("com/margelo/nitro/image/HybridImageLoaderFactory");
-        auto instance = object.create();
-        return instance->cthis()->shared();
-      }
-    );
-    HybridObjectRegistry::registerHybridObjectConstructor(
-      "ImageUtils",
-      []() -> std::shared_ptr<HybridObject> {
-        static DefaultConstructableObject<JHybridImageUtilsSpec::javaobject> object("com/margelo/nitro/image/HybridImageUtils");
-        auto instance = object.create();
-        return instance->cthis()->shared();
-      }
-    );
-    HybridObjectRegistry::registerHybridObjectConstructor(
-      "NitroImageView",
-      []() -> std::shared_ptr<HybridObject> {
-        static DefaultConstructableObject<JHybridNitroImageViewSpec::javaobject> object("com/margelo/nitro/image/HybridImageView");
-        auto instance = object.create();
-        return instance->cthis()->shared();
-      }
-    );
-  });
+  // Register Nitro Hybrid Objects
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "ImageFactory",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridImageFactorySpecImpl::create();
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "ImageLoaderFactory",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridImageLoaderFactorySpecImpl::create();
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "ImageUtils",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridImageUtilsSpecImpl::create();
+    }
+  );
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "NitroImageView",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridNitroImageViewSpecImpl::create();
+    }
+  );
 }
 
 } // namespace margelo::nitro::image
