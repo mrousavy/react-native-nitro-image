@@ -9,6 +9,7 @@ import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridImageSpec
+import com.margelo.nitro.web.image.extensions.loadImageAsync
 
 @DoNotStrip
 @Keep

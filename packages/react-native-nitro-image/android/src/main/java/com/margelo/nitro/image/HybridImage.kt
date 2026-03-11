@@ -12,6 +12,13 @@ import com.facebook.proguard.annotations.DoNotStrip
 import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
+import com.margelo.nitro.image.extensions.compressInMemory
+import com.margelo.nitro.image.extensions.isGPU
+import com.margelo.nitro.image.extensions.pixelFormat
+import com.margelo.nitro.image.extensions.saveToFile
+import com.margelo.nitro.image.extensions.toByteBuffer
+import com.margelo.nitro.image.extensions.toCpuAccessible
+import com.margelo.nitro.image.extensions.toMutable
 import java.io.File
 import java.nio.ByteBuffer
 

@@ -1,11 +1,11 @@
-package com.margelo.nitro.image
+package com.margelo.nitro.image.extensions
 
 import android.graphics.Bitmap
 import android.graphics.ColorSpace
 import android.os.Build
 import androidx.core.graphics.createBitmap
-import java.io.File
-import java.io.FileOutputStream
+import com.margelo.nitro.image.PixelFormat
+import com.margelo.nitro.image.RawPixelData
 import java.nio.IntBuffer
 
 private data class Swizzle(val r: Int, val g: Int, val b: Int, val a: Int, val bpp: Int)

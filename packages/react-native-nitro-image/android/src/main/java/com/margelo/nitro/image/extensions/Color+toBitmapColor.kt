@@ -1,4 +1,6 @@
-package com.margelo.nitro.image
+package com.margelo.nitro.image.extensions
+
+import com.margelo.nitro.image.Color
 
 fun Color.toBitmapColor(): Int {
     if (a != null) {

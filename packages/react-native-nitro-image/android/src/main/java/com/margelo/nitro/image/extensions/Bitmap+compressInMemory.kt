@@ -1,6 +1,8 @@
-package com.margelo.nitro.image
+package com.margelo.nitro.image.extensions
 
 import android.graphics.Bitmap
+import com.margelo.nitro.image.ImageFormat
+import com.margelo.nitro.image.utils.FastByteArrayOutputStream
 import java.nio.ByteBuffer
 
 fun Bitmap.compressInMemory(format: ImageFormat, quality: Int): ByteBuffer {
