@@ -13,9 +13,11 @@ export function NitroImageTab() {
         numColumns={4}
         windowSize={3}
         data={imageURLs}
+        keyExtractor={(url) => url}
         renderItem={({ item: url }) => (
           <NitroImage
             image={{ url: url }}
+            recyclingKey={url}
             style={styles.image}
             resizeMode="cover"
           />
