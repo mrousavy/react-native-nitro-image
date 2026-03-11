@@ -1,6 +1,7 @@
 package com.margelo.nitro.image
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -20,8 +21,12 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     }
     private val uiScope = CoroutineScope(Dispatchers.Main.immediate)
     private var resetImageBeforeLoad = false
+    private var isAttached = false
+    private var activeLoadTicket: HybridImageLoadTicket? = null
+    private var nextLoadGeneration = 0L
 
     val imageView = CustomImageView(context) { visible ->
+        isAttached = visible
         if (visible) onAppear()
         else onDisappear()
     }
@@ -51,7 +56,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
 
     override fun prepareForRecycle() {
         onDisappear()
-        imageView.setImageBitmap(null)
+        imageView.setImageDrawable(null)
     }
 
     private fun updateResizeMode() {
@@ -67,7 +72,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     private fun updateImage() {
         image?.match(
             { actualImage: HybridImageSpec ->
-                // Image
+                clearActiveRequest()
                 if (actualImage is HybridImage) {
                     imageView.setImageBitmap(actualImage.bitmap)
                 } else {
@@ -75,8 +80,10 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
                 }
             },
             { _: HybridImageLoaderSpec ->
-                // ImageLoader
-                onAppear()
+                // Defer loader work until the view is attached to avoid offscreen requests.
+                if (isAttached) {
+                    onAppear()
+                }
             }
         )
     }
@@ -96,10 +103,51 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
 
     private fun onDisappear() {
         val imageLoader = image?.asSecondOrNull() ?: return
+        clearActiveRequest()
         try {
             imageLoader.dropImage(this)
         } catch (e: Throwable) {
             Log.e(TAG, "Failed to drop Image!", e)
         }
+    }
+
+    fun beginLoad(imageLoader: HybridImageLoaderSpec): HybridImageLoadTicket? {
+        if (!isAttached) {
+            return null
+        }
+
+        val bindingKey = bindingKeyFor(imageLoader)
+        if (activeLoadTicket?.bindingKey == bindingKey) {
+            return null
+        }
+
+        val ticket = HybridImageLoadTicket(++nextLoadGeneration, bindingKey)
+        activeLoadTicket = ticket
+        return ticket
+    }
+
+    fun applyLoadedBitmap(
+        ticket: HybridImageLoadTicket,
+        bitmap: Bitmap
+    ): Boolean {
+        if (!isAttached) {
+            return false
+        }
+
+        if (activeLoadTicket != ticket) {
+            return false
+        }
+
+        // Ignore async completions that belong to an older binding or a detached view.
+        imageView.setImageBitmap(bitmap)
+        return true
+    }
+
+    private fun clearActiveRequest() {
+        activeLoadTicket = null
+    }
+
+    private fun bindingKeyFor(imageLoader: HybridImageLoaderSpec): String {
+        return "${System.identityHashCode(imageLoader)}:${recyclingKey ?: "none"}"
     }
 }
