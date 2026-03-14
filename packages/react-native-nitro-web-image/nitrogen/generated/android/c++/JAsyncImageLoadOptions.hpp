@@ -54,6 +54,8 @@ namespace margelo::nitro::web::image {
       jni::local_ref<jni::JBoolean> decodeImage = this->getFieldValue(fieldDecodeImage);
       static const auto fieldAllowHardware = clazz->getField<jni::JBoolean>("allowHardware");
       jni::local_ref<jni::JBoolean> allowHardware = this->getFieldValue(fieldAllowHardware);
+      static const auto fieldProgressive = clazz->getField<jni::JBoolean>("progressive");
+      jni::local_ref<jni::JBoolean> progressive = this->getFieldValue(fieldProgressive);
       return AsyncImageLoadOptions(
         priority != nullptr ? std::make_optional(priority->toCpp()) : std::nullopt,
         forceRefresh != nullptr ? std::make_optional(static_cast<bool>(forceRefresh->value())) : std::nullopt,
@@ -64,7 +66,8 @@ namespace margelo::nitro::web::image {
         queryMemoryDataSync != nullptr ? std::make_optional(static_cast<bool>(queryMemoryDataSync->value())) : std::nullopt,
         queryDiskDataSync != nullptr ? std::make_optional(static_cast<bool>(queryDiskDataSync->value())) : std::nullopt,
         decodeImage != nullptr ? std::make_optional(static_cast<bool>(decodeImage->value())) : std::nullopt,
-        allowHardware != nullptr ? std::make_optional(static_cast<bool>(allowHardware->value())) : std::nullopt
+        allowHardware != nullptr ? std::make_optional(static_cast<bool>(allowHardware->value())) : std::nullopt,
+        progressive != nullptr ? std::make_optional(static_cast<bool>(progressive->value())) : std::nullopt
       );
     }
 
@@ -74,7 +77,7 @@ namespace margelo::nitro::web::image {
      */
     [[maybe_unused]]
     static jni::local_ref<JAsyncImageLoadOptions::javaobject> fromCpp(const AsyncImageLoadOptions& value) {
-      using JSignature = JAsyncImageLoadOptions(jni::alias_ref<JAsyncImagePriority>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JString>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>);
+      using JSignature = JAsyncImageLoadOptions(jni::alias_ref<JAsyncImagePriority>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JString>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
@@ -88,7 +91,8 @@ namespace margelo::nitro::web::image {
         value.queryMemoryDataSync.has_value() ? jni::JBoolean::valueOf(value.queryMemoryDataSync.value()) : nullptr,
         value.queryDiskDataSync.has_value() ? jni::JBoolean::valueOf(value.queryDiskDataSync.value()) : nullptr,
         value.decodeImage.has_value() ? jni::JBoolean::valueOf(value.decodeImage.value()) : nullptr,
-        value.allowHardware.has_value() ? jni::JBoolean::valueOf(value.allowHardware.value()) : nullptr
+        value.allowHardware.has_value() ? jni::JBoolean::valueOf(value.allowHardware.value()) : nullptr,
+        value.progressive.has_value() ? jni::JBoolean::valueOf(value.progressive.value()) : nullptr
       );
     }
   };
