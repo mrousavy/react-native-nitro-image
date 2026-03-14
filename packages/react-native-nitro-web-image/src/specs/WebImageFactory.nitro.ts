@@ -78,6 +78,7 @@ export interface AsyncImageLoadOptions {
    *
    * To progressively display an image as it loads (web-style),
    * enable {@linkcode progressive}.
+   * @platform iOS
    * @default false
    */
   progressive?: boolean
