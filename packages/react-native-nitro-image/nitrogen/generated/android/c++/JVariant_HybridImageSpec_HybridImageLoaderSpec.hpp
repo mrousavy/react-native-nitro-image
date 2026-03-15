@@ -26,7 +26,7 @@ namespace margelo::nitro::image {
    */
   class JVariant_HybridImageSpec_HybridImageLoaderSpec: public jni::JavaClass<JVariant_HybridImageSpec_HybridImageLoaderSpec> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec;";
+    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec;";
 
     static jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec> create_0(jni::alias_ref<JHybridImageSpec::JavaPart> value) {
       static const auto method = javaClassStatic()->getStaticMethod<JVariant_HybridImageSpec_HybridImageLoaderSpec(jni::alias_ref<JHybridImageSpec::JavaPart>)>("create");
@@ -51,7 +51,7 @@ namespace margelo::nitro::image {
   namespace JVariant_HybridImageSpec_HybridImageLoaderSpec_impl {
     class First final: public jni::JavaClass<First, JVariant_HybridImageSpec_HybridImageLoaderSpec> {
     public:
-      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec$First;";
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec$First;";
     
       [[nodiscard]] jni::local_ref<JHybridImageSpec::JavaPart> getValue() const {
         static const auto field = javaClassStatic()->getField<JHybridImageSpec::JavaPart>("value");
@@ -61,7 +61,7 @@ namespace margelo::nitro::image {
     
     class Second final: public jni::JavaClass<Second, JVariant_HybridImageSpec_HybridImageLoaderSpec> {
     public:
-      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec$Second;";
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/Variant_HybridImageSpec_HybridImageLoaderSpec$Second;";
     
       [[nodiscard]] jni::local_ref<JHybridImageLoaderSpec::JavaPart> getValue() const {
         static const auto field = javaClassStatic()->getField<JHybridImageLoaderSpec::JavaPart>("value");

@@ -27,9 +27,9 @@ int initialize(JavaVM* vm) {
 }
 
 struct JHybridWebImageFactorySpecImpl: public jni::JavaClass<JHybridWebImageFactorySpecImpl, JHybridWebImageFactorySpec::JavaPart> {
-  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactory;";
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactory;";
   static std::shared_ptr<JHybridWebImageFactorySpec> create() {
-    static auto constructorFn = javaClassStatic()->getConstructor<JHybridWebImageFactorySpecImpl::javaobject()>();
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridWebImageFactorySpecImpl::javaobject()>();
     jni::local_ref<JHybridWebImageFactorySpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
     return javaPart->getJHybridWebImageFactorySpec();
   }

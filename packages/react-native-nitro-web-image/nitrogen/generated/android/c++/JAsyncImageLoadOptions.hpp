@@ -24,7 +24,7 @@ namespace margelo::nitro::web::image {
    */
   struct JAsyncImageLoadOptions final: public jni::JavaClass<JAsyncImageLoadOptions> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/AsyncImageLoadOptions;";
+    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/web/image/AsyncImageLoadOptions;";
 
   public:
     /**

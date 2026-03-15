@@ -24,7 +24,7 @@ namespace margelo::nitro::image {
    */
   struct JRawPixelData final: public jni::JavaClass<JRawPixelData> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/RawPixelData;";
+    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/RawPixelData;";
 
   public:
     /**

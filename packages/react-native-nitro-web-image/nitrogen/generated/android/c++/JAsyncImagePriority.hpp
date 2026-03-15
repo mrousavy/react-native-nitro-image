@@ -19,7 +19,7 @@ namespace margelo::nitro::web::image {
    */
   struct JAsyncImagePriority final: public jni::JavaClass<JAsyncImagePriority> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/AsyncImagePriority;";
+    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/web/image/AsyncImagePriority;";
 
   public:
     /**

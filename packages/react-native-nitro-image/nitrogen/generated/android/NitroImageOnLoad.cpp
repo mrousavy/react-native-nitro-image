@@ -33,33 +33,33 @@ int initialize(JavaVM* vm) {
 }
 
 struct JHybridImageFactorySpecImpl: public jni::JavaClass<JHybridImageFactorySpecImpl, JHybridImageFactorySpec::JavaPart> {
-  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageFactory;";
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageFactory;";
   static std::shared_ptr<JHybridImageFactorySpec> create() {
-    static auto constructorFn = javaClassStatic()->getConstructor<JHybridImageFactorySpecImpl::javaobject()>();
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridImageFactorySpecImpl::javaobject()>();
     jni::local_ref<JHybridImageFactorySpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
     return javaPart->getJHybridImageFactorySpec();
   }
 };
 struct JHybridImageLoaderFactorySpecImpl: public jni::JavaClass<JHybridImageLoaderFactorySpecImpl, JHybridImageLoaderFactorySpec::JavaPart> {
-  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageLoaderFactory;";
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageLoaderFactory;";
   static std::shared_ptr<JHybridImageLoaderFactorySpec> create() {
-    static auto constructorFn = javaClassStatic()->getConstructor<JHybridImageLoaderFactorySpecImpl::javaobject()>();
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridImageLoaderFactorySpecImpl::javaobject()>();
     jni::local_ref<JHybridImageLoaderFactorySpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
     return javaPart->getJHybridImageLoaderFactorySpec();
   }
 };
 struct JHybridImageUtilsSpecImpl: public jni::JavaClass<JHybridImageUtilsSpecImpl, JHybridImageUtilsSpec::JavaPart> {
-  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageUtils;";
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageUtils;";
   static std::shared_ptr<JHybridImageUtilsSpec> create() {
-    static auto constructorFn = javaClassStatic()->getConstructor<JHybridImageUtilsSpecImpl::javaobject()>();
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridImageUtilsSpecImpl::javaobject()>();
     jni::local_ref<JHybridImageUtilsSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
     return javaPart->getJHybridImageUtilsSpec();
   }
 };
 struct JHybridNitroImageViewSpecImpl: public jni::JavaClass<JHybridNitroImageViewSpecImpl, JHybridNitroImageViewSpec::JavaPart> {
-  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageView;";
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/HybridImageView;";
   static std::shared_ptr<JHybridNitroImageViewSpec> create() {
-    static auto constructorFn = javaClassStatic()->getConstructor<JHybridNitroImageViewSpecImpl::javaobject()>();
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridNitroImageViewSpecImpl::javaobject()>();
     jni::local_ref<JHybridNitroImageViewSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
     return javaPart->getJHybridNitroImageViewSpec();
   }

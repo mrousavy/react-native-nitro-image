@@ -24,7 +24,7 @@ namespace margelo::nitro::image {
    */
   struct JEncodedImageData final: public jni::JavaClass<JEncodedImageData> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/EncodedImageData;";
+    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/EncodedImageData;";
 
   public:
     /**

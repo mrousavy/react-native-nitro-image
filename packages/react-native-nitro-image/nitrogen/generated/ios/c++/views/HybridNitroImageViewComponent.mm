@@ -17,6 +17,13 @@
 #import "HybridNitroImageViewSpecSwift.hpp"
 #import "NitroImage-Swift-Cxx-Umbrella.hpp"
 
+#if __has_include(<cxxreact/ReactNativeVersion.h>)
+#include <cxxreact/ReactNativeVersion.h>
+#if REACT_NATIVE_VERSION_MINOR >= 82
+#define ENABLE_RCT_COMPONENT_VIEW_INVALIDATE
+#endif
+#endif
+
 using namespace facebook;
 using namespace margelo::nitro::image;
 using namespace margelo::nitro::image::views;
@@ -113,5 +120,13 @@ using namespace margelo::nitro::image::views;
   NitroImage::HybridNitroImageViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
   swiftPart.maybePrepareForRecycle();
 }
+
+#ifdef ENABLE_RCT_COMPONENT_VIEW_INVALIDATE
+- (void)invalidate {
+  NitroImage::HybridNitroImageViewSpec_cxx& swiftPart = _hybridView->getSwiftPart();
+  swiftPart.onDropView();
+  [super invalidate];
+}
+#endif
 
 @end
