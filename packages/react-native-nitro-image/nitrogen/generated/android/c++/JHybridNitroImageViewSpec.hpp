@@ -50,6 +50,8 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
+    std::optional<std::function<void()>> getOnLoad() override;
+    void setOnLoad(const std::optional<std::function<void()>>& onLoad) override;
     std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> getImage() override;
     void setImage(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& image) override;
     std::optional<ResizeMode> getResizeMode() override;

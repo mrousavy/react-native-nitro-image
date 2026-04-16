@@ -72,6 +72,11 @@ using namespace margelo::nitro::image::views;
   // 2. Update each prop individually
   swiftPart.beforeUpdate();
 
+  // onLoad: optional
+  if (newViewProps.onLoad.isDirty) {
+    swiftPart.setOnLoad(newViewProps.onLoad.value);
+    newViewProps.onLoad.isDirty = false;
+  }
   // image: optional
   if (newViewProps.image.isDirty) {
     swiftPart.setImage(newViewProps.image.value);

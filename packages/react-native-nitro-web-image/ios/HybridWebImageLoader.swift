@@ -32,6 +32,7 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
   }
 
   func requestImage(forView view: (any HybridNitroImageViewSpec)) throws {
+    let onLoad = view.onLoad
     guard let view = view as? NativeImageView else { throw RuntimeError.error(withMessage: "Invalid view type!") }
 
     let webImageOptions = options?.toSDWebImageOptions() ?? []
@@ -39,7 +40,13 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
     view.imageView.sd_setImage(with: url,
                                placeholderImage: view.imageView.image,
                                options: webImageOptions,
-                               context: webImageContext)
+                               context: webImageContext,
+                               progress: nil,
+                               completed: { [onLoad] image, error, cacheType, url in
+      if image != nil && error == nil {
+        onLoad?()
+      }
+    })
   }
 
   func dropImage(forView view: (any HybridNitroImageViewSpec)) throws {

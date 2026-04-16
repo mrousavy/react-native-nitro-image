@@ -26,6 +26,16 @@ namespace margelo::nitro::image::views {
                                                        const HybridNitroImageViewProps& sourceProps,
                                                        const react::RawProps& rawProps):
     react::ViewProps(context, sourceProps, rawProps, filterObjectKeys),
+    onLoad([&]() -> CachedProp<std::optional<std::function<void()>>> {
+      try {
+        const react::RawValue* rawValue = rawProps.at("onLoad", nullptr, nullptr);
+        if (rawValue == nullptr) return sourceProps.onLoad;
+        const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
+        return CachedProp<std::optional<std::function<void()>>>::fromRawValue(*runtime, value.asObject(*runtime).getProperty(*runtime, PropNameIDCache::get(*runtime, "f")), sourceProps.onLoad);
+      } catch (const std::exception& exc) {
+        throw std::runtime_error(std::string("NitroImageView.onLoad: ") + exc.what());
+      }
+    }()),
     image([&]() -> CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("image", nullptr, nullptr);
@@ -69,6 +79,7 @@ namespace margelo::nitro::image::views {
 
   bool HybridNitroImageViewProps::filterObjectKeys(const std::string& propName) {
     switch (hashString(propName)) {
+      case hashString("onLoad"): return true;
       case hashString("image"): return true;
       case hashString("resizeMode"): return true;
       case hashString("recyclingKey"): return true;

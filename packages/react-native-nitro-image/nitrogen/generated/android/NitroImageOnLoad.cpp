@@ -21,6 +21,7 @@
 #include "JHybridImageLoaderFactorySpec.hpp"
 #include "JHybridImageUtilsSpec.hpp"
 #include "JHybridNitroImageViewSpec.hpp"
+#include "JFunc_void.hpp"
 #include "views/JHybridNitroImageViewStateUpdater.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
@@ -76,6 +77,7 @@ void registerAllNatives() {
   margelo::nitro::image::JHybridImageLoaderFactorySpec::CxxPart::registerNatives();
   margelo::nitro::image::JHybridImageUtilsSpec::CxxPart::registerNatives();
   margelo::nitro::image::JHybridNitroImageViewSpec::CxxPart::registerNatives();
+  margelo::nitro::image::JFunc_void_cxx::registerNatives();
   margelo::nitro::image::views::JHybridNitroImageViewStateUpdater::registerNatives();
 
   // Register Nitro Hybrid Objects

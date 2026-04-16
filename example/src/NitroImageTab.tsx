@@ -18,6 +18,7 @@ export function NitroImageTab() {
             image={{ url: url }}
             style={styles.image}
             resizeMode="cover"
+            onLoad={() => console.log(`[NitroImage] onLoad: ${url}`)}
           />
         )}
       />

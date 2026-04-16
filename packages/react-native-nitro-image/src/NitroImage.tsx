@@ -1,6 +1,7 @@
 // biome-ignore lint/correctness/noUnusedImports: Needed for JSX runtime
 import React from 'react'
 import type { HostComponent } from 'react-native'
+import { callback } from 'react-native-nitro-modules'
 import type { AsyncImageSource } from './AsyncImageSource'
 import { NativeNitroImage } from './NativeNitroImage'
 import { useImageLoader } from './useImageLoader'
@@ -30,7 +31,10 @@ export interface NitroImageProps extends Omit<NativeImageProps, 'image'> {
  * }
  * ```
  */
-export function NitroImage({ image, ...props }: NitroImageProps) {
+export function NitroImage({ image, onLoad, ...props }: NitroImageProps) {
   const actualImage = useImageLoader(image)
-  return <NativeNitroImage image={actualImage} {...props} />
+  const wrappedOnLoad = onLoad ? callback(onLoad) : undefined
+  return (
+    <NativeNitroImage image={actualImage} onLoad={wrappedOnLoad} {...props} />
+  )
 }
