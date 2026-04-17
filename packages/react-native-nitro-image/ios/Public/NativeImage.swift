@@ -62,8 +62,13 @@ public extension NativeImage {
       let rotated = UIImage(cgImage: cgImage, scale: uiImage.scale, orientation: newOrientation)
       return HybridImage(uiImage: rotated)
     } else {
-      // Slow path: we actually rotate using UIGraphicsImageRenderer
-      let renderer = UIGraphicsImageRenderer(size: uiImage.size)
+      // Slow path: we actually rotate using UIGraphicsImageRenderer.
+      // Force scale=1 so output pixel dims match uiImage.size. Without a format,
+      // UIGraphicsImageRenderer defaults to UIScreen.main.scale (2x/3x on modern
+      // iPhones), producing a pixel-inflated bitmap.
+      let format = UIGraphicsImageRendererFormat()
+      format.scale = 1
+      let renderer = UIGraphicsImageRenderer(size: uiImage.size, format: format)
       let rotatedImage = renderer.image { context in
         let width = uiImage.size.width
         let height = uiImage.size.height
@@ -97,7 +102,15 @@ public extension NativeImage {
     }
     let targetSize = CGSize(width: width, height: height)
 
-    let renderer = UIGraphicsImageRenderer(size: targetSize)
+    // Force scale=1 so output pixel dims == targetSize. Without a format,
+    // UIGraphicsImageRenderer defaults to UIScreen.main.scale, producing a
+    // bitmap of (width * scale, height * scale) pixels on 2x/3x devices while
+    // uiImage.size still reports (width, height) in points. The encoded JPEG
+    // then has the inflated pixel dimensions, which is surprising from JS
+    // where Image.width/Image.height looked correct.
+    let format = UIGraphicsImageRendererFormat()
+    format.scale = 1
+    let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
     let resizedImage = renderer.image { context in
       let targetRect = CGRect(origin: .zero, size: targetSize)
       uiImage.draw(in: targetRect)
@@ -120,16 +133,42 @@ public extension NativeImage {
     guard targetHeight > 0 else {
       throw RuntimeError.error(withMessage: "Height cannot be less than 0! (startY: \(startY) - endY: \(endY) = \(targetHeight))")
     }
-    guard let cgImage = uiImage.cgImage else {
+
+    // Normalize the UIImage before cropping. Two reasons:
+    //  1. When imageOrientation != .up (common for e.g. vision-camera's
+    //     Photo.toImageAsync() output which uses UIImage(cgImage:, orientation:)),
+    //     uiImage.size is in DISPLAY space but uiImage.cgImage is in SENSOR space.
+    //     Our (startX, startY, endX, endY) rect is in display space, so calling
+    //     cgImage.cropping(to:) directly crops the wrong region.
+    //  2. When uiImage.scale != 1, cgImage pixel dims are (size * scale), which
+    //     makes the rect mean something different from what the caller expects.
+    // Drawing through a scale=1 renderer bakes orientation into pixels and
+    // normalizes scale so cgImage and our rect agree.
+    let normalized: UIImage
+    if uiImage.imageOrientation == .up && uiImage.scale == 1 {
+      normalized = uiImage
+    } else {
+      let format = UIGraphicsImageRendererFormat()
+      format.scale = 1
+      let renderer = UIGraphicsImageRenderer(size: uiImage.size, format: format)
+      normalized = renderer.image { _ in
+        uiImage.draw(at: .zero)
+      }
+    }
+    guard let cgImage = normalized.cgImage else {
       throw RuntimeError.error(withMessage: "This image does not have an underlying .cgImage!")
     }
 
-    let targetRect = CGRect(origin: CGPoint(x: startX, y: startY),
-                            size: CGSize(width: uiImage.size.width, height: uiImage.size.height))
+    // Use the actual crop size (targetWidth, targetHeight). Previously this was
+    // CGSize(uiImage.size.width, uiImage.size.height), which made the rect the
+    // whole image and produced "image minus origin offset" instead of a real crop.
+    let targetRect = CGRect(x: startX, y: startY, width: targetWidth, height: targetHeight)
     guard let croppedCgImage = cgImage.cropping(to: targetRect) else {
       throw RuntimeError.error(withMessage: "Failed to crop CGImage to \(targetRect)!")
     }
-    let croppedUiImage = UIImage(cgImage: croppedCgImage)
+    // Wrap with explicit scale=1 and .up orientation so downstream ops see
+    // consistent state instead of inheriting UIImage defaults that drop metadata.
+    let croppedUiImage = UIImage(cgImage: croppedCgImage, scale: 1, orientation: .up)
     return HybridImage(uiImage: croppedUiImage)
   }
 
