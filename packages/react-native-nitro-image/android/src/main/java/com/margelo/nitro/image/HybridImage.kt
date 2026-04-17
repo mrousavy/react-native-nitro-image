@@ -82,16 +82,31 @@ class HybridImage: HybridImageSpec {
     override fun rotate(degrees: Double, allowFastFlagRotation: Boolean?): HybridImageSpec {
         // 1. Make sure the Bitmap we want to draw is drawable (HARDWARE isn't)
         val source = bitmap.toCpuAccessible()
-        // 2. Create a rotation Matrix
+
+        // 2. Compute the rotated bounding box size. The output Bitmap must be
+        //    sized to contain the rotated content; using the original width/
+        //    height clips content when degrees % 180 != 0 (e.g., rotating a
+        //    portrait 90 degrees produces a landscape rect that doesn't fit a
+        //    portrait canvas).
+        val radians = Math.toRadians(degrees)
+        val srcW = source.width.toDouble()
+        val srcH = source.height.toDouble()
+        val outputW = (Math.abs(Math.cos(radians)) * srcW + Math.abs(Math.sin(radians)) * srcH).toInt()
+        val outputH = (Math.abs(Math.sin(radians)) * srcW + Math.abs(Math.cos(radians)) * srcH).toInt()
+
+        // 3. Create a rotation matrix centered on the source, then translate so
+        //    the rotated bounding box lands at (0, 0) of the output canvas.
         val matrix = Matrix()
         matrix.setRotate(degrees.toFloat(), source.width / 2f, source.height / 2f)
-        // 3. Create a new blank Bitmap as our output
-        val destination = createBitmap(bitmap.width, bitmap.height)
-        // 4. Draw the Bitmap to our destination
+        matrix.postTranslate((outputW - source.width) / 2f, (outputH - source.height) / 2f)
+
+        // 4. Create the output Bitmap sized to the rotated bounding box.
+        val destination = createBitmap(outputW, outputH)
+
+        // 5. Draw source into the destination with the rotation matrix applied.
         Canvas(destination).apply {
             drawBitmap(source, matrix, null)
         }
-        // 5. Return it!
         return HybridImage(destination)
     }
 

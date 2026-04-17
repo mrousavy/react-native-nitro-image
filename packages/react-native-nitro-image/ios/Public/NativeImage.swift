@@ -63,21 +63,31 @@ public extension NativeImage {
       return HybridImage(uiImage: rotated)
     } else {
       // Slow path: we actually rotate using UIGraphicsImageRenderer.
-      // Force scale=1 so output pixel dims match uiImage.size. Without a format,
-      // UIGraphicsImageRenderer defaults to UIScreen.main.scale (2x/3x on modern
-      // iPhones), producing a pixel-inflated bitmap.
+      // Force scale=1 so output pixel dims match the rotated bounding box
+      // (avoids UIScreen.main.scale default).
+      //
+      // Output canvas must be sized to the ROTATED bounding box, not the original
+      // image. Using uiImage.size clips content when degrees % 180 != 0 (e.g., a
+      // portrait rotated 90 degrees produces a landscape rect that extends
+      // outside a portrait canvas).
+      let radians = degrees * .pi / 180
+      let width = uiImage.size.width
+      let height = uiImage.size.height
+      let outputWidth = abs(cos(radians)) * width + abs(sin(radians)) * height
+      let outputHeight = abs(sin(radians)) * width + abs(cos(radians)) * height
+      let outputSize = CGSize(width: outputWidth, height: outputHeight)
+
       let format = UIGraphicsImageRendererFormat()
       format.scale = 1
-      let renderer = UIGraphicsImageRenderer(size: uiImage.size, format: format)
+      let renderer = UIGraphicsImageRenderer(size: outputSize, format: format)
       let rotatedImage = renderer.image { context in
-        let width = uiImage.size.width
-        let height = uiImage.size.height
-        // 1. Move to the center of the image so our origin is the center
-        context.cgContext.translateBy(x: width / 2, y: height / 2)
+        // 1. Move to the center of the OUTPUT canvas so our origin is its center
+        context.cgContext.translateBy(x: outputWidth / 2, y: outputHeight / 2)
         // 2. Rotate by the given radians
-        let radians = degrees * .pi / 180
         context.cgContext.rotate(by: radians)
-        // 3. Draw the Image offset by half the frame so we counter our center origin from step 1.
+        // 3. Draw the Image offset by half the ORIGINAL frame so we counter our
+        //    center origin from step 1. The rotated content now fills the
+        //    output canvas exactly (tight bounding box).
         let rect = CGRect(x: -(width / 2),
                           y: -(height / 2),
                           width: width,
