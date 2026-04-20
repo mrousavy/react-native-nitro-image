@@ -1,0 +1,18 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": ["animated", "image"],
+  "ios": {
+    "iosModuleName": "NitroAnimatedImage"
+  },
+  "android": {
+    "androidNamespace": ["animated", "image"],
+    "androidCxxLibName": "NitroAnimatedImage"
+  },
+  "autolinking": {
+    "NitroAnimatedImageView": {
+      "swift": "HybridAnimatedImageView",
+      "kotlin": "HybridAnimatedImageView"
+    }
+  },
+  "ignorePaths": ["**/node_modules"]
+}

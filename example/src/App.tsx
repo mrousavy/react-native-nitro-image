@@ -7,6 +7,7 @@
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStaticNavigation } from '@react-navigation/native'
+import { AnimatedTab } from './AnimatedTab'
 import { EmptyTab } from './EmptyTab'
 import { FastImageTab } from './FastImageTab'
 import { NitroImageTab } from './NitroImageTab'
@@ -15,6 +16,7 @@ const Tabs = createBottomTabNavigator({
   detachInactiveScreens: false,
   screens: {
     Empty: EmptyTab,
+    Animated: AnimatedTab,
     FastImage: FastImageTab,
     NitroImage: NitroImageTab,
   },

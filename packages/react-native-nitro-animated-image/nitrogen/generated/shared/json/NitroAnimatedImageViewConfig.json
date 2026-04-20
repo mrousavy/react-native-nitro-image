@@ -1,0 +1,13 @@
+{
+  "uiViewClassName": "NitroAnimatedImageView",
+  "supportsRawText": false,
+  "bubblingEventTypes": {},
+  "directEventTypes": {},
+  "validAttributes": {
+    "image": true,
+    "resizeMode": true,
+    "recyclingKey": true,
+    "autoplay": true,
+    "hybridRef": true
+  }
+}
