@@ -1,8 +1,9 @@
-package com.margelo.nitro.image
+package com.margelo.nitro.image.extensions
 
 import android.graphics.Bitmap
 import android.hardware.HardwareBuffer
 import android.os.Build
+import com.margelo.nitro.image.PixelFormat
 import java.nio.ByteOrder
 
 val Bitmap.pixelFormat: PixelFormat

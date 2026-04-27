@@ -10,8 +10,14 @@
   },
   "autolinking": {
     "WebImageFactory": {
-      "swift": "HybridWebImageFactory",
-      "kotlin": "HybridWebImageFactory"
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridWebImageFactory"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridWebImageFactory"
+      }
     }
   },
   "ignorePaths": ["**/node_modules"]

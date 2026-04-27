@@ -10,20 +10,44 @@
   },
   "autolinking": {
     "ImageFactory": {
-      "swift": "HybridImageFactory",
-      "kotlin": "HybridImageFactory"
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridImageFactory"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridImageFactory"
+      }
     },
     "ImageLoaderFactory": {
-      "swift": "HybridImageLoaderFactory",
-      "kotlin": "HybridImageLoaderFactory"
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridImageLoaderFactory"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridImageLoaderFactory"
+      }
     },
     "ImageUtils": {
-      "swift": "HybridImageUtils",
-      "kotlin": "HybridImageUtils"
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridImageUtils"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridImageUtils"
+      }
     },
     "NitroImageView": {
-      "swift": "HybridImageView",
-      "kotlin": "HybridImageView"
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridImageView"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridImageView"
+      }
     }
   },
   "ignorePaths": ["**/node_modules"]

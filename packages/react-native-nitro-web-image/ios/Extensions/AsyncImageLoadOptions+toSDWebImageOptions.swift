@@ -49,6 +49,10 @@ extension AsyncImageLoadOptions {
       options.insert(.avoidDecodeImage)
     }
 
+    if progressive == true {
+      options.insert(.progressiveLoad)
+    }
+
     return options
   }
 

@@ -1,4 +1,4 @@
-package com.margelo.nitro.web.image
+package com.margelo.nitro.web.image.extensions
 
 import android.content.Context
 import coil3.BitmapImage
@@ -8,6 +8,7 @@ import coil3.request.ImageRequest
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.HybridImage
 import com.margelo.nitro.image.HybridImageSpec
+import com.margelo.nitro.web.image.AsyncImageLoadOptions
 
 suspend fun ImageLoader.loadCoilImageAsync(url: String,
                                            options: AsyncImageLoadOptions?,

@@ -19,7 +19,7 @@ namespace margelo::nitro::image {
    */
   struct JResizeMode final: public jni::JavaClass<JResizeMode> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/ResizeMode;";
+    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/ResizeMode;";
 
   public:
     /**

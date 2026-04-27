@@ -7,26 +7,48 @@ on:
     paths:
       - '.github/workflows/build-ios.yml'
       - 'example/ios/**'
+      - 'example/Gemfile'
+      - 'example/Gemfile.lock'
+      - 'example/package.json'
       - '**/nitrogen/generated/shared/**'
       - '**/nitrogen/generated/ios/**'
-      - 'cpp/**'
-      - 'ios/**'
-      - '**/Podfile.lock'
-      - '**/*.podspec'
-      - '**/react-native.config.js'
-      - '**/nitro.json'
+      - 'packages/react-native-nitro-image/ios/**'
+      - 'packages/react-native-nitro-web-image/ios/**'
+      - 'example/ios/Podfile'
+      - 'example/ios/Podfile.lock'
+      - 'packages/react-native-nitro-image/NitroImage.podspec'
+      - 'packages/react-native-nitro-web-image/NitroWebImage.podspec'
+      - 'packages/react-native-nitro-image/package.json'
+      - 'packages/react-native-nitro-web-image/package.json'
+      - 'packages/react-native-nitro-image/react-native.config.js'
+      - 'packages/react-native-nitro-web-image/react-native.config.js'
+      - 'packages/react-native-nitro-image/nitro.json'
+      - 'packages/react-native-nitro-web-image/nitro.json'
+      - 'package.json'
+      - 'bun.lock'
   pull_request:
     paths:
       - '.github/workflows/build-ios.yml'
       - 'example/ios/**'
+      - 'example/Gemfile'
+      - 'example/Gemfile.lock'
+      - 'example/package.json'
       - '**/nitrogen/generated/shared/**'
       - '**/nitrogen/generated/ios/**'
-      - 'cpp/**'
-      - 'ios/**'
-      - '**/Podfile.lock'
-      - '**/*.podspec'
-      - '**/react-native.config.js'
-      - '**/nitro.json'
+      - 'packages/react-native-nitro-image/ios/**'
+      - 'packages/react-native-nitro-web-image/ios/**'
+      - 'example/ios/Podfile'
+      - 'example/ios/Podfile.lock'
+      - 'packages/react-native-nitro-image/NitroImage.podspec'
+      - 'packages/react-native-nitro-web-image/NitroWebImage.podspec'
+      - 'packages/react-native-nitro-image/package.json'
+      - 'packages/react-native-nitro-web-image/package.json'
+      - 'packages/react-native-nitro-image/react-native.config.js'
+      - 'packages/react-native-nitro-web-image/react-native.config.js'
+      - 'packages/react-native-nitro-image/nitro.json'
+      - 'packages/react-native-nitro-web-image/nitro.json'
+      - 'package.json'
+      - 'bun.lock'
 
 env:
   USE_CCACHE: 1
@@ -36,14 +58,24 @@ jobs:
     name: Build iOS Example App
     runs-on: macOS-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
 
       - name: Install npm dependencies (bun)
         run: bun install
 
-      - name: Restore ccache
+      - name: Install Ccache
         uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          max-size: 1.5G
+          key: ${{ runner.os }}-ccache-example-ios
+          create-symlink: true
+      - name: Setup ccache behavior
+        run: |
+          echo "CCACHE_SLOPPINESS=clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros" >> $GITHUB_ENV
+          echo "CCACHE_FILECLONE=true" >> $GITHUB_ENV
+          echo "CCACHE_DEPEND=true" >> $GITHUB_ENV
+          echo "CCACHE_INODECACHE=true" >> $GITHUB_ENV
 
       - name: Setup Ruby (bundle)
         uses: ruby/setup-ruby@v1
@@ -56,25 +88,37 @@ jobs:
         run: sudo xcode-select -s "/Applications/Xcode_16.4.app/Contents/Developer"
 
       - name: Restore Pods cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: example/ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock', '**/Gemfile.lock') }}
+          key: ${{ runner.os }}-pods-${{ hashFiles('example/ios/Podfile.lock', 'example/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Install Pods
         working-directory: example
         run: bun pods
 
+      - name: Restore DerivedData cache
+        uses: actions/cache@v5
+        with:
+          path: example/ios/build
+          key: ${{ runner.os }}-dd-${{ hashFiles('example/ios/Podfile.lock', 'example/Gemfile.lock', 'example/package.json', 'package.json', 'bun.lock') }}-xcode16.4
+          restore-keys: |
+            ${{ runner.os }}-dd-
+
       - name: Build App
         working-directory: example/ios
-        run: "set -o pipefail && xcodebuild \
-          CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ \
-          -derivedDataPath build -UseModernBuildSystem=YES \
-          -workspace NitroImageExample.xcworkspace \
-          -scheme NitroImageExample \
-          -sdk iphonesimulator \
-          -configuration Debug \
-          -destination 'platform=iOS Simulator,name=iPhone 16' \
-          build \
-          CODE_SIGNING_ALLOWED=NO"
+        run: |
+          set -o pipefail
+          xcodebuild \
+            CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ \
+            -derivedDataPath build -UseModernBuildSystem=YES \
+            -workspace NitroImageExample.xcworkspace \
+            -scheme NitroImageExample \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -showBuildTimingSummary \
+            ONLY_ACTIVE_ARCH=YES \
+            build \
+            CODE_SIGNING_ALLOWED=NO

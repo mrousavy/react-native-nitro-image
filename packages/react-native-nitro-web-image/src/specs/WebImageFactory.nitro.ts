@@ -71,6 +71,17 @@ export interface AsyncImageLoadOptions {
    * @default true
    */
   allowHardware?: boolean
+
+  /**
+   * By default, images are decoded and displayed once the entire
+   * image data has been fetched.
+   *
+   * To progressively display an image as it loads (web-style),
+   * enable {@linkcode progressive}.
+   * @platform iOS
+   * @default false
+   */
+  progressive?: boolean
 }
 
 export interface WebImageFactory

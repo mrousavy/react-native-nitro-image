@@ -1,4 +1,4 @@
-package com.margelo.nitro.image
+package com.margelo.nitro.image.utils
 
 import java.io.OutputStream
 import java.nio.ByteBuffer

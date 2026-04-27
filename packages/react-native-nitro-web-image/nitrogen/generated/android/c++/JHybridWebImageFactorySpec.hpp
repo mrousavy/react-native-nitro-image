@@ -21,11 +21,11 @@ namespace margelo::nitro::web::image {
   class JHybridWebImageFactorySpec: public virtual HybridWebImageFactorySpec, public virtual JHybridObject {
   public:
     struct JavaPart: public jni::JavaClass<JavaPart, JHybridObject::JavaPart> {
-      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactorySpec;";
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactorySpec;";
       std::shared_ptr<JHybridWebImageFactorySpec> getJHybridWebImageFactorySpec();
     };
     struct CxxPart: public jni::HybridClass<CxxPart, JHybridObject::CxxPart> {
-      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactorySpec$CxxPart;";
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/web/image/HybridWebImageFactorySpec$CxxPart;";
       static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
       static void registerNatives();
       using HybridBase::HybridBase;

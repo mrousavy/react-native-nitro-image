@@ -1,4 +1,4 @@
-package com.margelo.nitro.image
+package com.margelo.nitro.image.utils
 
 import android.content.Context
 import androidx.appcompat.widget.AppCompatImageView

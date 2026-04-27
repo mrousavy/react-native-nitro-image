@@ -20,7 +20,7 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - NitroImage (0.13.0):
+  - NitroImage (0.14.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -50,7 +50,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - NitroModules (0.35.0):
+  - NitroModules (0.35.5):
     - boost
     - DoubleConversion
     - fast_float
@@ -79,7 +79,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - NitroWebImage (0.13.0):
+  - NitroWebImage (0.14.0):
     - boost
     - DoubleConversion
     - fast_float

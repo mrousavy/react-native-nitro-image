@@ -1,9 +1,8 @@
-package com.margelo.nitro.web.image
+package com.margelo.nitro.web.image.extensions
 
+import com.margelo.nitro.web.image.AsyncImagePriority
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.currentCoroutineContext
 import kotlin.coroutines.CoroutineContext
-
 
 fun AsyncImagePriority.toCoroutineContext(): CoroutineContext? {
     // TODO: Does this look about right?

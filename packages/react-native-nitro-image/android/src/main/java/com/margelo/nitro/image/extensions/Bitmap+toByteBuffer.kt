@@ -1,4 +1,4 @@
-package com.margelo.nitro.image
+package com.margelo.nitro.image.extensions
 
 import android.graphics.Bitmap
 import java.nio.ByteBuffer

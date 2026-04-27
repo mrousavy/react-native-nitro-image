@@ -19,7 +19,7 @@ namespace margelo::nitro::image {
    */
   struct JImageFormat final: public jni::JavaClass<JImageFormat> {
   public:
-    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/ImageFormat;";
+    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/ImageFormat;";
 
   public:
     /**

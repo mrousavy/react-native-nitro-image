@@ -1,6 +1,7 @@
-package com.margelo.nitro.image
+package com.margelo.nitro.image.extensions
 
 import android.graphics.Bitmap
+import com.margelo.nitro.image.ImageFormat
 import java.io.File
 import java.io.FileOutputStream
 

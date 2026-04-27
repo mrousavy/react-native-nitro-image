@@ -52,10 +52,11 @@ namespace margelo::nitro::web::image {
     std::optional<bool> queryDiskDataSync     SWIFT_PRIVATE;
     std::optional<bool> decodeImage     SWIFT_PRIVATE;
     std::optional<bool> allowHardware     SWIFT_PRIVATE;
+    std::optional<bool> progressive     SWIFT_PRIVATE;
 
   public:
     AsyncImageLoadOptions() = default;
-    explicit AsyncImageLoadOptions(std::optional<AsyncImagePriority> priority, std::optional<bool> forceRefresh, std::optional<std::string> cacheKey, std::optional<bool> continueInBackground, std::optional<bool> allowInvalidSSLCertificates, std::optional<bool> scaleDownLargeImages, std::optional<bool> queryMemoryDataSync, std::optional<bool> queryDiskDataSync, std::optional<bool> decodeImage, std::optional<bool> allowHardware): priority(priority), forceRefresh(forceRefresh), cacheKey(cacheKey), continueInBackground(continueInBackground), allowInvalidSSLCertificates(allowInvalidSSLCertificates), scaleDownLargeImages(scaleDownLargeImages), queryMemoryDataSync(queryMemoryDataSync), queryDiskDataSync(queryDiskDataSync), decodeImage(decodeImage), allowHardware(allowHardware) {}
+    explicit AsyncImageLoadOptions(std::optional<AsyncImagePriority> priority, std::optional<bool> forceRefresh, std::optional<std::string> cacheKey, std::optional<bool> continueInBackground, std::optional<bool> allowInvalidSSLCertificates, std::optional<bool> scaleDownLargeImages, std::optional<bool> queryMemoryDataSync, std::optional<bool> queryDiskDataSync, std::optional<bool> decodeImage, std::optional<bool> allowHardware, std::optional<bool> progressive): priority(priority), forceRefresh(forceRefresh), cacheKey(cacheKey), continueInBackground(continueInBackground), allowInvalidSSLCertificates(allowInvalidSSLCertificates), scaleDownLargeImages(scaleDownLargeImages), queryMemoryDataSync(queryMemoryDataSync), queryDiskDataSync(queryDiskDataSync), decodeImage(decodeImage), allowHardware(allowHardware), progressive(progressive) {}
 
   public:
     friend bool operator==(const AsyncImageLoadOptions& lhs, const AsyncImageLoadOptions& rhs) = default;
@@ -80,7 +81,8 @@ namespace margelo::nitro {
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "queryMemoryDataSync"))),
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "queryDiskDataSync"))),
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "decodeImage"))),
-        JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "allowHardware")))
+        JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "allowHardware"))),
+        JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "progressive")))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::web::image::AsyncImageLoadOptions& arg) {
@@ -95,6 +97,7 @@ namespace margelo::nitro {
       obj.setProperty(runtime, PropNameIDCache::get(runtime, "queryDiskDataSync"), JSIConverter<std::optional<bool>>::toJSI(runtime, arg.queryDiskDataSync));
       obj.setProperty(runtime, PropNameIDCache::get(runtime, "decodeImage"), JSIConverter<std::optional<bool>>::toJSI(runtime, arg.decodeImage));
       obj.setProperty(runtime, PropNameIDCache::get(runtime, "allowHardware"), JSIConverter<std::optional<bool>>::toJSI(runtime, arg.allowHardware));
+      obj.setProperty(runtime, PropNameIDCache::get(runtime, "progressive"), JSIConverter<std::optional<bool>>::toJSI(runtime, arg.progressive));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -115,6 +118,7 @@ namespace margelo::nitro {
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "queryDiskDataSync")))) return false;
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "decodeImage")))) return false;
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "allowHardware")))) return false;
+      if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "progressive")))) return false;
       return true;
     }
   };

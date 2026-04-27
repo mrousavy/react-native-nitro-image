@@ -5,8 +5,8 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.Keep
-import androidx.core.view.isVisible
 import com.facebook.common.internal.DoNotStrip
+import com.margelo.nitro.image.utils.CustomImageView
 import com.margelo.nitro.views.RecyclableView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -11,6 +11,8 @@ import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
+import com.margelo.nitro.image.extensions.bitmapFromRawPixelData
+import com.margelo.nitro.image.extensions.toBitmapColor
 import java.nio.ByteBuffer
 
 @DoNotStrip

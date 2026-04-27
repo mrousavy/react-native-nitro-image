@@ -21,11 +21,11 @@ namespace margelo::nitro::image {
   class JHybridNitroImageViewSpec: public virtual HybridNitroImageViewSpec, public virtual JHybridObject {
   public:
     struct JavaPart: public jni::JavaClass<JavaPart, JHybridObject::JavaPart> {
-      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec;";
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec;";
       std::shared_ptr<JHybridNitroImageViewSpec> getJHybridNitroImageViewSpec();
     };
     struct CxxPart: public jni::HybridClass<CxxPart, JHybridObject::CxxPart> {
-      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec$CxxPart;";
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec$CxxPart;";
       static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
       static void registerNatives();
       using HybridBase::HybridBase;
