@@ -212,14 +212,25 @@ const path       = await image.saveToTemporaryFileAsync('jpg', 50) // 50% compre
 const compressed = await image.toEncodedImageData('jpg', 50)       // 50% compression
 ```
 
-#### HEIC/HEIF
+#### Supported Formats
 
-NitroImage supports `HEIC`/`HEIF` format if the host OS natively supports it.
+NitroImage uses the host OS for decoding, so loading supports any format the platform does. Writing is limited to `jpg`, `png` and `heic`.
 
-|              | iOS            | Android        |
-|--------------|----------------|----------------|
-| Loading HEIC | ✅             | ✅ (>= SDK 28) |
-| Writing HEIC | ✅ (>= iOS 17) | ❌             |
+|       | Loading (iOS) | Loading (Android) | Writing (iOS)  | Writing (Android) |
+|-------|---------------|-------------------|----------------|-------------------|
+| JPEG  | ✅            | ✅                | ✅             | ✅                |
+| PNG   | ✅            | ✅                | ✅             | ✅                |
+| HEIC  | ✅            | ✅ (>= SDK 28)    | ✅ (>= iOS 17) | ❌                |
+| WebP  | ✅            | ✅                | ❌             | ❌                |
+| GIF   | ✅            | ✅                | ❌             | ❌                |
+| BMP   | ✅            | ✅                | ❌             | ❌                |
+| TIFF  | ✅            | ❌                | ❌             | ❌                |
+
+Animated formats (GIF, WebP, APNG) decode to a single frame - `<NitroImage />` does not play animations.
+
+For loading remote images, [react-native-nitro-web-image](https://www.npmjs.com/package/react-native-nitro-web-image) additionally supports AVIF via SDWebImage (iOS) and Coil (Android).
+
+##### HEIC/HEIF
 
 You can check whether your OS supports `HEIC` via NitroImage:
 
