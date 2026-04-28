@@ -23,12 +23,12 @@ on:
       device_profile:
         description: "Device profile"
         required: false
-        default: "pixel_7"
+        default: "pixel_8"
         type: string
       avd_name:
         description: "AVD name"
         required: false
-        default: "Pixel_8_API_35"
+        default: "Pixel_8"
         type: string
   push:
     branches:
@@ -64,8 +64,8 @@ on:
 env:
   DEVICE_API_LEVEL: ${{ github.event.inputs.device_api_level || '35' }}
   DEVICE_ARCH: ${{ github.event.inputs.device_arch || 'x86_64' }}
-  DEVICE_PROFILE: ${{ github.event.inputs.device_profile || 'pixel_7' }}
-  AVD_NAME: ${{ github.event.inputs.avd_name || 'Pixel_8_API_35' }}
+  DEVICE_PROFILE: ${{ github.event.inputs.device_profile || 'pixel_8' }}
+  AVD_NAME: ${{ github.event.inputs.avd_name || 'Pixel_8' }}
 
 jobs:
   harness_android:

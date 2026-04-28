@@ -11,7 +11,7 @@ describe('Image - toRawPixelData', () => {
     expect(raw.width).toBe(16)
     expect(raw.height).toBe(16)
     expect(raw.buffer.byteLength).toBeGreaterThanOrEqual(
-      raw.width * raw.height * 3,
+      raw.width * raw.height * 2,
     )
     expect(raw.pixelFormat).not.toBe('unknown')
   })

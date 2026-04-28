@@ -14,7 +14,7 @@ const config = {
   runners: [
     androidPlatform({
       name: 'android',
-      device: androidEmulator('Pixel_8_API_35'),
+      device: androidEmulator('Pixel_8'),
       bundleId: 'com.nitroimageexample',
     }),
     applePlatform({
