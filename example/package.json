@@ -8,7 +8,8 @@
     "start": "react-native start --client-logs",
     "pods": "bundle install && cd ios && bundle exec pod install",
     "bundle-install": "bundle install",
-    "build:android-release": "cd android && ./gradlew assembleRelease --no-daemon"
+    "build:android-release": "cd android && ./gradlew assembleRelease --no-daemon",
+    "test:harness": "react-native-harness"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^7.4.6",
@@ -16,6 +17,7 @@
     "react": "19.1.0",
     "react-native": "0.81.0",
     "react-native-fast-image": "^8.6.3",
+    "react-native-harness": "^1.0.0-alpha.25",
     "react-native-nitro-image": "workspace:*",
     "react-native-nitro-web-image": "workspace:*",
     "react-native-nitro-modules": "0.35.5",
@@ -29,6 +31,9 @@
     "@react-native-community/cli": "20.0.0",
     "@react-native-community/cli-platform-android": "20.0.0",
     "@react-native-community/cli-platform-ios": "20.0.0",
+    "@react-native-harness/platform-android": "^1.0.0-alpha.25",
+    "@react-native-harness/platform-apple": "^1.0.0-alpha.25",
+    "@react-native-harness/ui": "^1.0.0-alpha.25",
     "@react-native/babel-preset": "0.81.0",
     "@react-native/metro-config": "0.81.0",
     "@react-native/typescript-config": "0.81.0",
