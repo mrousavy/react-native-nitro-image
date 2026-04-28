@@ -1,11 +1,11 @@
 import {
-  androidPlatform,
   androidEmulator,
-} from '@react-native-harness/platform-android';
+  androidPlatform,
+} from '@react-native-harness/platform-android'
 import {
   applePlatform,
   appleSimulator,
-} from '@react-native-harness/platform-apple';
+} from '@react-native-harness/platform-apple'
 
 const config = {
   entryPoint: './index.js',
@@ -25,6 +25,6 @@ const config = {
   ],
   defaultRunner: 'android',
   bridgeTimeout: 180000,
-};
+}
 
-export default config;
+export default config
