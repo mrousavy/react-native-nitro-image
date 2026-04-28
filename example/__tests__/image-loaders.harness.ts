@@ -7,7 +7,11 @@ const RED = { r: 1, g: 0, b: 0, a: 1 }
 const GREEN = { r: 0, g: 1, b: 0, a: 1 }
 const BLUE = { r: 0, g: 0, b: 1, a: 1 }
 
-const makeRgbaBuffer = (width: number, height: number, [r, g, b, a]: number[]) => {
+const makeRgbaBuffer = (
+  width: number,
+  height: number,
+  [r, g, b, a]: number[],
+) => {
   const bytes = new Uint8Array(width * height * 4)
   for (let i = 0; i < width * height; i++) {
     bytes[i * 4 + 0] = r
@@ -124,9 +128,7 @@ describe('WebImages.loadFromURLAsync', () => {
 
   it('rejects when the URL is unreachable', async () => {
     await expect(
-      WebImages.loadFromURLAsync(
-        'https://pikachu.missing/hello.png',
-      ),
+      WebImages.loadFromURLAsync('https://pikachu.missing/hello.png'),
     ).rejects.toBeDefined()
   })
 })

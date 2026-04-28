@@ -100,7 +100,6 @@ describe('NitroImage view - visual snapshots', () => {
 })
 
 describe('NitroImage view - URL sources', () => {
-
   const RAW = (filename: string) =>
     `https://raw.githubusercontent.com/riteshshukla04/react-native-nitro-image/main/example/__tests__/__image_snapshots__/android/${filename}`
 
@@ -122,7 +121,6 @@ describe('NitroImage view - URL sources', () => {
       name: 'nitro-image-url-red',
     })
   })
-
 
   // TODO : Raise a PR To harness to also HardwareBuffer
   it('renders a remote blue tile loaded from a URL', async () => {
