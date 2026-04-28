@@ -1,5 +1,4 @@
 import { screen } from '@react-native-harness/ui'
-import * as React from 'react'
 import { View } from 'react-native'
 import { describe, expect, it, render, waitFor } from 'react-native-harness'
 import { Images, NitroImage } from 'react-native-nitro-image'
