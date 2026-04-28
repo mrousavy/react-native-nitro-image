@@ -37,4 +37,4 @@ jobs:
         run: bun web-image specs
 
       - name: Verify no files have changed after nitrogen
-        run: git diff --exit-code HEAD -- . ':(exclude)bun.lockb'
+        run: git diff --exit-code HEAD -- . ':(exclude)bun.lockb' ':(exclude)bun.lock'
