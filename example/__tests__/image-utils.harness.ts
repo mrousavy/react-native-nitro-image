@@ -7,10 +7,40 @@ import {
   thumbHashToBase64String,
 } from 'react-native-nitro-image'
 
-describe('ImageUtils - HEIC support flags', () => {
-  it('exposes booleans for HEIC loading and writing', () => {
-    expect(typeof supportsHeicLoading).toBe('boolean')
-    expect(typeof supportsHeicWriting).toBe('boolean')
+describe('ImageUtils - HEIC round-trip', () => {
+  it('encodes an image as HEIC, writes it to disk and loads it back', async () => {
+    if (!supportsHeicWriting) {
+      console.log(
+        '[skip] HEIC writing is not supported on this platform — skipping HEIC round-trip',
+      )
+      return
+    }
+    if (!supportsHeicLoading) {
+      console.log(
+        '[skip] HEIC loading is not supported on this platform — skipping HEIC round-trip',
+      )
+      return
+    }
+
+    const original = Images.createBlankImage(48, 32, false, {
+      r: 0.1,
+      g: 0.7,
+      b: 0.4,
+      a: 1,
+    })
+
+    const encoded = await original.toEncodedImageDataAsync('heic', 80)
+    expect(encoded.imageFormat).toBe('heic')
+    expect(encoded.width).toBe(48)
+    expect(encoded.height).toBe(32)
+    expect(encoded.buffer.byteLength).toBeGreaterThan(0)
+
+    const path = await original.saveToTemporaryFileAsync('heic', 80)
+    expect(path.length).toBeGreaterThan(0)
+
+    const reloaded = await Images.loadFromFileAsync(path)
+    expect(reloaded.width).toBe(original.width)
+    expect(reloaded.height).toBe(original.height)
   })
 })
 
@@ -27,8 +57,8 @@ describe('ImageUtils - thumbHash round-trip', () => {
     expect(hash.byteLength).toBeGreaterThan(0)
 
     const base64 = thumbHashToBase64String(hash)
-    expect(typeof base64).toBe('string')
     expect(base64.length).toBeGreaterThan(0)
+    expect(base64).toMatch(/^[A-Za-z0-9+/=]+$/)
 
     const restored = thumbHashFromBase64String(base64)
     expect(restored.byteLength).toBe(hash.byteLength)

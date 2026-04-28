@@ -10,8 +10,10 @@ describe('Image - toRawPixelData', () => {
     const raw = image.toRawPixelData()
     expect(raw.width).toBe(16)
     expect(raw.height).toBe(16)
-    expect(raw.buffer.byteLength).toBeGreaterThan(0)
-    expect(typeof raw.pixelFormat).toBe('string')
+    expect(raw.buffer.byteLength).toBeGreaterThanOrEqual(
+      raw.width * raw.height * 3,
+    )
+    expect(raw.pixelFormat).not.toBe('unknown')
   })
 
   it('toRawPixelDataAsync resolves with pixel data', async () => {
@@ -50,10 +52,13 @@ describe('Images - loadFromEncodedImageData', () => {
 })
 
 describe('Image - saveToTemporaryFileAsync', () => {
-  it('writes a JPG to a temporary path', async () => {
+  it('writes a JPG to a temporary path that can be loaded back', async () => {
     const image = makeImage()
     const path = await image.saveToTemporaryFileAsync('jpg', 80)
-    expect(typeof path).toBe('string')
     expect(path.length).toBeGreaterThan(0)
+
+    const reloaded = await Images.loadFromFileAsync(path)
+    expect(reloaded.width).toBe(image.width)
+    expect(reloaded.height).toBe(image.height)
   })
 })
