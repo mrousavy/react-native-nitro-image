@@ -117,7 +117,7 @@ jobs:
             -scheme NitroImageExample \
             -sdk iphonesimulator \
             -configuration Debug \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
             -showBuildTimingSummary \
             ONLY_ACTIVE_ARCH=YES \
             build \
