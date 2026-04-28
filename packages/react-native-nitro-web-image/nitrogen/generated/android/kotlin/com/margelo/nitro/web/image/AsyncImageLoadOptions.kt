@@ -9,7 +9,6 @@ package com.margelo.nitro.web.image
 
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
-import java.util.Objects
 
 
 /**
@@ -53,38 +52,6 @@ data class AsyncImageLoadOptions(
   val progressive: Boolean?
 ) {
   /* primary constructor */
-
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (other !is AsyncImageLoadOptions) return false
-    return Objects.deepEquals(this.priority, other.priority)
-      && Objects.deepEquals(this.forceRefresh, other.forceRefresh)
-      && Objects.deepEquals(this.cacheKey, other.cacheKey)
-      && Objects.deepEquals(this.continueInBackground, other.continueInBackground)
-      && Objects.deepEquals(this.allowInvalidSSLCertificates, other.allowInvalidSSLCertificates)
-      && Objects.deepEquals(this.scaleDownLargeImages, other.scaleDownLargeImages)
-      && Objects.deepEquals(this.queryMemoryDataSync, other.queryMemoryDataSync)
-      && Objects.deepEquals(this.queryDiskDataSync, other.queryDiskDataSync)
-      && Objects.deepEquals(this.decodeImage, other.decodeImage)
-      && Objects.deepEquals(this.allowHardware, other.allowHardware)
-      && Objects.deepEquals(this.progressive, other.progressive)
-  }
-
-  override fun hashCode(): Int {
-    return arrayOf(
-      priority,
-      forceRefresh,
-      cacheKey,
-      continueInBackground,
-      allowInvalidSSLCertificates,
-      scaleDownLargeImages,
-      queryMemoryDataSync,
-      queryDiskDataSync,
-      decodeImage,
-      allowHardware,
-      progressive
-    ).contentDeepHashCode()
-  }
 
   companion object {
     /**
