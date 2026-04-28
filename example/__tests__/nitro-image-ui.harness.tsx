@@ -2,6 +2,7 @@ import { screen } from '@react-native-harness/ui'
 import { View } from 'react-native'
 import { describe, expect, it, render, waitFor } from 'react-native-harness'
 import { Images, NitroImage } from 'react-native-nitro-image'
+import { WebImages } from 'react-native-nitro-web-image'
 
 const RED = { r: 1, g: 0, b: 0, a: 1 }
 const GREEN = { r: 0, g: 1, b: 0, a: 1 }
@@ -94,6 +95,75 @@ describe('NitroImage view - visual snapshots', () => {
     const shot = await screen.screenshot(tile)
     await expect(shot).toMatchImageSnapshot({
       name: 'nitro-image-cropped-blue-80x80',
+    })
+  })
+})
+
+describe('NitroImage view - URL sources', () => {
+
+  const RAW = (filename: string) =>
+    `https://raw.githubusercontent.com/riteshshukla04/react-native-nitro-image/main/example/__tests__/__image_snapshots__/android/${filename}`
+
+  it('renders a remote red tile loaded from a URL', async () => {
+    const image = await WebImages.loadFromURLAsync(
+      RAW('nitro-image-red-100x100.png'),
+      { allowHardware: false },
+    )
+
+    await render(
+      <View testID="url-red-tile" style={{ width: 100, height: 100 }}>
+        <NitroImage image={image} style={{ width: 100, height: 100 }} />
+      </View>,
+    )
+
+    const tile = await screen.findByTestId('url-red-tile')
+    const shot = await screen.screenshot(tile)
+    await expect(shot).toMatchImageSnapshot({
+      name: 'nitro-image-url-red',
+    })
+  })
+
+
+  // TODO : Raise a PR To harness to also HardwareBuffer
+  it('renders a remote blue tile loaded from a URL', async () => {
+    const image = await WebImages.loadFromURLAsync(
+      RAW('nitro-image-blue-80x80.png'),
+      { allowHardware: false },
+    )
+
+    await render(
+      <View testID="url-blue-tile" style={{ width: 80, height: 80 }}>
+        <NitroImage image={image} style={{ width: 80, height: 80 }} />
+      </View>,
+    )
+
+    const tile = await screen.findByTestId('url-blue-tile')
+    const shot = await screen.screenshot(tile)
+    await expect(shot).toMatchImageSnapshot({
+      name: 'nitro-image-url-blue',
+    })
+  })
+
+  it('renders the upstream banner image scaled into a fixed view', async () => {
+    const image = await WebImages.loadFromURLAsync(
+      'https://raw.githubusercontent.com/mrousavy/react-native-nitro-image/main/img/banner-light.png',
+      { allowHardware: false },
+    )
+
+    await render(
+      <View testID="url-banner" style={{ width: 200, height: 50 }}>
+        <NitroImage
+          image={image}
+          style={{ width: 200, height: 50 }}
+          resizeMode="contain"
+        />
+      </View>,
+    )
+
+    const tile = await screen.findByTestId('url-banner')
+    const shot = await screen.screenshot(tile)
+    await expect(shot).toMatchImageSnapshot({
+      name: 'nitro-image-url-banner',
     })
   })
 })
