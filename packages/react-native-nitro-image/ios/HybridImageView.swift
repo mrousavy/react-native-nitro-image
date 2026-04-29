@@ -37,6 +37,7 @@ class HybridImageView: HybridNitroImageViewSpec {
       resetImageBeforeLoad = recyclingKey != oldValue
     }
   }
+  var onLoad: (() -> Void)? = nil
 
   private func updateResizeMode() {
     let mode = resizeMode ?? .cover
@@ -60,6 +61,7 @@ class HybridImageView: HybridNitroImageViewSpec {
         fatalError("Can't set `image` to a type that doesn't conform to `NativeImage`!")
       }
       view.image = image.uiImage
+      onLoad?()
     case .second:
       // Image Loader - trigger a load or drop
       didSetImageLoader()

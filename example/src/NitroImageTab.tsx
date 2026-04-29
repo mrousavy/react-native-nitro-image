@@ -20,6 +20,7 @@ export function NitroImageTab() {
             recyclingKey={url}
             style={styles.image}
             resizeMode="cover"
+            onLoad={() => console.log(`[NitroImage] onLoad: ${url}`)}
           />
         )}
       />

@@ -121,6 +121,38 @@ open class HybridNitroImageViewSpec_cxx {
   }
 
   // Properties
+  public final var onLoad: bridge.std__optional_std__function_void____ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void____ in
+        if let __unwrappedValue = self.__implementation.onLoad {
+          return bridge.create_std__optional_std__function_void____({ () -> bridge.Func_void in
+            let __closureWrapper = Func_void(__unwrappedValue)
+            return bridge.create_Func_void(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onLoad = { () -> (() -> Void)? in
+        if bridge.has_value_std__optional_std__function_void____(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void____(newValue)
+          return { () -> () -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void(__unwrapped)
+            return { () -> Void in
+              __wrappedFunction.call()
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
   public final var image: bridge.std__optional_std__variant_std__shared_ptr_HybridImageSpec___std__shared_ptr_HybridImageLoaderSpec___ {
     @inline(__always)
     get {

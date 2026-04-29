@@ -20,10 +20,12 @@ class HybridWebImageLoader(private val imageLoader: ImageLoader,
     }
 
     override fun requestImage(forView: HybridNitroImageViewSpec) {
+        val onLoad = forView.onLoad
         val imageView = forView.view as? ImageView ?: return
 
         imageView.load(url, imageLoader) {
             this.applyOptions(options)
+            listener(onSuccess = { _, _ -> onLoad?.invoke() })
         }
     }
 

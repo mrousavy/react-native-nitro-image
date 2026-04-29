@@ -26,6 +26,20 @@ import com.margelo.nitro.views.HybridView
 )
 abstract class HybridNitroImageViewSpec: HybridView() {
   // Properties
+  abstract var onLoad: (() -> Unit)?
+  
+  private var onLoad_cxx: Func_void?
+    @Keep
+    @DoNotStrip
+    get() {
+      return onLoad?.let { Func_void_java(it) }
+    }
+    @Keep
+    @DoNotStrip
+    set(value) {
+      onLoad = value?.let { it }
+    }
+  
   @get:DoNotStrip
   @get:Keep
   @set:DoNotStrip

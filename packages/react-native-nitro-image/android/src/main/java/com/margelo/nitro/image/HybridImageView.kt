@@ -48,6 +48,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
             resetImageBeforeLoad = field != value
             field = value
         }
+    override var onLoad: (() -> Unit)? = null
 
     override fun prepareForRecycle() {
         onDisappear()
@@ -70,6 +71,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
                 // Image
                 if (actualImage is HybridImage) {
                     imageView.setImageBitmap(actualImage.bitmap)
+                    onLoad?.invoke()
                 } else {
                     throw Error("Image is a different type than HybridImage!")
                 }

@@ -14,11 +14,14 @@ namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `ResizeMode` to properly resolve imports.
 namespace margelo::nitro::image { enum class ResizeMode; }
 
+#include <functional>
+#include <optional>
+#include "JFunc_void.hpp"
+#include <NitroModules/JNICallable.hpp>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include "HybridImageLoaderSpec.hpp"
 #include <variant>
-#include <optional>
 #include "JVariant_HybridImageSpec_HybridImageLoaderSpec.hpp"
 #include "JHybridImageSpec.hpp"
 #include "JHybridImageLoaderSpec.hpp"
@@ -56,6 +59,23 @@ namespace margelo::nitro::image {
   }
 
   // Properties
+  std::optional<std::function<void()>> JHybridNitroImageViewSpec::getOnLoad() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>()>("getOnLoad_cxx");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional([&]() -> std::function<void()> {
+      if (__result->isInstanceOf(JFunc_void_cxx::javaClassStatic())) [[likely]] {
+        auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
+        return downcast->cthis()->getFunction();
+      } else {
+        auto __resultRef = jni::make_global(__result);
+        return JNICallable<JFunc_void, void()>(std::move(__resultRef));
+      }
+    }()) : std::nullopt;
+  }
+  void JHybridNitroImageViewSpec::setOnLoad(const std::optional<std::function<void()>>& onLoad) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void::javaobject> /* onLoad */)>("setOnLoad_cxx");
+    method(_javaPart, onLoad.has_value() ? JFunc_void_cxx::fromCpp(onLoad.value()) : nullptr);
+  }
   std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> JHybridNitroImageViewSpec::getImage() {
     static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec>()>("getImage");
     auto __result = method(_javaPart);

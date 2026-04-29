@@ -17,6 +17,10 @@ export type ResizeMode = 'cover' | 'contain' | 'center' | 'stretch'
 
 export interface NativeNitroImageViewProps extends HybridViewProps {
   /**
+   * Called when the image has been loaded and is displayed in the view.
+   */
+  onLoad?: () => void
+  /**
    * Represents the image actually shown in this Image View.
    * - {@linkcode Image}: Shows a specific in-memory {@linkcode Image}
    * instance. Even when the view goes invisible, the image will still
