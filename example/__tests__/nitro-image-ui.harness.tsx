@@ -101,7 +101,7 @@ describe('NitroImage view - visual snapshots', () => {
 
 describe('NitroImage view - URL sources', () => {
   const RAW = (filename: string) =>
-    `https://raw.githubusercontent.com/riteshshukla04/react-native-nitro-image/main/example/__tests__/__image_snapshots__/android/${filename}`
+    `https://raw.githubusercontent.com/mrousavy/react-native-nitro-image/main/example/__tests__/__image_snapshots__/android/${filename}`
 
   it('renders a remote red tile loaded from a URL', async () => {
     const image = await WebImages.loadFromURLAsync(
