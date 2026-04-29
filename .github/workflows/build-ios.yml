@@ -56,7 +56,7 @@ env:
 jobs:
   build:
     name: Build iOS Example App
-    runs-on: macOS-15
+    runs-on: macOS-26
     steps:
       - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
@@ -84,8 +84,8 @@ jobs:
           bundler-cache: true
           working-directory: example
 
-      - name: Select Xcode 16.4
-        run: sudo xcode-select -s "/Applications/Xcode_16.4.app/Contents/Developer"
+      - name: Select Xcode 26.2
+        run: sudo xcode-select -s "/Applications/Xcode_26.2.app/Contents/Developer"
 
       - name: Restore Pods cache
         uses: actions/cache@v5
@@ -102,7 +102,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: example/ios/build
-          key: ${{ runner.os }}-dd-${{ hashFiles('example/ios/Podfile.lock', 'example/Gemfile.lock', 'example/package.json', 'package.json', 'bun.lock') }}-xcode16.4
+          key: ${{ runner.os }}-dd-${{ hashFiles('example/ios/Podfile.lock', 'example/Gemfile.lock', 'example/package.json', 'package.json', 'bun.lock') }}-xcode26.2
           restore-keys: |
             ${{ runner.os }}-dd-
 
@@ -117,7 +117,7 @@ jobs:
             -scheme NitroImageExample \
             -sdk iphonesimulator \
             -configuration Debug \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
             -showBuildTimingSummary \
             ONLY_ACTIVE_ARCH=YES \
             build \
