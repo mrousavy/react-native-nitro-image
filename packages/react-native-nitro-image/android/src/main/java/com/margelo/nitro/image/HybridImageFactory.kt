@@ -206,23 +206,6 @@ mageSpec> {
         return max(1, inSampleSize)
     }
 
-    private fun logDecoded(
-        cleanPath: String,
-        bitmap: Bitmap?,
-        targetWidth: Int,
-        targetHeight: Int
-    ) {
-        if (bitmap == null) {
-            return
-        }
-
-        Log.d(
-            TAG,
-            "decoded file=$cleanPath width=${bitmap.width} height=${bitmap.height} " +
-                "bytes=${bitmap.allocationByteCount} target=${targetWidth}x${targetHeight}"
-        )
-    }
-
     private fun loadFromThumbHash(thumbHashBytes: ByteArray): HybridImage {
         val rgba = ThumbHash.thumbHashToRGBA(thumbHashBytes)
 
