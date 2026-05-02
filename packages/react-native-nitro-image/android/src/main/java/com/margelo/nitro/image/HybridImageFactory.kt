@@ -14,15 +14,21 @@ import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.extensions.bitmapFromRawPixelData
 import com.margelo.nitro.image.extensions.toBitmapColor
 import java.nio.ByteBuffer
+import kotlin.math.max
 
 @DoNotStrip
 @Keep
-class HybridImageFactory: HybridImageFactorySpec() {
-    override fun createBlankImage(width: Double, height: Double, enableAlpha: Boolean, fill: Color?): HybridImageSpec {
-        // 1. Create Bitmap config (either ARGB or RGB without alpha)
+class HybridImageFactory : HybridImageFactorySpec() {
+    override fun createBlankImage(
+        width: Double,
+        height: Double,
+        enableAlpha: Boolean,
+        fill: Color?
+    ): HybridImageSpec {
         val config = if (enableAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
         // 2. Create the new Bitmap
         val bitmap = createBitmap(width.toInt(), height.toInt(), config)
+
         if (fill != null) {
             // 3. If we have a background fill, draw it!
             val color = fill.toBitmapColor()
@@ -31,30 +37,39 @@ class HybridImageFactory: HybridImageFactorySpec() {
         // 4. Wrap it in a HybridImage and return it
         return HybridImage(bitmap)
     }
-    override fun createBlankImageAsync(width: Double, height: Double, enableAlpha: Boolean, fill: Color?): Promise<HybridImageSpec> {
-        return Promise.async { createBlankImage(width, height, enableAlpha, fill) }
+
+    override fun createBlankImageAsync(
+        width: Double,
+        height: Double,
+        enableAlpha: Boolean,
+        fill: Color?
+    ): Promise<HybridImageSpec> {
+        return Promise.async {
+            createBlankImage(width, height, enableAlpha, fill)
+        }
     }
 
     @SuppressLint("DiscouragedApi")
     override fun loadFromResources(name: String): HybridImageSpec {
         val context = NitroModules.applicationContext ?: throw Error("No context!")
-        // Look up ID via it's name
-        val rawResourceId: Int = context.resources
-            .getIdentifier(name, "drawable", context.packageName)
+
+        val rawResourceId = context.resources.getIdentifier(name, "drawable", context.packageName)
+
         if (rawResourceId == 0) {
-            // It's bundled into the Android resources/assets
             context.assets.open(name).use { stream ->
                 val bitmap = BitmapFactory.decodeStream(stream)
-                return HybridImage(bitmap)
-            }
-        } else {
-            // For assets bundled with 'require' instead of linked, they are bundled into `res/raw` in release mode
-            context.resources.openRawResource(rawResourceId).use { stream ->
-                val bitmap = BitmapFactory.decodeStream(stream)
+                    ?: throw Error("Failed to decode Image from assets! (Name: $name)")
                 return HybridImage(bitmap)
             }
         }
+
+        context.resources.openRawResource(rawResourceId).use { stream ->
+            val bitmap = BitmapFactory.decodeStream(stream)
+                ?: throw Error("Failed to decode Image from resources! (Name: $name)")
+            return HybridImage(bitmap)
+        }
     }
+
     override fun loadFromResourcesAsync(name: String): Promise<HybridImageSpec> {
         return Promise.async { loadFromResources(name) }
     }
@@ -64,11 +79,13 @@ class HybridImageFactory: HybridImageFactorySpec() {
     }
 
     override fun loadFromRawPixelData(data: RawPixelData, allowGpu: Boolean?): HybridImageSpec {
-        val allowGpu = allowGpu ?: false
-        val bitmap = bitmapFromRawPixelData(data, allowGpu)
+        val resolvedAllowGpu = allowGpu ?: false
+        val bitmap = bitmapFromRawPixelData(data, resolvedAllowGpu)
         return HybridImage(bitmap)
     }
-    override fun loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Boolean?): Promise<HybridImageSpec> {
+
+    override fun loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Boolean?): Promise<HybridI
+mageSpec> {
         val bufferCopy = data.buffer.asOwning()
         val dataCopy = RawPixelData(bufferCopy, data.width, data.height, data.pixelFormat)
         return Promise.async { loadFromRawPixelData(dataCopy, allowGpu) }
@@ -76,31 +93,134 @@ class HybridImageFactory: HybridImageFactorySpec() {
 
     private fun loadFromEncodedBytes(bytes: ByteArray): HybridImageSpec {
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        if (bitmap == null) {
-            throw Error("Failed to decode EncodedImageData to an Image! (Bytes: ${bytes.size})")
-        }
+            ?: throw Error("Failed to decode EncodedImageData to an Image! (Bytes: ${bytes.size})")
+
         return HybridImage(bitmap)
     }
+
     override fun loadFromEncodedImageData(data: EncodedImageData): HybridImageSpec {
         val bytes = data.buffer.toByteArray()
         return loadFromEncodedBytes(bytes)
     }
+
     override fun loadFromEncodedImageDataAsync(data: EncodedImageData): Promise<HybridImageSpec> {
+        // We need to copy before jumping Threads
         val bytes = data.buffer.toByteArray()
         return Promise.async { loadFromEncodedBytes(bytes) }
     }
 
     override fun loadFromFile(filePath: String): HybridImageSpec {
-        val cleanPath = filePath.removePrefix("file://")
-        val bitmap = BitmapFactory.decodeFile(cleanPath)
-        if (bitmap == null) {
-            throw Error("Failed to load Image from file! (Path: $filePath)")
-        }
+        val bitmap = decodeBitmapFromFile(filePath, null, null)
+        return HybridImage(bitmap)
+    }
+
+    fun loadFromFile(
+        filePath: String,
+        targetWidth: Int?,
+        targetHeight: Int?
+    ): HybridImageSpec {
+        val bitmap = decodeBitmapFromFile(filePath, targetWidth, targetHeight)
         return HybridImage(bitmap)
     }
 
     override fun loadFromFileAsync(filePath: String): Promise<HybridImageSpec> {
-        return Promise.async { loadFromFile(filePath) }
+        return loadFromFileAsync(filePath, null, null)
+    }
+
+    fun loadFromFileAsync(
+        filePath: String,
+        targetWidth: Int?,
+        targetHeight: Int?
+    ): Promise<HybridImageSpec> {
+        return Promise.async {
+            loadFromFile(filePath, targetWidth, targetHeight)
+        }
+    }
+
+    fun decodeBitmapFromFile(
+        filePath: String,
+        targetWidth: Int?,
+        targetHeight: Int?
+    ): Bitmap {
+        val cleanPath = filePath.removePrefix("file://")
+
+        return decodeFile(cleanPath, targetWidth, targetHeight)
+            ?: throw Error("Failed to load Image from file! (Path: $filePath)")
+    }
+
+    private fun decodeFile(
+        cleanPath: String,
+        targetWidth: Int?,
+        targetHeight: Int?
+    ): Bitmap? {
+        val resolvedTargetWidth = targetWidth ?: 0
+        val resolvedTargetHeight = targetHeight ?: 0
+
+        if (resolvedTargetWidth <= 0 || resolvedTargetHeight <= 0) {
+            return BitmapFactory.decodeFile(cleanPath)
+        }
+
+        val boundsOptions = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+        }
+
+        BitmapFactory.decodeFile(cleanPath, boundsOptions)
+
+        if (boundsOptions.outWidth <= 0 || boundsOptions.outHeight <= 0) {
+            return BitmapFactory.decodeFile(cleanPath)
+        }
+
+        val decodeOptions = BitmapFactory.Options().apply {
+            inJustDecodeBounds = false
+            inPreferredConfig = Bitmap.Config.ARGB_8888
+            inSampleSize = calculateInSampleSize(
+                sourceWidth = boundsOptions.outWidth,
+                sourceHeight = boundsOptions.outHeight,
+                targetWidth = resolvedTargetWidth,
+                targetHeight = resolvedTargetHeight
+            )
+        }
+
+        return BitmapFactory.decodeFile(cleanPath, decodeOptions)
+    }
+
+    private fun calculateInSampleSize(
+        sourceWidth: Int,
+        sourceHeight: Int,
+        targetWidth: Int,
+        targetHeight: Int
+    ): Int {
+        if (targetWidth <= 0 || targetHeight <= 0) {
+            return 1
+        }
+
+        var inSampleSize = 1
+
+        while (
+            sourceWidth / (inSampleSize * 2) >= targetWidth ||
+            sourceHeight / (inSampleSize * 2) >= targetHeight
+        ) {
+            inSampleSize *= 2
+        }
+
+        return max(1, inSampleSize)
+    }
+
+    private fun logDecoded(
+        cleanPath: String,
+        bitmap: Bitmap?,
+        targetWidth: Int,
+        targetHeight: Int
+    ) {
+        if (bitmap == null) {
+            return
+        }
+
+        Log.d(
+            TAG,
+            "decoded file=$cleanPath width=${bitmap.width} height=${bitmap.height} " +
+                "bytes=${bitmap.allocationByteCount} target=${targetWidth}x${targetHeight}"
+        )
     }
 
     private fun loadFromThumbHash(thumbHashBytes: ByteArray): HybridImage {
@@ -109,6 +229,7 @@ class HybridImageFactory: HybridImageFactorySpec() {
         val bitmap = createBitmap(rgba.width, rgba.height, Bitmap.Config.ARGB_8888)
         val buffer = ByteBuffer.wrap(rgba.rgba)
         bitmap.copyPixelsFromBuffer(buffer)
+
         return HybridImage(bitmap)
     }
 
@@ -118,8 +239,10 @@ class HybridImageFactory: HybridImageFactorySpec() {
     }
 
     override fun loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<HybridImageSpec> {
-        // We need to copy before jumping Threads
         val bytes = thumbhash.toByteArray()
-        return Promise.async { loadFromThumbHash(bytes) }
+
+        return Promise.async {
+            loadFromThumbHash(bytes)
+        }
     }
 }
