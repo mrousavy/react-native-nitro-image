@@ -84,8 +84,7 @@ class HybridImageFactory : HybridImageFactorySpec() {
         return HybridImage(bitmap)
     }
 
-    override fun loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Boolean?): Promise<HybridI
-mageSpec> {
+    override fun loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Boolean?): Promise<HybridImageSpec> {
         val bufferCopy = data.buffer.asOwning()
         val dataCopy = RawPixelData(bufferCopy, data.width, data.height, data.pixelFormat)
         return Promise.async { loadFromRawPixelData(dataCopy, allowGpu) }
