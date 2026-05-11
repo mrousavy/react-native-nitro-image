@@ -14,6 +14,8 @@ namespace margelo::nitro::image {
     HybridObject::loadHybridMethods();
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
+      prototype.registerHybridGetter("priority", &HybridNitroImageViewSpec::getPriority);
+      prototype.registerHybridSetter("priority", &HybridNitroImageViewSpec::setPriority);
       prototype.registerHybridGetter("image", &HybridNitroImageViewSpec::getImage);
       prototype.registerHybridSetter("image", &HybridNitroImageViewSpec::setImage);
       prototype.registerHybridGetter("resizeMode", &HybridNitroImageViewSpec::getResizeMode);

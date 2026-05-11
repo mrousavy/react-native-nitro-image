@@ -21,11 +21,11 @@ namespace margelo::nitro::image {
   class JHybridNitroImageViewSpec: public virtual HybridNitroImageViewSpec, public virtual JHybridObject {
   public:
     struct JavaPart: public jni::JavaClass<JavaPart, JHybridObject::JavaPart> {
-      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec;";
+      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec;";
       std::shared_ptr<JHybridNitroImageViewSpec> getJHybridNitroImageViewSpec();
     };
     struct CxxPart: public jni::HybridClass<CxxPart, JHybridObject::CxxPart> {
-      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec$CxxPart;";
+      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/HybridNitroImageViewSpec$CxxPart;";
       static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
       static void registerNatives();
       using HybridBase::HybridBase;
@@ -50,6 +50,8 @@ namespace margelo::nitro::image {
 
   public:
     // Properties
+    std::optional<double> getPriority() override;
+    void setPriority(std::optional<double> priority) override;
     std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> getImage() override;
     void setImage(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& image) override;
     std::optional<ResizeMode> getResizeMode() override;

@@ -10,8 +10,6 @@
 #include <fbjni/fbjni.h>
 #include "AsyncImageLoadOptions.hpp"
 
-#include "AsyncImagePriority.hpp"
-#include "JAsyncImagePriority.hpp"
 #include <optional>
 #include <string>
 
@@ -24,7 +22,7 @@ namespace margelo::nitro::web::image {
    */
   struct JAsyncImageLoadOptions final: public jni::JavaClass<JAsyncImageLoadOptions> {
   public:
-    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/web/image/AsyncImageLoadOptions;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/web/image/AsyncImageLoadOptions;";
 
   public:
     /**
@@ -34,8 +32,8 @@ namespace margelo::nitro::web::image {
     [[nodiscard]]
     AsyncImageLoadOptions toCpp() const {
       static const auto clazz = javaClassStatic();
-      static const auto fieldPriority = clazz->getField<JAsyncImagePriority>("priority");
-      jni::local_ref<JAsyncImagePriority> priority = this->getFieldValue(fieldPriority);
+      static const auto fieldPriority = clazz->getField<jni::JDouble>("priority");
+      jni::local_ref<jni::JDouble> priority = this->getFieldValue(fieldPriority);
       static const auto fieldForceRefresh = clazz->getField<jni::JBoolean>("forceRefresh");
       jni::local_ref<jni::JBoolean> forceRefresh = this->getFieldValue(fieldForceRefresh);
       static const auto fieldCacheKey = clazz->getField<jni::JString>("cacheKey");
@@ -57,7 +55,7 @@ namespace margelo::nitro::web::image {
       static const auto fieldProgressive = clazz->getField<jni::JBoolean>("progressive");
       jni::local_ref<jni::JBoolean> progressive = this->getFieldValue(fieldProgressive);
       return AsyncImageLoadOptions(
-        priority != nullptr ? std::make_optional(priority->toCpp()) : std::nullopt,
+        priority != nullptr ? std::make_optional(priority->value()) : std::nullopt,
         forceRefresh != nullptr ? std::make_optional(static_cast<bool>(forceRefresh->value())) : std::nullopt,
         cacheKey != nullptr ? std::make_optional(cacheKey->toStdString()) : std::nullopt,
         continueInBackground != nullptr ? std::make_optional(static_cast<bool>(continueInBackground->value())) : std::nullopt,
@@ -77,12 +75,12 @@ namespace margelo::nitro::web::image {
      */
     [[maybe_unused]]
     static jni::local_ref<JAsyncImageLoadOptions::javaobject> fromCpp(const AsyncImageLoadOptions& value) {
-      using JSignature = JAsyncImageLoadOptions(jni::alias_ref<JAsyncImagePriority>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JString>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>);
+      using JSignature = JAsyncImageLoadOptions(jni::alias_ref<jni::JDouble>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JString>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>, jni::alias_ref<jni::JBoolean>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
         clazz,
-        value.priority.has_value() ? JAsyncImagePriority::fromCpp(value.priority.value()) : nullptr,
+        value.priority.has_value() ? jni::JDouble::valueOf(value.priority.value()) : nullptr,
         value.forceRefresh.has_value() ? jni::JBoolean::valueOf(value.forceRefresh.value()) : nullptr,
         value.cacheKey.has_value() ? jni::make_jstring(value.cacheKey.value()) : nullptr,
         value.continueInBackground.has_value() ? jni::JBoolean::valueOf(value.continueInBackground.value()) : nullptr,

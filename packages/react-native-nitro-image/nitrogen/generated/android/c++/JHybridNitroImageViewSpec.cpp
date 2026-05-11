@@ -14,11 +14,11 @@ namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `ResizeMode` to properly resolve imports.
 namespace margelo::nitro::image { enum class ResizeMode; }
 
+#include <optional>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include "HybridImageLoaderSpec.hpp"
 #include <variant>
-#include <optional>
 #include "JVariant_HybridImageSpec_HybridImageLoaderSpec.hpp"
 #include "JHybridImageSpec.hpp"
 #include "JHybridImageLoaderSpec.hpp"
@@ -56,6 +56,15 @@ namespace margelo::nitro::image {
   }
 
   // Properties
+  std::optional<double> JHybridNitroImageViewSpec::getPriority() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JDouble>()>("getPriority");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional(__result->value()) : std::nullopt;
+  }
+  void JHybridNitroImageViewSpec::setPriority(std::optional<double> priority) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JDouble> /* priority */)>("setPriority");
+    method(_javaPart, priority.has_value() ? jni::JDouble::valueOf(priority.value()) : nullptr);
+  }
   std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> JHybridNitroImageViewSpec::getImage() {
     static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JVariant_HybridImageSpec_HybridImageLoaderSpec>()>("getImage");
     auto __result = method(_javaPart);

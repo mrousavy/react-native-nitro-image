@@ -7,17 +7,14 @@ import coil3.request.ImageRequest
 import coil3.request.allowHardware
 import coil3.size.Precision
 import com.margelo.nitro.web.image.AsyncImageLoadOptions
+import com.margelo.nitro.web.image.interceptors.PriorityKey
 
 @OptIn(ExperimentalCoilApi::class)
 fun ImageRequest.Builder.applyOptions(options: AsyncImageLoadOptions?): ImageRequest.Builder {
     if (options == null) return this
     var result = this
 
-    if (options.priority != null) {
-        options.priority.toCoroutineContext()?.let { context ->
-            result = result.coroutineContext(context)
-        }
-    }
+    options.priority?.toInt()?.let { result.extras[PriorityKey] = it }
 
     if (options.forceRefresh == true) {
         // don't allow reading from cache, only writing.

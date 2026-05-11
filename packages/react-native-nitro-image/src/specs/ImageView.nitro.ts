@@ -15,7 +15,22 @@ import type { ImageLoader } from './ImageLoader.nitro'
  */
 export type ResizeMode = 'cover' | 'contain' | 'center' | 'stretch'
 
+/**
+ * Priority for loading an Image.
+ * - `0`: Low priority — the load is queued behind normal and high priority loads.
+ * - `1`: Normal priority — the default load behavior.
+ * - `2`: High priority — the load is started before normal and low priority loads.
+ */
+export type ImagePriority = 0 | 1 | 2
+
 export interface NativeNitroImageViewProps extends HybridViewProps {
+  /**
+   * Specifies the priority for loading the Image when multiple loads are queued
+   * at the same time.
+   * @see {@linkcode ImagePriority}
+   * @default 1
+   */
+  priority?: ImagePriority
   /**
    * Represents the image actually shown in this Image View.
    * - {@linkcode Image}: Shows a specific in-memory {@linkcode Image}

@@ -1,14 +1,13 @@
 import type { Image, ImageLoader } from 'react-native-nitro-image'
 import type { HybridObject } from 'react-native-nitro-modules'
 
-export type AsyncImagePriority = 'low' | 'default' | 'high'
-
 export interface AsyncImageLoadOptions {
   /**
    * Specifies the priority of the image download.
-   * @default 'default'
+   * Use the {@linkcode AsyncImagePriority} type from the package entry for typed values.
+   * @default 1
    */
-  priority?: AsyncImagePriority
+  priority?: number
 
   /**
    * Forces a cache refresh even if the URL is changed.

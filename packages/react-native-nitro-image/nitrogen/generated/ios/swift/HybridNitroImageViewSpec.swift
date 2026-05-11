@@ -10,6 +10,7 @@ import NitroModules
 /// See ``HybridNitroImageViewSpec``
 public protocol HybridNitroImageViewSpec_protocol: HybridObject, HybridView {
   // Properties
+  var priority: Double? { get set }
   var image: Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_? { get set }
   var resizeMode: ResizeMode? { get set }
   var recyclingKey: String? { get set }

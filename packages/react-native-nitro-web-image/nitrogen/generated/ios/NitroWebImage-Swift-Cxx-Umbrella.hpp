@@ -10,8 +10,6 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
 namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
-// Forward declaration of `AsyncImagePriority` to properly resolve imports.
-namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
@@ -21,7 +19,6 @@ namespace margelo::nitro::web::image { class HybridWebImageFactorySpec; }
 
 // Include C++ defined types
 #include "AsyncImageLoadOptions.hpp"
-#include "AsyncImagePriority.hpp"
 #include "HybridWebImageFactorySpec.hpp"
 #include <NitroImage/HybridImageLoaderSpec.hpp>
 #include <NitroImage/HybridImageSpec.hpp>

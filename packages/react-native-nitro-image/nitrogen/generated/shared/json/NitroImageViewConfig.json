@@ -4,6 +4,7 @@
   "bubblingEventTypes": {},
   "directEventTypes": {},
   "validAttributes": {
+    "priority": true,
     "image": true,
     "resizeMode": true,
     "recyclingKey": true,

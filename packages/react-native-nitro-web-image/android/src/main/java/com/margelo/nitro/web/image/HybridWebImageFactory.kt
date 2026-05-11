@@ -10,13 +10,20 @@ import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridImageSpec
 import com.margelo.nitro.web.image.extensions.loadImageAsync
+import com.margelo.nitro.web.image.interceptors.PriorityGate
+import com.margelo.nitro.web.image.interceptors.PriorityInterceptor
 
 @DoNotStrip
 @Keep
 class HybridWebImageFactory: HybridWebImageFactorySpec() {
     private val context: ReactApplicationContext
         get() = NitroModules.applicationContext ?: throw Error("No context - NitroModules.applicationContext was null!")
-    private val imageLoader = ImageLoader(context)
+    private val numOfCoresAvailable = Runtime.getRuntime().availableProcessors()
+    private val maxConcurrentOperations = minOf(6, numOfCoresAvailable)
+    private val priorityGate = PriorityGate(maxConcurrentOperations = maxConcurrentOperations)
+    private val imageLoader = ImageLoader.Builder(context)
+        .components { add(PriorityInterceptor(priorityGate)) }
+        .build()
 
     override fun createWebImageLoader(
         url: String,

@@ -9,7 +9,6 @@ package com.margelo.nitro.web.image
 
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
-import java.util.Objects
 
 
 /**
@@ -20,7 +19,7 @@ import java.util.Objects
 data class AsyncImageLoadOptions(
   @DoNotStrip
   @Keep
-  val priority: AsyncImagePriority?,
+  val priority: Double?,
   @DoNotStrip
   @Keep
   val forceRefresh: Boolean?,
@@ -54,38 +53,6 @@ data class AsyncImageLoadOptions(
 ) {
   /* primary constructor */
 
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (other !is AsyncImageLoadOptions) return false
-    return Objects.deepEquals(this.priority, other.priority)
-      && Objects.deepEquals(this.forceRefresh, other.forceRefresh)
-      && Objects.deepEquals(this.cacheKey, other.cacheKey)
-      && Objects.deepEquals(this.continueInBackground, other.continueInBackground)
-      && Objects.deepEquals(this.allowInvalidSSLCertificates, other.allowInvalidSSLCertificates)
-      && Objects.deepEquals(this.scaleDownLargeImages, other.scaleDownLargeImages)
-      && Objects.deepEquals(this.queryMemoryDataSync, other.queryMemoryDataSync)
-      && Objects.deepEquals(this.queryDiskDataSync, other.queryDiskDataSync)
-      && Objects.deepEquals(this.decodeImage, other.decodeImage)
-      && Objects.deepEquals(this.allowHardware, other.allowHardware)
-      && Objects.deepEquals(this.progressive, other.progressive)
-  }
-
-  override fun hashCode(): Int {
-    return arrayOf(
-      priority,
-      forceRefresh,
-      cacheKey,
-      continueInBackground,
-      allowInvalidSSLCertificates,
-      scaleDownLargeImages,
-      queryMemoryDataSync,
-      queryDiskDataSync,
-      decodeImage,
-      allowHardware,
-      progressive
-    ).contentDeepHashCode()
-  }
-
   companion object {
     /**
      * Constructor called from C++
@@ -94,7 +61,7 @@ data class AsyncImageLoadOptions(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(priority: AsyncImagePriority?, forceRefresh: Boolean?, cacheKey: String?, continueInBackground: Boolean?, allowInvalidSSLCertificates: Boolean?, scaleDownLargeImages: Boolean?, queryMemoryDataSync: Boolean?, queryDiskDataSync: Boolean?, decodeImage: Boolean?, allowHardware: Boolean?, progressive: Boolean?): AsyncImageLoadOptions {
+    private fun fromCpp(priority: Double?, forceRefresh: Boolean?, cacheKey: String?, continueInBackground: Boolean?, allowInvalidSSLCertificates: Boolean?, scaleDownLargeImages: Boolean?, queryMemoryDataSync: Boolean?, queryDiskDataSync: Boolean?, decodeImage: Boolean?, allowHardware: Boolean?, progressive: Boolean?): AsyncImageLoadOptions {
       return AsyncImageLoadOptions(priority, forceRefresh, cacheKey, continueInBackground, allowInvalidSSLCertificates, scaleDownLargeImages, queryMemoryDataSync, queryDiskDataSync, decodeImage, allowHardware, progressive)
     }
   }

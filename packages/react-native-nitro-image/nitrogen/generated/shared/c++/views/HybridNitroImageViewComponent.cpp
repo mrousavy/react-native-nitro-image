@@ -26,6 +26,16 @@ namespace margelo::nitro::image::views {
                                                        const HybridNitroImageViewProps& sourceProps,
                                                        const react::RawProps& rawProps):
     react::ViewProps(context, sourceProps, rawProps, filterObjectKeys),
+    priority([&]() -> CachedProp<std::optional<double>> {
+      try {
+        const react::RawValue* rawValue = rawProps.at("priority", nullptr, nullptr);
+        if (rawValue == nullptr) return sourceProps.priority;
+        const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
+        return CachedProp<std::optional<double>>::fromRawValue(*runtime, value, sourceProps.priority);
+      } catch (const std::exception& exc) {
+        throw std::runtime_error(std::string("NitroImageView.priority: ") + exc.what());
+      }
+    }()),
     image([&]() -> CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("image", nullptr, nullptr);
@@ -69,6 +79,7 @@ namespace margelo::nitro::image::views {
 
   bool HybridNitroImageViewProps::filterObjectKeys(const std::string& propName) {
     switch (hashString(propName)) {
+      case hashString("priority"): return true;
       case hashString("image"): return true;
       case hashString("resizeMode"): return true;
       case hashString("recyclingKey"): return true;
