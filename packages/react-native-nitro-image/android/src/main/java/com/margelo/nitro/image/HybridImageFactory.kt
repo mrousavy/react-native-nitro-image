@@ -13,6 +13,7 @@ import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.extensions.bitmapFromRawPixelData
 import com.margelo.nitro.image.extensions.toBitmapColor
+import com.margelo.nitro.image.extensions.toFilePath
 import java.nio.ByteBuffer
 
 @DoNotStrip
@@ -91,10 +92,10 @@ class HybridImageFactory: HybridImageFactorySpec() {
     }
 
     override fun loadFromFile(filePath: String): HybridImageSpec {
-        val cleanPath = filePath.removePrefix("file://")
+        val cleanPath = filePath.toFilePath()
         val bitmap = BitmapFactory.decodeFile(cleanPath)
         if (bitmap == null) {
-            throw Error("Failed to load Image from file! (Path: $filePath)")
+            throw Error("Failed to load Image from file! (Path: $cleanPath)")
         }
         return HybridImage(bitmap)
     }

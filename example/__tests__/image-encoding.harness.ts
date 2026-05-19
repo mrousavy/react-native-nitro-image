@@ -56,6 +56,7 @@ describe('Image - saveToTemporaryFileAsync', () => {
     const image = makeImage()
     const path = await image.saveToTemporaryFileAsync('jpg', 80)
     expect(path.length).toBeGreaterThan(0)
+    expect(path.startsWith('file://')).toBe(false)
 
     const reloaded = await Images.loadFromFileAsync(path)
     expect(reloaded.width).toBe(image.width)

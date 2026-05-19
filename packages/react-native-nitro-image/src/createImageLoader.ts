@@ -5,6 +5,7 @@ import {
   isHybridImageLoader,
 } from './AsyncImageSource'
 import { ImageLoaders } from './ImageLoaders'
+import { normalizeFilePath } from './normalizeFilePath'
 import { OptionalWebImages } from './OptionalWebLoader'
 import type { Image } from './specs/Image.nitro'
 import type { ImageLoader } from './specs/ImageLoader.nitro'
@@ -18,9 +19,11 @@ export function createImageLoader(
     if (resolvedSource.uri.startsWith('http')) {
       // In debug, assets are streamed over the network
       return createImageLoader({ url: resolvedSource.uri })
-    } else if (resolvedSource.uri.startsWith('file')) {
+    } else if (resolvedSource.uri.startsWith('file://')) {
       // In release, assets are embedded files...
-      return createImageLoader({ filePath: resolvedSource.uri })
+      return createImageLoader({
+        filePath: normalizeFilePath(resolvedSource.uri),
+      })
     } else {
       // ...or resource IDs
       return createImageLoader({ resource: resolvedSource.uri })
@@ -30,7 +33,9 @@ export function createImageLoader(
   } else if (isHybridImageLoader(source)) {
     return source
   } else if ('filePath' in source) {
-    return ImageLoaders.createFileImageLoader(source.filePath)
+    return ImageLoaders.createFileImageLoader(
+      normalizeFilePath(source.filePath),
+    )
   } else if ('encodedImageData' in source) {
     return ImageLoaders.createEncodedImageDataImageLoader(
       source.encodedImageData,

@@ -69,17 +69,19 @@ The simplest way to load an Image is to use the exported `loadImage(…)` method
 
 ```ts
 const webImage      = await loadImage({ url: 'https://picsum.photos/seed/123/400' })
-const fileImage     = await loadImage({ filePath: 'file://my-image.jpg' })
+const fileImage     = await loadImage({ filePath: '/tmp/my-image.jpg' })
 const resourceImage = await loadImage({ resource: 'my-image.jpg' })
 const symbolImage   = await loadImage({ symbol: 'star' })
 const requireImage  = await loadImage(require('./my-image.jpg'))
 ```
 
+Local file APIs use filesystem paths, not `file://` URLs. For example, `saveToTemporaryFileAsync(...)` returns `/tmp/whatever.jpg`. If another API needs a file URL, prepend `file://` at that call site.
+
 Under the hood, this uses the native methods from `Images` or `WebImages`:
 
 ```ts
 const webImage      = await WebImages.loadFromURLAsync('https://picsum.photos/seed/123/400')
-const fileImage     = await Images.loadFromFileAsync('file://my-image.jpg')
+const fileImage     = await Images.loadFromFileAsync('/tmp/my-image.jpg')
 const resourceImage = Images.loadFromResources('my-resource.jpg')
 const symbolImage   = Images.loadFromSymbol('star')
 ```
@@ -200,6 +202,7 @@ An in-memory `Image` object can also be written/saved to a file:
 ```ts
 const image  = ...
 const path   = await image.saveToTemporaryFileAsync('jpg', 90)
+// path is a filesystem path, for example `/tmp/nitro-image.jpg`
 ```
 
 #### Compressing

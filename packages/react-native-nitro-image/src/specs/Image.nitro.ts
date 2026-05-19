@@ -162,7 +162,8 @@ export interface Image
   mirrorHorizontallyAsync(): Promise<Image>
 
   /**
-   * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
+   * Saves this image in the given {@linkcode ImageFormat} to the given filesystem {@linkcode path}.
+   * @param path A filesystem path such as `/tmp/image.jpg`, not a `file://` URL.
    * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
    * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
    * {@linkcode quality} flag is ignored.
@@ -177,7 +178,8 @@ export interface Image
     quality?: number,
   ): Promise<void>
   /**
-   * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and return it's path.
+   * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and returns its filesystem path.
+   * @returns A filesystem path such as `/tmp/image.jpg`, not a `file://` URL.
    * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
    * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
    * {@linkcode quality} flag is ignored.

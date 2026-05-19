@@ -7,6 +7,7 @@ export type RequireType = number
 export type AsyncImageSource =
   | Image
   | ImageLoader
+  /** A filesystem path such as `/tmp/image.jpg`, not a `file://` URL. */
   | { filePath: string }
   | { rawPixelData: RawPixelData }
   | { encodedImageData: EncodedImageData }

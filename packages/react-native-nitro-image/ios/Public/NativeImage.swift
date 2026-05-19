@@ -152,9 +152,9 @@ public extension NativeImage {
 
   private func saveImage(to path: String, format: ImageFormat, quality: Double) throws {
     let data = try uiImage.getData(in: format, quality: quality)
-    guard let url = URL(string: path) else {
-      throw RuntimeError.error(withMessage: "The given path \"\(path)\" is not a valid URL!")
-    }
+    let url = URL(fileURLWithPath: path.normalizedFilePath)
+    let directory = url.deletingLastPathComponent()
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     try data.write(to: url)
   }
 
@@ -169,7 +169,7 @@ public extension NativeImage {
       let tempDirectory = FileManager.default.temporaryDirectory
       let fileName = UUID().uuidString
       let file = tempDirectory.appendingPathComponent(fileName, conformingTo: format.toUTType())
-      let path = file.absoluteString
+      let path = file.path
 
       try self.saveImage(to: path, format: format, quality: quality ?? 100.0)
       return path
