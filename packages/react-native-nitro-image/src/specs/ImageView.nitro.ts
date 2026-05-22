@@ -55,6 +55,20 @@ export interface NativeNitroImageViewProps extends HybridViewProps {
    * ```
    */
   recyclingKey?: string
+  /**
+   * Hint for the memory cache about how important this image is to keep.
+   *
+   * When the cache is over its byte budget, entries are evicted lowest
+   * priority first; within the same priority the least-recently-used
+   * entry is evicted first.
+   *
+   * - `0`: low — evicted first (thumbnails, decorative)
+   * - `1`: normal — default
+   * - `2`: high — evicted last (heroes, avatars)
+   *
+   * @default 1
+   */
+  cachePriority?: number
 }
 
 export interface NativeNitroImageViewMethods extends HybridViewMethods {

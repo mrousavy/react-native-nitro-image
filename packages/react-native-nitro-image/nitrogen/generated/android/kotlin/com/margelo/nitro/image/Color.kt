@@ -43,7 +43,7 @@ data class Color(
   }
 
   override fun hashCode(): Int {
-    return arrayOf(
+    return arrayOf<Any?>(
       r,
       g,
       b,

@@ -43,7 +43,7 @@ data class RawPixelData(
   }
 
   override fun hashCode(): Int {
-    return arrayOf(
+    return arrayOf<Any?>(
       buffer,
       width,
       height,

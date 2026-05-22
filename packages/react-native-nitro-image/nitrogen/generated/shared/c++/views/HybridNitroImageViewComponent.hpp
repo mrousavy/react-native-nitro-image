@@ -49,6 +49,7 @@ namespace margelo::nitro::image::views {
     CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> image;
     CachedProp<std::optional<ResizeMode>> resizeMode;
     CachedProp<std::optional<std::string>> recyclingKey;
+    CachedProp<std::optional<double>> cachePriority;
     CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
 
   private:

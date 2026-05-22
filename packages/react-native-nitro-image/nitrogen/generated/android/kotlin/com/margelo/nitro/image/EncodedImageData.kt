@@ -43,7 +43,7 @@ data class EncodedImageData(
   }
 
   override fun hashCode(): Int {
-    return arrayOf(
+    return arrayOf<Any?>(
       buffer,
       width,
       height,

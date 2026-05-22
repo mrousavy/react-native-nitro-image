@@ -32,10 +32,19 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
   }
 
   func requestImage(forView view: (any HybridNitroImageViewSpec)) throws {
+    let cachePriority = Int(view.cachePriority ?? 1)
     guard let view = view as? NativeImageView else { throw RuntimeError.error(withMessage: "Invalid view type!") }
 
     let webImageOptions = options?.toSDWebImageOptions() ?? []
-    let webImageContext = options?.toSDWebImageContext()
+    var webImageContext = options?.toSDWebImageContext() ?? [:]
+
+    // Bake cachePriority into the memory cache key via SDWebImage's
+    // CacheKeyFilter. Our PriorityMemoryCache parses the `"P|"` prefix
+    // to pick the bucket.
+    webImageContext[.cacheKeyFilter] = SDWebImageCacheKeyFilter { url in
+      "\(cachePriority)\(PriorityMemoryCache.prioritySeparator)\(url.absoluteString)"
+    }
+
     view.imageView.sd_setImage(with: url,
                                placeholderImage: view.imageView.image,
                                options: webImageOptions,

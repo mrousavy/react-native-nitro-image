@@ -94,6 +94,11 @@ using namespace margelo::nitro::image::views;
     swiftPart.setRecyclingKey(newViewProps.recyclingKey.value);
     newViewProps.recyclingKey.isDirty = false;
   }
+  // cachePriority: optional
+  if (newViewProps.cachePriority.isDirty) {
+    swiftPart.setCachePriority(newViewProps.cachePriority.value);
+    newViewProps.cachePriority.isDirty = false;
+  }
 
   swiftPart.afterUpdate();
 
