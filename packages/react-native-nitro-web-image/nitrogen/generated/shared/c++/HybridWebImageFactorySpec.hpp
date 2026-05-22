@@ -55,8 +55,7 @@ namespace margelo::nitro::web::image {
 
     public:
       // Properties
-      virtual double getMaxMemoryBytes() = 0;
-      virtual void setMaxMemoryBytes(double maxMemoryBytes) = 0;
+      
 
     public:
       // Methods

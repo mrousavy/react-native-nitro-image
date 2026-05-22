@@ -14,8 +14,6 @@ namespace margelo::nitro::web::image {
     HybridObject::loadHybridMethods();
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
-      prototype.registerHybridGetter("maxMemoryBytes", &HybridWebImageFactorySpec::getMaxMemoryBytes);
-      prototype.registerHybridSetter("maxMemoryBytes", &HybridWebImageFactorySpec::setMaxMemoryBytes);
       prototype.registerHybridMethod("createWebImageLoader", &HybridWebImageFactorySpec::createWebImageLoader);
       prototype.registerHybridMethod("loadFromURLAsync", &HybridWebImageFactorySpec::loadFromURLAsync);
       prototype.registerHybridMethod("preload", &HybridWebImageFactorySpec::preload);

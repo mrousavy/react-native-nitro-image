@@ -27,12 +27,6 @@ class HybridWebImageFactory: HybridWebImageFactorySpec() {
         }
         .build()
 
-    override var maxMemoryBytes: Double
-        get() = (imageLoader.memoryCache?.maxSize ?: 0L).toDouble()
-        set(value) {
-            imageLoader.memoryCache?.maxSize = value.toLong()
-        }
-
     override fun createWebImageLoader(
         url: String,
         options: AsyncImageLoadOptions?

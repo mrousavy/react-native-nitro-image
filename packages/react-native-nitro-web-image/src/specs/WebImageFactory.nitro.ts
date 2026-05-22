@@ -87,18 +87,6 @@ export interface AsyncImageLoadOptions {
 export interface WebImageFactory
   extends HybridObject<{ ios: 'swift'; android: 'kotlin' }> {
   /**
-   * The maximum size, in bytes, of the in-memory image cache used by
-   * {@linkcode WebImages}.
-   *
-   * When the cache exceeds this budget, entries are evicted lowest
-   * {@linkcode NativeNitroImageViewProps.cachePriority | cachePriority}
-   * first, then least-recently-used within that priority.
-   *
-   * @default 64 * 1024 * 1024
-   */
-  maxMemoryBytes: number
-
-  /**
    * Create a deferred {@linkcode ImageLoader} that loads the {@linkcode Image}
    * from the given {@linkcode url}.
    */

@@ -28,11 +28,7 @@ import com.margelo.nitro.core.HybridObject
 )
 abstract class HybridWebImageFactorySpec: HybridObject() {
   // Properties
-  @get:DoNotStrip
-  @get:Keep
-  @set:DoNotStrip
-  @set:Keep
-  abstract var maxMemoryBytes: Double
+  
 
   // Methods
   @DoNotStrip

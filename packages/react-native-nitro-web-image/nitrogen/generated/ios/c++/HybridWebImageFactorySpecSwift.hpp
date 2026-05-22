@@ -76,12 +76,7 @@ namespace margelo::nitro::web::image {
 
   public:
     // Properties
-    inline double getMaxMemoryBytes() noexcept override {
-      return _swiftPart.getMaxMemoryBytes();
-    }
-    inline void setMaxMemoryBytes(double maxMemoryBytes) noexcept override {
-      _swiftPart.setMaxMemoryBytes(std::forward<decltype(maxMemoryBytes)>(maxMemoryBytes));
-    }
+    
 
   public:
     // Methods

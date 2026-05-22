@@ -23,11 +23,6 @@ class HybridWebImageFactory: HybridWebImageFactorySpec {
     super.init()
   }
 
-  var maxMemoryBytes: Double {
-    get { Double(SDImageCacheConfig.default.maxMemoryCost) }
-    set { SDImageCacheConfig.default.maxMemoryCost = UInt(max(0, newValue)) }
-  }
-
   func loadFromURLAsync(url urlString: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
     guard let url = URL(string: urlString) else {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")

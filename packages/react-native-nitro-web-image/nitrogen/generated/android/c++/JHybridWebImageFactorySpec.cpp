@@ -60,15 +60,7 @@ namespace margelo::nitro::web::image {
   }
 
   // Properties
-  double JHybridWebImageFactorySpec::getMaxMemoryBytes() {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<double()>("getMaxMemoryBytes");
-    auto __result = method(_javaPart);
-    return __result;
-  }
-  void JHybridWebImageFactorySpec::setMaxMemoryBytes(double maxMemoryBytes) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<void(double /* maxMemoryBytes */)>("setMaxMemoryBytes");
-    method(_javaPart, maxMemoryBytes);
-  }
+  
 
   // Methods
   std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec> JHybridWebImageFactorySpec::createWebImageLoader(const std::string& url, const std::optional<AsyncImageLoadOptions>& options) {
