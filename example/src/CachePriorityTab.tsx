@@ -1,5 +1,12 @@
 import { useCallback, useMemo, useState } from 'react'
-import { Button, FlatList, Platform, StyleSheet, Text, View } from 'react-native'
+import {
+  Button,
+  FlatList,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { NitroImage } from 'react-native-nitro-image'
 import { WebImages } from 'react-native-nitro-web-image'
 import { createImageURLs } from './createImageURLs'
@@ -10,9 +17,13 @@ import { createImageURLs } from './createImageURLs'
 const DEMO_CACHE_BYTES = 3 * 1024 * 1024
 
 console.log(`[CachePriorityTab] platform: ${Platform.OS}`)
-console.log(`[CachePriorityTab] maxMemoryBytes before: ${WebImages.maxMemoryBytes}`)
+console.log(
+  `[CachePriorityTab] maxMemoryBytes before: ${WebImages.maxMemoryBytes}`,
+)
 WebImages.maxMemoryBytes = DEMO_CACHE_BYTES
-console.log(`[CachePriorityTab] maxMemoryBytes after:  ${WebImages.maxMemoryBytes}`)
+console.log(
+  `[CachePriorityTab] maxMemoryBytes after:  ${WebImages.maxMemoryBytes}`,
+)
 
 /**
  * Demonstrates cachePriority. The hero (priority 2) should survive cache
@@ -34,9 +45,7 @@ export function CachePriorityTab() {
     [thumbnailURLs],
   )
 
-  // Stable identity per hero remount; tied to the nonce so the URL identity
-  // changes only when the user taps "Reload hero".
-  const heroSource = useMemo(() => ({ url: heroURL }), [heroURL, heroNonce])
+  const heroSource = useMemo(() => ({ url: heroURL }), [heroURL])
 
   const renderItem = useCallback(
     ({ item: source }: { item: { url: string } }) => (
@@ -62,8 +71,13 @@ export function CachePriorityTab() {
         resizeMode="cover"
       />
       <View style={styles.buttonRow}>
-        <Text style={styles.counter}>Remounted: {heroNonce} • check logcat: 1 SET, {heroNonce} HITs</Text>
-        <Button title="Reload hero" onPress={() => setHeroNonce((n) => n + 1)} />
+        <Text style={styles.counter}>
+          Remounted: {heroNonce} • check logcat: 1 SET, {heroNonce} HITs
+        </Text>
+        <Button
+          title="Reload hero"
+          onPress={() => setHeroNonce((n) => n + 1)}
+        />
       </View>
       <Text style={styles.label}>Thumbnails (no cachePriority)</Text>
       <FlatList
