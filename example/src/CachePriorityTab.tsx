@@ -1,45 +1,13 @@
 import { useCallback, useMemo, useState } from 'react'
-import {
-  Button,
-  FlatList,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import { NitroImage } from 'react-native-nitro-image'
-import { WebImages } from 'react-native-nitro-web-image'
 import { createImageURLs } from './createImageURLs'
 
-// Baseline run: tight cap + no priorities anywhere. 3 MB sits just above the
-// 800×800 hero (~2.56 MB decoded RGBA) so it can land in cache, then the
-// first thumbnail load should LRU-evict it.
-const DEMO_CACHE_BYTES = 3 * 1024 * 1024
-
-console.log(`[CachePriorityTab] platform: ${Platform.OS}`)
-console.log(
-  `[CachePriorityTab] maxMemoryBytes before: ${WebImages.maxMemoryBytes}`,
-)
-WebImages.maxMemoryBytes = DEMO_CACHE_BYTES
-console.log(
-  `[CachePriorityTab] maxMemoryBytes after:  ${WebImages.maxMemoryBytes}`,
-)
-
-/**
- * Demonstrates cachePriority. The hero (priority 2) should survive cache
- * pressure while thumbnails (priority 0) churn. With the configured cap,
- * scrolling many thumbs evicts thumbs first; tapping "Reload hero" should
- * give an instant cache hit, while thumbnails that scrolled off may need
- * to be refetched.
- */
 export function CachePriorityTab() {
   const heroURL = useMemo(() => `https://picsum.photos/seed/hero/800`, [])
   const thumbnailURLs = useMemo(() => createImageURLs(200), [])
   const [heroNonce, setHeroNonce] = useState(0)
 
-  // Pre-build the {url} objects once so each row's `image` prop has a stable
-  // reference across re-renders — otherwise an inline `{ url }` literal would
-  // create a new object every render and re-trigger the native `image` setter.
   const thumbnailSources = useMemo(
     () => thumbnailURLs.map((url) => ({ url })),
     [thumbnailURLs],

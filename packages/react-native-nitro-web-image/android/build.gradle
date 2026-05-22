@@ -145,7 +145,5 @@ dependencies {
   implementation("io.coil-kt.coil3:coil-gif:3.3.0")
   // Lock primitive used to match Coil's RealMemoryCache synchronization.
   implementation("org.jetbrains.kotlinx:atomicfu:0.29.0")
-
-  testImplementation("junit:junit:4.13.2")
 }
 
