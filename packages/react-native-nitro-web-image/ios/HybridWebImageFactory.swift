@@ -12,14 +12,9 @@ import NitroImage
 
 class HybridWebImageFactory: HybridWebImageFactorySpec {
   override init() {
-    // Install our priority-aware memory cache as the shared SDImageCache class.
-    // Setting this on the default config must happen before any SDImageCache
-    // instance is constructed, so do it here on the factory's first init.
+    // Must be set before any SDImageCache instance is constructed.
     SDImageCacheConfig.default.memoryCacheClass = PriorityMemoryCache.self
-    // NOTE: deliberately small for demo/manual verification of priority eviction.
-    // Big enough to hold a handful of decoded bitmaps so eviction is observable.
-    // Restore to 64 * 1024 * 1024 for production defaults.
-    SDImageCacheConfig.default.maxMemoryCost = 16 * 1024 * 1024
+    SDImageCacheConfig.default.maxMemoryCost = 64 * 1024 * 1024 // Set default memory to 64MB.
     super.init()
   }
 
