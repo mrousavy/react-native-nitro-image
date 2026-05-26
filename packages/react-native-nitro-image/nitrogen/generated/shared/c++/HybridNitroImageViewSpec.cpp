@@ -20,6 +20,8 @@ namespace margelo::nitro::image {
       prototype.registerHybridSetter("resizeMode", &HybridNitroImageViewSpec::setResizeMode);
       prototype.registerHybridGetter("recyclingKey", &HybridNitroImageViewSpec::getRecyclingKey);
       prototype.registerHybridSetter("recyclingKey", &HybridNitroImageViewSpec::setRecyclingKey);
+      prototype.registerHybridGetter("cachePriority", &HybridNitroImageViewSpec::getCachePriority);
+      prototype.registerHybridSetter("cachePriority", &HybridNitroImageViewSpec::setCachePriority);
     });
   }
 

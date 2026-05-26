@@ -61,6 +61,8 @@ namespace margelo::nitro::image {
       virtual void setResizeMode(std::optional<ResizeMode> resizeMode) = 0;
       virtual std::optional<std::string> getRecyclingKey() = 0;
       virtual void setRecyclingKey(const std::optional<std::string>& recyclingKey) = 0;
+      virtual std::optional<double> getCachePriority() = 0;
+      virtual void setCachePriority(std::optional<double> cachePriority) = 0;
 
     public:
       // Methods

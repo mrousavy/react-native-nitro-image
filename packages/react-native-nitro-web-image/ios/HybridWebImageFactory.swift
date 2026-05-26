@@ -11,6 +11,13 @@ import SDWebImage
 import NitroImage
 
 class HybridWebImageFactory: HybridWebImageFactorySpec {
+  override init() {
+    // Must be set before any SDImageCache instance is constructed.
+    SDImageCacheConfig.default.memoryCacheClass = PriorityMemoryCache.self
+    SDImageCacheConfig.default.maxMemoryCost = 64 * 1024 * 1024 // Set default memory to 64MB.
+    super.init()
+  }
+
   func loadFromURLAsync(url urlString: String, options: AsyncImageLoadOptions?) throws -> Promise<any HybridImageSpec> {
     guard let url = URL(string: urlString) else {
       throw RuntimeError.error(withMessage: "URL string \"\(urlString)\" is not a valid URL!")

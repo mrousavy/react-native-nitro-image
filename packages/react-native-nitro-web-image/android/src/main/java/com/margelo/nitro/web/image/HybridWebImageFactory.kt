@@ -2,6 +2,7 @@ package com.margelo.nitro.web.image
 
 import androidx.annotation.Keep
 import coil3.ImageLoader
+import coil3.memory.MemoryCache
 import coil3.request.ImageRequest
 import com.facebook.common.internal.DoNotStrip
 import com.facebook.react.bridge.ReactApplicationContext
@@ -9,6 +10,7 @@ import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridImageSpec
+import com.margelo.nitro.web.image.cache.PriorityMemoryCache
 import com.margelo.nitro.web.image.extensions.loadImageAsync
 
 @DoNotStrip
@@ -16,7 +18,14 @@ import com.margelo.nitro.web.image.extensions.loadImageAsync
 class HybridWebImageFactory: HybridWebImageFactorySpec() {
     private val context: ReactApplicationContext
         get() = NitroModules.applicationContext ?: throw Error("No context - NitroModules.applicationContext was null!")
-    private val imageLoader = ImageLoader(context)
+    private val imageLoader = ImageLoader.Builder(context)
+        .memoryCache {
+            // Set initialMaxSize to Coil default.
+            PriorityMemoryCache(
+                initialMaxSize = MemoryCache.Builder().maxSizePercent(context).build().maxSize,
+            )
+        }
+        .build()
 
     override fun createWebImageLoader(
         url: String,

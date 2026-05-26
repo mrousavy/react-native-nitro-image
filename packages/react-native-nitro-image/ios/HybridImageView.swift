@@ -37,6 +37,7 @@ class HybridImageView: HybridNitroImageViewSpec {
       resetImageBeforeLoad = recyclingKey != oldValue
     }
   }
+  var cachePriority: Double?
 
   private func updateResizeMode() {
     let mode = resizeMode ?? .cover

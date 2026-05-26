@@ -8,6 +8,7 @@ import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.HybridImageSpec
 import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridNitroImageViewSpec
+import com.margelo.nitro.web.image.cache.CACHE_PRIORITY_EXTRA
 import com.margelo.nitro.web.image.extensions.applyOptions
 import com.margelo.nitro.web.image.extensions.loadImageAsync
 
@@ -21,9 +22,11 @@ class HybridWebImageLoader(private val imageLoader: ImageLoader,
 
     override fun requestImage(forView: HybridNitroImageViewSpec) {
         val imageView = forView.view as? ImageView ?: return
+        val cachePriority = forView.cachePriority?.toInt() ?: 1
 
         imageView.load(url, imageLoader) {
             this.applyOptions(options)
+            memoryCacheKeyExtra(CACHE_PRIORITY_EXTRA, cachePriority.toString())
         }
     }
 

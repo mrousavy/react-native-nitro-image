@@ -94,6 +94,13 @@ namespace margelo::nitro::image {
     inline void setRecyclingKey(const std::optional<std::string>& recyclingKey) noexcept override {
       _swiftPart.setRecyclingKey(recyclingKey);
     }
+    inline std::optional<double> getCachePriority() noexcept override {
+      auto __result = _swiftPart.getCachePriority();
+      return __result;
+    }
+    inline void setCachePriority(std::optional<double> cachePriority) noexcept override {
+      _swiftPart.setCachePriority(cachePriority);
+    }
 
   public:
     // Methods

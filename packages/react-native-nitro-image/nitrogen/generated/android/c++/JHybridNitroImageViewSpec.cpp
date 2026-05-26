@@ -83,6 +83,15 @@ namespace margelo::nitro::image {
     static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* recyclingKey */)>("setRecyclingKey");
     method(_javaPart, recyclingKey.has_value() ? jni::make_jstring(recyclingKey.value()) : nullptr);
   }
+  std::optional<double> JHybridNitroImageViewSpec::getCachePriority() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JDouble>()>("getCachePriority");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional(__result->value()) : std::nullopt;
+  }
+  void JHybridNitroImageViewSpec::setCachePriority(std::optional<double> cachePriority) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JDouble> /* cachePriority */)>("setCachePriority");
+    method(_javaPart, cachePriority.has_value() ? jni::JDouble::valueOf(cachePriority.value()) : nullptr);
+  }
 
   // Methods
   
