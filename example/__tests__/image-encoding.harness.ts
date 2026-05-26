@@ -4,6 +4,13 @@ import { Images } from 'react-native-nitro-image'
 const makeImage = () =>
   Images.createBlankImage(16, 16, false, { r: 0, g: 0, b: 1, a: 1 })
 
+const expectTemporaryPath = (path: string, extension: 'jpg' | 'png') => {
+  expect(path.length).toBeGreaterThan(0)
+  expect(path.startsWith('/')).toBe(true)
+  expect(path.startsWith('file://')).toBe(false)
+  expect(path.toLowerCase().endsWith(`.${extension}`)).toBe(true)
+}
+
 describe('Image - toRawPixelData', () => {
   it('returns a non-empty pixel buffer with matching dimensions', () => {
     const image = makeImage()
@@ -55,8 +62,17 @@ describe('Image - saveToTemporaryFileAsync', () => {
   it('writes a JPG to a temporary path that can be loaded back', async () => {
     const image = makeImage()
     const path = await image.saveToTemporaryFileAsync('jpg', 80)
-    expect(path.length).toBeGreaterThan(0)
-    expect(path.startsWith('file://')).toBe(false)
+    expectTemporaryPath(path, 'jpg')
+
+    const reloaded = await Images.loadFromFileAsync(path)
+    expect(reloaded.width).toBe(image.width)
+    expect(reloaded.height).toBe(image.height)
+  })
+
+  it('writes a PNG to a temporary path with a PNG extension', async () => {
+    const image = makeImage()
+    const path = await image.saveToTemporaryFileAsync('png')
+    expectTemporaryPath(path, 'png')
 
     const reloaded = await Images.loadFromFileAsync(path)
     expect(reloaded.width).toBe(image.width)

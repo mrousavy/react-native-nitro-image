@@ -7,6 +7,13 @@ import {
   thumbHashToBase64String,
 } from 'react-native-nitro-image'
 
+const expectTemporaryHeicPath = (path: string) => {
+  expect(path.length).toBeGreaterThan(0)
+  expect(path.startsWith('/')).toBe(true)
+  expect(path.startsWith('file://')).toBe(false)
+  expect(path.toLowerCase().endsWith('.heic')).toBe(true)
+}
+
 describe('ImageUtils - HEIC round-trip', () => {
   it('encodes an image as HEIC, writes it to disk and loads it back', async () => {
     if (!supportsHeicWriting) {
@@ -36,7 +43,7 @@ describe('ImageUtils - HEIC round-trip', () => {
     expect(encoded.buffer.byteLength).toBeGreaterThan(0)
 
     const path = await original.saveToTemporaryFileAsync('heic', 80)
-    expect(path.length).toBeGreaterThan(0)
+    expectTemporaryHeicPath(path)
 
     const reloaded = await Images.loadFromFileAsync(path)
     expect(reloaded.width).toBe(original.width)
