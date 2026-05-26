@@ -97,6 +97,8 @@ export interface WebImageFactory
   /**
    * Fetches data from the given {@linkcode url} and decode it into an {@linkcode Image}.
    * This is async and can throw.
+   *
+   * @note To load local Images using the Web Image Loader, use a `file://` prefix.
    */
   loadFromURLAsync(url: string, options?: AsyncImageLoadOptions): Promise<Image>
 

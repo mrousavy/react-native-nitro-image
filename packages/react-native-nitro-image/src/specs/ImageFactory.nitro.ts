@@ -47,14 +47,14 @@ export interface ImageFactory
 
   /**
    * Synchronously loads an {@linkcode Image} from the given {@linkcode filePath}.
-   * @param filePath The filesystem path of the {@linkcode Image}. Must contain a file extension. Do not pass a `file://` URL.
+   * @param filePath The filesystem path of the {@linkcode Image}, including its file extension. This is not a URL, so don't pass a `file://` prefix.
    * @throws If the {@linkcode filePath} is invalid.
    * @throws If the data at the given {@linkcode filePath} cannot be parsed as an {@linkcode Image}.
    */
   loadFromFile(filePath: string): Image
   /**
    * Asynchronously loads an {@linkcode Image} from the given {@linkcode filePath}.
-   * @param filePath The filesystem path of the {@linkcode Image}. Must contain a file extension. Do not pass a `file://` URL.
+   * @param filePath The filesystem path of the {@linkcode Image}, including its file extension. This is not a URL, so don't pass a `file://` prefix.
    * @throws If the {@linkcode filePath} is invalid.
    * @throws If the data at the given {@linkcode filePath} cannot be parsed as an {@linkcode Image}.
    */
