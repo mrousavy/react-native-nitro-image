@@ -14,6 +14,12 @@ const expectTemporaryHeicPath = (path: string) => {
   expect(path.toLowerCase().endsWith('.heic')).toBe(true)
 }
 
+const expectFileUrlFetchable = async (path: string) => {
+  const response = await fetch(`file://${path}`)
+  const bytes = await response.arrayBuffer()
+  expect(bytes.byteLength).toBeGreaterThan(0)
+}
+
 describe('ImageUtils - HEIC round-trip', () => {
   it('encodes an image as HEIC, writes it to disk and loads it back', async () => {
     if (!supportsHeicWriting) {
@@ -44,6 +50,7 @@ describe('ImageUtils - HEIC round-trip', () => {
 
     const path = await original.saveToTemporaryFileAsync('heic', 80)
     expectTemporaryHeicPath(path)
+    await expectFileUrlFetchable(path)
 
     const reloaded = await Images.loadFromFileAsync(path)
     expect(reloaded.width).toBe(original.width)

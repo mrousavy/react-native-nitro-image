@@ -11,6 +11,12 @@ const expectTemporaryPath = (path: string, extension: 'jpg' | 'png') => {
   expect(path.toLowerCase().endsWith(`.${extension}`)).toBe(true)
 }
 
+const expectFileUrlFetchable = async (path: string) => {
+  const response = await fetch(`file://${path}`)
+  const bytes = await response.arrayBuffer()
+  expect(bytes.byteLength).toBeGreaterThan(0)
+}
+
 describe('Image - toRawPixelData', () => {
   it('returns a non-empty pixel buffer with matching dimensions', () => {
     const image = makeImage()
@@ -63,6 +69,7 @@ describe('Image - saveToTemporaryFileAsync', () => {
     const image = makeImage()
     const path = await image.saveToTemporaryFileAsync('jpg', 80)
     expectTemporaryPath(path, 'jpg')
+    await expectFileUrlFetchable(path)
 
     const reloaded = await Images.loadFromFileAsync(path)
     expect(reloaded.width).toBe(image.width)
@@ -73,6 +80,7 @@ describe('Image - saveToTemporaryFileAsync', () => {
     const image = makeImage()
     const path = await image.saveToTemporaryFileAsync('png')
     expectTemporaryPath(path, 'png')
+    await expectFileUrlFetchable(path)
 
     const reloaded = await Images.loadFromFileAsync(path)
     expect(reloaded.width).toBe(image.width)
