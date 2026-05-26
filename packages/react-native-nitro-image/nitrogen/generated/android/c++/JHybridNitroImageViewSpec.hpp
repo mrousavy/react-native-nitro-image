@@ -59,7 +59,7 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    
+    void setIsActive(bool isActive) override;
 
   private:
     jni::global_ref<JHybridNitroImageViewSpec::JavaPart> _javaPart;

@@ -45,7 +45,9 @@ abstract class HybridNitroImageViewSpec: HybridView() {
   abstract var recyclingKey: String?
 
   // Methods
-  
+  @DoNotStrip
+  @Keep
+  abstract fun setIsActive(isActive: Boolean): Unit
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

@@ -85,6 +85,9 @@ namespace margelo::nitro::image {
   }
 
   // Methods
-  
+  void JHybridNitroImageViewSpec::setIsActive(bool isActive) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jboolean /* isActive */)>("setIsActive");
+    method(_javaPart, isActive);
+  }
 
 } // namespace margelo::nitro::image

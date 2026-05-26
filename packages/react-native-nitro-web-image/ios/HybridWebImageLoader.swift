@@ -43,7 +43,8 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
   }
 
   func dropImage(forView view: (any HybridNitroImageViewSpec)) throws {
-    // TODO: Do we need to reset the image here or not?
+    guard let view = view as? NativeImageView else { return }
+    view.imageView.sd_cancelCurrentImageLoad()
   }
   
   public static func loadImage(url: URL, options: AsyncImageLoadOptions?) -> Promise<any HybridImageSpec> {

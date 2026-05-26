@@ -58,7 +58,11 @@ export interface NativeNitroImageViewProps extends HybridViewProps {
 }
 
 export interface NativeNitroImageViewMethods extends HybridViewMethods {
-  // no methods
+  /**
+   * When `false`, cancels the in-flight {@linkcode ImageLoader} request.
+   * When `true`, resumes it.
+   */
+  setIsActive(isActive: boolean): void
 }
 
 export type NitroImageView = HybridView<

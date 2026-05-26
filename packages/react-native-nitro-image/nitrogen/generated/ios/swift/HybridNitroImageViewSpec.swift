@@ -15,7 +15,7 @@ public protocol HybridNitroImageViewSpec_protocol: HybridObject, HybridView {
   var recyclingKey: String? { get set }
 
   // Methods
-  
+  func setIsActive(isActive: Bool) throws -> Void
 }
 
 public extension HybridNitroImageViewSpec_protocol {
