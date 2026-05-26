@@ -97,7 +97,12 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    
+    inline void setIsActive(bool isActive) override {
+      auto __result = _swiftPart.setIsActive(std::forward<decltype(isActive)>(isActive));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
 
   private:
     NitroImage::HybridNitroImageViewSpec_cxx _swiftPart;

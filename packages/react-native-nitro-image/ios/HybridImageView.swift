@@ -37,6 +37,14 @@ class HybridImageView: HybridNitroImageViewSpec {
       resetImageBeforeLoad = recyclingKey != oldValue
     }
   }
+  private var isActive: Bool = true
+
+  func setIsActive(isActive: Bool) throws {
+    DispatchQueue.runOnMain {
+      self.isActive = isActive
+      self.refreshLoadingState()
+    }
+  }
 
   private func updateResizeMode() {
     let mode = resizeMode ?? .cover
@@ -61,17 +69,16 @@ class HybridImageView: HybridNitroImageViewSpec {
       }
       view.image = image.uiImage
     case .second:
-      // Image Loader - trigger a load or drop
-      didSetImageLoader()
+      // Image Loader - trigger a load or drop based on current visibility + isActive
+      refreshLoadingState()
     case nil:
       // No Image
       view.image = nil
     }
   }
 
-  private func didSetImageLoader() {
-    // An ImageLoader was set - trigger an update (load or drop)
-    if view.isVisible {
+  private func refreshLoadingState() {
+    if view.isVisible && isActive {
       willShow()
     } else {
       willHide()
@@ -92,6 +99,7 @@ extension HybridImageView: ViewLifecycleDelegate {
   }
 
   func willShow() {
+    guard isActive else { return }
     guard let imageLoader else { return }
     if resetImageBeforeLoad {
       view.image = nil

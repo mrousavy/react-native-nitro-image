@@ -64,7 +64,7 @@ namespace margelo::nitro::image {
 
     public:
       // Methods
-      
+      virtual void setIsActive(bool isActive) = 0;
 
     protected:
       // Hybrid Setup

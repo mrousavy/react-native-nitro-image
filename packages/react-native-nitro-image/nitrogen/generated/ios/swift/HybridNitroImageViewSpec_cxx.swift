@@ -220,6 +220,17 @@ open class HybridNitroImageViewSpec_cxx {
   }
 
   // Methods
+  @inline(__always)
+  public final func setIsActive(isActive: Bool) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.setIsActive(isActive: isActive)
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
   public final func getView() -> UnsafeMutableRawPointer {
     return Unmanaged.passRetained(__implementation.view).toOpaque()
   }

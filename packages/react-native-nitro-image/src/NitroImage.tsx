@@ -1,8 +1,8 @@
-// biome-ignore lint/correctness/noUnusedImports: Needed for JSX runtime
 import React from 'react'
 import type { HostComponent } from 'react-native'
 import type { AsyncImageSource } from './AsyncImageSource'
 import { NativeNitroImage } from './NativeNitroImage'
+import type { NitroImageView } from './specs/ImageView.nitro'
 import { useImageLoader } from './useImageLoader'
 
 type ReactProps<T> = T extends HostComponent<infer P> ? P : never
@@ -10,6 +10,12 @@ type NativeImageProps = ReactProps<typeof NativeNitroImage>
 
 export interface NitroImageProps extends Omit<NativeImageProps, 'image'> {
   image: AsyncImageSource
+  /**
+   * When `false`, cancels the in-flight {@linkcode ImageLoader} request.
+   * When `true`, resumes it. Typically driven by `useIsFocused()`.
+   * @default true
+   */
+  isActive?: boolean
 }
 
 /**
@@ -30,7 +36,21 @@ export interface NitroImageProps extends Omit<NativeImageProps, 'image'> {
  * }
  * ```
  */
-export function NitroImage({ image, ...props }: NitroImageProps) {
+export function NitroImage({
+  image,
+  isActive = true,
+  ...props
+}: NitroImageProps) {
   const actualImage = useImageLoader(image)
-  return <NativeNitroImage image={actualImage} {...props} />
+  const viewRef = React.useRef<NitroImageView>(null)
+  React.useEffect(() => {
+    viewRef.current?.setIsActive(isActive)
+  }, [isActive])
+  return (
+    <NativeNitroImage
+      image={actualImage}
+      hybridRef={{ f: (r) => (viewRef.current = r) }}
+      {...props}
+    />
+  )
 }

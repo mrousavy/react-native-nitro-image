@@ -49,6 +49,15 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
             field = value
         }
 
+    private var isActive: Boolean = true
+
+    override fun setIsActive(isActive: Boolean) {
+        uiScope.launch {
+            this@HybridImageView.isActive = isActive
+            refreshLoadingState()
+        }
+    }
+
     override fun prepareForRecycle() {
         onDisappear()
         imageView.setImageBitmap(null)
@@ -75,13 +84,18 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
                 }
             },
             { _: HybridImageLoaderSpec ->
-                // ImageLoader
-                onAppear()
+                // ImageLoader - trigger a load or drop based on current visibility + isActive
+                refreshLoadingState()
             }
         )
     }
 
+    private fun refreshLoadingState() {
+        if (isActive) onAppear() else onDisappear()
+    }
+
     private fun onAppear() {
+        if (!isActive) return
         val imageLoader = image?.asSecondOrNull() ?: return
         try {
             if (resetImageBeforeLoad) {
