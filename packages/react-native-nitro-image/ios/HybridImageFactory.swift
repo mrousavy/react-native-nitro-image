@@ -7,7 +7,6 @@
 
 import Foundation
 import NitroModules
-import UniformTypeIdentifiers
 
 class HybridImageFactory: HybridImageFactorySpec {
   /**
