@@ -16,6 +16,7 @@ import com.margelo.nitro.image.extensions.compressInMemory
 import com.margelo.nitro.image.extensions.isGPU
 import com.margelo.nitro.image.extensions.pixelFormat
 import com.margelo.nitro.image.extensions.saveToFile
+import com.margelo.nitro.image.extensions.toFilePath
 import com.margelo.nitro.image.extensions.toByteBuffer
 import com.margelo.nitro.image.extensions.toCpuAccessible
 import com.margelo.nitro.image.extensions.toMutable
@@ -160,14 +161,14 @@ class HybridImage: HybridImageSpec {
     ): Promise<Unit> {
         val quality = quality ?: 100.0
         return Promise.async {
-            bitmap.saveToFile(path, format, quality.toInt())
+            bitmap.saveToFile(path.toFilePath(), format, quality.toInt())
         }
     }
 
     override fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double?): Promise<String> {
         val quality = quality ?: 100.0
         return Promise.async {
-            val tempFile = File.createTempFile("nitro_image_", format.name)
+            val tempFile = File.createTempFile("nitro_image_", ".${format.name.lowercase()}")
             bitmap.saveToFile(tempFile.path, format, quality.toInt())
             return@async tempFile.path
         }

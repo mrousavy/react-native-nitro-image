@@ -5,6 +5,7 @@ import {
   isHybridImageLoader,
 } from './AsyncImageSource'
 import { Images } from './Images'
+import { normalizeFilePath } from './normalizeFilePath'
 import { OptionalWebImages } from './OptionalWebLoader'
 import type { Image } from './specs/Image.nitro'
 
@@ -15,9 +16,9 @@ export function loadImage(source: AsyncImageSource): Promise<Image> | Image {
     if (resolvedSource.uri.startsWith('http')) {
       // In debug, assets are streamed over the network
       return loadImage({ url: resolvedSource.uri })
-    } else if (resolvedSource.uri.startsWith('file')) {
+    } else if (resolvedSource.uri.startsWith('file://')) {
       // In release, assets are embedded files...
-      return loadImage({ filePath: resolvedSource.uri })
+      return loadImage({ filePath: normalizeFilePath(resolvedSource.uri) })
     } else {
       // ...or resource IDs
       return loadImage({ resource: resolvedSource.uri })
@@ -30,7 +31,7 @@ export function loadImage(source: AsyncImageSource): Promise<Image> | Image {
     return source.loadImage()
   } else if ('filePath' in source) {
     // It's a { filePath }
-    return Images.loadFromFileAsync(source.filePath)
+    return Images.loadFromFileAsync(normalizeFilePath(source.filePath))
   } else if ('encodedImageData' in source) {
     // It's a { encodedImageData }
     return Images.loadFromEncodedImageDataAsync(source.encodedImageData)

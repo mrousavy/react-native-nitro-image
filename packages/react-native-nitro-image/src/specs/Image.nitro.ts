@@ -162,12 +162,17 @@ export interface Image
   mirrorHorizontallyAsync(): Promise<Image>
 
   /**
-   * Saves this image in the given {@linkcode ImageFormat} to the given {@linkcode path}.
-   * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
-   * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
-   * {@linkcode quality} flag is ignored.
+   * Saves this image in the given {@linkcode ImageFormat} to the given filesystem {@linkcode path}.
+   *
+   * @param path A filesystem path including filename and extension - for example: `/tmp/image.jpg`. This is not a URL, so omit the `file://` prefix. The file extension is not authorative and does not affect encoding/file format - but typically it should be the same extension as the {@linkcode ImageFormat} passed to the {@linkcode format} parameter.
+   *
+   * @param format The {@linkcode ImageFormat} to use for encoding this Image to a file.
+   *
+   * @param quality The target Image quality to use, from `0` (worst quality/highest compression) to `100` (best quality/least compression). {@linkcode quality} is ignored for non-compressable {@linkcode ImageFormat}s, such as {@linkcode ImageFormat | 'png'}.
+   *
    * @example
    * ```ts
+   * const path = '/tmp/image.jpg'
    * await image.saveToFileAsync(path, 'jpg', 80)
    * ```
    */
@@ -177,13 +182,18 @@ export interface Image
     quality?: number,
   ): Promise<void>
   /**
-   * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and return it's path.
-   * @note If the requested {@linkcode format} is {@linkcode ImageFormat | 'jpg'}, you can use
-   * {@linkcode quality} to compress the image. Quality ranges from 0(most)...100(least). In {@linkcode ImageFormat | 'png'}, the
-   * {@linkcode quality} flag is ignored.
+   * Saves this image in the given {@linkcode ImageFormat} to a temporary file, and returns its filesystem path.
+   *
+   * @param format The {@linkcode ImageFormat} to use for encoding this Image to a file. The given {@linkcode ImageFormat} will also be used as the generated file's extension.
+   *
+   * @param quality The target Image quality to use, from `0` (worst quality/highest compression) to `100` (best quality/least compression). {@linkcode quality} is ignored for non-compressable {@linkcode ImageFormat}s, such as {@linkcode ImageFormat | 'png'}.
+   *
+   * @returns A filesystem path such as `/tmp/image.jpg`. This is not a URL, so the returned path does not have a `file://` prefix. If another API needs a file URL, prepend `file://`, for example `fetch('file://' + path)`.
+   *
    * @example
    * ```ts
    * const path = await image.saveToTemporaryFileAsync('jpg', 80)
+   * const response = await fetch(`file://${path}`)
    * ```
    */
   saveToTemporaryFileAsync(
