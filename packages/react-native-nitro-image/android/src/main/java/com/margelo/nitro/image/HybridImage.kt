@@ -168,7 +168,7 @@ class HybridImage: HybridImageSpec {
     override fun saveToTemporaryFileAsync(format: ImageFormat, quality: Double?): Promise<String> {
         val quality = quality ?: 100.0
         return Promise.async {
-            val tempFile = File.createTempFile("nitro_image_", format.name)
+            val tempFile = File.createTempFile("nitro_image_", ".${format.name.lowercase()}")
             bitmap.saveToFile(tempFile.path, format, quality.toInt())
             return@async tempFile.path
         }

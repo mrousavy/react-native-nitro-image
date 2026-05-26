@@ -167,8 +167,8 @@ public extension NativeImage {
   func saveToTemporaryFileAsync(format: ImageFormat, quality: Double?) -> Promise<String> {
     return Promise.async(.utility) {
       let tempDirectory = FileManager.default.temporaryDirectory
-      let fileName = UUID().uuidString
-      let file = tempDirectory.appendingPathComponent(fileName, conformingTo: format.toUTType())
+      let fileName = "\(UUID().uuidString).\(format.stringValue)"
+      let file = tempDirectory.appendingPathComponent(fileName)
       let path = file.path
 
       try self.saveImage(to: path, format: format, quality: quality ?? 100.0)
