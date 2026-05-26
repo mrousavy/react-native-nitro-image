@@ -91,11 +91,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     }
 
     private fun refreshLoadingState() {
-        if (imageView.isAttachedToWindow && isActive) {
-            onAppear()
-        } else {
-            onDisappear()
-        }
+        if (isActive) onAppear() else onDisappear()
     }
 
     private fun onAppear() {
