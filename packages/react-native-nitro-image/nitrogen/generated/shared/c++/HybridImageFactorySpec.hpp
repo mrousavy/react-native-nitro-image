@@ -30,7 +30,6 @@ namespace margelo::nitro::image { struct EncodedImageData; }
 #include <string>
 #include "RawPixelData.hpp"
 #include "EncodedImageData.hpp"
-#include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::image {
 
@@ -74,8 +73,6 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data, std::optional<bool> allowGpu) = 0;
       virtual std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& data) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& data) = 0;
-      virtual std::shared_ptr<HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) = 0;
 
     protected:
       // Hybrid Setup

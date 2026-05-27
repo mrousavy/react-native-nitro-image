@@ -176,17 +176,6 @@ public extension NativeImage {
     }
   }
 
-  func toThumbHash() throws -> ArrayBuffer {
-    let thumbHash = imageToThumbHash(image: uiImage)
-    return try ArrayBuffer.copy(data: thumbHash)
-  }
-
-  func toThumbHashAsync() -> Promise<ArrayBuffer> {
-    return Promise.async {
-      return try self.toThumbHash()
-    }
-  }
-
   func renderInto(image newImage: any HybridImageSpec, x: Double, y: Double, width: Double, height: Double) throws -> any HybridImageSpec {
     guard let newImage = newImage as? NativeImage else {
       throw RuntimeError.error(withMessage: "The given image (\(newImage)) is not a `NativeImage`!")

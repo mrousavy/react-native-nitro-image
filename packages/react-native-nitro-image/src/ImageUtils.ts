@@ -13,8 +13,3 @@ export const supportsHeicLoading = utils.supportsHeicLoading
  * in `HEIC` format.
  */
 export const supportsHeicWriting = utils.supportsHeicWriting
-
-export const thumbHashToBase64String = utils.thumbHashToBase64String.bind(utils)
-
-export const thumbHashFromBase64String =
-  utils.thumbhashFromBase64String.bind(utils)

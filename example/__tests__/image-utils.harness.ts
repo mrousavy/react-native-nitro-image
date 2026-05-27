@@ -3,9 +3,8 @@ import {
   Images,
   supportsHeicLoading,
   supportsHeicWriting,
-  thumbHashFromBase64String,
-  thumbHashToBase64String,
 } from 'react-native-nitro-image'
+import { ThumbHash } from 'react-native-nitro-image-thumbhash'
 
 const expectTemporaryHeicPath = (path: string) => {
   expect(path.length).toBeGreaterThan(0)
@@ -58,7 +57,7 @@ describe('ImageUtils - HEIC round-trip', () => {
   })
 })
 
-describe('ImageUtils - thumbHash round-trip', () => {
+describe('ThumbHash - round-trip', () => {
   it('encodes a small image to a thumbHash and converts to base64', () => {
     const image = Images.createBlankImage(64, 64, true, {
       r: 0.5,
@@ -67,14 +66,14 @@ describe('ImageUtils - thumbHash round-trip', () => {
       a: 1,
     })
     const small = image.resize(32, 32)
-    const hash = small.toThumbHash()
+    const hash = ThumbHash.encode(small)
     expect(hash.byteLength).toBeGreaterThan(0)
 
-    const base64 = thumbHashToBase64String(hash)
+    const base64 = ThumbHash.toBase64String(hash)
     expect(base64.length).toBeGreaterThan(0)
     expect(base64).toMatch(/^[A-Za-z0-9+/=]+$/)
 
-    const restored = thumbHashFromBase64String(base64)
+    const restored = ThumbHash.fromBase64String(base64)
     expect(restored.byteLength).toBe(hash.byteLength)
   })
 
@@ -85,8 +84,8 @@ describe('ImageUtils - thumbHash round-trip', () => {
       b: 0,
       a: 1,
     })
-    const hash = image.toThumbHash()
-    const decoded = Images.loadFromThumbHash(hash)
+    const hash = ThumbHash.encode(image)
+    const decoded = ThumbHash.decode(hash)
     expect(decoded.width).toBeGreaterThan(0)
     expect(decoded.height).toBeGreaterThan(0)
   })

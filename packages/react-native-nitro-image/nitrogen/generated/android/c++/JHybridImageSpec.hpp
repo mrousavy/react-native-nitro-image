@@ -69,8 +69,6 @@ namespace margelo::nitro::image {
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> mirrorHorizontallyAsync() override;
     std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) override;
     std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, std::optional<double> quality) override;
-    std::shared_ptr<ArrayBuffer> toThumbHash() override;
-    std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toThumbHashAsync() override;
     std::shared_ptr<HybridImageSpec> renderInto(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> renderIntoAsync(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) override;
 

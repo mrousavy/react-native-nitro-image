@@ -202,19 +202,6 @@ export interface Image
   ): Promise<string>
 
   /**
-   * Encodes this Image into a ThumbHash.
-   * To convert the returned ThumbHash to a string, use `thumbHashToBase64String(...)`.
-   * @note To keep this efficient, {@linkcode resize} this image to a small size (<100x100) first.
-   * @example
-   * ```ts
-   * const small = image.resize(100, 100)
-   * const thumbHash = small.toThumbHash()
-   * ```
-   */
-  toThumbHash(): ArrayBuffer
-  toThumbHashAsync(): Promise<ArrayBuffer>
-
-  /**
    * Renders the given {@linkcode Image} into a copy of this {@linkcode Image},
    * at the given {@linkcode x} and {@linkcode y} position, scaled to the
    * given {@linkcode width} and {@linkcode height}.

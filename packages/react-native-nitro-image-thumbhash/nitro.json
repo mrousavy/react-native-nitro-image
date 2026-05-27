@@ -1,0 +1,24 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": ["image", "thumbhash"],
+  "ios": {
+    "iosModuleName": "NitroImageThumbHash"
+  },
+  "android": {
+    "androidNamespace": ["image", "thumbhash"],
+    "androidCxxLibName": "NitroImageThumbHash"
+  },
+  "autolinking": {
+    "ThumbHashFactory": {
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridThumbHashFactory"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridThumbHashFactory"
+      }
+    }
+  },
+  "ignorePaths": ["**/node_modules"]
+}
