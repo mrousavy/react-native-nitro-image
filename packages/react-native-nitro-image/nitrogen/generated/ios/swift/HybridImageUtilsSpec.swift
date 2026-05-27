@@ -14,8 +14,7 @@ public protocol HybridImageUtilsSpec_protocol: HybridObject {
   var supportsHeicWriting: Bool { get }
 
   // Methods
-  func thumbHashToBase64String(thumbhash: ArrayBuffer) throws -> String
-  func thumbhashFromBase64String(thumbhashBase64: String) throws -> ArrayBuffer
+  
 }
 
 public extension HybridImageUtilsSpec_protocol {

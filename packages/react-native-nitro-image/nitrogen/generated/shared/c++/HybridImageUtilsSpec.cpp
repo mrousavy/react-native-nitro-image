@@ -16,8 +16,6 @@ namespace margelo::nitro::image {
     registerHybrids(this, [](Prototype& prototype) {
       prototype.registerHybridGetter("supportsHeicLoading", &HybridImageUtilsSpec::getSupportsHeicLoading);
       prototype.registerHybridGetter("supportsHeicWriting", &HybridImageUtilsSpec::getSupportsHeicWriting);
-      prototype.registerHybridMethod("thumbHashToBase64String", &HybridImageUtilsSpec::thumbHashToBase64String);
-      prototype.registerHybridMethod("thumbhashFromBase64String", &HybridImageUtilsSpec::thumbhashFromBase64String);
     });
   }
 

@@ -9,7 +9,6 @@ import androidx.annotation.Keep
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.scale
 import com.facebook.proguard.annotations.DoNotStrip
-import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.extensions.compressInMemory
@@ -172,23 +171,6 @@ class HybridImage: HybridImageSpec {
             bitmap.saveToFile(tempFile.path, format, quality.toInt())
             return@async tempFile.path
         }
-    }
-
-    override fun toThumbHash(): ArrayBuffer {
-        if (width > 100 || height > 100) {
-            throw Error("Cannot encode an Image larger than 100x100 to a ThumbHash. " +
-                    "Resize the image to <100 pixels in width and height first, then try again!")
-        }
-
-        val bitmapBuffer = bitmap.toByteBuffer()
-
-        val thumbHash = ThumbHash.rgbaToThumbHash(bitmap.width, bitmap.height, bitmapBuffer.array())
-        val buffer = ByteBuffer.wrap(thumbHash)
-        return ArrayBuffer.copy(buffer)
-    }
-
-    override fun toThumbHashAsync(): Promise<ArrayBuffer> {
-        return Promise.async { toThumbHash() }
     }
 
     override fun renderInto(image: HybridImageSpec, x: Double, y: Double, width: Double, height: Double): HybridImageSpec {

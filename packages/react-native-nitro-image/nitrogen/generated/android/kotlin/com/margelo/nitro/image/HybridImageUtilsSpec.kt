@@ -10,7 +10,6 @@ package com.margelo.nitro.image
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.HybridObject
 
 /**
@@ -35,13 +34,7 @@ abstract class HybridImageUtilsSpec: HybridObject() {
   abstract val supportsHeicWriting: Boolean
 
   // Methods
-  @DoNotStrip
-  @Keep
-  abstract fun thumbHashToBase64String(thumbhash: ArrayBuffer): String
   
-  @DoNotStrip
-  @Keep
-  abstract fun thumbhashFromBase64String(thumbhashBase64: String): ArrayBuffer
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

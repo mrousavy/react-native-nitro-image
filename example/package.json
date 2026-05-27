@@ -19,6 +19,7 @@
     "react-native-fast-image": "^8.6.3",
     "react-native-harness": "^1.0.0-alpha.25",
     "react-native-nitro-image": "workspace:*",
+    "react-native-nitro-image-thumbhash": "workspace:*",
     "react-native-nitro-web-image": "workspace:*",
     "react-native-nitro-modules": "0.35.5",
     "react-native-safe-area-context": "^5.6.0",

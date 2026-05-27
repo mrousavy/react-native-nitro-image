@@ -314,40 +314,6 @@ namespace margelo::nitro::image::bridge::swift {
     return Func_void_std__string_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>
-  /**
-   * Specialized version of `std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>`.
-   */
-  using std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___ = std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>;
-  inline std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> create_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___() noexcept {
-    return Promise<std::shared_ptr<ArrayBuffer>>::create();
-  }
-  inline PromiseHolder<std::shared_ptr<ArrayBuffer>> wrap_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer___(std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> promise) noexcept {
-    return PromiseHolder<std::shared_ptr<ArrayBuffer>>(std::move(promise));
-  }
-  
-  // pragma MARK: std::function<void(const std::shared_ptr<ArrayBuffer>& /* result */)>
-  /**
-   * Specialized version of `std::function<void(const std::shared_ptr<ArrayBuffer>&)>`.
-   */
-  using Func_void_std__shared_ptr_ArrayBuffer_ = std::function<void(const std::shared_ptr<ArrayBuffer>& /* result */)>;
-  /**
-   * Wrapper class for a `std::function<void(const std::shared_ptr<ArrayBuffer>& / * result * /)>`, this can be used from Swift.
-   */
-  class Func_void_std__shared_ptr_ArrayBuffer__Wrapper final {
-  public:
-    explicit Func_void_std__shared_ptr_ArrayBuffer__Wrapper(std::function<void(const std::shared_ptr<ArrayBuffer>& /* result */)>&& func): _function(std::make_unique<std::function<void(const std::shared_ptr<ArrayBuffer>& /* result */)>>(std::move(func))) {}
-    inline void call(ArrayBufferHolder result) const noexcept {
-      _function->operator()(result.getArrayBuffer());
-    }
-  private:
-    std::unique_ptr<std::function<void(const std::shared_ptr<ArrayBuffer>& /* result */)>> _function;
-  } SWIFT_NONCOPYABLE;
-  Func_void_std__shared_ptr_ArrayBuffer_ create_Func_void_std__shared_ptr_ArrayBuffer_(void* NON_NULL swiftClosureWrapper) noexcept;
-  inline Func_void_std__shared_ptr_ArrayBuffer__Wrapper wrap_Func_void_std__shared_ptr_ArrayBuffer_(Func_void_std__shared_ptr_ArrayBuffer_ value) noexcept {
-    return Func_void_std__shared_ptr_ArrayBuffer__Wrapper(std::move(value));
-  }
-  
   // pragma MARK: Result<RawPixelData>
   using Result_RawPixelData_ = Result<RawPixelData>;
   inline Result_RawPixelData_ create_Result_RawPixelData_(const RawPixelData& value) noexcept {
@@ -418,24 +384,6 @@ namespace margelo::nitro::image::bridge::swift {
   }
   inline Result_std__shared_ptr_Promise_std__string___ create_Result_std__shared_ptr_Promise_std__string___(const std::exception_ptr& error) noexcept {
     return Result<std::shared_ptr<Promise<std::string>>>::withError(error);
-  }
-  
-  // pragma MARK: Result<std::shared_ptr<ArrayBuffer>>
-  using Result_std__shared_ptr_ArrayBuffer__ = Result<std::shared_ptr<ArrayBuffer>>;
-  inline Result_std__shared_ptr_ArrayBuffer__ create_Result_std__shared_ptr_ArrayBuffer__(const std::shared_ptr<ArrayBuffer>& value) noexcept {
-    return Result<std::shared_ptr<ArrayBuffer>>::withValue(value);
-  }
-  inline Result_std__shared_ptr_ArrayBuffer__ create_Result_std__shared_ptr_ArrayBuffer__(const std::exception_ptr& error) noexcept {
-    return Result<std::shared_ptr<ArrayBuffer>>::withError(error);
-  }
-  
-  // pragma MARK: Result<std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>>
-  using Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____ = Result<std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>>;
-  inline Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____ create_Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____(const std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>& value) noexcept {
-    return Result<std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>>::withValue(value);
-  }
-  inline Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____ create_Result_std__shared_ptr_Promise_std__shared_ptr_ArrayBuffer____(const std::exception_ptr& error) noexcept {
-    return Result<std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>>>::withError(error);
   }
   
   // pragma MARK: std::optional<Color>
@@ -530,15 +478,6 @@ namespace margelo::nitro::image::bridge::swift {
   // pragma MARK: std::weak_ptr<HybridImageUtilsSpec>
   using std__weak_ptr_HybridImageUtilsSpec_ = std::weak_ptr<HybridImageUtilsSpec>;
   inline std__weak_ptr_HybridImageUtilsSpec_ weakify_std__shared_ptr_HybridImageUtilsSpec_(const std::shared_ptr<HybridImageUtilsSpec>& strong) noexcept { return strong; }
-  
-  // pragma MARK: Result<std::string>
-  using Result_std__string_ = Result<std::string>;
-  inline Result_std__string_ create_Result_std__string_(const std::string& value) noexcept {
-    return Result<std::string>::withValue(value);
-  }
-  inline Result_std__string_ create_Result_std__string_(const std::exception_ptr& error) noexcept {
-    return Result<std::string>::withError(error);
-  }
   
   // pragma MARK: std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>
   /**

@@ -24,8 +24,6 @@ public protocol HybridImageFactorySpec_protocol: HybridObject {
   func loadFromRawPixelDataAsync(data: RawPixelData, allowGpu: Bool?) throws -> Promise<(any HybridImageSpec)>
   func loadFromEncodedImageData(data: EncodedImageData) throws -> (any HybridImageSpec)
   func loadFromEncodedImageDataAsync(data: EncodedImageData) throws -> Promise<(any HybridImageSpec)>
-  func loadFromThumbHash(thumbhash: ArrayBuffer) throws -> (any HybridImageSpec)
-  func loadFromThumbHashAsync(thumbhash: ArrayBuffer) throws -> Promise<(any HybridImageSpec)>
 }
 
 public extension HybridImageFactorySpec_protocol {

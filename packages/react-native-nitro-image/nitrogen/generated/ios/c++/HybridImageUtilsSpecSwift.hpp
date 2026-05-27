@@ -12,12 +12,9 @@
 // Forward declaration of `HybridImageUtilsSpec_cxx` to properly resolve imports.
 namespace NitroImage { class HybridImageUtilsSpec_cxx; }
 
-// Forward declaration of `ArrayBufferHolder` to properly resolve imports.
-namespace NitroModules { class ArrayBufferHolder; }
 
-#include <string>
-#include <NitroModules/ArrayBuffer.hpp>
-#include <NitroModules/ArrayBufferHolder.hpp>
+
+
 
 #include "NitroImage-Swift-Cxx-Umbrella.hpp"
 
@@ -74,22 +71,7 @@ namespace margelo::nitro::image {
 
   public:
     // Methods
-    inline std::string thumbHashToBase64String(const std::shared_ptr<ArrayBuffer>& thumbhash) override {
-      auto __result = _swiftPart.thumbHashToBase64String(ArrayBufferHolder(thumbhash));
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-      auto __value = std::move(__result.value());
-      return __value;
-    }
-    inline std::shared_ptr<ArrayBuffer> thumbhashFromBase64String(const std::string& thumbhashBase64) override {
-      auto __result = _swiftPart.thumbhashFromBase64String(thumbhashBase64);
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-      auto __value = std::move(__result.value());
-      return __value;
-    }
+    
 
   private:
     NitroImage::HybridImageUtilsSpec_cxx _swiftPart;

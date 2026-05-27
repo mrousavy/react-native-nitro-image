@@ -83,14 +83,6 @@ namespace margelo::nitro::image::bridge::swift {
     };
   }
   
-  // pragma MARK: std::function<void(const std::shared_ptr<ArrayBuffer>& /* result */)>
-  Func_void_std__shared_ptr_ArrayBuffer_ create_Func_void_std__shared_ptr_ArrayBuffer_(void* NON_NULL swiftClosureWrapper) noexcept {
-    auto swiftClosure = NitroImage::Func_void_std__shared_ptr_ArrayBuffer_::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const std::shared_ptr<ArrayBuffer>& result) mutable -> void {
-      swiftClosure.call(ArrayBufferHolder(result));
-    };
-  }
-  
   // pragma MARK: std::shared_ptr<HybridImageFactorySpec>
   std::shared_ptr<HybridImageFactorySpec> create_std__shared_ptr_HybridImageFactorySpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     NitroImage::HybridImageFactorySpec_cxx swiftPart = NitroImage::HybridImageFactorySpec_cxx::fromUnsafe(swiftUnsafePointer);

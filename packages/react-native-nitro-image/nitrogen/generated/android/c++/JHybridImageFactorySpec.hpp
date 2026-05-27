@@ -65,8 +65,6 @@ namespace margelo::nitro::image {
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromRawPixelDataAsync(const RawPixelData& data, std::optional<bool> allowGpu) override;
     std::shared_ptr<HybridImageSpec> loadFromEncodedImageData(const EncodedImageData& data) override;
     std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromEncodedImageDataAsync(const EncodedImageData& data) override;
-    std::shared_ptr<HybridImageSpec> loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
-    std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) override;
 
   private:
     jni::global_ref<JHybridImageFactorySpec::JavaPart> _javaPart;

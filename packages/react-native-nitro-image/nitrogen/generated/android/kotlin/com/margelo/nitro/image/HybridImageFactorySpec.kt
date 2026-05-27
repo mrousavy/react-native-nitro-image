@@ -11,7 +11,6 @@ import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
 import com.margelo.nitro.core.Promise
-import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.HybridObject
 
 /**
@@ -73,14 +72,6 @@ abstract class HybridImageFactorySpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun loadFromEncodedImageDataAsync(data: EncodedImageData): Promise<HybridImageSpec>
-  
-  @DoNotStrip
-  @Keep
-  abstract fun loadFromThumbHash(thumbhash: ArrayBuffer): HybridImageSpec
-  
-  @DoNotStrip
-  @Keep
-  abstract fun loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<HybridImageSpec>
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

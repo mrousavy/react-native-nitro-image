@@ -7,14 +7,12 @@ import android.graphics.Canvas
 import androidx.annotation.Keep
 import androidx.core.graphics.createBitmap
 import com.facebook.common.internal.DoNotStrip
-import com.madebyevan.thumbhash.ThumbHash
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.extensions.bitmapFromRawPixelData
 import com.margelo.nitro.image.extensions.toBitmapColor
 import com.margelo.nitro.image.extensions.toFilePath
-import java.nio.ByteBuffer
 
 @DoNotStrip
 @Keep
@@ -104,23 +102,4 @@ class HybridImageFactory: HybridImageFactorySpec() {
         return Promise.async { loadFromFile(filePath) }
     }
 
-    private fun loadFromThumbHash(thumbHashBytes: ByteArray): HybridImage {
-        val rgba = ThumbHash.thumbHashToRGBA(thumbHashBytes)
-
-        val bitmap = createBitmap(rgba.width, rgba.height, Bitmap.Config.ARGB_8888)
-        val buffer = ByteBuffer.wrap(rgba.rgba)
-        bitmap.copyPixelsFromBuffer(buffer)
-        return HybridImage(bitmap)
-    }
-
-    override fun loadFromThumbHash(thumbhash: ArrayBuffer): HybridImageSpec {
-        val bytes = thumbhash.toByteArray()
-        return loadFromThumbHash(bytes)
-    }
-
-    override fun loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<HybridImageSpec> {
-        // We need to copy before jumping Threads
-        val bytes = thumbhash.toByteArray()
-        return Promise.async { loadFromThumbHash(bytes) }
-    }
 }

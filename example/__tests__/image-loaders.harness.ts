@@ -1,6 +1,7 @@
 import { Platform } from 'react-native'
 import { describe, expect, it } from 'react-native-harness'
 import { Images, loadImage } from 'react-native-nitro-image'
+import { ThumbHash } from 'react-native-nitro-image-thumbhash'
 import { WebImages } from 'react-native-nitro-web-image'
 
 const RED = { r: 1, g: 0, b: 0, a: 1 }
@@ -96,19 +97,19 @@ describe('Images.loadFromFile', () => {
   })
 })
 
-describe('Images.loadFromThumbHash', () => {
+describe('ThumbHash.decode', () => {
   it('decodes a ThumbHash buffer back into an Image', () => {
     const source = Images.createBlankImage(64, 64, true, BLUE).resize(32, 32)
-    const hash = source.toThumbHash()
-    const decoded = Images.loadFromThumbHash(hash)
+    const hash = ThumbHash.encode(source)
+    const decoded = ThumbHash.decode(hash)
     expect(decoded.width).toBeGreaterThan(0)
     expect(decoded.height).toBeGreaterThan(0)
   })
 
   it('async variant decodes the ThumbHash buffer', async () => {
     const source = Images.createBlankImage(64, 64, true, GREEN).resize(32, 32)
-    const hash = await source.toThumbHashAsync()
-    const decoded = await Images.loadFromThumbHashAsync(hash)
+    const hash = await ThumbHash.encodeAsync(source)
+    const decoded = await ThumbHash.decodeAsync(hash)
     expect(decoded.width).toBeGreaterThan(0)
     expect(decoded.height).toBeGreaterThan(0)
   })

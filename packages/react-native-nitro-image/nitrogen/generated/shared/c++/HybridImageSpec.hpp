@@ -30,7 +30,6 @@ namespace margelo::nitro::image { class HybridImageSpec; }
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include <string>
-#include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::image {
 
@@ -78,8 +77,6 @@ namespace margelo::nitro::image {
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> mirrorHorizontallyAsync() = 0;
       virtual std::shared_ptr<Promise<void>> saveToFileAsync(const std::string& path, ImageFormat format, std::optional<double> quality) = 0;
       virtual std::shared_ptr<Promise<std::string>> saveToTemporaryFileAsync(ImageFormat format, std::optional<double> quality) = 0;
-      virtual std::shared_ptr<ArrayBuffer> toThumbHash() = 0;
-      virtual std::shared_ptr<Promise<std::shared_ptr<ArrayBuffer>>> toThumbHashAsync() = 0;
       virtual std::shared_ptr<HybridImageSpec> renderInto(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) = 0;
       virtual std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> renderIntoAsync(const std::shared_ptr<HybridImageSpec>& image, double x, double y, double width, double height) = 0;
 

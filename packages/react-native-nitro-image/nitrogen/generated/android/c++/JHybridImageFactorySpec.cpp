@@ -183,26 +183,5 @@ namespace margelo::nitro::image {
       return __promise;
     }();
   }
-  std::shared_ptr<HybridImageSpec> JHybridImageFactorySpec::loadFromThumbHash(const std::shared_ptr<ArrayBuffer>& thumbhash) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::JavaPart>(jni::alias_ref<JArrayBuffer::javaobject> /* thumbhash */)>("loadFromThumbHash");
-    auto __result = method(_javaPart, JArrayBuffer::wrap(thumbhash));
-    return __result->getJHybridImageSpec();
-  }
-  std::shared_ptr<Promise<std::shared_ptr<HybridImageSpec>>> JHybridImageFactorySpec::loadFromThumbHashAsync(const std::shared_ptr<ArrayBuffer>& thumbhash) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JArrayBuffer::javaobject> /* thumbhash */)>("loadFromThumbHashAsync");
-    auto __result = method(_javaPart, JArrayBuffer::wrap(thumbhash));
-    return [&]() {
-      auto __promise = Promise<std::shared_ptr<HybridImageSpec>>::create();
-      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JHybridImageSpec::JavaPart>(__boxedResult);
-        __promise->resolve(__result->getJHybridImageSpec());
-      });
-      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
-        jni::JniException __jniError(__throwable);
-        __promise->reject(std::make_exception_ptr(__jniError));
-      });
-      return __promise;
-    }();
-  }
 
 } // namespace margelo::nitro::image

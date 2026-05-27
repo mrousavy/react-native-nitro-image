@@ -9,9 +9,7 @@
 
 
 
-#include <string>
-#include <NitroModules/ArrayBuffer.hpp>
-#include <NitroModules/JArrayBuffer.hpp>
+
 
 namespace margelo::nitro::image {
 
@@ -55,15 +53,6 @@ namespace margelo::nitro::image {
   }
 
   // Methods
-  std::string JHybridImageUtilsSpec::thumbHashToBase64String(const std::shared_ptr<ArrayBuffer>& thumbhash) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>(jni::alias_ref<JArrayBuffer::javaobject> /* thumbhash */)>("thumbHashToBase64String");
-    auto __result = method(_javaPart, JArrayBuffer::wrap(thumbhash));
-    return __result->toStdString();
-  }
-  std::shared_ptr<ArrayBuffer> JHybridImageUtilsSpec::thumbhashFromBase64String(const std::string& thumbhashBase64) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JArrayBuffer::javaobject>(jni::alias_ref<jni::JString> /* thumbhashBase64 */)>("thumbhashFromBase64String");
-    auto __result = method(_javaPart, jni::make_jstring(thumbhashBase64));
-    return __result->cthis()->getArrayBuffer();
-  }
+  
 
 } // namespace margelo::nitro::image

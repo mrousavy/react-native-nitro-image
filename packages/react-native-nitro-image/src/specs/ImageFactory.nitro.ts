@@ -118,13 +118,4 @@ export interface ImageFactory
    * @throws If the given {@linkcode EncodedImageData} is not a valid representation of an {@linkcode Image}.
    */
   loadFromEncodedImageDataAsync(data: EncodedImageData): Promise<Image>
-
-  /**
-   * Synchronously decodes the given {@linkcode thumbhash} (and {@linkcode ArrayBuffer})
-   * into an {@linkcode Image}.
-   * @param buffer The ArrayBuffer carrying the ThumbHash's data
-   * @throws If the given {@linkcode thumbhash} is not a valid ThumbHash.
-   */
-  loadFromThumbHash(thumbhash: ArrayBuffer): Image
-  loadFromThumbHashAsync(thumbhash: ArrayBuffer): Promise<Image>
 }

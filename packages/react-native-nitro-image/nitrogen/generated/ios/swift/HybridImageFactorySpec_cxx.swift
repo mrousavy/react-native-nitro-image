@@ -337,41 +337,4 @@ open class HybridImageFactorySpec_cxx {
       return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____(__exceptionPtr)
     }
   }
-  
-  @inline(__always)
-  public final func loadFromThumbHash(thumbhash: ArrayBuffer) -> bridge.Result_std__shared_ptr_HybridImageSpec__ {
-    do {
-      let __result = try self.__implementation.loadFromThumbHash(thumbhash: thumbhash)
-      let __resultCpp = { () -> bridge.std__shared_ptr_HybridImageSpec_ in
-        let __cxxWrapped = __result.getCxxWrapper()
-        return __cxxWrapped.getCxxPart()
-      }()
-      return bridge.create_Result_std__shared_ptr_HybridImageSpec__(__resultCpp)
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_HybridImageSpec__(__exceptionPtr)
-    }
-  }
-  
-  @inline(__always)
-  public final func loadFromThumbHashAsync(thumbhash: ArrayBuffer) -> bridge.Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____ {
-    do {
-      let __result = try self.__implementation.loadFromThumbHashAsync(thumbhash: thumbhash)
-      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___ in
-        let __promise = bridge.create_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___()
-        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec___(__promise)
-        __result
-          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__shared_ptr_HybridImageSpec_ in
-              let __cxxWrapped = __result.getCxxWrapper()
-              return __cxxWrapped.getCxxPart()
-            }()) })
-          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
-        return __promise
-      }()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____(__resultCpp)
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_Promise_std__shared_ptr_HybridImageSpec____(__exceptionPtr)
-    }
-  }
 }
