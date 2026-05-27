@@ -9,7 +9,6 @@ package com.margelo.nitro.image
 
 import androidx.annotation.Keep
 import com.facebook.proguard.annotations.DoNotStrip
-import java.util.Objects
 import com.margelo.nitro.core.ArrayBuffer
 
 /**
@@ -32,24 +31,6 @@ data class RawPixelData(
   val pixelFormat: PixelFormat
 ) {
   /* primary constructor */
-
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (other !is RawPixelData) return false
-    return Objects.deepEquals(this.buffer, other.buffer)
-      && Objects.deepEquals(this.width, other.width)
-      && Objects.deepEquals(this.height, other.height)
-      && Objects.deepEquals(this.pixelFormat, other.pixelFormat)
-  }
-
-  override fun hashCode(): Int {
-    return arrayOf(
-      buffer,
-      width,
-      height,
-      pixelFormat
-    ).contentDeepHashCode()
-  }
 
   companion object {
     /**

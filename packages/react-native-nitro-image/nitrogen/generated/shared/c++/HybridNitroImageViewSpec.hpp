@@ -20,11 +20,11 @@ namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `ResizeMode` to properly resolve imports.
 namespace margelo::nitro::image { enum class ResizeMode; }
 
+#include <optional>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include "HybridImageLoaderSpec.hpp"
 #include <variant>
-#include <optional>
 #include "ResizeMode.hpp"
 #include <string>
 
@@ -55,6 +55,8 @@ namespace margelo::nitro::image {
 
     public:
       // Properties
+      virtual std::optional<double> getPriority() = 0;
+      virtual void setPriority(std::optional<double> priority) = 0;
       virtual std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>> getImage() = 0;
       virtual void setImage(const std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>& image) = 0;
       virtual std::optional<ResizeMode> getResizeMode() = 0;

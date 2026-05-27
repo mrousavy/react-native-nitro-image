@@ -10,8 +10,6 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
 namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
-// Forward declaration of `AsyncImagePriority` to properly resolve imports.
-namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 // Forward declaration of `HybridImageLoaderSpec` to properly resolve imports.
 namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 // Forward declaration of `HybridImageSpec` to properly resolve imports.
@@ -29,7 +27,6 @@ namespace NitroWebImage { class HybridWebImageFactorySpec_cxx; }
 
 // Include C++ defined types
 #include "AsyncImageLoadOptions.hpp"
-#include "AsyncImagePriority.hpp"
 #include "HybridWebImageFactorySpec.hpp"
 #include <NitroImage/HybridImageLoaderSpec.hpp>
 #include <NitroImage/HybridImageSpec.hpp>
@@ -60,18 +57,18 @@ namespace margelo::nitro::web::image::bridge::swift {
   using std__weak_ptr_margelo__nitro__image__HybridImageLoaderSpec_ = std::weak_ptr<margelo::nitro::image::HybridImageLoaderSpec>;
   inline std__weak_ptr_margelo__nitro__image__HybridImageLoaderSpec_ weakify_std__shared_ptr_margelo__nitro__image__HybridImageLoaderSpec_(const std::shared_ptr<margelo::nitro::image::HybridImageLoaderSpec>& strong) noexcept { return strong; }
   
-  // pragma MARK: std::optional<AsyncImagePriority>
+  // pragma MARK: std::optional<double>
   /**
-   * Specialized version of `std::optional<AsyncImagePriority>`.
+   * Specialized version of `std::optional<double>`.
    */
-  using std__optional_AsyncImagePriority_ = std::optional<AsyncImagePriority>;
-  inline std::optional<AsyncImagePriority> create_std__optional_AsyncImagePriority_(const AsyncImagePriority& value) noexcept {
-    return std::optional<AsyncImagePriority>(value);
+  using std__optional_double_ = std::optional<double>;
+  inline std::optional<double> create_std__optional_double_(const double& value) noexcept {
+    return std::optional<double>(value);
   }
-  inline bool has_value_std__optional_AsyncImagePriority_(const std::optional<AsyncImagePriority>& optional) noexcept {
+  inline bool has_value_std__optional_double_(const std::optional<double>& optional) noexcept {
     return optional.has_value();
   }
-  inline AsyncImagePriority get_std__optional_AsyncImagePriority_(const std::optional<AsyncImagePriority>& optional) noexcept {
+  inline double get_std__optional_double_(const std::optional<double>& optional) noexcept {
     return optional.value();
   }
   

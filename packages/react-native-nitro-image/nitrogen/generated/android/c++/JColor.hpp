@@ -21,7 +21,7 @@ namespace margelo::nitro::image {
    */
   struct JColor final: public jni::JavaClass<JColor> {
   public:
-    static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/image/Color;";
+    static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/image/Color;";
 
   public:
     /**

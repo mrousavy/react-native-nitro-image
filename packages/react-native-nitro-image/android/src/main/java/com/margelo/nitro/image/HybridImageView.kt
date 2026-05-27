@@ -49,6 +49,8 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
             field = value
         }
 
+    override var priority: Double? = null
+
     override fun prepareForRecycle() {
         onDisappear()
         imageView.setImageBitmap(null)

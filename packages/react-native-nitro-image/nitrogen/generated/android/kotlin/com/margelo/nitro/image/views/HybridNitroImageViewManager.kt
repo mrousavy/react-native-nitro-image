@@ -39,7 +39,7 @@ public class HybridNitroImageViewManager: SimpleViewManager<View>() {
   }
 
   override fun updateState(view: View, props: ReactStylesDiffMap, stateWrapper: StateWrapper): Any? {
-    val hybridView = getHybridView(view)
+    val hybridView = view.getTag(associated_hybrid_view_tag) as? HybridImageView
       ?: throw Error("Couldn't find view $view in local views table!")
 
     // 1. Update each prop individually
@@ -51,15 +51,9 @@ public class HybridNitroImageViewManager: SimpleViewManager<View>() {
     return super.updateState(view, props, stateWrapper)
   }
 
-  override fun onDropViewInstance(view: View) {
-    val hybridView = getHybridView(view)
-    hybridView?.onDropView()
-    return super.onDropViewInstance(view)
-  }
-
   protected override fun prepareToRecycleView(reactContext: ThemedReactContext, view: View): View? {
     super.prepareToRecycleView(reactContext, view)
-    val hybridView = getHybridView(view)
+    val hybridView = view.getTag(associated_hybrid_view_tag) as? HybridImageView
       ?: return null
 
     @Suppress("USELESS_IS_CHECK")
@@ -72,9 +66,5 @@ public class HybridNitroImageViewManager: SimpleViewManager<View>() {
     } else {
       return null
     }
-  }
-
-  private fun getHybridView(view: View): HybridImageView? {
-    return view.getTag(associated_hybrid_view_tag) as? HybridImageView
   }
 }

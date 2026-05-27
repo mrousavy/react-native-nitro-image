@@ -18,10 +18,10 @@ public extension AsyncImageLoadOptions {
   /**
    * Create a new instance of `AsyncImageLoadOptions`.
    */
-  init(priority: AsyncImagePriority?, forceRefresh: Bool?, cacheKey: String?, continueInBackground: Bool?, allowInvalidSSLCertificates: Bool?, scaleDownLargeImages: Bool?, queryMemoryDataSync: Bool?, queryDiskDataSync: Bool?, decodeImage: Bool?, allowHardware: Bool?, progressive: Bool?) {
-    self.init({ () -> bridge.std__optional_AsyncImagePriority_ in
+  init(priority: Double?, forceRefresh: Bool?, cacheKey: String?, continueInBackground: Bool?, allowInvalidSSLCertificates: Bool?, scaleDownLargeImages: Bool?, queryMemoryDataSync: Bool?, queryDiskDataSync: Bool?, decodeImage: Bool?, allowHardware: Bool?, progressive: Bool?) {
+    self.init({ () -> bridge.std__optional_double_ in
       if let __unwrappedValue = priority {
-        return bridge.create_std__optional_AsyncImagePriority_(__unwrappedValue)
+        return bridge.create_std__optional_double_(__unwrappedValue)
       } else {
         return .init()
       }
@@ -89,8 +89,15 @@ public extension AsyncImageLoadOptions {
   }
 
   @inline(__always)
-  var priority: AsyncImagePriority? {
-    return self.__priority.value
+  var priority: Double? {
+    return { () -> Double? in
+      if bridge.has_value_std__optional_double_(self.__priority) {
+        let __unwrapped = bridge.get_std__optional_double_(self.__priority)
+        return __unwrapped
+      } else {
+        return nil
+      }
+    }()
   }
   
   @inline(__always)

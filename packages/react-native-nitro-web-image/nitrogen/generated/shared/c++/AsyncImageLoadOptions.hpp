@@ -28,10 +28,8 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-// Forward declaration of `AsyncImagePriority` to properly resolve imports.
-namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 
-#include "AsyncImagePriority.hpp"
+
 #include <optional>
 #include <string>
 
@@ -42,7 +40,7 @@ namespace margelo::nitro::web::image {
    */
   struct AsyncImageLoadOptions final {
   public:
-    std::optional<AsyncImagePriority> priority     SWIFT_PRIVATE;
+    std::optional<double> priority     SWIFT_PRIVATE;
     std::optional<bool> forceRefresh     SWIFT_PRIVATE;
     std::optional<std::string> cacheKey     SWIFT_PRIVATE;
     std::optional<bool> continueInBackground     SWIFT_PRIVATE;
@@ -56,7 +54,7 @@ namespace margelo::nitro::web::image {
 
   public:
     AsyncImageLoadOptions() = default;
-    explicit AsyncImageLoadOptions(std::optional<AsyncImagePriority> priority, std::optional<bool> forceRefresh, std::optional<std::string> cacheKey, std::optional<bool> continueInBackground, std::optional<bool> allowInvalidSSLCertificates, std::optional<bool> scaleDownLargeImages, std::optional<bool> queryMemoryDataSync, std::optional<bool> queryDiskDataSync, std::optional<bool> decodeImage, std::optional<bool> allowHardware, std::optional<bool> progressive): priority(priority), forceRefresh(forceRefresh), cacheKey(cacheKey), continueInBackground(continueInBackground), allowInvalidSSLCertificates(allowInvalidSSLCertificates), scaleDownLargeImages(scaleDownLargeImages), queryMemoryDataSync(queryMemoryDataSync), queryDiskDataSync(queryDiskDataSync), decodeImage(decodeImage), allowHardware(allowHardware), progressive(progressive) {}
+    explicit AsyncImageLoadOptions(std::optional<double> priority, std::optional<bool> forceRefresh, std::optional<std::string> cacheKey, std::optional<bool> continueInBackground, std::optional<bool> allowInvalidSSLCertificates, std::optional<bool> scaleDownLargeImages, std::optional<bool> queryMemoryDataSync, std::optional<bool> queryDiskDataSync, std::optional<bool> decodeImage, std::optional<bool> allowHardware, std::optional<bool> progressive): priority(priority), forceRefresh(forceRefresh), cacheKey(cacheKey), continueInBackground(continueInBackground), allowInvalidSSLCertificates(allowInvalidSSLCertificates), scaleDownLargeImages(scaleDownLargeImages), queryMemoryDataSync(queryMemoryDataSync), queryDiskDataSync(queryDiskDataSync), decodeImage(decodeImage), allowHardware(allowHardware), progressive(progressive) {}
 
   public:
     friend bool operator==(const AsyncImageLoadOptions& lhs, const AsyncImageLoadOptions& rhs) = default;
@@ -72,7 +70,7 @@ namespace margelo::nitro {
     static inline margelo::nitro::web::image::AsyncImageLoadOptions fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
       return margelo::nitro::web::image::AsyncImageLoadOptions(
-        JSIConverter<std::optional<margelo::nitro::web::image::AsyncImagePriority>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "priority"))),
+        JSIConverter<std::optional<double>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "priority"))),
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "forceRefresh"))),
         JSIConverter<std::optional<std::string>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "cacheKey"))),
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "continueInBackground"))),
@@ -87,7 +85,7 @@ namespace margelo::nitro {
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::web::image::AsyncImageLoadOptions& arg) {
       jsi::Object obj(runtime);
-      obj.setProperty(runtime, PropNameIDCache::get(runtime, "priority"), JSIConverter<std::optional<margelo::nitro::web::image::AsyncImagePriority>>::toJSI(runtime, arg.priority));
+      obj.setProperty(runtime, PropNameIDCache::get(runtime, "priority"), JSIConverter<std::optional<double>>::toJSI(runtime, arg.priority));
       obj.setProperty(runtime, PropNameIDCache::get(runtime, "forceRefresh"), JSIConverter<std::optional<bool>>::toJSI(runtime, arg.forceRefresh));
       obj.setProperty(runtime, PropNameIDCache::get(runtime, "cacheKey"), JSIConverter<std::optional<std::string>>::toJSI(runtime, arg.cacheKey));
       obj.setProperty(runtime, PropNameIDCache::get(runtime, "continueInBackground"), JSIConverter<std::optional<bool>>::toJSI(runtime, arg.continueInBackground));
@@ -108,7 +106,7 @@ namespace margelo::nitro {
       if (!nitro::isPlainObject(runtime, obj)) {
         return false;
       }
-      if (!JSIConverter<std::optional<margelo::nitro::web::image::AsyncImagePriority>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "priority")))) return false;
+      if (!JSIConverter<std::optional<double>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "priority")))) return false;
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "forceRefresh")))) return false;
       if (!JSIConverter<std::optional<std::string>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "cacheKey")))) return false;
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "continueInBackground")))) return false;

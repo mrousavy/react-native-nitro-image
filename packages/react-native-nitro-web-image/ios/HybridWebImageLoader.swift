@@ -32,20 +32,25 @@ class HybridWebImageLoader: HybridImageLoaderSpec {
   }
 
   func requestImage(forView view: (any HybridNitroImageViewSpec)) throws {
-    guard let view = view as? NativeImageView else { throw RuntimeError.error(withMessage: "Invalid view type!") }
+    guard let imageView = (view as? NativeImageView)?.imageView else { throw RuntimeError.error(withMessage: "Invalid view type!") }
 
-    let webImageOptions = options?.toSDWebImageOptions() ?? []
+    var webImageOptions = options?.toSDWebImageOptions() ?? []
+    switch view.priority {
+    case 0: webImageOptions.insert(.lowPriority)
+    case 2: webImageOptions.insert(.highPriority)
+    default: break
+    }
     let webImageContext = options?.toSDWebImageContext()
-    view.imageView.sd_setImage(with: url,
-                               placeholderImage: view.imageView.image,
-                               options: webImageOptions,
-                               context: webImageContext)
+    imageView.sd_setImage(with: url,
+                          placeholderImage: imageView.image,
+                          options: webImageOptions,
+                          context: webImageContext)
   }
 
   func dropImage(forView view: (any HybridNitroImageViewSpec)) throws {
     // TODO: Do we need to reset the image here or not?
   }
-  
+
   public static func loadImage(url: URL, options: AsyncImageLoadOptions?) -> Promise<any HybridImageSpec> {
     return Promise.async {
       let uiImage = try await SDWebImageManager.shared.loadImage(with: url,

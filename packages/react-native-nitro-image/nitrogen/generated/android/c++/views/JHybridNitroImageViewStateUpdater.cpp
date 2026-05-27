@@ -37,6 +37,10 @@ void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCla
   }
 
   // Update all props if they are dirty
+  if (props->priority.isDirty) {
+    hybridView->setPriority(props->priority.value);
+    props->priority.isDirty = false;
+  }
   if (props->image.isDirty) {
     hybridView->setImage(props->image.value);
     props->image.isDirty = false;

@@ -13,8 +13,6 @@ namespace margelo::nitro::image { class HybridImageLoaderSpec; }
 namespace margelo::nitro::image { class HybridImageSpec; }
 // Forward declaration of `AsyncImageLoadOptions` to properly resolve imports.
 namespace margelo::nitro::web::image { struct AsyncImageLoadOptions; }
-// Forward declaration of `AsyncImagePriority` to properly resolve imports.
-namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 
 #include <memory>
 #include <NitroImage/HybridImageLoaderSpec.hpp>
@@ -27,8 +25,6 @@ namespace margelo::nitro::web::image { enum class AsyncImagePriority; }
 #include "AsyncImageLoadOptions.hpp"
 #include <optional>
 #include "JAsyncImageLoadOptions.hpp"
-#include "AsyncImagePriority.hpp"
-#include "JAsyncImagePriority.hpp"
 
 namespace margelo::nitro::web::image {
 

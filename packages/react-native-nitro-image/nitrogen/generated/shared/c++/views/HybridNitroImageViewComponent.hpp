@@ -16,11 +16,11 @@
 #include <react/renderer/components/view/ConcreteViewShadowNode.h>
 #include <react/renderer/components/view/ViewProps.h>
 
+#include <optional>
 #include <memory>
 #include "HybridImageSpec.hpp"
 #include "HybridImageLoaderSpec.hpp"
 #include <variant>
-#include <optional>
 #include "ResizeMode.hpp"
 #include <string>
 #include "HybridNitroImageViewSpec.hpp"
@@ -46,6 +46,7 @@ namespace margelo::nitro::image::views {
                               const react::RawProps& rawProps);
 
   public:
+    CachedProp<std::optional<double>> priority;
     CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> image;
     CachedProp<std::optional<ResizeMode>> resizeMode;
     CachedProp<std::optional<std::string>> recyclingKey;

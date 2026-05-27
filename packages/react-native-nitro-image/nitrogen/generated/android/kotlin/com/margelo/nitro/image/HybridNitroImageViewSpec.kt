@@ -30,6 +30,12 @@ abstract class HybridNitroImageViewSpec: HybridView() {
   @get:Keep
   @set:DoNotStrip
   @set:Keep
+  abstract var priority: Double?
+  
+  @get:DoNotStrip
+  @get:Keep
+  @set:DoNotStrip
+  @set:Keep
   abstract var image: Variant_HybridImageSpec_HybridImageLoaderSpec?
   
   @get:DoNotStrip

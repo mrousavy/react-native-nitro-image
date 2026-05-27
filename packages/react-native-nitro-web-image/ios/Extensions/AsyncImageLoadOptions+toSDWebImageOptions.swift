@@ -13,12 +13,9 @@ extension AsyncImageLoadOptions {
     var options: SDWebImageOptions = []
 
     switch priority {
-    case .default, .none:
-      break
-    case .low:
-      options.insert(.lowPriority)
-    case .high:
-      options.insert(.highPriority)
+    case 0: options.insert(.lowPriority)
+    case 2: options.insert(.highPriority)
+    default: break
     }
 
     if forceRefresh == true {
