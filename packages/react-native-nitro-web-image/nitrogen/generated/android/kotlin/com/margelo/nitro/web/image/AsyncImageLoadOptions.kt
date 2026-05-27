@@ -71,7 +71,7 @@ data class AsyncImageLoadOptions(
   }
 
   override fun hashCode(): Int {
-    return arrayOf(
+    return arrayOf<Any?>(
       priority,
       forceRefresh,
       cacheKey,
