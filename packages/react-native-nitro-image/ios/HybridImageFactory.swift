@@ -13,10 +13,14 @@ class HybridImageFactory: HybridImageFactorySpec {
    * Create new blank Image
    */
   func createBlankImage(width: Double, height: Double, enableAlpha: Bool, fill: Color?) throws -> any HybridImageSpec {
-    // 1. Prepare image config
+    // 1. Prepare image config. Force scale=1 so pixel dims == (width, height);
+    //    otherwise UIGraphicsImageRendererFormat() defaults to UIScreen.main.scale
+    //    and a "create blank 100x100" call produces a 300x300-pixel bitmap on 3x
+    //    devices while uiImage.size still reads (100, 100) in points.
     let size = CGSize(width: width, height: height)
     let format = UIGraphicsImageRendererFormat()
     format.opaque = !enableAlpha
+    format.scale = 1
     // 2. Create a new UIImage
     let uiImage = UIGraphicsImageRenderer(size: size, format: format).image { canvas in
       if let fill {
