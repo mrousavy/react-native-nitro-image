@@ -27,7 +27,7 @@
     "@release-it-plugins/workspaces": "^5.0.3",
     "@release-it/bumper": "^7.0.5",
     "@release-it/conventional-changelog": "^11.0.0",
-    "@tsconfig/react-native": "^2.0.3",
+    "@tsconfig/react-native": "^3.0.9",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.15",
     "react": "19.2.6",
