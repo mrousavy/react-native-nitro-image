@@ -17,6 +17,7 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
     "module": "ESNext",
+    "ignoreDeprecations": "6.0",
     "moduleResolution": "Node",
     "noEmit": false,
     "noFallthroughCasesInSwitch": true,
