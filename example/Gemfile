@@ -5,6 +5,8 @@ ruby ">= 2.6.10"
 
 gem 'cocoapods', '~> 1.16.2'
 gem 'concurrent-ruby', '< 1.3.4'
+# 3.0.9 declares ruby < 3.2, while xcodeproj 1.x does not allow CFPropertyList 4.x.
+gem 'CFPropertyList', '< 3.0.9'
 
 # Ruby 3.4.0 has removed some libraries from the standard library.
 gem 'bigdecimal'

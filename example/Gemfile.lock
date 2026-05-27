@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (3.0.9)
+    CFPropertyList (3.0.8)
     activesupport (6.1.7.10)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
@@ -96,6 +96,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  CFPropertyList (< 3.0.9)
   benchmark
   bigdecimal
   cocoapods (~> 1.16.2)
