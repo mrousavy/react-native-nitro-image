@@ -9,7 +9,7 @@
         "@release-it-plugins/workspaces": "^5.0.3",
         "@release-it/bumper": "^7.0.5",
         "@release-it/conventional-changelog": "^11.0.0",
-        "@tsconfig/react-native": "^2.0.3",
+        "@tsconfig/react-native": "^3.0.9",
         "@types/jest": "^30.0.0",
         "@types/react": "^19.2.15",
         "react": "19.2.6",
@@ -629,7 +629,7 @@
 
     "@ts-morph/common": ["@ts-morph/common@0.28.1", "", { "dependencies": { "minimatch": "^10.0.1", "path-browserify": "^1.0.1", "tinyglobby": "^0.2.14" } }, "sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g=="],
 
-    "@tsconfig/react-native": ["@tsconfig/react-native@2.0.3", "", {}, "sha512-jE58snEKBd9DXfyR4+ssZmYJ/W2mOSnNrvljR0aLyQJL9JKX6vlWELHkRjb3HBbcM9Uy0hZGijXbqEAjOERW2A=="],
+    "@tsconfig/react-native": ["@tsconfig/react-native@3.0.9", "", {}, "sha512-+PuvMuxb0OTHo/o04vEQI7LfUoiPH33pePvAH+qxf5ZPsRAVwtespj7LqysOTAYcsmRvjLPjik7V8pIcm84dEQ=="],
 
     "@tybys/wasm-util": ["@tybys/wasm-util@0.10.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg=="],
 
