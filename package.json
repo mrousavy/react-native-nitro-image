@@ -34,7 +34,7 @@
     "@tsconfig/react-native": "^3.0.9",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.15",
-    "react": "19.2.6",
+    "react": "19.2.3",
     "react-native": "0.85.3",
     "react-native-builder-bob": "^0.41.0",
     "release-it": "^19.0.4",

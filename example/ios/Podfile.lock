@@ -1,6 +1,6 @@
 PODS:
   - FBLazyVector (0.85.3)
-  - HarnessUI (1.1.0):
+  - HarnessUI (1.3.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -61,7 +61,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - NitroModules (0.35.5):
+  - NitroModules (0.35.9):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2280,11 +2280,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBLazyVector: 24e62c765683b8d89006a88a2c8f5cf019f0074d
-  HarnessUI: 1f05f3e9cb9d4035a52cdc347e45a76f5d3b21cc
+  HarnessUI: f439596aec93ff76765451f834c93f966d54e53e
   hermes-engine: ef561c35b1325a953b54456ddbd27ee0faf01ba4
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   NitroImage: 33c4698f86b081bd3d0245223f34ea561b0934ea
-  NitroModules: 8146b7b58cd5a478a21485fc2a0d542076f9f1ba
+  NitroModules: 16bc17a076b12304d608f7c915b9d321f56dfc19
   NitroWebImage: 462cc2cb709258a24565ea545524c30d135f0c5a
   RCTDeprecation: a4c521821fab57cbb125b36effe84d897d0dfa12
   RCTRequired: 9f3a7e5645d4bc3f551593de7550bb66ab6e42bc
