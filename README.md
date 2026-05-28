@@ -15,7 +15,7 @@
 - Supports in-memory image operations like resizing and cropping without saving to file 📐
 - Supports deferred `ImageLoader` types to optimize for displaying large lists of Images ⏳
 - Fast Web Image loading and caching using [SDWebImage](https://github.com/SDWebImage/SDWebImage) (iOS) and [Coil](https://github.com/coil-kt/coil) (Android) 🌎
-- [ThumbHash](https://github.com/evanw/thumbhash) support for elegant placeholders 🖼️
+- [ThumbHash](https://github.com/evanw/thumbhash) support for elegant placeholders (via the separate [`react-native-nitro-image-thumbhash`](./packages/react-native-nitro-image-thumbhash) package) 🖼️
 
 ```tsx
 function App() {
@@ -346,16 +346,22 @@ Since it is a very small buffer (or base64 string), it can be added to a payload
   Everytime you upload a new profile picture for the user, you should encode the image to a new ThumbHash again and update the `users.profile_picture_thumbhash` field. This should ideally happen on your backend, but can also be performed on-device if needed.
 </details>
 
-#### ThumbHash (`ArrayBuffer`) <> Image
+ThumbHash support lives in a separate package, [`react-native-nitro-image-thumbhash`](./packages/react-native-nitro-image-thumbhash), so apps that don't need it don't pay for it.
 
-NitroImage supports conversion from- and to- [ThumbHash](https://github.com/evanw/thumbhash) representations out of the box.
+```sh
+bun add react-native-nitro-image-thumbhash
+```
+
+#### ThumbHash (`ArrayBuffer`) <> Image
 
 For performance reasons, a ThumbHash is represented as an `ArrayBuffer`.
 
 ```ts
+import { ThumbHash } from 'react-native-nitro-image-thumbhash'
+
 const thumbHash      = ...from server
-const image          = Images.loadFromThumbHash(thumbHash)
-const thumbHashAgain = image.toThumbHash()
+const image          = ThumbHash.decode(thumbHash)
+const thumbHashAgain = ThumbHash.encode(image)
 ```
 
 ##### ThumbHash (`ArrayBuffer`) <> Base64 String
@@ -363,9 +369,11 @@ const thumbHashAgain = image.toThumbHash()
 If your ThumbHash is a `string`, convert it to an `ArrayBuffer` first, since this is more efficient:
 
 ```ts
+import { ThumbHash } from 'react-native-nitro-image-thumbhash'
+
 const thumbHashBase64      = ...from server
-const thumbHashArrayBuffer = thumbHashFromBase64String(thumbHashBase64)
-const thumbHashBase64Again = thumbHashToBase64String(thumbHashArrayBuffer)
+const thumbHashArrayBuffer = ThumbHash.fromBase64String(thumbHashBase64)
+const thumbHashBase64Again = ThumbHash.toBase64String(thumbHashArrayBuffer)
 ```
 
 ##### Async ThumbHash
@@ -373,9 +381,11 @@ const thumbHashBase64Again = thumbHashToBase64String(thumbHashArrayBuffer)
 Since ThumbHash decoding or encoding can be a slow process, you should consider using the async methods instead:
 
 ```ts
+import { ThumbHash } from 'react-native-nitro-image-thumbhash'
+
 const thumbHash      = ...from server
-const image          = await Images.loadFromThumbHashAsync(thumbHash)
-const thumbHashAgain = await image.toThumbHash()
+const image          = await ThumbHash.decodeAsync(thumbHash)
+const thumbHashAgain = await ThumbHash.encodeAsync(image)
 ```
 
 ## Using the native `Image` type in a third-party library
