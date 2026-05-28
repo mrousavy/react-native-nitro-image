@@ -8,6 +8,14 @@
 import UIKit
 import NitroModules
 
+private func ceilPixelDimension(_ value: CGFloat) -> CGFloat {
+  let rounded = value.rounded()
+  if abs(value - rounded) < 0.001 {
+    return rounded
+  }
+  return ceil(value)
+}
+
 /**
  * A protocol that represents a native image.
  * This can be used to downcast from `HybridImageSpec`
@@ -63,20 +71,25 @@ public extension NativeImage {
       return HybridImage(uiImage: rotated)
     } else {
       // Slow path: we actually rotate using UIGraphicsImageRenderer
-      let renderer = UIGraphicsImageRenderer(size: uiImage.size)
+      let sourceSize = uiImage.size
+      let angleInRadians = CGFloat(degrees * .pi / 180)
+      let rotatedBounds = CGRect(origin: .zero, size: sourceSize)
+        .applying(CGAffineTransform(rotationAngle: angleInRadians))
+      let outputSize = CGSize(width: ceilPixelDimension(rotatedBounds.width),
+                              height: ceilPixelDimension(rotatedBounds.height))
+      let format = UIGraphicsImageRendererFormat()
+      format.scale = 1
+      let renderer = UIGraphicsImageRenderer(size: outputSize, format: format)
       let rotatedImage = renderer.image { context in
-        let width = uiImage.size.width
-        let height = uiImage.size.height
         // 1. Move to the center of the image so our origin is the center
-        context.cgContext.translateBy(x: width / 2, y: height / 2)
-        // 2. Rotate by the given radians
-        let radians = degrees * .pi / 180
-        context.cgContext.rotate(by: radians)
+        context.cgContext.translateBy(x: outputSize.width / 2, y: outputSize.height / 2)
+        // 2. Rotate by the requested angle
+        context.cgContext.rotate(by: angleInRadians)
         // 3. Draw the Image offset by half the frame so we counter our center origin from step 1.
-        let rect = CGRect(x: -(width / 2),
-                          y: -(height / 2),
-                          width: width,
-                          height: height)
+        let rect = CGRect(x: -(sourceSize.width / 2),
+                          y: -(sourceSize.height / 2),
+                          width: sourceSize.width,
+                          height: sourceSize.height)
         uiImage.draw(in: rect)
       }
       return HybridImage(uiImage: rotatedImage)
@@ -97,7 +110,9 @@ public extension NativeImage {
     }
     let targetSize = CGSize(width: width, height: height)
 
-    let renderer = UIGraphicsImageRenderer(size: targetSize)
+    let format = UIGraphicsImageRendererFormat()
+    format.scale = 1
+    let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
     let resizedImage = renderer.image { context in
       let targetRect = CGRect(origin: .zero, size: targetSize)
       uiImage.draw(in: targetRect)
@@ -124,8 +139,10 @@ public extension NativeImage {
       throw RuntimeError.error(withMessage: "This image does not have an underlying .cgImage!")
     }
 
-    let targetRect = CGRect(origin: CGPoint(x: startX, y: startY),
-                            size: CGSize(width: uiImage.size.width, height: uiImage.size.height))
+    let targetRect = CGRect(x: startX,
+                            y: startY,
+                            width: targetWidth,
+                            height: targetHeight)
     guard let croppedCgImage = cgImage.cropping(to: targetRect) else {
       throw RuntimeError.error(withMessage: "Failed to crop CGImage to \(targetRect)!")
     }
@@ -192,8 +209,9 @@ public extension NativeImage {
       throw RuntimeError.error(withMessage: "The given image (\(newImage)) is not a `NativeImage`!")
     }
     // 1. Prepare a UIImage rendered
-    let renderer = UIGraphicsImageRenderer(size: uiImage.size,
-                                           format: uiImage.imageRendererFormat)
+    let format = UIGraphicsImageRendererFormat()
+    format.scale = 1
+    let renderer = UIGraphicsImageRenderer(size: uiImage.size, format: format)
     let renderedImage = renderer.image { context in
       // 2. Render our own image (copy)
       self.uiImage.draw(at: .zero)
