@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Rect
+import android.graphics.RectF
 import android.os.Build
 import androidx.annotation.Keep
 import androidx.core.graphics.createBitmap
@@ -14,6 +15,7 @@ import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.extensions.compressInMemory
 import com.margelo.nitro.image.extensions.isGPU
+import com.margelo.nitro.image.extensions.isRawPixelDataAccessible
 import com.margelo.nitro.image.extensions.pixelFormat
 import com.margelo.nitro.image.extensions.saveToFile
 import com.margelo.nitro.image.extensions.toFilePath
@@ -22,6 +24,7 @@ import com.margelo.nitro.image.extensions.toCpuAccessible
 import com.margelo.nitro.image.extensions.toMutable
 import java.io.File
 import java.nio.ByteBuffer
+import kotlin.math.ceil
 
 @Suppress("ConvertSecondaryConstructorToPrimary")
 @Keep
@@ -54,13 +57,13 @@ class HybridImage: HybridImageSpec {
         } else {
             // Copy the data into a CPU buffer (ByteBuffer)
             var bitmap = bitmap
-            if (bitmap.isGPU) {
-                // If this is a GPU-based bitmap (but we cannot use GPU), copy it to a CPU Bitmap first
+            if (!bitmap.isRawPixelDataAccessible) {
+                // If this is a GPU-based or otherwise unsupported Bitmap config, normalize it first.
                 bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, false)
             }
             val buffer = bitmap.toByteBuffer()
             val arrayBuffer = ArrayBuffer.wrap(buffer)
-            return RawPixelData(arrayBuffer, width, height, bitmap.pixelFormat)
+            return RawPixelData(arrayBuffer, bitmap.width.toDouble(), bitmap.height.toDouble(), bitmap.pixelFormat)
         }
     }
     override fun toRawPixelDataAsync(allowGpu: Boolean?): Promise<RawPixelData> {
@@ -86,8 +89,16 @@ class HybridImage: HybridImageSpec {
         // 2. Create a rotation Matrix
         val matrix = Matrix()
         matrix.setRotate(degrees.toFloat(), source.width / 2f, source.height / 2f)
+        // Rotating around the center can move the image into negative coordinates.
+        // Map the original bounds through the rotation to measure the full output size,
+        // then translate the matrix back so the rotated image starts at (0, 0).
+        val bounds = RectF(0f, 0f, source.width.toFloat(), source.height.toFloat())
+        matrix.mapRect(bounds)
+        matrix.postTranslate(-bounds.left, -bounds.top)
         // 3. Create a new blank Bitmap as our output
-        val destination = createBitmap(bitmap.width, bitmap.height)
+        val destinationWidth = ceil(bounds.width()).toInt().coerceAtLeast(1)
+        val destinationHeight = ceil(bounds.height()).toInt().coerceAtLeast(1)
+        val destination = createBitmap(destinationWidth, destinationHeight)
         // 4. Draw the Bitmap to our destination
         Canvas(destination).apply {
             drawBitmap(source, matrix, null)
