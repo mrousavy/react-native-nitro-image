@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Rect
+import android.graphics.RectF
 import android.os.Build
 import androidx.annotation.Keep
 import androidx.core.graphics.createBitmap
@@ -22,6 +23,18 @@ import com.margelo.nitro.image.extensions.toCpuAccessible
 import com.margelo.nitro.image.extensions.toMutable
 import java.io.File
 import java.nio.ByteBuffer
+import kotlin.math.abs
+import kotlin.math.ceil
+import kotlin.math.round
+
+private fun roundedUpPixelDimension(value: Float): Int {
+    val rounded = round(value)
+    return if (abs(value - rounded) < 0.0001f) {
+        rounded.toInt()
+    } else {
+        ceil(value).toInt()
+    }.coerceAtLeast(1)
+}
 
 @Suppress("ConvertSecondaryConstructorToPrimary")
 @Keep
@@ -54,7 +67,7 @@ class HybridImage: HybridImageSpec {
         } else {
             // Copy the data into a CPU buffer (ByteBuffer)
             var bitmap = bitmap
-            if (bitmap.isGPU) {
+            if (bitmap.isGPU || bitmap.pixelFormat == PixelFormat.UNKNOWN) {
                 // If this is a GPU-based bitmap (but we cannot use GPU), copy it to a CPU Bitmap first
                 bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, false)
             }
@@ -84,10 +97,19 @@ class HybridImage: HybridImageSpec {
         // 1. Make sure the Bitmap we want to draw is drawable (HARDWARE isn't)
         val source = bitmap.toCpuAccessible()
         // 2. Create a rotation Matrix
-        val matrix = Matrix()
-        matrix.setRotate(degrees.toFloat(), source.width / 2f, source.height / 2f)
-        // 3. Create a new blank Bitmap as our output
-        val destination = createBitmap(bitmap.width, bitmap.height)
+        val matrix = Matrix().apply {
+            setRotate(degrees.toFloat())
+        }
+        val sourceRect = RectF(0f, 0f, source.width.toFloat(), source.height.toFloat())
+        val rotatedRect = RectF()
+        matrix.mapRect(rotatedRect, sourceRect)
+        // 3. Create a new blank Bitmap as our output, large enough to contain the rotated source.
+        val destination = createBitmap(
+            roundedUpPixelDimension(rotatedRect.width()),
+            roundedUpPixelDimension(rotatedRect.height()),
+            source.config ?: Bitmap.Config.ARGB_8888
+        )
+        matrix.postTranslate(-rotatedRect.left, -rotatedRect.top)
         // 4. Draw the Bitmap to our destination
         Canvas(destination).apply {
             drawBitmap(source, matrix, null)
@@ -201,8 +223,8 @@ class HybridImage: HybridImageSpec {
             // 3. Prepare the Bitmap we want to draw into our Canvas
             val rect = Rect(x.toInt(),
                 y.toInt(),
-                width.toInt(),
-                height.toInt())
+                (x + width).toInt(),
+                (y + height).toInt())
 
             // 4. Make sure we can draw the Bitmap (HARDWARE isn't CPU accessible)
             val drawable = newImage.bitmap.toCpuAccessible()

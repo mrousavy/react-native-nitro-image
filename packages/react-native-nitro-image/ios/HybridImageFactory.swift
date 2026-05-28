@@ -17,6 +17,7 @@ class HybridImageFactory: HybridImageFactorySpec {
     let size = CGSize(width: width, height: height)
     let format = UIGraphicsImageRendererFormat()
     format.opaque = !enableAlpha
+    format.scale = 1
     // 2. Create a new UIImage
     let uiImage = UIGraphicsImageRenderer(size: size, format: format).image { canvas in
       if let fill {

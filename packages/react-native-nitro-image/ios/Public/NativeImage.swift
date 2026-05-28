@@ -8,6 +8,14 @@
 import UIKit
 import NitroModules
 
+private func roundedUpPixelDimension(_ value: CGFloat) -> CGFloat {
+  let rounded = round(value)
+  if abs(value - rounded) < 0.0001 {
+    return rounded
+  }
+  return ceil(value)
+}
+
 /**
  * A protocol that represents a native image.
  * This can be used to downcast from `HybridImageSpec`
@@ -63,20 +71,25 @@ public extension NativeImage {
       return HybridImage(uiImage: rotated)
     } else {
       // Slow path: we actually rotate using UIGraphicsImageRenderer
-      let renderer = UIGraphicsImageRenderer(size: uiImage.size)
+      let radians = degrees * .pi / 180
+      let sourceSize = uiImage.size
+      let sourceRect = CGRect(origin: .zero, size: sourceSize)
+      let rotatedRect = sourceRect.applying(CGAffineTransform(rotationAngle: radians))
+      let outputSize = CGSize(width: roundedUpPixelDimension(abs(rotatedRect.width)),
+                              height: roundedUpPixelDimension(abs(rotatedRect.height)))
+      let format = UIGraphicsImageRendererFormat()
+      format.scale = 1
+      let renderer = UIGraphicsImageRenderer(size: outputSize, format: format)
       let rotatedImage = renderer.image { context in
-        let width = uiImage.size.width
-        let height = uiImage.size.height
         // 1. Move to the center of the image so our origin is the center
-        context.cgContext.translateBy(x: width / 2, y: height / 2)
+        context.cgContext.translateBy(x: outputSize.width / 2, y: outputSize.height / 2)
         // 2. Rotate by the given radians
-        let radians = degrees * .pi / 180
         context.cgContext.rotate(by: radians)
         // 3. Draw the Image offset by half the frame so we counter our center origin from step 1.
-        let rect = CGRect(x: -(width / 2),
-                          y: -(height / 2),
-                          width: width,
-                          height: height)
+        let rect = CGRect(x: -(sourceSize.width / 2),
+                          y: -(sourceSize.height / 2),
+                          width: sourceSize.width,
+                          height: sourceSize.height)
         uiImage.draw(in: rect)
       }
       return HybridImage(uiImage: rotatedImage)
@@ -97,7 +110,9 @@ public extension NativeImage {
     }
     let targetSize = CGSize(width: width, height: height)
 
-    let renderer = UIGraphicsImageRenderer(size: targetSize)
+    let format = UIGraphicsImageRendererFormat()
+    format.scale = 1
+    let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
     let resizedImage = renderer.image { context in
       let targetRect = CGRect(origin: .zero, size: targetSize)
       uiImage.draw(in: targetRect)
@@ -124,12 +139,17 @@ public extension NativeImage {
       throw RuntimeError.error(withMessage: "This image does not have an underlying .cgImage!")
     }
 
-    let targetRect = CGRect(origin: CGPoint(x: startX, y: startY),
-                            size: CGSize(width: uiImage.size.width, height: uiImage.size.height))
+    let scale = uiImage.scale
+    let targetRect = CGRect(x: startX * scale,
+                            y: startY * scale,
+                            width: targetWidth * scale,
+                            height: targetHeight * scale).integral
     guard let croppedCgImage = cgImage.cropping(to: targetRect) else {
       throw RuntimeError.error(withMessage: "Failed to crop CGImage to \(targetRect)!")
     }
-    let croppedUiImage = UIImage(cgImage: croppedCgImage)
+    let croppedUiImage = UIImage(cgImage: croppedCgImage,
+                                 scale: scale,
+                                 orientation: uiImage.imageOrientation)
     return HybridImage(uiImage: croppedUiImage)
   }
 
