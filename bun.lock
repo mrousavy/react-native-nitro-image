@@ -30,6 +30,7 @@
         "react-native-fast-image": "^8.6.3",
         "react-native-harness": "^1.3.0",
         "react-native-nitro-image": "workspace:*",
+        "react-native-nitro-image-blurhash": "workspace:*",
         "react-native-nitro-modules": "0.35.9",
         "react-native-nitro-web-image": "workspace:*",
         "react-native-safe-area-context": "^5.8.0",
@@ -66,6 +67,24 @@
       "peerDependencies": {
         "react": "*",
         "react-native": "*",
+        "react-native-nitro-modules": "*",
+      },
+    },
+    "packages/react-native-nitro-image-blurhash": {
+      "name": "react-native-nitro-image-blurhash",
+      "version": "0.0.1",
+      "devDependencies": {
+        "@types/react": "^19.2.15",
+        "nitrogen": "0.35.9",
+        "react": "19.2.3",
+        "react-native": "0.85.3",
+        "react-native-nitro-modules": "0.35.9",
+        "typescript": "6.0.3",
+      },
+      "peerDependencies": {
+        "react": "*",
+        "react-native": "*",
+        "react-native-nitro-image": "*",
         "react-native-nitro-modules": "*",
       },
     },
@@ -1722,6 +1741,8 @@
     "react-native-monorepo-config": ["react-native-monorepo-config@0.3.5", "", { "dependencies": { "escape-string-regexp": "^5.0.0", "fast-glob": "^3.3.3" } }, "sha512-Xdu7k0s4V2FHn2OGnlr3D22Dgt5ij0ek9yzloPoLkHh3rL/jUQbPrawieKsAbkqoenv/7pfPJwMlPT27bvN1fg=="],
 
     "react-native-nitro-image": ["react-native-nitro-image@workspace:packages/react-native-nitro-image"],
+
+    "react-native-nitro-image-blurhash": ["react-native-nitro-image-blurhash@workspace:packages/react-native-nitro-image-blurhash"],
 
     "react-native-nitro-modules": ["react-native-nitro-modules@0.35.9", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-yCO6eJ85SPPUo4a4an7H5oj6wPCSIT72fbjr5WZ/20n6zswaJ2gNNpnWtg2We0AZwkAOjSqkOJ0Vjc05p6kGiA=="],
 
