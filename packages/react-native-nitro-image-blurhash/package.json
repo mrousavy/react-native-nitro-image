@@ -7,6 +7,9 @@
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
+  "workspaces": [
+    "example"
+  ],
   "files": [
     "src",
     "react-native.config.js",
@@ -82,5 +85,18 @@
         }
       ]
     ]
+  },
+  "release-it": {
+    "npm": {
+      "publish": true
+    },
+    "git": false,
+    "github": {
+      "release": false
+    },
+    "hooks": {
+      "before:init": "bun typecheck",
+      "after:bump": "bun run build"
+    }
   }
 }

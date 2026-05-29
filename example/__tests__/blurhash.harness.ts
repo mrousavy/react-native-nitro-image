@@ -33,6 +33,10 @@ describe('BlurHash - round-trip', () => {
     expect(decoded.width).toBe(32)
     expect(decoded.height).toBe(32)
   })
+
+  it('throws when decoding an invalid hash', () => {
+    expect(() => BlurHash.decode('bad', 16, 16, 1)).toThrow()
+  })
 })
 
 describe('isBlurhashValid', () => {
@@ -67,6 +71,28 @@ describe('getAverageColor', () => {
 
   it('returns undefined for a too-short hash', () => {
     expect(getAverageColor('short')).toBeUndefined()
+  })
+
+  it('reflects the source image: blue source is blue-dominant', () => {
+    const source = Images.createBlankImage(64, 64, true, BLUE).resize(32, 32)
+    const hash = BlurHash.encode(source, 4, 3)
+    const color = getAverageColor(hash)
+    expect(color).toBeDefined()
+    if (color != null) {
+      expect(color.b).toBeGreaterThan(color.r)
+      expect(color.b).toBeGreaterThan(color.g)
+    }
+  })
+
+  it('reflects the source image: red source is red-dominant', () => {
+    const source = Images.createBlankImage(64, 64, true, RED).resize(32, 32)
+    const hash = BlurHash.encode(source, 4, 3)
+    const color = getAverageColor(hash)
+    expect(color).toBeDefined()
+    if (color != null) {
+      expect(color.r).toBeGreaterThan(color.g)
+      expect(color.r).toBeGreaterThan(color.b)
+    }
   })
 })
 
