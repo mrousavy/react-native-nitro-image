@@ -33,11 +33,12 @@ class HybridImageLoader(
 
     override fun requestImage(forView: HybridNitroImageViewSpec) {
         val view = forView as? HybridImageView ?: return
+        val ticket = view.beginLoad(this) ?: return
 
         loadImage().then { maybeImage ->
             val image = maybeImage as? HybridImage ?: return@then
             uiScope.launch {
-                view.imageView.setImageBitmap(image.bitmap)
+                view.applyLoadedBitmap(ticket, image.bitmap)
             }
         }
     }
