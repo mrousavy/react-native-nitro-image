@@ -9,14 +9,6 @@ fileprivate class HybridImage: HybridImageSpec, NativeImage {
     self.uiImage = uiImage
     super.init()
   }
-
-  // Without this stub we encounter this error: "type 'HybridImage' cannot conform to protocol 'HybridImageSpec_protocol'
-  // because it has requirements that cannot be satisfied".
-  func saveToTemporaryFileAsync(format: ImageFormat, quality: Double?) throws -> Promise<String> {
-    return Promise.async {
-      return ""
-    }
-  }
 }
 
 class HybridBlurHashFactory: HybridBlurHashFactorySpec {
