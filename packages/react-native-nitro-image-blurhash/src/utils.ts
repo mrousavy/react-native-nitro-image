@@ -23,7 +23,7 @@ function decodeDC(value: number): Color {
 function decode83(str: string): number {
   let value = 0
   for (let i = 0; i < str.length; i++) {
-    const digit = DIGITS.indexOf(str[i]!)
+    const digit = DIGITS.indexOf(str.charAt(i))
     value = value * 83 + digit
   }
   return value
@@ -72,4 +72,5 @@ export function getAverageColor(blurhash: string): Color | undefined {
   return decodeDC(value)
 }
 
-const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$%*+,-.:;=?@[]^_{|}~'
+const DIGITS =
+  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$%*+,-.:;=?@[]^_{|}~'
