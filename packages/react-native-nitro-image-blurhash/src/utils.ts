@@ -9,7 +9,7 @@ function sRGBToLinear(value: number): number {
   return ((v + 0.055) / 1.055) ** 2.4
 }
 
-export function decodeDC(value: number): Color {
+function decodeDC(value: number): Color {
   const intR = value >> 16
   const intG = (value >> 8) & 255
   const intB = value & 255
@@ -20,10 +20,10 @@ export function decodeDC(value: number): Color {
   }
 }
 
-export function decode83(str: string): number {
+function decode83(str: string): number {
   let value = 0
   for (let i = 0; i < str.length; i++) {
-    const digit = digitCharacters.indexOf(str[i] as string)
+    const digit = DIGITS.indexOf(str[i]!)
     value = value * 83 + digit
   }
   return value
@@ -49,8 +49,6 @@ export type IsBlurhashValidResult =
 
 /**
  * Verifies if the given BlurHash is valid by checking its type, length and size flag.
- *
- * This uses the JS BlurHash decoder, so it might be slow.
  * @param blurhash The given BlurHash string.
  */
 export function isBlurhashValid(blurhash: string): IsBlurhashValidResult {
@@ -66,98 +64,12 @@ export function isBlurhashValid(blurhash: string): IsBlurhashValidResult {
 
 /**
  * Gets the average {@linkcode Color} in a given BlurHash string.
- *
- * This uses the JS BlurHash decoder, so it might be slow.
  * @param blurhash The BlurHash string.
  */
 export function getAverageColor(blurhash: string): Color | undefined {
-  if (blurhash == null || blurhash.length < 7) return undefined
+  if (blurhash == null || blurhash.length < 6) return undefined
   const value = decode83(blurhash.substring(2, 6))
   return decodeDC(value)
 }
 
-const digitCharacters = [
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z',
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z',
-  '#',
-  '$',
-  '%',
-  '*',
-  '+',
-  ',',
-  '-',
-  '.',
-  ':',
-  ';',
-  '=',
-  '?',
-  '@',
-  '[',
-  ']',
-  '^',
-  '_',
-  '{',
-  '|',
-  '}',
-  '~',
-]
+const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$%*+,-.:;=?@[]^_{|}~'
