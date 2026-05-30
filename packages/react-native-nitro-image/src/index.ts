@@ -5,6 +5,7 @@ export * from './loadImage'
 export { NativeNitroImage } from './NativeNitroImage'
 export { NitroImage, type NitroImageProps } from './NitroImage'
 export type { Image } from './specs/Image.nitro'
+export type { Color } from './specs/ImageFactory.nitro'
 export type { ImageLoader } from './specs/ImageLoader.nitro'
 
 export * from './useImage'
