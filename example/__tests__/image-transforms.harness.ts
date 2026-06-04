@@ -27,6 +27,21 @@ describe('Image - crop', () => {
     expect(cropped.width).toBe(40)
     expect(cropped.height).toBe(40)
   })
+
+  it('crops in display space when the image has a non-up orientation', () => {
+    // Fast-flag rotate keeps the cgImage and only flips orientation, giving a
+    // non-.up image (same shape as a camera frame / EXIF-tagged JPEG).
+    const base = makeImage(40, 20)
+    const oriented = base.rotate(90, true)
+    expect(oriented.width).toBe(20)
+    expect(oriented.height).toBe(40)
+
+    // Crop rect is in display space. Without orientation normalization, iOS
+    // clamps it to the 40x20 sensor buffer and returns 20x20 instead of 20x40.
+    const cropped = oriented.crop(0, 0, 20, 40)
+    expect(cropped.width).toBe(20)
+    expect(cropped.height).toBe(40)
+  })
 })
 
 describe('Image - rotate', () => {
