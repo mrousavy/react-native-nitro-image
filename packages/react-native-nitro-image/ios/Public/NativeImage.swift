@@ -135,7 +135,24 @@ public extension NativeImage {
     guard targetHeight > 0 else {
       throw RuntimeError.error(withMessage: "Height cannot be less than 0! (startY: \(startY) - endY: \(endY) = \(targetHeight))")
     }
-    guard let cgImage = uiImage.cgImage else {
+
+    // Normalize before cropping: if imageOrientation != .up, the caller's
+    // (startX, startY, endX, endY) rect is in display space but uiImage.cgImage is
+    // in sensor space, so the crop lands in the wrong region. Draw through a
+    // renderer to bake orientation into pixels. Force scale=1 so pixel dims match
+    // logical size.
+    let normalized: UIImage
+    if uiImage.imageOrientation == .up && uiImage.scale == 1 {
+      normalized = uiImage
+    } else {
+      let format = UIGraphicsImageRendererFormat()
+      format.scale = 1
+      let renderer = UIGraphicsImageRenderer(size: uiImage.size, format: format)
+      normalized = renderer.image { _ in
+        uiImage.draw(at: .zero)
+      }
+    }
+    guard let cgImage = normalized.cgImage else {
       throw RuntimeError.error(withMessage: "This image does not have an underlying .cgImage!")
     }
 
@@ -146,7 +163,8 @@ public extension NativeImage {
     guard let croppedCgImage = cgImage.cropping(to: targetRect) else {
       throw RuntimeError.error(withMessage: "Failed to crop CGImage to \(targetRect)!")
     }
-    let croppedUiImage = UIImage(cgImage: croppedCgImage)
+    // Preserve scale=1 and .up orientation so downstream ops see consistent state.
+    let croppedUiImage = UIImage(cgImage: croppedCgImage, scale: 1, orientation: .up)
     return HybridImage(uiImage: croppedUiImage)
   }
 
