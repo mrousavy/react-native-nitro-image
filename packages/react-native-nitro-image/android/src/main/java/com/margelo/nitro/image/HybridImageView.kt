@@ -1,6 +1,7 @@
 package com.margelo.nitro.image
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -43,6 +44,19 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
             }
         }
 
+    override var placeholder: HybridImageSpec? = null
+        set(value) {
+            field = value
+            uiScope.launch {
+                if (imageView.drawable == null) {
+                    imageView.setImageBitmap(placeholderBitmap)
+                }
+            }
+        }
+
+    private val placeholderBitmap: Bitmap?
+        get() = (placeholder as? HybridImage)?.bitmap
+
     override var recyclingKey: String? = null
         set(value) {
             resetImageBeforeLoad = field != value
@@ -84,8 +98,8 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     private fun onAppear() {
         val imageLoader = image?.asSecondOrNull() ?: return
         try {
-            if (resetImageBeforeLoad) {
-                imageView.setImageDrawable(null)
+            if (resetImageBeforeLoad || imageView.drawable == null) {
+                imageView.setImageBitmap(placeholderBitmap)
                 resetImageBeforeLoad = false
             }
             imageLoader.requestImage(this)

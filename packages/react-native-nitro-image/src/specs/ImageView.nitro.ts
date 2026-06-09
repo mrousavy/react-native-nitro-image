@@ -55,6 +55,27 @@ export interface NativeNitroImageViewProps extends HybridViewProps {
    * ```
    */
   recyclingKey?: string
+  /**
+   * An {@linkcode Image} to display while the main {@linkcode image} is still
+   * loading, or whenever no main {@linkcode image} is currently shown
+   * (e.g. after a {@linkcode recyclingKey} change).
+   *
+   * The placeholder is only used until the first real Image is loaded;
+   * once the loader resolves, the real Image overwrites it.
+   *
+   * For best results, the placeholder should be a lightweight, already-decoded
+   * Image, e.g. a `require(...)` asset, a blurhash/thumbhash decode, or any
+   * other locally-available {@linkcode Image} instance.
+   * @default undefined
+   * @example
+   * ```tsx
+   * <NitroImage
+   *   image={{ url: 'https://picsum.photos/seed/123/400' }}
+   *   placeholder={require('./blurred.png')}
+   * />
+   * ```
+   */
+  placeholder?: Image
 }
 
 export interface NativeNitroImageViewMethods extends HybridViewMethods {

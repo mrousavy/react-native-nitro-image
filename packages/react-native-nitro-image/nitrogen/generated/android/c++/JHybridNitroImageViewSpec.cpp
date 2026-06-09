@@ -83,6 +83,15 @@ namespace margelo::nitro::image {
     static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* recyclingKey */)>("setRecyclingKey");
     method(_javaPart, recyclingKey.has_value() ? jni::make_jstring(recyclingKey.value()) : nullptr);
   }
+  std::optional<std::shared_ptr<HybridImageSpec>> JHybridNitroImageViewSpec::getPlaceholder() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JHybridImageSpec::JavaPart>()>("getPlaceholder");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional(__result->getJHybridImageSpec()) : std::nullopt;
+  }
+  void JHybridNitroImageViewSpec::setPlaceholder(const std::optional<std::shared_ptr<HybridImageSpec>>& placeholder) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JHybridImageSpec::JavaPart> /* placeholder */)>("setPlaceholder");
+    method(_javaPart, placeholder.has_value() ? std::dynamic_pointer_cast<JHybridImageSpec>(placeholder.value())->getJavaPart() : nullptr);
+  }
 
   // Methods
   
