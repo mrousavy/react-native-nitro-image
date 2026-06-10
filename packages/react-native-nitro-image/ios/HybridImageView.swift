@@ -32,7 +32,15 @@ class HybridImageView: HybridNitroImageViewSpec {
       }
     }
   }
-  var placeholder: (any HybridImageSpec)? = nil
+  var placeholder: (any HybridImageSpec)? = nil {
+    didSet {
+      DispatchQueue.runOnMain {
+        if self.view.image == nil, let placeholderUIImage = self.placeholderUIImage {
+          self.view.image = placeholderUIImage
+        }
+      }
+    }
+  }
   private var placeholderUIImage: UIImage? {
     (placeholder as? NativeImage)?.uiImage
   }

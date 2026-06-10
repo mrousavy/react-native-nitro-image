@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { type AsyncImageSource, isHybridObject } from './AsyncImageSource'
 import { loadImage } from './loadImage'
+import { markHybridObject } from './markHybridObject'
 import type { Image } from './specs/Image.nitro'
 import type { ImageLoader } from './specs/ImageLoader.nitro'
 
@@ -35,20 +36,17 @@ export function useLocalImage(source: LocalImageSource | undefined): Result {
       setResult({ image: undefined, error: undefined })
       return
     }
-    let cancelled = false
-    void (async () => {
+    ;(async () => {
       try {
         const img = await loadImage(source)
-        if (!cancelled) setResult({ image: img, error: undefined })
+        // Tag with `__source` so React diffs the placeholder prop properly.
+        markHybridObject(img, source)
+        setResult({ image: img, error: undefined })
       } catch (e) {
-        if (cancelled) return
         const error = e instanceof Error ? e : new Error(`${e}`)
         setResult({ image: undefined, error })
       }
     })()
-    return () => {
-      cancelled = true
-    }
   }, [
     source == null
       ? null

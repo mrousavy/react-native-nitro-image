@@ -48,8 +48,9 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
         set(value) {
             field = value
             uiScope.launch {
-                if (imageView.drawable == null) {
-                    imageView.setImageBitmap(placeholderBitmap)
+                val bitmap = placeholderBitmap
+                if (imageView.drawable == null && bitmap != null) {
+                    imageView.setImageBitmap(bitmap)
                 }
             }
         }
