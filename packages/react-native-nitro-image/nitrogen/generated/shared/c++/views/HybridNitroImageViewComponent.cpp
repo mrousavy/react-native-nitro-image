@@ -56,6 +56,16 @@ namespace margelo::nitro::image::views {
         throw std::runtime_error(std::string("NitroImageView.recyclingKey: ") + exc.what());
       }
     }()),
+    placeholder([&]() -> CachedProp<std::optional<std::shared_ptr<HybridImageSpec>>> {
+      try {
+        const react::RawValue* rawValue = rawProps.at("placeholder", nullptr, nullptr);
+        if (rawValue == nullptr) return sourceProps.placeholder;
+        const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
+        return CachedProp<std::optional<std::shared_ptr<HybridImageSpec>>>::fromRawValue(*runtime, value, sourceProps.placeholder);
+      } catch (const std::exception& exc) {
+        throw std::runtime_error(std::string("NitroImageView.placeholder: ") + exc.what());
+      }
+    }()),
     hybridRef([&]() -> CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> {
       try {
         const react::RawValue* rawValue = rawProps.at("hybridRef", nullptr, nullptr);
@@ -72,6 +82,7 @@ namespace margelo::nitro::image::views {
       case hashString("image"): return true;
       case hashString("resizeMode"): return true;
       case hashString("recyclingKey"): return true;
+      case hashString("placeholder"): return true;
       case hashString("hybridRef"): return true;
       default: return false;
     }

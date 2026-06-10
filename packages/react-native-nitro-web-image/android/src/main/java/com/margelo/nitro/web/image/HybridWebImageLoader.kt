@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import coil3.ImageLoader
 import coil3.load
+import coil3.request.placeholder
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.HybridImageSpec
 import com.margelo.nitro.image.HybridImageLoaderSpec
@@ -24,6 +25,7 @@ class HybridWebImageLoader(private val imageLoader: ImageLoader,
 
         imageView.load(url, imageLoader) {
             this.applyOptions(options)
+            placeholder(imageView.drawable)
         }
     }
 

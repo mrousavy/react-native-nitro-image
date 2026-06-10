@@ -43,6 +43,12 @@ abstract class HybridNitroImageViewSpec: HybridView() {
   @set:DoNotStrip
   @set:Keep
   abstract var recyclingKey: String?
+  
+  @get:DoNotStrip
+  @get:Keep
+  @set:DoNotStrip
+  @set:Keep
+  abstract var placeholder: HybridImageSpec?
 
   // Methods
   

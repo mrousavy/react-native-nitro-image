@@ -94,6 +94,13 @@ namespace margelo::nitro::image {
     inline void setRecyclingKey(const std::optional<std::string>& recyclingKey) noexcept override {
       _swiftPart.setRecyclingKey(recyclingKey);
     }
+    inline std::optional<std::shared_ptr<HybridImageSpec>> getPlaceholder() noexcept override {
+      auto __result = _swiftPart.getPlaceholder();
+      return __result;
+    }
+    inline void setPlaceholder(const std::optional<std::shared_ptr<HybridImageSpec>>& placeholder) noexcept override {
+      _swiftPart.setPlaceholder(placeholder);
+    }
 
   public:
     // Methods

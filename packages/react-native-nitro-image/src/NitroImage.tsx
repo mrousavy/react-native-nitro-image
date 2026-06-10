@@ -4,12 +4,23 @@ import type { HostComponent } from 'react-native'
 import type { AsyncImageSource } from './AsyncImageSource'
 import { NativeNitroImage } from './NativeNitroImage'
 import { useImageLoader } from './useImageLoader'
+import { type LocalImageSource, useLocalImage } from './useLocalImage'
 
 type ReactProps<T> = T extends HostComponent<infer P> ? P : never
 type NativeImageProps = ReactProps<typeof NativeNitroImage>
 
-export interface NitroImageProps extends Omit<NativeImageProps, 'image'> {
+export interface NitroImageProps
+  extends Omit<NativeImageProps, 'image' | 'placeholder'> {
   image: AsyncImageSource
+  /**
+   * An optional placeholder shown while {@linkcode image} is loading.
+   *
+   * Restricted to local sources (require, file path, raw/encoded data,
+   * resource, symbol, or a pre-decoded {@linkcode Image}) so the placeholder
+   * itself never fires a network request. Pass a `require(...)` asset or a
+   * blurhash/thumbhash decode for best results.
+   */
+  placeholder?: LocalImageSource
 }
 
 /**
@@ -30,7 +41,14 @@ export interface NitroImageProps extends Omit<NativeImageProps, 'image'> {
  * }
  * ```
  */
-export function NitroImage({ image, ...props }: NitroImageProps) {
+export function NitroImage({ image, placeholder, ...props }: NitroImageProps) {
   const actualImage = useImageLoader(image)
-  return <NativeNitroImage image={actualImage} {...props} />
+  const { image: actualPlaceholder } = useLocalImage(placeholder)
+  return (
+    <NativeNitroImage
+      image={actualImage}
+      placeholder={actualPlaceholder}
+      {...props}
+    />
+  )
 }
