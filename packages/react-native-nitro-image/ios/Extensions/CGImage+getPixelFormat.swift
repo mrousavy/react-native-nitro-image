@@ -12,8 +12,11 @@ extension CGImage {
   private var isLittleEndian: Bool {
     switch self.byteOrderInfo {
     case .orderDefault:
-      // iOS uses little endian by default
-      return true
+      // The "default" byte order has big-endian semantics: components are stored
+      // in memory in exactly the order alphaInfo names them - e.g. premultipliedLast
+      // + orderDefault is physically [R, G, B, A] bytes. This is a property of the
+      // Core Graphics format description, unrelated to the host CPU's endianness.
+      return false
     case .order16Little, .order32Little:
       return true
     case .order16Big, .order32Big:
@@ -37,10 +40,12 @@ extension CGImage {
       // ___A
       return self.isLittleEndian ? .abgr : .rgba
     case .noneSkipFirst:
-      // X___
+      // X___ - the padding byte is reported as alpha on purpose: Apple's decoders
+      // and renderers fill it with 0xFF, so the bytes read correctly as opaque alpha,
+      // and consumers don't need to special-case the X formats.
       return self.isLittleEndian ? .bgra : .argb
     case .noneSkipLast:
-      // ___X
+      // ___X - see above, reported as alpha on purpose.
       return self.isLittleEndian ? .abgr : .rgba
     case .none:
       // ___
