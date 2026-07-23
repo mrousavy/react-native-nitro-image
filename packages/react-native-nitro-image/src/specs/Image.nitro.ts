@@ -16,11 +16,11 @@ import type { HybridObject } from 'react-native-nitro-modules'
  *
  * `A` means alpha, `X` means placeholder - skip alpha.
  *
- * @note On some platforms (such as Android) Pixel Formats are specified as the order of pixels inside an `Int`.
- * For example, [`Bitmap.Config.ARGB_888`](https://developer.android.com/reference/android/graphics/Bitmap.Config)
- * means "`0xAARRGGBB`" when read as an `Int`, but when read as bytes, it depends on the OS' endianess. On most
- * modern OS (ARM64), the byte order is little-endian, which would flip the `ARGB_8888` format to be read as
- * `[B, G, R, A]` instead. This is why a `Bitmap` that is in `ARGB_8888` config will return `BGRA` here in Nitro Image.
+ * @note Native config names do not always describe the byte order in memory.
+ * For example, Android's [`Bitmap.Config.ARGB_8888`](https://developer.android.com/reference/android/graphics/Bitmap.Config)
+ * is named after the "`0xAARRGGBB`" `Int` packing used by `getPixel()`/`setPixel()` - but the Bitmap's actual
+ * memory is laid out as `[R, G, B, A]` bytes. Since raw pixel data is exported as a raw
+ * memory copy, a `Bitmap` in `ARGB_8888` config returns `RGBA` here in Nitro Image.
  */
 export type PixelFormat =
   | 'ARGB'
@@ -70,20 +70,22 @@ export interface Image
 
   /**
    * Returns an {@linkcode ArrayBuffer} containing the raw pixel data of the Image.
-   * @note Raw pixel data is either in {@linkcode PixelFormat | 'ARGB'} or
-   * {@linkcode PixelFormat | 'BGRA'} format, depending on the OS' endianess.
+   * @note The returned {@linkcode PixelFormat} describes the literal byte order in memory -
+   * always read it instead of assuming a fixed format. It is typically
+   * {@linkcode PixelFormat | 'RGBA'} on Android (the memory layout of `ARGB_8888` Bitmaps),
+   * and {@linkcode PixelFormat | 'BGRA'} on iOS - but it can differ per image.
    * @param allowGpu If `allowGpu` is set to `true`, the returned buffer might
    * be a `HardwareBuffer` (a GPU-buffer) on Android. By default, it is `false`.
    * @example
    * ```ts
-   * const rawData = image.toRawArrayBuffer()
+   * const rawData = image.toRawPixelData()
    * const data = new Uint8Array(rawData.buffer)
    * let r, g, b
-   * if (rawData.pixelFormat === 'bgra') {
+   * if (rawData.pixelFormat === 'BGRA') {
    *   r = data[2]
    *   g = data[1]
    *   b = data[0]
-   * } else {
+   * } else if (rawData.pixelFormat === 'RGBA') {
    *   r = data[0]
    *   g = data[1]
    *   b = data[2]
