@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.core.graphics.createBitmap
 import com.margelo.nitro.image.PixelFormat
 import com.margelo.nitro.image.RawPixelData
+import java.nio.ByteOrder
 import java.nio.IntBuffer
 
 private data class Swizzle(val r: Int, val g: Int, val b: Int, val a: Int, val bpp: Int)
@@ -26,6 +27,8 @@ private val SW = mapOf(
 fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
     if (allowGpu) {
         // FAST PATH: Try using GPU Buffer (HardwareBuffer) if it is one. This is zero-copy!
+        // A HardwareBuffer is self-describing (it carries its own pixel format),
+        // so data.pixelFormat is not consulted here.
         if (data.buffer.isHardwareBuffer && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val bitmap = Bitmap.wrapHardwareBuffer(data.buffer.getHardwareBuffer(), ColorSpace.get(ColorSpace.Named.SRGB))
             if (bitmap != null) {
@@ -39,13 +42,16 @@ fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
     val totalLength = data.buffer.size
     val bytesPerRow = totalLength / h
     val bytesPerPixel = bytesPerRow / w
-    if (data.pixelFormat == PixelFormat.BGRA && bytesPerPixel == 4) {
-        // FAST PATH: Source came from ARGB_8888 Bitmap bytes -> reinterpret as Ints with little endian
-        val buffer = data.buffer.getBuffer(false).slice().order(java.nio.ByteOrder.LITTLE_ENDIAN)
-        val source = buffer.asIntBuffer()
+    if (data.pixelFormat == PixelFormat.RGBA && bytesPerPixel == 4 &&
+        ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
+        // FAST PATH: An ARGB_8888 Bitmap's memory is physically [R, G, B, A] bytes -
+        // the "ARGB" in the config name only describes the getPixel()/setPixel()
+        // ColorInt packing, not the memory layout. copyPixelsFromBuffer() is a raw
+        // memory copy, so RGBA input can be copied in as-is.
+        val buffer = data.buffer.getBuffer(false).slice()
         val bitmap = createBitmap(w, h, Bitmap.Config.ARGB_8888)
         bitmap.isPremultiplied = true
-        bitmap.copyPixelsFromBuffer(source)
+        bitmap.copyPixelsFromBuffer(buffer)
         return bitmap
     }
 
@@ -67,7 +73,11 @@ fun bitmapFromRawPixelData(data: RawPixelData, allowGpu: Boolean): Bitmap {
         val rr = if (srcPremul || a == 255) r else (r * a + 127) / 255
         val gg = if (srcPremul || a == 255) g else (g * a + 127) / 255
         val bb = if (srcPremul || a == 255) b_ else (b_ * a + 127) / 255
-        return (a shl 24) or (rr shl 16) or (gg shl 8) or bb
+        // These Ints are written with copyPixelsFromBuffer(), which is a raw memory copy -
+        // so they must match ARGB_8888's physical pixel word (R in the least significant
+        // byte, i.e. 0xAABBGGRR), NOT the 0xAARRGGBB ColorInt packing that
+        // getPixel()/setPixel() use.
+        return (a shl 24) or (bb shl 16) or (gg shl 8) or rr
     }
 
     var di = 0
