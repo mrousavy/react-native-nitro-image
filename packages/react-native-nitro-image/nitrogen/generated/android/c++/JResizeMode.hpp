@@ -15,7 +15,7 @@ namespace margelo::nitro::image {
   using namespace facebook;
 
   /**
-   * The C++ JNI bridge between the C++ enum "ResizeMode" and the the Kotlin enum "ResizeMode".
+   * The C++ JNI bridge between the C++ enum "ResizeMode" and the Kotlin enum "ResizeMode".
    */
   struct JResizeMode final: public jni::JavaClass<JResizeMode> {
   public:

@@ -15,7 +15,7 @@ namespace margelo::nitro::web::image {
   using namespace facebook;
 
   /**
-   * The C++ JNI bridge between the C++ enum "AsyncImagePriority" and the the Kotlin enum "AsyncImagePriority".
+   * The C++ JNI bridge between the C++ enum "AsyncImagePriority" and the Kotlin enum "AsyncImagePriority".
    */
   struct JAsyncImagePriority final: public jni::JavaClass<JAsyncImagePriority> {
   public:

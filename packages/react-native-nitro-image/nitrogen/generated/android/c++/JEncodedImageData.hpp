@@ -20,7 +20,7 @@ namespace margelo::nitro::image {
   using namespace facebook;
 
   /**
-   * The C++ JNI bridge between the C++ struct "EncodedImageData" and the the Kotlin data class "EncodedImageData".
+   * The C++ JNI bridge between the C++ struct "EncodedImageData" and the Kotlin data class "EncodedImageData".
    */
   struct JEncodedImageData final: public jni::JavaClass<JEncodedImageData> {
   public:

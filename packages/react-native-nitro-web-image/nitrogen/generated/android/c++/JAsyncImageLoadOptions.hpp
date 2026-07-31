@@ -20,7 +20,7 @@ namespace margelo::nitro::web::image {
   using namespace facebook;
 
   /**
-   * The C++ JNI bridge between the C++ struct "AsyncImageLoadOptions" and the the Kotlin data class "AsyncImageLoadOptions".
+   * The C++ JNI bridge between the C++ struct "AsyncImageLoadOptions" and the Kotlin data class "AsyncImageLoadOptions".
    */
   struct JAsyncImageLoadOptions final: public jni::JavaClass<JAsyncImageLoadOptions> {
   public:

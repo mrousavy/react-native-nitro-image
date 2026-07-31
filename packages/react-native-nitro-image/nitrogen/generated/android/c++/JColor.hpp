@@ -17,7 +17,7 @@ namespace margelo::nitro::image {
   using namespace facebook;
 
   /**
-   * The C++ JNI bridge between the C++ struct "Color" and the the Kotlin data class "Color".
+   * The C++ JNI bridge between the C++ struct "Color" and the Kotlin data class "Color".
    */
   struct JColor final: public jni::JavaClass<JColor> {
   public:

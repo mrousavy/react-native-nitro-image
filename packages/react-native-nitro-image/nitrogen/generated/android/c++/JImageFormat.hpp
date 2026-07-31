@@ -15,7 +15,7 @@ namespace margelo::nitro::image {
   using namespace facebook;
 
   /**
-   * The C++ JNI bridge between the C++ enum "ImageFormat" and the the Kotlin enum "ImageFormat".
+   * The C++ JNI bridge between the C++ enum "ImageFormat" and the Kotlin enum "ImageFormat".
    */
   struct JImageFormat final: public jni::JavaClass<JImageFormat> {
   public:
