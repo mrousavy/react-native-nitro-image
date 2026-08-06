@@ -49,6 +49,10 @@ void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JCla
     hybridView->setRecyclingKey(props->recyclingKey.value);
     props->recyclingKey.isDirty = false;
   }
+  if (props->placeholder.isDirty) {
+    hybridView->setPlaceholder(props->placeholder.value);
+    props->placeholder.isDirty = false;
+  }
 
   // Update hybridRef if it changed
   if (props->hybridRef.isDirty) {

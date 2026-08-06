@@ -32,6 +32,18 @@ class HybridImageView: HybridNitroImageViewSpec {
       }
     }
   }
+  var placeholder: (any HybridImageSpec)? = nil {
+    didSet {
+      DispatchQueue.runOnMain {
+        if self.view.image == nil, let placeholderUIImage = self.placeholderUIImage {
+          self.view.image = placeholderUIImage
+        }
+      }
+    }
+  }
+  private var placeholderUIImage: UIImage? {
+    (placeholder as? NativeImage)?.uiImage
+  }
   var recyclingKey: String? {
     didSet {
       resetImageBeforeLoad = recyclingKey != oldValue
@@ -64,8 +76,7 @@ class HybridImageView: HybridNitroImageViewSpec {
       // Image Loader - trigger a load or drop
       didSetImageLoader()
     case nil:
-      // No Image
-      view.image = nil
+      view.image = placeholderUIImage
     }
   }
 
@@ -93,8 +104,8 @@ extension HybridImageView: ViewLifecycleDelegate {
 
   func willShow() {
     guard let imageLoader else { return }
-    if resetImageBeforeLoad {
-      view.image = nil
+    if resetImageBeforeLoad || view.image == nil {
+      view.image = placeholderUIImage
       resetImageBeforeLoad = false
     }
     try? imageLoader.requestImage(forView: self)

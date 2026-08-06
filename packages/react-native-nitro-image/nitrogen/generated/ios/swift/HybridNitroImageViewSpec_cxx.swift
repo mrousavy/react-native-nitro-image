@@ -218,6 +218,37 @@ open class HybridNitroImageViewSpec_cxx {
       }()
     }
   }
+  
+  public final var placeholder: bridge.std__optional_std__shared_ptr_HybridImageSpec__ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__shared_ptr_HybridImageSpec__ in
+        if let __unwrappedValue = self.__implementation.placeholder {
+          return bridge.create_std__optional_std__shared_ptr_HybridImageSpec__({ () -> bridge.std__shared_ptr_HybridImageSpec_ in
+            let __cxxWrapped = __unwrappedValue.getCxxWrapper()
+            return __cxxWrapped.getCxxPart()
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.placeholder = { () -> (any HybridImageSpec)? in
+        if bridge.has_value_std__optional_std__shared_ptr_HybridImageSpec__(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__shared_ptr_HybridImageSpec__(newValue)
+          return { () -> any HybridImageSpec in
+            let __unsafePointer = bridge.get_std__shared_ptr_HybridImageSpec_(__unwrapped)
+            let __instance = HybridImageSpec_cxx.fromUnsafe(__unsafePointer)
+            return __instance.getHybridImageSpec()
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
 
   // Methods
   public final func getView() -> UnsafeMutableRawPointer {

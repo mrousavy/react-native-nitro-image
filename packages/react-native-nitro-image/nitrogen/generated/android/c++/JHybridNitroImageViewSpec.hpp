@@ -56,6 +56,8 @@ namespace margelo::nitro::image {
     void setResizeMode(std::optional<ResizeMode> resizeMode) override;
     std::optional<std::string> getRecyclingKey() override;
     void setRecyclingKey(const std::optional<std::string>& recyclingKey) override;
+    std::optional<std::shared_ptr<HybridImageSpec>> getPlaceholder() override;
+    void setPlaceholder(const std::optional<std::shared_ptr<HybridImageSpec>>& placeholder) override;
 
   public:
     // Methods

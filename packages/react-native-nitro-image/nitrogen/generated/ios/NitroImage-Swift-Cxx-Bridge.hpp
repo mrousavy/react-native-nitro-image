@@ -613,5 +613,20 @@ namespace margelo::nitro::image::bridge::swift {
   inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
     return optional.value();
   }
+  
+  // pragma MARK: std::optional<std::shared_ptr<HybridImageSpec>>
+  /**
+   * Specialized version of `std::optional<std::shared_ptr<HybridImageSpec>>`.
+   */
+  using std__optional_std__shared_ptr_HybridImageSpec__ = std::optional<std::shared_ptr<HybridImageSpec>>;
+  inline std::optional<std::shared_ptr<HybridImageSpec>> create_std__optional_std__shared_ptr_HybridImageSpec__(const std::shared_ptr<HybridImageSpec>& value) noexcept {
+    return std::optional<std::shared_ptr<HybridImageSpec>>(value);
+  }
+  inline bool has_value_std__optional_std__shared_ptr_HybridImageSpec__(const std::optional<std::shared_ptr<HybridImageSpec>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::shared_ptr<HybridImageSpec> get_std__optional_std__shared_ptr_HybridImageSpec__(const std::optional<std::shared_ptr<HybridImageSpec>>& optional) noexcept {
+    return optional.value();
+  }
 
 } // namespace margelo::nitro::image::bridge::swift

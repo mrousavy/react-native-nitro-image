@@ -94,6 +94,11 @@ using namespace margelo::nitro::image::views;
     swiftPart.setRecyclingKey(newViewProps.recyclingKey.value);
     newViewProps.recyclingKey.isDirty = false;
   }
+  // placeholder: optional
+  if (newViewProps.placeholder.isDirty) {
+    swiftPart.setPlaceholder(newViewProps.placeholder.value);
+    newViewProps.placeholder.isDirty = false;
+  }
 
   swiftPart.afterUpdate();
 
