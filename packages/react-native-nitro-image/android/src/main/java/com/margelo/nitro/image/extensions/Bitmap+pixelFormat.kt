@@ -10,17 +10,20 @@ val Bitmap.pixelFormat: PixelFormat
     get() {
         when (config) {
             Bitmap.Config.ARGB_8888 -> {
-                // On Android, ARGB_8888 defines memory layout inside an Int, not the byte order.
-                // So where iOS would define Pixel Format ARGB as byte order [A, R, G, B],
-                // Android instead defines the Pixel Format ARGB as 0xAARRGGBB (32-bit Int) -
-                // which - if read on a little-endian machine, is reversed ([B, G, R, A]).
+                // Despite its name, ARGB_8888 does NOT describe the byte order in memory.
+                // "0xAARRGGBB" is only the ColorInt packing used by getPixel()/setPixel().
+                // Each pixel is actually stored as a 32-bit word with R in the least
+                // significant byte (0xAABBGGRR). toRawPixelData() exports via
+                // copyPixelsToBuffer() - a raw memory copy - so the exported bytes are the
+                // physical memory layout of that word.
                 if (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
-                    // almost every device nowadays is little endian
-                    return PixelFormat.BGRA
+                    // almost every device nowadays is little endian:
+                    // the 0xAABBGGRR word lays out as [R, G, B, A] bytes.
+                    return PixelFormat.RGBA
                 } else {
                     // no devices use big endian anymore, but we keep this to highlight
-                    // why ARGB becomes BGRA on little endian.
-                    return PixelFormat.ARGB
+                    // that the 0xAABBGGRR word would lay out as [A, B, G, R] bytes there.
+                    return PixelFormat.ABGR
                 }
             }
             Bitmap.Config.HARDWARE -> {
