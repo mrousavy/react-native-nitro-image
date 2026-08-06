@@ -79,7 +79,7 @@ namespace margelo::nitro::image::views {
 
   HybridNitroImageViewComponentDescriptor::HybridNitroImageViewComponentDescriptor(const react::ComponentDescriptorParameters& parameters)
     : ConcreteComponentDescriptor(parameters,
-                                  react::RawPropsParser(/* enableJsiParser */ true)) {}
+                                  react::RawPropsParser()) {}
 
   std::shared_ptr<const react::Props> HybridNitroImageViewComponentDescriptor::cloneProps(const react::PropsParserContext& context,
                                                                                           const std::shared_ptr<const react::Props>& props,

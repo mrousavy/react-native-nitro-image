@@ -20,7 +20,7 @@ namespace margelo::nitro::image {
   using namespace facebook;
 
   /**
-   * The C++ JNI bridge between the C++ struct "RawPixelData" and the the Kotlin data class "RawPixelData".
+   * The C++ JNI bridge between the C++ struct "RawPixelData" and the Kotlin data class "RawPixelData".
    */
   struct JRawPixelData final: public jni::JavaClass<JRawPixelData> {
   public:

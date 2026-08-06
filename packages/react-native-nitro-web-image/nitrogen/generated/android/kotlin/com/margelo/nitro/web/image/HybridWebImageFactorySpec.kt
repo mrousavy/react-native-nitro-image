@@ -10,6 +10,7 @@ package com.margelo.nitro.web.image
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
+import dalvik.annotation.optimization.FastNative
 import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridImageSpec
 import com.margelo.nitro.core.Promise
@@ -53,6 +54,7 @@ abstract class HybridWebImageFactorySpec: HybridObject() {
   @Keep
   protected open class CxxPart(javaPart: HybridWebImageFactorySpec): HybridObject.CxxPart(javaPart) {
     // C++ JHybridWebImageFactorySpec::CxxPart::initHybrid(...)
+    @FastNative
     external override fun initHybrid(): HybridData
   }
   override fun createCxxPart(): CxxPart {
