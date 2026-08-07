@@ -17,6 +17,16 @@
 #include <react/renderer/core/ShadowNode.h>
 #include <react/renderer/core/ComponentDescriptor.h>
 #include <react/renderer/components/view/ViewProps.h>
+#include <cxxreact/ReactNativeVersion.h>
+
+// react-native 0.87 removed the `at(name, prefix, suffix)` overload of
+// `react::RawProps` in favor of a single-argument `at(name)`. Keep supporting
+// older versions (<= 0.86) that still require the 3-argument form.
+#if REACT_NATIVE_VERSION_MAJOR > 0 || REACT_NATIVE_VERSION_MINOR > 86
+#define NITRO_RAWPROPS_AT(rawProps, name) (rawProps).at(name)
+#else
+#define NITRO_RAWPROPS_AT(rawProps, name) (rawProps).at(name, nullptr, nullptr)
+#endif
 
 namespace margelo::nitro::image::views {
 
@@ -28,7 +38,7 @@ namespace margelo::nitro::image::views {
     react::ViewProps(context, sourceProps, rawProps, filterObjectKeys),
     image([&]() -> CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> {
       try {
-        const react::RawValue* rawValue = rawProps.at("image", nullptr, nullptr);
+        const react::RawValue* rawValue = NITRO_RAWPROPS_AT(rawProps, "image");
         if (rawValue == nullptr) return sourceProps.image;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
         return CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>>::fromRawValue(*runtime, value, sourceProps.image);
@@ -38,7 +48,7 @@ namespace margelo::nitro::image::views {
     }()),
     resizeMode([&]() -> CachedProp<std::optional<ResizeMode>> {
       try {
-        const react::RawValue* rawValue = rawProps.at("resizeMode", nullptr, nullptr);
+        const react::RawValue* rawValue = NITRO_RAWPROPS_AT(rawProps, "resizeMode");
         if (rawValue == nullptr) return sourceProps.resizeMode;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
         return CachedProp<std::optional<ResizeMode>>::fromRawValue(*runtime, value, sourceProps.resizeMode);
@@ -48,7 +58,7 @@ namespace margelo::nitro::image::views {
     }()),
     recyclingKey([&]() -> CachedProp<std::optional<std::string>> {
       try {
-        const react::RawValue* rawValue = rawProps.at("recyclingKey", nullptr, nullptr);
+        const react::RawValue* rawValue = NITRO_RAWPROPS_AT(rawProps, "recyclingKey");
         if (rawValue == nullptr) return sourceProps.recyclingKey;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
         return CachedProp<std::optional<std::string>>::fromRawValue(*runtime, value, sourceProps.recyclingKey);
@@ -58,7 +68,7 @@ namespace margelo::nitro::image::views {
     }()),
     hybridRef([&]() -> CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> {
       try {
-        const react::RawValue* rawValue = rawProps.at("hybridRef", nullptr, nullptr);
+        const react::RawValue* rawValue = NITRO_RAWPROPS_AT(rawProps, "hybridRef");
         if (rawValue == nullptr) return sourceProps.hybridRef;
         const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
         return CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue(*runtime, value.asObject(*runtime).getProperty(*runtime, PropNameIDCache::get(*runtime, "f")), sourceProps.hybridRef);
@@ -103,3 +113,5 @@ namespace margelo::nitro::image::views {
 #endif
 
 } // namespace margelo::nitro::image::views
+
+#undef NITRO_RAWPROPS_AT
