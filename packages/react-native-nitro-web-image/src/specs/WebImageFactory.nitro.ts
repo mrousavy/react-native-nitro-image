@@ -87,6 +87,17 @@ export interface AsyncImageLoadOptions {
 export interface WebImageFactory
   extends HybridObject<{ ios: 'swift'; android: 'kotlin' }> {
   /**
+   * The maximum size, in bytes, of the in-memory image cache used by
+   * {@linkcode WebImages}.
+   *
+   * On both platforms this defaults to the underlying library's own
+   * suggested size (Coil's `maxSizePercent` on Android, SDWebImage's
+   * default on iOS). Assigning a new value takes effect immediately and
+   * trims the cache down if it currently exceeds the new budget.
+   */
+  maxMemoryBytes: number
+
+  /**
    * Create a deferred {@linkcode ImageLoader} that loads the {@linkcode Image}
    * from the given {@linkcode url}.
    */

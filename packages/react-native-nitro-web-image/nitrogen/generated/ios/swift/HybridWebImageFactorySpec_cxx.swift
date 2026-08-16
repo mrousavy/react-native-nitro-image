@@ -122,7 +122,16 @@ open class HybridWebImageFactorySpec_cxx {
   }
 
   // Properties
-  
+  public final var maxMemoryBytes: Double {
+    @inline(__always)
+    get {
+      return self.__implementation.maxMemoryBytes
+    }
+    @inline(__always)
+    set {
+      self.__implementation.maxMemoryBytes = newValue
+    }
+  }
 
   // Methods
   @inline(__always)
