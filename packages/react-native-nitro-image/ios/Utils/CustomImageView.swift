@@ -23,6 +23,12 @@ internal class CustomImageView: UIImageView {
   init() {
     super.init(image: nil)
     self.clipsToBounds = true
+    // `UIImageView` defaults `contentMode` to `.scaleToFill` (= stretch), but
+    // `resizeMode` is documented to default to `cover`. When the `resizeMode`
+    // prop is omitted it is never marked dirty, so `HybridImageView.resizeMode`
+    // never gets assigned and its `didSet` (which applies the mapping) never
+    // runs - which means the default has to be applied here, at construction.
+    self.contentMode = .scaleAspectFill
   }
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
