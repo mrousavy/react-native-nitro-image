@@ -69,6 +69,11 @@
     "react-native-nitro-modules": "*",
     "react-native-nitro-image": "*"
   },
+  "peerDependenciesMeta": {
+    "react-native-nitro-modules": {
+      "optional": true
+    }
+  },
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",

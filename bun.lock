@@ -68,6 +68,9 @@
         "react-native": "*",
         "react-native-nitro-modules": "*",
       },
+      "optionalPeers": [
+        "react-native-nitro-modules",
+      ],
     },
     "packages/react-native-nitro-web-image": {
       "name": "react-native-nitro-web-image",
@@ -86,6 +89,9 @@
         "react-native-nitro-image": "*",
         "react-native-nitro-modules": "*",
       },
+      "optionalPeers": [
+        "react-native-nitro-modules",
+      ],
     },
   },
   "overrides": {
