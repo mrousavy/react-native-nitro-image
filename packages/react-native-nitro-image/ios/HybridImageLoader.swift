@@ -42,17 +42,30 @@ class HybridImageLoader: HybridImageLoaderSpec {
 
   func requestImage(forView view: any HybridNitroImageViewSpec) throws {
     guard let view = view as? NativeImageView else { return }
+    let imageView = view.imageView
+    // Start a new request - this invalidates any request that is still in flight for this view.
+    let tracker = view as? ImageRequestTracking
+    let token = tracker?.beginImageRequest()
+
     try loadImage()
-      .then { image in
+      .then { [weak tracker] image in
         guard let image = image as? NativeImage else { return }
         DispatchQueue.runOnMain {
-          view.imageView.image = image.uiImage
+          if let token {
+            // The view might have been recycled or re-bound to a different image while we
+            // were loading - in that case this result is stale and must not be applied.
+            guard let tracker, tracker.isImageRequestValid(token) else { return }
+          }
+          imageView.image = image.uiImage
         }
       }
   }
 
   func dropImage(forView view: any HybridNitroImageViewSpec) throws {
     guard let view = view as? NativeImageView else { return }
+    // Invalidate any in-flight request so it doesn't paint into the view after we cleared it.
+    (view as? ImageRequestTracking)?.cancelImageRequest()
+
     DispatchQueue.runOnMain {
       view.imageView.image = nil
     }

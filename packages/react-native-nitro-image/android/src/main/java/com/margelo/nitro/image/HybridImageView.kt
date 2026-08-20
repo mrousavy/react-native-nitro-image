@@ -11,6 +11,7 @@ import com.margelo.nitro.views.RecyclableView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicInteger
 
 @DoNotStrip
 @Keep
@@ -20,6 +21,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     }
     private val uiScope = CoroutineScope(Dispatchers.Main.immediate)
     private var resetImageBeforeLoad = false
+    private val imageRequestToken = AtomicInteger(0)
 
     val imageView = CustomImageView(context) { visible ->
         if (visible) onAppear()
@@ -48,6 +50,24 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
             resetImageBeforeLoad = field != value
             field = value
         }
+
+    /**
+     * Starts a new Image request, invalidating any request that is still in flight.
+     * Returns a token identifying the new request.
+     */
+    fun beginImageRequest(): Int = imageRequestToken.incrementAndGet()
+
+    /**
+     * Invalidates the currently pending Image request (if any), without starting a new one.
+     */
+    fun cancelImageRequest() {
+        imageRequestToken.incrementAndGet()
+    }
+
+    /**
+     * Whether [token] still identifies this view's most recently started Image request.
+     */
+    fun isImageRequestValid(token: Int): Boolean = imageRequestToken.get() == token
 
     override fun prepareForRecycle() {
         onDisappear()
