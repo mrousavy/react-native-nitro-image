@@ -110,6 +110,13 @@ extension HybridImageView: ViewLifecycleDelegate {
 extension HybridImageView: RecyclableView {
   func prepareForRecycle() {
     willHide()
+    // Reset all props back to their defaults. Props are only re-applied to a recycled view
+    // if they are actually provided by the next consumer, so anything we keep here would
+    // silently leak into the next cell.
+    image = nil
+    recyclingKey = nil
+    resizeMode = nil
+    resetImageBeforeLoad = false
     view.image = nil
   }
 }
