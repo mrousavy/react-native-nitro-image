@@ -51,6 +51,13 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
 
     override fun prepareForRecycle() {
         onDisappear()
+        // Reset all props back to their defaults. Props are only re-applied to a recycled view
+        // if they are actually provided by the next consumer, so anything we keep here would
+        // silently leak into the next cell.
+        image = null
+        recyclingKey = null
+        resizeMode = ResizeMode.CONTAIN
+        resetImageBeforeLoad = false
         imageView.setImageBitmap(null)
     }
 
