@@ -7,14 +7,15 @@
 
 #pragma once
 
-#include <optional>
-#include <NitroModules/NitroDefines.hpp>
-#include <NitroModules/NitroHash.hpp>
-#include <NitroModules/CachedProp.hpp>
-#include <react/renderer/core/ConcreteComponentDescriptor.h>
-#include <react/renderer/core/PropsParserContext.h>
+#include <NitroModules/ReactProp.hpp>
+#include <NitroModules/ViewComponentDescriptor.hpp>
+#include <NitroModules/ViewPropsHolderState.hpp>
 #include <react/renderer/components/view/ConcreteViewShadowNode.h>
 #include <react/renderer/components/view/ViewProps.h>
+#include <react/renderer/core/PropsParserContext.h>
+#include <react/renderer/core/RawProps.h>
+
+#include <string>
 
 #include <memory>
 #include "HybridImageSpec.hpp"
@@ -46,10 +47,26 @@ namespace margelo::nitro::image::views {
                               const react::RawProps& rawProps);
 
   public:
-    CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> image;
-    CachedProp<std::optional<ResizeMode>> resizeMode;
-    CachedProp<std::optional<std::string>> recyclingKey;
-    CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
+    nitro::ReactProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> image;
+    nitro::ReactProp<std::optional<ResizeMode>> resizeMode;
+    nitro::ReactProp<std::optional<std::string>> recyclingKey;
+    nitro::ReactProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
+
+    [[nodiscard]]
+    bool hasSameProps(const HybridNitroImageViewProps& other) const noexcept {
+      return image.hasSameValue(other.image) &&
+             resizeMode.hasSameValue(other.resizeMode) &&
+             recyclingKey.hasSameValue(other.recyclingKey) &&
+             hybridRef.hasSameValue(other.hybridRef);
+    }
+
+    [[nodiscard]]
+    bool hasAnyProvidedProps() const noexcept {
+      return image.isProvided() ||
+             resizeMode.isProvided() ||
+             recyclingKey.isProvided() ||
+             hybridRef.isProvided();
+    }
 
   private:
     static bool filterObjectKeys(const std::string& propName);
@@ -58,32 +75,7 @@ namespace margelo::nitro::image::views {
   /**
    * State for the "NitroImageView" View.
    */
-  class HybridNitroImageViewState final {
-  public:
-    HybridNitroImageViewState() = default;
-    explicit HybridNitroImageViewState(const std::shared_ptr<HybridNitroImageViewProps>& props):
-      _props(props) {}
-
-  public:
-    [[nodiscard]]
-    const std::shared_ptr<HybridNitroImageViewProps>& getProps() const {
-      return _props;
-    }
-
-  public:
-#ifdef ANDROID
-  HybridNitroImageViewState(const HybridNitroImageViewState& /* previousState */, folly::dynamic /* data */) {}
-  folly::dynamic getDynamic() const {
-    throw std::runtime_error("HybridNitroImageViewState does not support folly!");
-  }
-  react::MapBuffer getMapBuffer() const {
-    throw std::runtime_error("HybridNitroImageViewState does not support MapBuffer!");
-  };
-#endif
-
-  private:
-    std::shared_ptr<HybridNitroImageViewProps> _props;
-  };
+  using HybridNitroImageViewState = nitro::ViewPropsHolderState<HybridNitroImageViewProps>;
 
   /**
    * The Shadow Node for the "NitroImageView" View.
@@ -96,21 +88,7 @@ namespace margelo::nitro::image::views {
   /**
    * The Component Descriptor for the "NitroImageView" View.
    */
-  class HybridNitroImageViewComponentDescriptor final: public react::ConcreteComponentDescriptor<HybridNitroImageViewShadowNode> {
-  public:
-    explicit HybridNitroImageViewComponentDescriptor(const react::ComponentDescriptorParameters& parameters);
-
-  public:
-    /**
-     * A faster path for cloning props - reuses the caching logic from `HybridNitroImageViewProps`.
-     */
-    std::shared_ptr<const react::Props> cloneProps(const react::PropsParserContext& context,
-                                                   const std::shared_ptr<const react::Props>& props,
-                                                   react::RawProps rawProps) const override;
-#ifdef ANDROID
-    void adopt(react::ShadowNode& shadowNode) const override;
-#endif
-  };
+  using HybridNitroImageViewComponentDescriptor = nitro::ViewComponentDescriptor<HybridNitroImageViewShadowNode>;
 
   /* The actual view for "NitroImageView" needs to be implemented in platform-specific code. */
 

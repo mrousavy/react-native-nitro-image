@@ -7,18 +7,12 @@
 
 #include "HybridNitroImageViewComponent.hpp"
 
-#include <string>
-#include <exception>
-#include <utility>
-#include <NitroModules/NitroDefines.hpp>
-#include <NitroModules/JSIConverter.hpp>
-#include <NitroModules/PropNameIDCache.hpp>
-#include <react/renderer/core/RawValue.h>
-#include <react/renderer/core/ShadowNode.h>
-#include <react/renderer/core/ComponentDescriptor.h>
-#include <react/renderer/components/view/ViewProps.h>
+#include <NitroModules/NitroHash.hpp>
+#include <NitroModules/ReactProp.hpp>
 
 namespace margelo::nitro::image::views {
+
+  using namespace facebook;
 
   extern const char HybridNitroImageViewComponentName[] = "NitroImageView";
 
@@ -26,46 +20,10 @@ namespace margelo::nitro::image::views {
                                                        const HybridNitroImageViewProps& sourceProps,
                                                        const react::RawProps& rawProps):
     react::ViewProps(context, sourceProps, rawProps, filterObjectKeys),
-    image([&]() -> CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> {
-      try {
-        const react::RawValue* rawValue = rawProps.at("image", nullptr, nullptr);
-        if (rawValue == nullptr) return sourceProps.image;
-        const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>>::fromRawValue(*runtime, value, sourceProps.image);
-      } catch (const std::exception& exc) {
-        throw std::runtime_error(std::string("NitroImageView.image: ") + exc.what());
-      }
-    }()),
-    resizeMode([&]() -> CachedProp<std::optional<ResizeMode>> {
-      try {
-        const react::RawValue* rawValue = rawProps.at("resizeMode", nullptr, nullptr);
-        if (rawValue == nullptr) return sourceProps.resizeMode;
-        const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<ResizeMode>>::fromRawValue(*runtime, value, sourceProps.resizeMode);
-      } catch (const std::exception& exc) {
-        throw std::runtime_error(std::string("NitroImageView.resizeMode: ") + exc.what());
-      }
-    }()),
-    recyclingKey([&]() -> CachedProp<std::optional<std::string>> {
-      try {
-        const react::RawValue* rawValue = rawProps.at("recyclingKey", nullptr, nullptr);
-        if (rawValue == nullptr) return sourceProps.recyclingKey;
-        const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<std::string>>::fromRawValue(*runtime, value, sourceProps.recyclingKey);
-      } catch (const std::exception& exc) {
-        throw std::runtime_error(std::string("NitroImageView.recyclingKey: ") + exc.what());
-      }
-    }()),
-    hybridRef([&]() -> CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> {
-      try {
-        const react::RawValue* rawValue = rawProps.at("hybridRef", nullptr, nullptr);
-        if (rawValue == nullptr) return sourceProps.hybridRef;
-        const auto& [runtime, value] = (std::pair<jsi::Runtime*, jsi::Value>)*rawValue;
-        return CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue(*runtime, value.asObject(*runtime).getProperty(*runtime, PropNameIDCache::get(*runtime, "f")), sourceProps.hybridRef);
-      } catch (const std::exception& exc) {
-        throw std::runtime_error(std::string("NitroImageView.hybridRef: ") + exc.what());
-      }
-    }()) { }
+    image(nitro::ReactProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>>::fromRawValue("NitroImageView", "image", rawProps, sourceProps.image)),
+    resizeMode(nitro::ReactProp<std::optional<ResizeMode>>::fromRawValue("NitroImageView", "resizeMode", rawProps, sourceProps.resizeMode)),
+    recyclingKey(nitro::ReactProp<std::optional<std::string>>::fromRawValue("NitroImageView", "recyclingKey", rawProps, sourceProps.recyclingKey)),
+    hybridRef(nitro::ReactProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue("NitroImageView", "hybridRef", rawProps, sourceProps.hybridRef)) { }
 
   bool HybridNitroImageViewProps::filterObjectKeys(const std::string& propName) {
     switch (hashString(propName)) {
@@ -76,30 +34,5 @@ namespace margelo::nitro::image::views {
       default: return false;
     }
   }
-
-  HybridNitroImageViewComponentDescriptor::HybridNitroImageViewComponentDescriptor(const react::ComponentDescriptorParameters& parameters)
-    : ConcreteComponentDescriptor(parameters,
-                                  react::RawPropsParser()) {}
-
-  std::shared_ptr<const react::Props> HybridNitroImageViewComponentDescriptor::cloneProps(const react::PropsParserContext& context,
-                                                                                          const std::shared_ptr<const react::Props>& props,
-                                                                                          react::RawProps rawProps) const {
-    // 1. Prepare raw props parser
-    rawProps.parse(rawPropsParser_);
-    // 2. Copy props with Nitro's cached copy constructor
-    return HybridNitroImageViewShadowNode::Props(context, /* & */ rawProps, props);
-  }
-
-#ifdef ANDROID
-  void HybridNitroImageViewComponentDescriptor::adopt(react::ShadowNode& shadowNode) const {
-    // This is called immediately after `ShadowNode` is created, cloned or in progress.
-    // On Android, we need to wrap props in our state, which gets routed through Java and later unwrapped in JNI/C++.
-    auto& concreteShadowNode = static_cast<HybridNitroImageViewShadowNode&>(shadowNode);
-    const std::shared_ptr<const HybridNitroImageViewProps>& constProps = concreteShadowNode.getConcreteSharedProps();
-    const std::shared_ptr<HybridNitroImageViewProps>& props = std::const_pointer_cast<HybridNitroImageViewProps>(constProps);
-    HybridNitroImageViewState state{props};
-    concreteShadowNode.setStateData(std::move(state));
-  }
-#endif
 
 } // namespace margelo::nitro::image::views

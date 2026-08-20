@@ -15,49 +15,69 @@ namespace margelo::nitro::image::views {
 using namespace facebook;
 using ConcreteStateData = react::ConcreteState<HybridNitroImageViewState>;
 
-void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JClass> /* class */,
-                                           jni::alias_ref<JHybridNitroImageViewSpec::JavaPart> javaView,
-                                           jni::alias_ref<JStateWrapper::javaobject> stateWrapperInterface) {
-  std::shared_ptr<JHybridNitroImageViewSpec> hybridView = javaView->getJHybridNitroImageViewSpec();
-
-  // Get concrete StateWrapperImpl from passed StateWrapper interface object
-  jobject rawStateWrapper = stateWrapperInterface.get();
-  if (!stateWrapperInterface->isInstanceOf(react::StateWrapperImpl::javaClassStatic())) [[unlikely]] {
-      throw std::runtime_error("StateWrapper is not a StateWrapperImpl");
+std::shared_ptr<const HybridNitroImageViewProps> JHybridNitroImageViewStateUpdater::getPropsFromStateWrapper(
+    jni::alias_ref<JStateWrapper::javaobject> stateWrapper) {
+  if (stateWrapper.get() == nullptr) {
+    return nullptr;
   }
-  auto stateWrapper = jni::alias_ref<react::StateWrapperImpl::javaobject>{
-            static_cast<react::StateWrapperImpl::javaobject>(rawStateWrapper)};
-  std::shared_ptr<const react::State> state = stateWrapper->cthis()->getState();
+  // Get concrete StateWrapperImpl from passed StateWrapper interface object
+  jobject rawStateWrapper = stateWrapper.get();
+  if (!stateWrapper->isInstanceOf(react::StateWrapperImpl::javaClassStatic())) [[unlikely]] {
+    throw std::runtime_error("StateWrapper is not a StateWrapperImpl");
+  }
+  auto stateWrapperImpl = jni::alias_ref<react::StateWrapperImpl::javaobject>{
+    static_cast<react::StateWrapperImpl::javaobject>(rawStateWrapper)
+  };
+  std::shared_ptr<const react::State> state = stateWrapperImpl->cthis()->getState();
+  if (state == nullptr) {
+    return nullptr;
+  }
   auto concreteState = std::static_pointer_cast<const ConcreteStateData>(state);
   const HybridNitroImageViewState& data = concreteState->getData();
-  const std::shared_ptr<HybridNitroImageViewProps>& props = data.getProps();
+  const std::shared_ptr<const HybridNitroImageViewProps>& props = data.getProps();
   if (props == nullptr) [[unlikely]] {
-    // Props aren't set yet!
     throw std::runtime_error("HybridNitroImageViewState's data doesn't contain any props!");
   }
+  return props;
+}
 
-  // Update all props if they are dirty
-  if (props->image.isDirty) {
-    hybridView->setImage(props->image.value);
-    props->image.isDirty = false;
+void JHybridNitroImageViewStateUpdater::updateViewProps(jni::alias_ref<jni::JClass> /* class */,
+                                           jni::alias_ref<JHybridNitroImageViewSpec::JavaPart> javaView,
+                                           jni::alias_ref<JStateWrapper::javaobject> newState,
+                                           jni::alias_ref<JStateWrapper::javaobject> oldState) {
+  std::shared_ptr<JHybridNitroImageViewSpec> hybridView = javaView->getJHybridNitroImageViewSpec();
+  std::shared_ptr<const HybridNitroImageViewProps> newProps = getPropsFromStateWrapper(newState);
+  std::shared_ptr<const HybridNitroImageViewProps> oldProps = getPropsFromStateWrapper(oldState);
+  if (newProps == nullptr) [[unlikely]] {
+    throw std::runtime_error("Current StateWrapper doesn't contain any props!");
   }
-  if (props->resizeMode.isDirty) {
-    hybridView->setResizeMode(props->resizeMode.value);
-    props->resizeMode.isDirty = false;
+
+  // Update only props that differ from the previous State snapshot.
+  if (oldProps == nullptr
+        ? newProps->image.isProvided()
+        : !newProps->image.hasSameValue(oldProps->image)) {
+    hybridView->setImage(newProps->image.get());
   }
-  if (props->recyclingKey.isDirty) {
-    hybridView->setRecyclingKey(props->recyclingKey.value);
-    props->recyclingKey.isDirty = false;
+  if (oldProps == nullptr
+        ? newProps->resizeMode.isProvided()
+        : !newProps->resizeMode.hasSameValue(oldProps->resizeMode)) {
+    hybridView->setResizeMode(newProps->resizeMode.get());
+  }
+  if (oldProps == nullptr
+        ? newProps->recyclingKey.isProvided()
+        : !newProps->recyclingKey.hasSameValue(oldProps->recyclingKey)) {
+    hybridView->setRecyclingKey(newProps->recyclingKey.get());
   }
 
   // Update hybridRef if it changed
-  if (props->hybridRef.isDirty) {
+  if (oldProps == nullptr
+        ? newProps->hybridRef.isProvided()
+        : !newProps->hybridRef.hasSameValue(oldProps->hybridRef)) {
     // hybridRef changed - call it with new this
-    const auto& maybeFunc = props->hybridRef.value;
+    const auto& maybeFunc = newProps->hybridRef.get();
     if (maybeFunc.has_value()) {
       maybeFunc.value()(hybridView);
     }
-    props->hybridRef.isDirty = false;
   }
 }
 
