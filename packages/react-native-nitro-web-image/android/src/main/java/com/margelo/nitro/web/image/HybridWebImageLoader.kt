@@ -1,10 +1,11 @@
 package com.margelo.nitro.web.image
 
 import android.content.Context
-import android.widget.ImageView
 import coil3.ImageLoader
+import coil3.dispose
 import coil3.load
 import com.margelo.nitro.core.Promise
+import com.margelo.nitro.image.HybridImageView
 import com.margelo.nitro.image.HybridImageSpec
 import com.margelo.nitro.image.HybridImageLoaderSpec
 import com.margelo.nitro.image.HybridNitroImageViewSpec
@@ -20,14 +21,16 @@ class HybridWebImageLoader(private val imageLoader: ImageLoader,
     }
 
     override fun requestImage(forView: HybridNitroImageViewSpec) {
-        val imageView = forView.view as? ImageView ?: return
+        val view = forView as? HybridImageView ?: return
+        if (view.beginLoad(this) == null) return
 
-        imageView.load(url, imageLoader) {
+        view.imageView.load(url, imageLoader) {
             this.applyOptions(options)
         }
     }
 
     override fun dropImage(forView: HybridNitroImageViewSpec) {
-        // Coil automatically handles recycling here - I _think_.
+        val view = forView as? HybridImageView ?: return
+        view.imageView.dispose()
     }
 }
