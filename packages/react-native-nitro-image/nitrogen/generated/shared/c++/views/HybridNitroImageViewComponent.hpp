@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <NitroModules/CachedProp.hpp>
+#include <NitroModules/ReactProp.hpp>
 #include <NitroModules/ViewComponentDescriptor.hpp>
 #include <NitroModules/ViewPropsHolderState.hpp>
 #include <react/renderer/components/view/ConcreteViewShadowNode.h>
@@ -47,10 +47,10 @@ namespace margelo::nitro::image::views {
                               const react::RawProps& rawProps);
 
   public:
-    nitro::CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> image;
-    nitro::CachedProp<std::optional<ResizeMode>> resizeMode;
-    nitro::CachedProp<std::optional<std::string>> recyclingKey;
-    nitro::CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
+    nitro::ReactProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>> image;
+    nitro::ReactProp<std::optional<ResizeMode>> resizeMode;
+    nitro::ReactProp<std::optional<std::string>> recyclingKey;
+    nitro::ReactProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>> hybridRef;
 
     [[nodiscard]]
     bool hasSameProps(const HybridNitroImageViewProps& other) const noexcept {

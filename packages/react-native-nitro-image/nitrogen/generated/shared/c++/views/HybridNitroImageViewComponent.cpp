@@ -8,7 +8,7 @@
 #include "HybridNitroImageViewComponent.hpp"
 
 #include <NitroModules/NitroHash.hpp>
-#include <NitroModules/CachedProp.hpp>
+#include <NitroModules/ReactProp.hpp>
 
 namespace margelo::nitro::image::views {
 
@@ -20,10 +20,10 @@ namespace margelo::nitro::image::views {
                                                        const HybridNitroImageViewProps& sourceProps,
                                                        const react::RawProps& rawProps):
     react::ViewProps(context, sourceProps, rawProps, filterObjectKeys),
-    image(nitro::CachedProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>>::fromRawValue("NitroImageView", "image", rawProps, sourceProps.image)),
-    resizeMode(nitro::CachedProp<std::optional<ResizeMode>>::fromRawValue("NitroImageView", "resizeMode", rawProps, sourceProps.resizeMode)),
-    recyclingKey(nitro::CachedProp<std::optional<std::string>>::fromRawValue("NitroImageView", "recyclingKey", rawProps, sourceProps.recyclingKey)),
-    hybridRef(nitro::CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue("NitroImageView", "hybridRef", rawProps, sourceProps.hybridRef)) { }
+    image(nitro::ReactProp<std::optional<std::variant<std::shared_ptr<HybridImageSpec>, std::shared_ptr<HybridImageLoaderSpec>>>>::fromRawValue("NitroImageView", "image", rawProps, sourceProps.image)),
+    resizeMode(nitro::ReactProp<std::optional<ResizeMode>>::fromRawValue("NitroImageView", "resizeMode", rawProps, sourceProps.resizeMode)),
+    recyclingKey(nitro::ReactProp<std::optional<std::string>>::fromRawValue("NitroImageView", "recyclingKey", rawProps, sourceProps.recyclingKey)),
+    hybridRef(nitro::ReactProp<std::optional<std::function<void(const std::shared_ptr<HybridNitroImageViewSpec>& /* ref */)>>>::fromRawValue("NitroImageView", "hybridRef", rawProps, sourceProps.hybridRef)) { }
 
   bool HybridNitroImageViewProps::filterObjectKeys(const std::string& propName) {
     switch (hashString(propName)) {

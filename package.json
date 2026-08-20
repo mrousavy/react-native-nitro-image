@@ -11,8 +11,7 @@
   ],
   "overrides": {
     "@babel/preset-env": "^7.29.7",
-    "@babel/plugin-transform-modules-systemjs": "^7.29.7",
-    "react-native-nitro-modules": "0.37.0-beta.0"
+    "@babel/plugin-transform-modules-systemjs": "^7.29.7"
   },
   "scripts": {
     "build": "bun run --cwd packages/react-native-nitro-image build && bun run --cwd packages/react-native-nitro-web-image build",
