@@ -12,6 +12,7 @@ import NitroModules
 class HybridImageView: HybridNitroImageViewSpec {
   let view = CustomImageView()
   private var resetImageBeforeLoad = false
+  private var hasRequestedImage = false
 
   override init() {
     super.init()
@@ -97,10 +98,15 @@ extension HybridImageView: ViewLifecycleDelegate {
       view.image = nil
       resetImageBeforeLoad = false
     }
+    hasRequestedImage = true
     try? imageLoader.requestImage(forView: self)
   }
 
   func willHide() {
+    // Only drop if we actually have an outstanding request - recycling removes the view
+    // from its window first, so otherwise `dropImage(forView:)` would run twice per recycle.
+    guard hasRequestedImage else { return }
+    hasRequestedImage = false
     guard let imageLoader else { return }
     try? imageLoader.dropImage(forView: self)
   }
