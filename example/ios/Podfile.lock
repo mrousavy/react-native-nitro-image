@@ -37,7 +37,7 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - NitroImage (0.15.1):
+  - NitroImage (0.15.2):
     - hermes-engine
     - NitroModules
     - RCTRequired
@@ -84,7 +84,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - NitroWebImage (0.15.1):
+  - NitroWebImage (0.15.2):
     - hermes-engine
     - NitroImage
     - NitroModules
@@ -2283,9 +2283,9 @@ SPEC CHECKSUMS:
   HarnessUI: f439596aec93ff76765451f834c93f966d54e53e
   hermes-engine: ef561c35b1325a953b54456ddbd27ee0faf01ba4
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  NitroImage: 2f592086cbdecbbaa1c10dd97e0cdd43b1bb0817
+  NitroImage: 5daf897d2f37ed419186278d6b0fcdd8aab313b0
   NitroModules: cda827b31eb05c1bfcc0e2bbd9b647a69c6c314f
-  NitroWebImage: ca414f829cae44174179ea0e8ff28df75f40f08e
+  NitroWebImage: eb938a9c333b9d80e436526854bb785f4a579f9e
   RCTDeprecation: a4c521821fab57cbb125b36effe84d897d0dfa12
   RCTRequired: 9f3a7e5645d4bc3f551593de7550bb66ab6e42bc
   RCTSwiftUI: 239ed2eb9e73de5a6f518810630f0c95e01c8702
