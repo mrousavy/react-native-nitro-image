@@ -30,7 +30,7 @@
         "react-native-fast-image": "^8.6.3",
         "react-native-harness": "^1.3.0",
         "react-native-nitro-image": "workspace:*",
-        "react-native-nitro-modules": "0.36.5",
+        "react-native-nitro-modules": "0.37.0-beta.0",
         "react-native-nitro-web-image": "workspace:*",
         "react-native-safe-area-context": "^5.8.0",
         "react-native-screens": "^4.25.2",
@@ -57,10 +57,10 @@
       "version": "0.15.1",
       "devDependencies": {
         "@types/react": "^19.2.15",
-        "nitrogen": "0.36.5",
+        "nitrogen": "0.37.0-beta.0",
         "react": "19.2.3",
         "react-native": "0.85.3",
-        "react-native-nitro-modules": "0.36.5",
+        "react-native-nitro-modules": "0.37.0-beta.0",
         "typescript": "6.0.3",
       },
       "peerDependencies": {
@@ -74,10 +74,10 @@
       "version": "0.15.1",
       "devDependencies": {
         "@types/react": "^19.2.15",
-        "nitrogen": "0.36.5",
+        "nitrogen": "0.37.0-beta.0",
         "react": "19.2.3",
         "react-native": "0.85.3",
-        "react-native-nitro-modules": "0.36.5",
+        "react-native-nitro-modules": "0.37.0-beta.0",
         "typescript": "6.0.3",
       },
       "peerDependencies": {
@@ -1555,7 +1555,7 @@
 
     "new-github-release-url": ["new-github-release-url@2.0.0", "", { "dependencies": { "type-fest": "^2.5.1" } }, "sha512-NHDDGYudnvRutt/VhKFlX26IotXe1w0cmkDm6JGquh5bz/bDTw0LufSmH/GxTjEdpHEO+bVKFTwdrcGa/9XlKQ=="],
 
-    "nitrogen": ["nitrogen@0.36.5", "", { "dependencies": { "chalk": "^5.3.0", "react-native-nitro-modules": "^0.36.5", "ts-morph": "^28.0.0", "yargs": "^18.0.0", "zod": "^4.4.3" }, "bin": { "nitrogen": "lib/index.js" } }, "sha512-PvlHrBVaoKEaD6CCUCG7om8MTvLeh4ZSDxHoRx2YiEWUVXPXrRN9NwMn1gjie9Bd91jHA3dYMF7no9Eme4txMA=="],
+    "nitrogen": ["nitrogen@0.37.0-beta.0", "", { "dependencies": { "chalk": "^5.3.0", "react-native-nitro-modules": "^0.37.0-beta.0", "ts-morph": "^28.0.0", "yargs": "^18.0.0", "zod": "^4.4.3" }, "bin": { "nitrogen": "lib/index.js" } }, "sha512-pKrlM7ZYlAVdVNpho9XvGeGOw7gzH0IglQjnmkeDk3aZASLBhGEMlmfq+LsaRGcONxpO4kayTMH/fd3/IaBoTA=="],
 
     "nocache": ["nocache@3.0.4", "", {}, "sha512-WDD0bdg9mbq6F4mRxEYcPWwfA1vxd0mrvKOyxI7Xj/atfRHVeutzuWByG//jfm4uPzp0y4Kj051EORCBSQMycw=="],
 
@@ -1723,7 +1723,7 @@
 
     "react-native-nitro-image": ["react-native-nitro-image@workspace:packages/react-native-nitro-image"],
 
-    "react-native-nitro-modules": ["react-native-nitro-modules@0.36.5", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-SJby84+hovD70JmQ1fq+56tw3oapJeChehUqXA4Gqjm+ktJhMAcj8LGwoAjStSOUwRaK7czbzBPB0Widj+EDoQ=="],
+    "react-native-nitro-modules": ["react-native-nitro-modules@0.37.0-beta.0", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-kGfWyj3IS7+B3IaukbaO84/YcdevhXWCGqBHzwQ7yvALBty56MPt18H9hCKAaua7oNEk0ZZUo3kgMr3o9CYpGA=="],
 
     "react-native-nitro-web-image": ["react-native-nitro-web-image@workspace:packages/react-native-nitro-web-image"],
 
@@ -2542,6 +2542,10 @@
     "react-native-builder-bob/babel-plugin-syntax-hermes-parser": ["babel-plugin-syntax-hermes-parser@0.34.0", "", { "dependencies": { "hermes-parser": "0.34.0" } }, "sha512-q4xeAymMrot/21MHA3+fd5mcFF7stx6ntKFO/Of5ldyDpgTBcK1l0NiHAh4NdHHdb4aHqHgQOy7r6yk0IIlz8Q=="],
 
     "react-native-builder-bob/yargs": ["yargs@18.0.0", "", { "dependencies": { "cliui": "^9.0.1", "escalade": "^3.1.1", "get-caller-file": "^2.0.5", "string-width": "^7.2.0", "y18n": "^5.0.5", "yargs-parser": "^22.0.0" } }, "sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg=="],
+
+    "react-native-nitro-image/react-native-nitro-modules": ["react-native-nitro-modules@0.36.5", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-SJby84+hovD70JmQ1fq+56tw3oapJeChehUqXA4Gqjm+ktJhMAcj8LGwoAjStSOUwRaK7czbzBPB0Widj+EDoQ=="],
+
+    "react-native-nitro-web-image/react-native-nitro-modules": ["react-native-nitro-modules@0.36.5", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-SJby84+hovD70JmQ1fq+56tw3oapJeChehUqXA4Gqjm+ktJhMAcj8LGwoAjStSOUwRaK7czbzBPB0Widj+EDoQ=="],
 
     "release-it/semver": ["semver@7.7.3", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q=="],
 
