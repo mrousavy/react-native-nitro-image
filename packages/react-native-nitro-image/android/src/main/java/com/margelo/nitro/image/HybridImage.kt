@@ -212,8 +212,8 @@ class HybridImage: HybridImageSpec {
             // 3. Prepare the Bitmap we want to draw into our Canvas
             val rect = Rect(x.toInt(),
                 y.toInt(),
-                width.toInt(),
-                height.toInt())
+                (x + width).toInt(),
+                (y + height).toInt())
 
             // 4. Make sure we can draw the Bitmap (HARDWARE isn't CPU accessible)
             val drawable = newImage.bitmap.toCpuAccessible()
