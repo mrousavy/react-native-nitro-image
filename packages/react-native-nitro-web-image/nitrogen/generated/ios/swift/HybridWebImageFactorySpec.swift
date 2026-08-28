@@ -11,7 +11,7 @@ import NitroModules
 /// See ``HybridWebImageFactorySpec``
 public protocol HybridWebImageFactorySpec_protocol: HybridObject {
   // Properties
-  
+  var maxMemoryBytes: Double { get set }
 
   // Methods
   func createWebImageLoader(url: String, options: AsyncImageLoadOptions?) throws -> (any HybridImageLoaderSpec)
