@@ -12,6 +12,8 @@ import NitroModules
 class HybridImageView: HybridNitroImageViewSpec {
   let view = CustomImageView()
   private var resetImageBeforeLoad = false
+  private let imageRequestLock = NSLock()
+  private var currentImageRequestToken = 0
 
   override init() {
     super.init()
@@ -103,6 +105,28 @@ extension HybridImageView: ViewLifecycleDelegate {
   func willHide() {
     guard let imageLoader else { return }
     try? imageLoader.dropImage(forView: self)
+  }
+}
+
+// Implementation to discard results of Image loads that are no longer relevant
+extension HybridImageView: ImageRequestTracking {
+  func beginImageRequest() -> Int {
+    imageRequestLock.lock()
+    defer { imageRequestLock.unlock() }
+    currentImageRequestToken += 1
+    return currentImageRequestToken
+  }
+
+  func cancelImageRequest() {
+    imageRequestLock.lock()
+    defer { imageRequestLock.unlock() }
+    currentImageRequestToken += 1
+  }
+
+  func isImageRequestValid(_ token: Int) -> Bool {
+    imageRequestLock.lock()
+    defer { imageRequestLock.unlock() }
+    return currentImageRequestToken == token
   }
 }
 

@@ -33,10 +33,15 @@ class HybridImageLoader(
 
     override fun requestImage(forView: HybridNitroImageViewSpec) {
         val view = forView as? HybridImageView ?: return
+        // Start a new request - this invalidates any request that is still in flight for this view.
+        val token = view.beginImageRequest()
 
         loadImage().then { maybeImage ->
             val image = maybeImage as? HybridImage ?: return@then
             uiScope.launch {
+                // The view might have been recycled or re-bound to a different image while we
+                // were loading - in that case this result is stale and must not be applied.
+                if (!view.isImageRequestValid(token)) return@launch
                 view.imageView.setImageBitmap(image.bitmap)
             }
         }
@@ -44,6 +49,9 @@ class HybridImageLoader(
 
     override fun dropImage(forView: HybridNitroImageViewSpec) {
         val view = forView as? HybridImageView ?: return
+        // Invalidate any in-flight request so it doesn't paint into the view after we cleared it.
+        view.cancelImageRequest()
+
         uiScope.launch {
             view.imageView.setImageDrawable(null)
         }
