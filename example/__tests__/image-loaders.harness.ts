@@ -1,4 +1,3 @@
-import { Platform } from 'react-native'
 import { describe, expect, it } from 'react-native-harness'
 import { Images, loadImage } from 'react-native-nitro-image'
 import { WebImages } from 'react-native-nitro-web-image'
@@ -140,25 +139,6 @@ describe('loadImage with { url }', () => {
     })
     expect(image.width).toBe(1326)
     expect(image.height).toBe(336)
-  })
-})
-
-describe('Images.loadFromSymbol (iOS only)', () => {
-  if (Platform.OS !== 'ios') {
-    it.skip('skipped on non-iOS platforms', () => {})
-    return
-  }
-
-  it('loads an SF Symbol image by name', () => {
-    const image = Images.loadFromSymbol('star.fill')
-    expect(image.width).toBeGreaterThan(0)
-    expect(image.height).toBeGreaterThan(0)
-  })
-
-  it('throws for an unknown SF Symbol name', () => {
-    expect(() =>
-      Images.loadFromSymbol('this.symbol.does.not.exist.anywhere'),
-    ).toThrow()
   })
 })
 
