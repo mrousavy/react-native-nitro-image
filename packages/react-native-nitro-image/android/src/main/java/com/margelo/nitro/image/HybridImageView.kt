@@ -27,7 +27,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     }
     override val view: View = imageView
 
-    override var resizeMode: ResizeMode? = ResizeMode.CONTAIN
+    override var resizeMode: ResizeMode? = ResizeMode.COVER
         set(value) {
             field = value
             uiScope.launch {
@@ -49,6 +49,15 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
             field = value
         }
 
+    init {
+        // A property initializer assigns the backing field directly, so the
+        // `resizeMode` setter (which applies the mapping) does not run. And an
+        // omitted `resizeMode` prop is never marked dirty, so it is never
+        // assigned either - without this, `scaleType` would stay at
+        // `ImageView`'s own default (`FIT_CENTER`, i.e. `contain`).
+        updateResizeMode()
+    }
+
     override fun prepareForRecycle() {
         onDisappear()
         // Reset all props back to their defaults. Props are only re-applied to a recycled view
@@ -59,6 +68,10 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
         resizeMode = ResizeMode.CONTAIN
         resetImageBeforeLoad = false
         imageView.setImageBitmap(null)
+        // A recycled view keeps the `scaleType` the previous View set. If the
+        // next View omits `resizeMode`, its prop is never dirty and never
+        // assigned, so it would silently inherit that mode - reset it here.
+        resizeMode = ResizeMode.COVER
     }
 
     private fun updateResizeMode() {

@@ -118,6 +118,10 @@ extension HybridImageView: RecyclableView {
     resizeMode = nil
     resetImageBeforeLoad = false
     view.image = nil
+    // A recycled view keeps the `contentMode` the previous View set. If the
+    // next View omits `resizeMode`, its prop is never dirty and never assigned,
+    // so it would silently inherit that mode - reset to the default here.
+    resizeMode = nil
   }
 }
 
