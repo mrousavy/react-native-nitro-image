@@ -21,18 +21,12 @@ const expectFileUrlFetchable = async (path: string) => {
 }
 
 describe('ImageUtils - HEIC round-trip', () => {
-  it('encodes an image as HEIC, writes it to disk and loads it back', async () => {
+  it('encodes an image as HEIC, writes it to disk and loads it back', async (context) => {
     if (!supportsHeicWriting) {
-      console.log(
-        '[skip] HEIC writing is not supported on this platform — skipping HEIC round-trip',
-      )
-      return
+      context.skip('HEIC writing is not supported on this platform')
     }
     if (!supportsHeicLoading) {
-      console.log(
-        '[skip] HEIC loading is not supported on this platform — skipping HEIC round-trip',
-      )
-      return
+      context.skip('HEIC loading is not supported on this platform')
     }
 
     const original = Images.createBlankImage(48, 32, false, {

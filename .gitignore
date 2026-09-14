@@ -76,3 +76,5 @@ lib/
 # TypeScript
 tsconfig.tsbuildinfo
 
+# React Native Harness
+.harness/
