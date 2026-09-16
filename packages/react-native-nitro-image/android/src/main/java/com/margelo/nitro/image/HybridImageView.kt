@@ -20,6 +20,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     }
     private val uiScope = CoroutineScope(Dispatchers.Main.immediate)
     private var resetImageBeforeLoad = false
+    private var hasRequestedImage = false
 
     val imageView = CustomImageView(context) { visible ->
         if (visible) onAppear()
@@ -95,6 +96,7 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
                 imageView.setImageDrawable(null)
                 resetImageBeforeLoad = false
             }
+            hasRequestedImage = true
             imageLoader.requestImage(this)
         } catch (e: Throwable) {
             Log.e(TAG, "Failed to request Image!", e)
@@ -102,6 +104,10 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
     }
 
     private fun onDisappear() {
+        // Only drop if we actually have an outstanding request - recycling detaches the view
+        // from the window first, so otherwise `dropImage(..)` would run twice per recycle.
+        if (!hasRequestedImage) return
+        hasRequestedImage = false
         val imageLoader = image?.asSecondOrNull() ?: return
         try {
             imageLoader.dropImage(this)
