@@ -50,7 +50,8 @@ namespace margelo::nitro::web::image {
 
   public:
     // Properties
-    
+    double getMaxMemoryBytes() override;
+    void setMaxMemoryBytes(double maxMemoryBytes) override;
 
   public:
     // Methods
