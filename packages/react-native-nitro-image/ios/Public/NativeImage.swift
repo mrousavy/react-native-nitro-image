@@ -154,7 +154,7 @@ public extension NativeImage {
     guard let croppedCgImage = cgImage.cropping(to: targetRect) else {
       throw RuntimeError.error(withMessage: "Failed to crop CGImage to \(targetRect)!")
     }
-    let croppedUiImage = UIImage(cgImage: croppedCgImage)
+    let croppedUiImage = UIImage(cgImage: croppedCgImage, scale: uiImage.scale, orientation: uiImage.imageOrientation)
     return HybridImage(uiImage: croppedUiImage)
   }
 
