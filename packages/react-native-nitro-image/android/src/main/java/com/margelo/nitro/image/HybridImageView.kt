@@ -82,8 +82,10 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
                 }
             },
             { _: HybridImageLoaderSpec ->
-                // ImageLoader
-                onAppear()
+                // ImageLoader - if we're not attached yet, onAttachedToWindow() will request it
+                if (imageView.isAttachedToWindow) {
+                    onAppear()
+                }
             }
         )
     }
