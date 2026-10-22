@@ -28,9 +28,30 @@ internal class CustomImageView: UIImageView {
     fatalError("init(coder:) has not been implemented")
   }
 
+  private var layoutCallbacks: [() -> Void] = []
+
   override func willMove(toWindow newWindow: UIWindow?) {
     super.willMove(toWindow: newWindow)
     onVisibilityChanged(isVisible: newWindow != nil)
+  }
+
+  /**
+   * Calls [callback] once this view has a size - immediately if it already has one.
+   */
+  internal func doOnLayout(_ callback: @escaping () -> Void) {
+    if bounds.isEmpty {
+      layoutCallbacks.append(callback)
+    } else {
+      callback()
+    }
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    guard !bounds.isEmpty, !layoutCallbacks.isEmpty else { return }
+    let callbacks = layoutCallbacks
+    layoutCallbacks.removeAll()
+    callbacks.forEach { $0() }
   }
   private func onVisibilityChanged(isVisible: Bool) {
     if isVisible {

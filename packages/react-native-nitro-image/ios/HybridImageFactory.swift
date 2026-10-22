@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ImageIO
 import NitroModules
 
 class HybridImageFactory: HybridImageFactorySpec {
@@ -51,6 +52,17 @@ class HybridImageFactory: HybridImageFactorySpec {
   func loadFromFileAsync(filePath: String) throws -> Promise<any HybridImageSpec> {
     return Promise.async {
       return try self.loadFromFile(filePath: filePath)
+    }
+  }
+  func loadFromFileAsync(filePath rawFilePath: String, targetPixelSize: CGSize) -> Promise<any HybridImageSpec> {
+    return Promise.async {
+      let filePath = rawFilePath.normalizedFilePath
+      let url = URL(fileURLWithPath: filePath) as CFURL
+      guard let source = CGImageSourceCreateWithURL(url, nil),
+            let uiImage = UIImage.downsampled(from: source, toCover: targetPixelSize) else {
+        throw RuntimeError.error(withMessage: "Failed to read image from file \"\(filePath)\"!")
+      }
+      return HybridImage(uiImage: uiImage)
     }
   }
 
@@ -113,6 +125,16 @@ class HybridImageFactory: HybridImageFactorySpec {
     let copiedData = data.buffer.toData(copyIfNeeded: true)
     return Promise.async {
       guard let uiImage = UIImage(data: copiedData) else {
+        throw RuntimeError.error(withMessage: "The given ArrayBuffer could not be converted to a UIImage!")
+      }
+      return HybridImage(uiImage: uiImage)
+    }
+  }
+  func loadFromEncodedImageDataAsync(data: EncodedImageData, targetPixelSize: CGSize) -> Promise<any HybridImageSpec> {
+    let copiedData = data.buffer.toData(copyIfNeeded: true)
+    return Promise.async {
+      guard let source = CGImageSourceCreateWithData(copiedData as CFData, nil),
+            let uiImage = UIImage.downsampled(from: source, toCover: targetPixelSize) else {
         throw RuntimeError.error(withMessage: "The given ArrayBuffer could not be converted to a UIImage!")
       }
       return HybridImage(uiImage: uiImage)

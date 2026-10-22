@@ -13,6 +13,8 @@ class HybridImageLoaderFactory: HybridImageLoaderFactorySpec {
   func createFileImageLoader(filePath: String) throws -> any HybridImageLoaderSpec {
     return HybridImageLoader(load: {
       try self.imageFactory.loadFromFileAsync(filePath: filePath)
+    }, loadForSize: { targetPixelSize in
+      self.imageFactory.loadFromFileAsync(filePath: filePath, targetPixelSize: targetPixelSize)
     })
   }
 
@@ -38,6 +40,8 @@ class HybridImageLoaderFactory: HybridImageLoaderFactorySpec {
   func createEncodedImageDataImageLoader(data: EncodedImageData) throws -> any HybridImageLoaderSpec {
     return HybridImageLoader(load: {
       try self.imageFactory.loadFromEncodedImageDataAsync(data: data)
+    }, loadForSize: { targetPixelSize in
+      self.imageFactory.loadFromEncodedImageDataAsync(data: data, targetPixelSize: targetPixelSize)
     })
   }
 }
