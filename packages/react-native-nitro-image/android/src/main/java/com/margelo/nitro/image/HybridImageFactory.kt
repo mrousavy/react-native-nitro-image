@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.util.Size
 import androidx.annotation.Keep
 import androidx.core.graphics.createBitmap
 import com.facebook.common.internal.DoNotStrip
@@ -12,6 +13,7 @@ import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
 import com.margelo.nitro.image.extensions.bitmapFromRawPixelData
+import com.margelo.nitro.image.extensions.decodeSampledBitmap
 import com.margelo.nitro.image.extensions.toBitmapColor
 import com.margelo.nitro.image.extensions.toFilePath
 import java.nio.ByteBuffer
@@ -36,28 +38,35 @@ class HybridImageFactory: HybridImageFactorySpec() {
         return Promise.async { createBlankImage(width, height, enableAlpha, fill) }
     }
 
-    @SuppressLint("DiscouragedApi")
     override fun loadFromResources(name: String): HybridImageSpec {
+        return loadFromResources(name, null)
+    }
+    @SuppressLint("DiscouragedApi")
+    fun loadFromResources(name: String, targetSize: Size?): HybridImageSpec {
         val context = NitroModules.applicationContext ?: throw Error("No context!")
         // Look up ID via it's name
         val rawResourceId: Int = context.resources
             .getIdentifier(name, "drawable", context.packageName)
-        if (rawResourceId == 0) {
-            // It's bundled into the Android resources/assets
-            context.assets.open(name).use { stream ->
-                val bitmap = BitmapFactory.decodeStream(stream)
-                return HybridImage(bitmap)
+        val bitmap = decodeSampledBitmap(targetSize) { options ->
+            val stream = if (rawResourceId == 0) {
+                // It's bundled into the Android resources/assets
+                context.assets.open(name)
+            } else {
+                // For assets bundled with 'require' instead of linked, they are bundled into `res/raw` in release mode
+                context.resources.openRawResource(rawResourceId)
             }
-        } else {
-            // For assets bundled with 'require' instead of linked, they are bundled into `res/raw` in release mode
-            context.resources.openRawResource(rawResourceId).use { stream ->
-                val bitmap = BitmapFactory.decodeStream(stream)
-                return HybridImage(bitmap)
-            }
+            stream.use { BitmapFactory.decodeStream(it, null, options) }
         }
+        if (bitmap == null) {
+            throw Error("Failed to load Image from resources! (Name: $name)")
+        }
+        return HybridImage(bitmap)
     }
     override fun loadFromResourcesAsync(name: String): Promise<HybridImageSpec> {
-        return Promise.async { loadFromResources(name) }
+        return loadFromResourcesAsync(name, null)
+    }
+    fun loadFromResourcesAsync(name: String, targetSize: Size?): Promise<HybridImageSpec> {
+        return Promise.async { loadFromResources(name, targetSize) }
     }
 
     override fun loadFromSymbol(symbolName: String): HybridImageSpec {
@@ -75,8 +84,10 @@ class HybridImageFactory: HybridImageFactorySpec() {
         return Promise.async { loadFromRawPixelData(dataCopy, allowGpu) }
     }
 
-    private fun loadFromEncodedBytes(bytes: ByteArray): HybridImageSpec {
-        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    private fun loadFromEncodedBytes(bytes: ByteArray, targetSize: Size? = null): HybridImageSpec {
+        val bitmap = decodeSampledBitmap(targetSize) { options ->
+            BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)
+        }
         if (bitmap == null) {
             throw Error("Failed to decode EncodedImageData to an Image! (Bytes: ${bytes.size})")
         }
@@ -87,13 +98,21 @@ class HybridImageFactory: HybridImageFactorySpec() {
         return loadFromEncodedBytes(bytes)
     }
     override fun loadFromEncodedImageDataAsync(data: EncodedImageData): Promise<HybridImageSpec> {
+        return loadFromEncodedImageDataAsync(data, null)
+    }
+    fun loadFromEncodedImageDataAsync(data: EncodedImageData, targetSize: Size?): Promise<HybridImageSpec> {
         val bytes = data.buffer.toByteArray()
-        return Promise.async { loadFromEncodedBytes(bytes) }
+        return Promise.async { loadFromEncodedBytes(bytes, targetSize) }
     }
 
     override fun loadFromFile(filePath: String): HybridImageSpec {
+        return loadFromFile(filePath, null)
+    }
+    fun loadFromFile(filePath: String, targetSize: Size?): HybridImageSpec {
         val cleanPath = filePath.toFilePath()
-        val bitmap = BitmapFactory.decodeFile(cleanPath)
+        val bitmap = decodeSampledBitmap(targetSize) { options ->
+            BitmapFactory.decodeFile(cleanPath, options)
+        }
         if (bitmap == null) {
             throw Error("Failed to load Image from file! (Path: $cleanPath)")
         }
@@ -101,7 +120,10 @@ class HybridImageFactory: HybridImageFactorySpec() {
     }
 
     override fun loadFromFileAsync(filePath: String): Promise<HybridImageSpec> {
-        return Promise.async { loadFromFile(filePath) }
+        return loadFromFileAsync(filePath, null)
+    }
+    fun loadFromFileAsync(filePath: String, targetSize: Size?): Promise<HybridImageSpec> {
+        return Promise.async { loadFromFile(filePath, targetSize) }
     }
 
     private fun loadFromThumbHash(thumbHashBytes: ByteArray): HybridImage {

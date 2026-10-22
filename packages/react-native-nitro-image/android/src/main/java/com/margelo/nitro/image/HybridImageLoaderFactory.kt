@@ -11,11 +11,19 @@ class HybridImageLoaderFactory: HybridImageLoaderFactorySpec() {
     private val factory = HybridImageFactory()
 
     override fun createFileImageLoader(filePath: String): HybridImageLoaderSpec {
-        return HybridImageLoader({ factory.loadFromFileAsync(filePath) }, true)
+        return HybridImageLoader(
+            { factory.loadFromFileAsync(filePath) },
+            true,
+            { targetSize -> factory.loadFromFileAsync(filePath, targetSize) }
+        )
     }
 
     override fun createResourceImageLoader(name: String): HybridImageLoaderSpec {
-        return HybridImageLoader({ factory.loadFromResourcesAsync(name) }, true)
+        return HybridImageLoader(
+            { factory.loadFromResourcesAsync(name) },
+            true,
+            { targetSize -> factory.loadFromResourcesAsync(name, targetSize) }
+        )
     }
 
     override fun createSymbolImageLoader(symbolName: String): HybridImageLoaderSpec {
@@ -27,6 +35,10 @@ class HybridImageLoaderFactory: HybridImageLoaderFactorySpec() {
     }
 
     override fun createEncodedImageDataImageLoader(data: EncodedImageData): HybridImageLoaderSpec {
-        return HybridImageLoader({ factory.loadFromEncodedImageDataAsync(data) }, true)
+        return HybridImageLoader(
+            { factory.loadFromEncodedImageDataAsync(data) },
+            true,
+            { targetSize -> factory.loadFromEncodedImageDataAsync(data, targetSize) }
+        )
     }
 }

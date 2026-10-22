@@ -37,8 +37,13 @@ class HybridImageView(context: Context): HybridNitroImageViewSpec(), RecyclableV
 
     override var image: Variant_HybridImageSpec_HybridImageLoaderSpec? = null
         set(value) {
+            val previousLoader = field?.asSecondOrNull()
             field = value
             uiScope.launch {
+                if (previousLoader != null && previousLoader != value?.asSecondOrNull()) {
+                    // Let the previous ImageLoader release its Image
+                    previousLoader.dropImage(this@HybridImageView)
+                }
                 updateImage()
             }
         }
