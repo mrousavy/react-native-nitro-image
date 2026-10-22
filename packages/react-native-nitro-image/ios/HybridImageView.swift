@@ -27,7 +27,12 @@ class HybridImageView: HybridNitroImageViewSpec {
   }
   var image: (Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_)? = nil {
     didSet {
+      let previousLoader = Self.imageLoader(of: oldValue)
       DispatchQueue.runOnMain {
+        if let previousLoader, previousLoader !== Self.imageLoader(of: self.image) {
+          // Let the previous ImageLoader release its Image
+          try? previousLoader.dropImage(forView: self)
+        }
         self.updateImage()
       }
     }
@@ -87,6 +92,10 @@ extension HybridImageView: NativeImageView {
 // Implementation for "asynchronously" loading Images using ImageLoader
 extension HybridImageView: ViewLifecycleDelegate {
   private var imageLoader: HybridImageLoaderSpec? {
+    return Self.imageLoader(of: image)
+  }
+
+  fileprivate static func imageLoader(of image: Variant__any_HybridImageSpec___any_HybridImageLoaderSpec_?) -> HybridImageLoaderSpec? {
     guard case let .second(hybridImageLoaderSpec) = image else { return nil }
     return hybridImageLoaderSpec
   }
